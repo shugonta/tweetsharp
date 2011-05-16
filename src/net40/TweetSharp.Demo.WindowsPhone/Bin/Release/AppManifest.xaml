@@ -1,0 +1,11 @@
+﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="TweetSharp.Demo.WindowsPhone" EntryPointType="TweetSharp.Demo.WindowsPhone.App" RuntimeVersion="3.0.40624.0">
+  <Deployment.Parts>
+    <AssemblyPart x:Name="TweetSharp.Demo.WindowsPhone" Source="TweetSharp.Demo.WindowsPhone.dll" />
+    <AssemblyPart x:Name="Configuration" Source="Configuration.dll" />
+    <AssemblyPart x:Name="Hammock.WindowsPhone" Source="Hammock.WindowsPhone.dll" />
+    <AssemblyPart x:Name="TweetSharp.Next.WindowsPhone" Source="TweetSharp.Next.WindowsPhone.dll" />
+    <AssemblyPart x:Name="TweetSharp.Next.WindowsPhone.Fluent" Source="TweetSharp.Next.WindowsPhone.Fluent.dll" />
+    <AssemblyPart x:Name="Newtonsoft.Json.Silverlight" Source="Newtonsoft.Json.Silverlight.dll" />
+    <AssemblyPart x:Name="ICSharpCode.SharpZipLib.WindowsPhone" Source="ICSharpCode.SharpZipLib.WindowsPhone.dll" />
+  </Deployment.Parts>
+</Deployment>

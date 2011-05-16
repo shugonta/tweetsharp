@@ -1,0 +1,583 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="5D8BE3B2-C51F-4A81-9E4F-8607C09C966A/d:Properties/f:AssemblyInfo.cs" caret="0" fromTop="0" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Generated/f:_TwitterService.Timelines.json" caret="1013" fromTop="11" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterDirectMessage.cs" caret="5778" fromTop="21" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Generated/f:_TwitterService.Tweets.json" caret="527" fromTop="9" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Generated/f:_TwitterService.DirectMessages.json" caret="2084" fromTop="22" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/f:Helpers.cs" caret="749" fromTop="16" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Service/f:TwitterService.OAuth.cs" caret="8772" fromTop="36" />
+      <File id="8BAC876F-19A2-4296-9828-E2F59AD8BAC5/d:Serialization/d:Converters/f:TwitterGeoConverter.cs/l:..?..?..?tweetsharp.next?serialization?converters?TwitterGeoConverter.cs" caret="836" fromTop="14" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/f:Globals.cs" caret="321" fromTop="9" />
+      <File id="7FEC89B1-DFFC-47BD-A8EF-B1F4883995A3/d:Model/f:TwitterUser.cs/l:..?..?..?net40?TweetSharp.Next?Model?TwitterUser.cs" caret="2715" fromTop="29" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Serialization/f:XmlSerializer.cs" caret="202" fromTop="10" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Serialization/f:JsonConventionResolver.cs" caret="462" fromTop="15" />
+      <File id="8BAC876F-19A2-4296-9828-E2F59AD8BAC5/d:Model/f:TwitterClientInfo.cs/l:..?..?tweetsharp.next?model?TwitterClientInfo.cs" caret="78" fromTop="5" />
+      <File id="7FEC89B1-DFFC-47BD-A8EF-B1F4883995A3/d:Model/f:TwitterResponse.cs/l:..?..?..?net40?TweetSharp.Next?Model?TwitterResponse.cs" caret="3708" fromTop="112" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterResponse.cs" caret="0" fromTop="0" />
+      <File id="D108B521-B7E1-4ED4-AB38-27A6C9685AF6/d:Service/f:TwitterServiceTests.OAuth.cs" caret="1347" fromTop="22" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterFriend.cs" caret="593" fromTop="18" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterEntities.cs" caret="1174" fromTop="0" />
+      <File id="8BAC876F-19A2-4296-9828-E2F59AD8BAC5/d:Service/f:TwitterService.cs/l:..?..?tweetsharp.next?service?TwitterService.cs" caret="450" fromTop="0" />
+      <File id="8BAC876F-19A2-4296-9828-E2F59AD8BAC5/d:Service/f:TwitterService.OAuth.cs/l:..?..?tweetsharp.next?service?TwitterService.OAuth.cs" caret="258" fromTop="12" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Service/f:TwitterService.Streaming.cs" caret="130" fromTop="7" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Generated/f:TwitterService.tt" caret="3303" fromTop="12" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterError.cs" caret="373" fromTop="9" />
+      <File id="D108B521-B7E1-4ED4-AB38-27A6C9685AF6/f:App.config" caret="174" fromTop="5" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Generated/f:TwitterService.generated.cs" caret="156143" fromTop="7" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Service/f:TwitterService.cs" caret="4859" fromTop="20" />
+      <File id="D108B521-B7E1-4ED4-AB38-27A6C9685AF6/d:Service/f:TwitterServiceTests.cs" caret="8575" fromTop="7" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/f:packages.config" caret="0" fromTop="0" />
+      <File id="F0C51C5C-F9A7-4108-93C2-6C60CC4356F7/f:tweetsharp.nuspec/l:E!?My Dropbox?_7_Source_Code?_1_Projects?tweetsharp?tweetsharp.nuspec" caret="99" fromTop="4" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Generated/f:TwitterService.generated.cs" caret="155737" fromTop="14" />
+      <File id="D108B521-B7E1-4ED4-AB38-27A6C9685AF6/d:Service/f:TwitterServiceTests.cs" caret="22521" fromTop="19" />
+      <File id="D108B521-B7E1-4ED4-AB38-27A6C9685AF6/d:Service/f:TwitterServiceTests.cs" caret="13418" fromTop="21" />
+      <File id="D108B521-B7E1-4ED4-AB38-27A6C9685AF6/d:Service/f:TwitterServiceTests.cs" caret="12972" fromTop="8" />
+      <File id="D108B521-B7E1-4ED4-AB38-27A6C9685AF6/d:Service/f:TwitterServiceTests.cs" caret="13304" fromTop="10" />
+      <File id="D108B521-B7E1-4ED4-AB38-27A6C9685AF6/d:Service/f:TwitterServiceTests.cs" caret="15" fromTop="1" />
+      <File id="D108B521-B7E1-4ED4-AB38-27A6C9685AF6/d:Service/f:TwitterServiceTests.cs" caret="11351" fromTop="22" />
+      <File id="8BAC876F-19A2-4296-9828-E2F59AD8BAC5/d:Model/f:TwitterClientInfo.cs/l:..?..?tweetsharp.next?model?TwitterClientInfo.cs" caret="0" fromTop="0" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/f:packages.config" caret="159" fromTop="4" />
+      <File id="7FEC89B1-DFFC-47BD-A8EF-B1F4883995A3/d:Model/f:TwitterResponse.cs/l:..?..?..?net40?TweetSharp.Next?Model?TwitterResponse.cs" caret="3543" fromTop="25" />
+      <File id="D108B521-B7E1-4ED4-AB38-27A6C9685AF6/d:Service/f:TwitterServiceTests.cs" caret="32630" fromTop="25" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterEntities.cs" caret="1748" fromTop="13" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterEntities.cs" caret="4828" fromTop="16" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterEntities.cs" caret="4678" fromTop="13" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterEntities.cs" caret="5658" fromTop="21" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterEntities.cs" caret="5511" fromTop="18" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterEntities.cs" caret="5367" fromTop="15" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterEntities.cs" caret="6112" fromTop="21" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterEntities.cs" caret="3995" fromTop="29" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Model/f:TwitterEntities.cs" caret="1837" fromTop="33" />
+      <File id="8BAC876F-19A2-4296-9828-E2F59AD8BAC5/d:Service/f:TwitterService.OAuth.cs/l:..?..?tweetsharp.next?service?TwitterService.OAuth.cs" caret="9509" fromTop="10" />
+      <File id="8BAC876F-19A2-4296-9828-E2F59AD8BAC5/d:Service/f:TwitterService.OAuth.cs/l:..?..?tweetsharp.next?service?TwitterService.OAuth.cs" caret="303" fromTop="15" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Generated/f:TwitterService.tt" caret="3411" fromTop="20" />
+      <File id="D108B521-B7E1-4ED4-AB38-27A6C9685AF6/d:Service/f:TwitterServiceTests.cs" caret="17541" fromTop="13" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Service/f:TwitterService.cs" caret="3212" fromTop="10" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Service/f:TwitterService.cs" caret="3976" fromTop="11" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Service/f:TwitterService.cs" caret="4214" fromTop="11" />
+      <File id="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484/d:Service/f:TwitterService.cs" caret="4859" fromTop="20" />
+      <File id="D108B521-B7E1-4ED4-AB38-27A6C9685AF6/d:Service/f:TwitterServiceTests.cs" caret="8575" fromTop="7" />
+      <File id="F0C51C5C-F9A7-4108-93C2-6C60CC4356F7/f:tweetsharp.nuspec/l:E!?My Dropbox?_7_Source_Code?_1_Projects?tweetsharp?tweetsharp.nuspec" caret="99" fromTop="4" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="private" priority="11" />
+      <Item value="int" priority="3" />
+      <Item value="assembly" priority="0" />
+      <Item value="service" priority="7" />
+      <Item value="Assert`0" priority="27" />
+      <Item value="static" priority="3" />
+      <Item value="FileStyleUriParser`0" priority="0" />
+      <Item value="this" priority="2" />
+      <Item value="params" priority="1" />
+      <Item value="string" priority="11" />
+      <Item value="if" priority="59" />
+      <Item value="d" priority="0" />
+      <Item value="typeof" priority="12" />
+      <Item value="ITwitterModel`0" priority="6" />
+      <Item value="var" priority="94" />
+      <Item value="type" priority="0" />
+      <Item value="else" priority="9" />
+      <Item value="followers" priority="2" />
+      <Item value="_oauth" priority="1" />
+      <Item value="public" priority="29" />
+      <Item value="void" priority="7" />
+      <Item value="T`0" priority="23" />
+      <Item value="is" priority="9" />
+      <Item value="byte" priority="2" />
+      <Item value="return" priority="31" />
+      <Item value="IEnumerable`0" priority="1" />
+      <Item value="collection" priority="5" />
+      <Item value="new" priority="33" />
+      <Item value="List" priority="5" />
+      <Item value="generics" priority="0" />
+      <Item value="Length" priority="0" />
+      <Item value="Type`0" priority="2" />
+      <Item value="null" priority="16" />
+      <Item value="ContentEncoding" priority="0" />
+      <Item value="data" priority="0" />
+      <Item value="as" priority="1" />
+      <Item value="Encoding`0" priority="0" />
+      <Item value="content" priority="13" />
+      <Item value="ToList`1" priority="1" />
+      <Item value="IList`0" priority="2" />
+      <Item value="deserialized" priority="1" />
+      <Item value="GetAuthenticatedService`0" priority="2" />
+      <Item value="foreach" priority="15" />
+      <Item value="in" priority="14" />
+      <Item value="Trace`0" priority="2" />
+      <Item value="trend" priority="2" />
+      <Item value="IEnumerable" priority="4" />
+      <Item value="Trends" priority="1" />
+      <Item value="TraceOptions`0" priority="0" />
+      <Item value="DeserializeSingle`1" priority="5" />
+      <Item value="trends" priority="4" />
+      <Item value="enum" priority="1" />
+      <Item value="JObject`0" priority="6" />
+      <Item value="instance" priority="4" />
+      <Item value="date" priority="1" />
+      <Item value="TwitterTrends`0" priority="2" />
+      <Item value="created" priority="1" />
+      <Item value="dateBucket" priority="1" />
+      <Item value="JProperty`0" priority="0" />
+      <Item value="Convert`0" priority="2" />
+      <Item value="List&lt;TwitterTrend&gt;" priority="0" />
+      <Item value="result" priority="14" />
+      <Item value="path" priority="1" />
+      <Item value="segments" priority="9" />
+      <Item value="DateTime`0" priority="2" />
+      <Item value="segment" priority="1" />
+      <Item value="for" priority="1" />
+      <Item value="i" priority="11" />
+      <Item value="TimeSpan`0" priority="0" />
+      <Item value="location" priority="2" />
+      <Item value="virtual" priority="11" />
+      <Item value="WhereOnEarthLocation`0" priority="1" />
+      <Item value="TwitterLocalTrends`0" priority="1" />
+      <Item value="Locations" priority="0" />
+      <Item value="IgnoreAttribute`0" priority="0" />
+      <Item value="relevant" priority="5" />
+      <Item value="entities" priority="3" />
+      <Item value="mentions" priority="4" />
+      <Item value="TwitterMention`0" priority="2" />
+      <Item value="entity" priority="3" />
+      <Item value="item" priority="11" />
+      <Item value="TwitterCursorList" priority="0" />
+      <Item value="results" priority="5" />
+      <Item value="JsonConvert`0" priority="0" />
+      <Item value="replacer" priority="2" />
+      <Item value="value" priority="2" />
+      <Item value="JValue`0" priority="0" />
+      <Item value="JToken`0" priority="0" />
+      <Item value="InvariantCultureIgnoreCase" priority="0" />
+      <Item value="inner" priority="2" />
+      <Item value="Array" priority="0" />
+      <Item value="Object" priority="0" />
+      <Item value="Array`0" priority="0" />
+      <Item value="array" priority="3" />
+      <Item value="ExpandedValue" priority="0" />
+      <Item value="urls" priority="0" />
+      <Item value="mention" priority="0" />
+      <Item value="TwitterHashTag`0" priority="0" />
+      <Item value="DeserializeHashtags`0" priority="0" />
+      <Item value="url" priority="1" />
+      <Item value="hashtag" priority="0" />
+      <Item value="single" priority="0" />
+      <Item value="JArray`0" priority="1" />
+      <Item value="ParseEntityIndices`0" priority="0" />
+      <Item value="switch" priority="0" />
+      <Item value="TwitterEntities`0" priority="1" />
+      <Item value="Mentions" priority="0" />
+      <Item value="List&lt;TwitterMention&gt;" priority="0" />
+      <Item value="HashTags" priority="0" />
+      <Item value="List&lt;TwitterHashTag&gt;" priority="0" />
+      <Item value="Urls" priority="0" />
+      <Item value="List&lt;TwitterUrl&gt;" priority="0" />
+      <Item value="tweet" priority="9" />
+      <Item value="Console`0" priority="2" />
+      <Item value="Statuses" priority="1" />
+      <Item value="TwitterSearchStatus`0" priority="0" />
+      <Item value="status" priority="0" />
+      <Item value="ua" priority="0" />
+      <Item value="TwitterSearchResult`0" priority="1" />
+      <Item value="friendship" priority="0" />
+      <Item value="bool" priority="2" />
+      <Item value="_canDm" priority="0" />
+      <Item value="JsonProperty" priority="12" />
+      <Item value="_blocking" priority="0" />
+      <Item value="response" priority="21" />
+      <Item value="default" priority="2" />
+      <Item value="object" priority="6" />
+      <Item value="true" priority="0" />
+      <Item value="false" priority="3" />
+      <Item value="arg" priority="0" />
+      <Item value="TwitterResponse`0" priority="0" />
+      <Item value="Deserialize`1" priority="1" />
+      <Item value="Response" priority="2" />
+      <Item value="_json" priority="0" />
+      <Item value="_xml" priority="0" />
+      <Item value="SetResponse`0" priority="0" />
+      <Item value="_text" priority="0" />
+      <Item value="_textAsHtml" priority="0" />
+      <Item value="Compat" priority="0" />
+      <Item value="Web" priority="1" />
+      <Item value="StreamOptions`0" priority="0" />
+      <Item value="options" priority="2" />
+      <Item value="WebMethod`0" priority="0" />
+      <Item value="request" priority="5" />
+      <Item value="WebQuery`0" priority="0" />
+      <Item value="RestClient`0" priority="0" />
+      <Item value="_streaming" priority="3" />
+      <Item value="tweets" priority="0" />
+      <Item value="block" priority="3" />
+      <Item value="TestFixtureAttribute`0" priority="0" />
+      <Item value="using" priority="4" />
+      <Item value="Hammock" priority="1" />
+      <Item value="RestResponse" priority="2" />
+      <Item value="Content" priority="1" />
+      <Item value="Deserialize`0" priority="0" />
+      <Item value="RestResponse&lt;T&gt;" priority="0" />
+      <Item value="model" priority="1" />
+      <Item value="HttpStatusCode`0" priority="1" />
+      <Item value="_content" priority="0" />
+      <Item value="IncludeEntities" priority="1" />
+      <Item value="info" priority="0" />
+      <Item value="VersionPath" priority="0" />
+      <Item value="dynamic" priority="0" />
+      <Item value="_dynamicDeserializer" priority="2" />
+      <Item value="DefaultJsonSerializer" priority="1" />
+      <Item value="JsonSerializer`0" priority="0" />
+      <Item value="throw" priority="1" />
+      <Item value="NotSupportedException" priority="0" />
+      <Item value="users" priority="0" />
+      <Item value="count" priority="1" />
+      <Item value="break" priority="0" />
+      <Item value="TwitterUrl`0" priority="0" />
+      <Item value="_entities" priority="0" />
+      <Item value="RestRequest" priority="0" />
+      <Item value="SetTwitterClientInfo`0" priority="0" />
+      <Item value="Username" priority="0" />
+      <Item value="username" priority="0" />
+      <Item value="Password" priority="0" />
+      <Item value="password" priority="0" />
+      <Item value="_streamingClient" priority="0" />
+      <Item value="long" priority="3" />
+      <Item value="TwitterUserStreamFriends`0" priority="3" />
+      <Item value="streamEvent" priority="4" />
+      <Item value="TwitterStatus`0" priority="0" />
+      <Item value="TwitterUserStreamStatuses`0" priority="0" />
+      <Item value="friends" priority="3" />
+      <Item value="Activator`0" priority="0" />
+      <Item value="RawSource" priority="3" />
+      <Item value="ids" priority="1" />
+      <Item value="TwitterUser`0" priority="1" />
+      <Item value="TwitterUserStreamStatus`0" priority="0" />
+      <Item value="Status" priority="0" />
+      <Item value="class" priority="0" />
+      <Item value="artifact" priority="4" />
+      <Item value="event" priority="7" />
+      <Item value="JsonPropertyAttribute`0" priority="0" />
+      <Item value="client" priority="0" />
+      <Item value="ITweetable`0" priority="1" />
+      <Item value="JsonIgnore" priority="0" />
+      <Item value="target" priority="3" />
+      <Item value="TwitterDirectMessage`0" priority="0" />
+      <Item value="TwitterUserStreamEvent`0" priority="2" />
+      <Item value="TwitterUserStreamEventBase`0" priority="0" />
+      <Item value="base" priority="4" />
+      <Item value="Target" priority="0" />
+      <Item value="Event" priority="0" />
+      <Item value="CreatedDate" priority="0" />
+      <Item value="Exception" priority="0" />
+      <Item value="TwitterUserStreamArtifact`0" priority="0" />
+      <Item value="TwitterUserStreamDeleteStatus`0" priority="2" />
+      <Item value="deleted" priority="3" />
+      <Item value="unknown" priority="1" />
+      <Item value="DirectMessageId" priority="0" />
+      <Item value="DirectMessage" priority="6" />
+      <Item value="Entities" priority="0" />
+      <Item value="TweetSharp" priority="0" />
+      <Item value="IAsyncResult`0" priority="1" />
+      <Item value="Proxy" priority="0" />
+      <Item value="System" priority="1" />
+      <Item value="CLSCompliantAttribute`0" priority="0" />
+      <Item value="_hashTags" priority="0" />
+      <Item value="_urls" priority="0" />
+      <Item value="Windows" priority="0" />
+      <Item value="Browser" priority="0" />
+      <Item value="_client" priority="0" />
+      <Item value="QueryHandling`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterService">
+      <Item value="ListFollowerIdsOf`0" priority="0" />
+      <Item value="ListFollowers`0" priority="0" />
+      <Item value="ListCurrentTrends`0" priority="0" />
+      <Item value="Response" priority="0" />
+      <Item value="ListWeeklyTrends`0" priority="0" />
+      <Item value="ListAvailableTrendsLocations`0" priority="0" />
+      <Item value="ListLocalTrendsFor`0" priority="0" />
+      <Item value="ListTweetsOnUserTimeline`0" priority="0" />
+      <Item value="StreamSample`0" priority="0" />
+      <Item value="CancelStreaming`0" priority="0" />
+      <Item value="ListUserProfilesFor`0" priority="0" />
+      <Item value="DeleteDirectMessage`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@NUnit.Framework.Assert">
+      <Item value="IsNotNull`0" priority="15" />
+      <Item value="IsTrue`0" priority="4" />
+      <Item value="NotNull`0" priority="0" />
+      <Item value="IsNotNullOrEmpty`0" priority="0" />
+      <Item value="Ignore`0" priority="1" />
+      <Item value="AreEqual`0" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Object">
+      <Item value="Implements`1" priority="0" />
+      <Item value="Equals`0" priority="1" />
+      <Item value="GetType`0" priority="1" />
+      <Item value="ToString`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Type">
+      <Item value="Implements`1" priority="0" />
+      <Item value="IsAssignableFrom`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterCursorList`1">
+      <Item value="Count" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Hammock.RestClient">
+      <Item value="HasElevatedPermissions" priority="0" />
+      <Item value="CancelStreaming`0" priority="0" />
+      <Item value="UserAgent" priority="0" />
+      <Item value="BeginRequest`1" priority="0" />
+      <Item value="QueryHandling" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Text.Encoding">
+      <Item value="UTF32" priority="0" />
+      <Item value="UTF8" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Text.Encoding">
+      <Item value="GetBytes`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Diagnostics.Trace">
+      <Item value="Write`0" priority="0" />
+      <Item value="WriteLine`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterTrends">
+      <Item value="Trends" priority="1" />
+      <Item value="Count`1" priority="0" />
+      <Item value="AsOf" priority="1" />
+      <Item value="RawSource" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.List`1">
+      <Item value="GetEnumerator`0" priority="0" />
+      <Item value="Add`0" priority="1" />
+      <Item value="Count" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterTrend">
+      <Item value="Query" priority="0" />
+      <Item value="TrendingAsOf" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterResponse">
+      <Item value="Response" priority="0" />
+      <Item value="StatusCode" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Newtonsoft.Json.Linq.JObject">
+      <Item value="Parse`0" priority="7" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Newtonsoft.Json.Linq.JProperty">
+      <Item value="Value" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Newtonsoft.Json.Linq.JToken">
+      <Item value="ToString`0" priority="11" />
+      <Item value="Remove`0" priority="2" />
+      <Item value="Union`1" priority="0" />
+      <Item value="Value`1" priority="2" />
+      <Item value="Children`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Convert">
+      <Item value="ToDateTime`0" priority="1" />
+      <Item value="ToInt64`0" priority="2" />
+      <Item value="ToInt32`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Int64">
+      <Item value="FromUnixTime`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.String">
+      <Item value="Equals`0" priority="1" />
+      <Item value="ToString`0" priority="0" />
+      <Item value="StartsWith`0" priority="0" />
+      <Item value="Trim`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.DateTime">
+      <Item value="ToString`0" priority="0" />
+      <Item value="Subtract`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.DateTime">
+      <Item value="UtcNow" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.TimeSpan">
+      <Item value="FromDays`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.WhereOnEarthLocation">
+      <Item value="Name" priority="0" />
+      <Item value="Country" priority="0" />
+      <Item value="PlaceType" priority="0" />
+      <Item value="WoeId" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.Model.WhereOnEarthPlaceType">
+      <Item value="Name" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Newtonsoft.Json.Linq.JObject">
+      <Item value="First" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Newtonsoft.Json.Linq.JArray">
+      <Item value="Parse`0" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterMention">
+      <Item value="Name" priority="0" />
+      <Item value="ScreenName" priority="0" />
+      <Item value="StartIndex" priority="0" />
+      <Item value="Indices" priority="0" />
+      <Item value="Id" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Newtonsoft.Json.JsonConvert">
+      <Item value="SerializeObject`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="IsNullOrEmpty`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterEntities">
+      <Item value="Count`1" priority="0" />
+      <Item value="OfType`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterSearchStatus">
+      <Item value="RawSource" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Console">
+      <Item value="WriteLine`0" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterSearchResult">
+      <Item value="Statuses" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IEnumerable`1">
+      <Item value="GetEnumerator`0" priority="0" />
+      <Item value="Skip`1" priority="0" />
+      <Item value="Take`1" priority="0" />
+      <Item value="Single`1" priority="0" />
+      <Item value="Count`1" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterFriendship">
+      <Item value="Relationship" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.Serialization.JsonSerializer">
+      <Item value="Response" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Compat.Web.HttpUtility">
+      <Item value="HtmlDecode`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Hammock.Web.WebMethod">
+      <Item value="Get" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Hammock.Streaming.StreamOptions">
+      <Item value="ResultsPerCallback" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Hammock.RestRequest">
+      <Item value="StreamOptions" priority="1" />
+      <Item value="Credentials" priority="0" />
+      <Item value="Path" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterStatus">
+      <Item value="User" priority="0" />
+      <Item value="RawSource" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterUser">
+      <Item value="ScreenName" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Threading.AutoResetEvent">
+      <Item value="Set`0" priority="1" />
+      <Item value="WaitOne`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.ITwitterModel">
+      <Item value="RawSource" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Net.HttpStatusCode">
+      <Item value="OK" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterClientInfo">
+      <Item value="IncludeEntities" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Hammock.Serialization.DefaultJsonSerializer">
+      <Item value="DeserializeDynamic`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.IEnumerable">
+      <Item value="GetEnumerator`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Text.StringBuilder">
+      <Item value="Append`0" priority="2" />
+      <Item value="ToString`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterDirectMessage">
+      <Item value="Entities" priority="1" />
+      <Item value="Id" priority="2" />
+      <Item value="Text" priority="0" />
+      <Item value="TextAsHtml" priority="0" />
+      <Item value="Author" priority="0" />
+      <Item value="CreatedDate" priority="0" />
+      <Item value="Recipient" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterUrl">
+      <Item value="Value" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@TweetSharp.Globals">
+      <Item value="StreamingAPIAuthority" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterUserStreamStatuses">
+      <Item value="Statuses" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Activator">
+      <Item value="CreateInstance`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterUserStreamFriends">
+      <Item value="Ids" priority="2" />
+      <Item value="RawSource" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterUserStreamStatus">
+      <Item value="Status" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterUserStreamEvent">
+      <Item value="Equals`0" priority="0" />
+      <Item value="TargetObjectRawSource" priority="1" />
+      <Item value="TargetObject" priority="6" />
+      <Item value="Target" priority="0" />
+      <Item value="RawSource" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterUserStreamEventBase">
+      <Item value="Source" priority="0" />
+      <Item value="Target" priority="0" />
+      <Item value="Event" priority="0" />
+      <Item value="CreatedDate" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterUserStreamDeleteStatus">
+      <Item value="StatusId" priority="1" />
+      <Item value="UserId" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterUserStreamArtifact">
+      <Item value="RawSource" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TweetSharp.TwitterUserStreamDirectMessage">
+      <Item value="Id" priority="0" />
+      <Item value="DirectMessage" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Double">
+      <Item value="ToString`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Globalization.CultureInfo">
+      <Item value="InvariantCulture" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Hammock.QueryHandling">
+      <Item value="AppendToParameters" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+</Configuration>

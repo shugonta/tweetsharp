@@ -1,0 +1,52 @@
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\ApplicationIcon.png
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\Background.png
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Demo.WindowsPhone.dll
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Demo.WindowsPhone.pdb
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\AppManifest.xaml
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Demo.WindowsPhone.xap
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\Hammock.WindowsPhone.dll
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Next.WindowsPhone.dll
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\Newtonsoft.Json.Silverlight.dll
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\ICSharpCode.SharpZipLib.WindowsPhone.dll
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Next.WindowsPhone.pdb
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\ResolveAssemblyReference.cache
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\App.g.i.cs
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\MainPage.g.i.cs
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\TweetSharp.Demo.WindowsPhone.g.resources
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\TweetSharp.Demo.WindowsPhone.dll
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\TweetSharp.Demo.WindowsPhone.pdb
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\XapCacheFile.xml
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\app.config.example
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\Configuration.dll
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Next.WindowsPhone.Fluent.dll
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Next.WindowsPhone.Fluent.pdb
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\Hammock.WindowsPhone.pdb
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\Newtonsoft.Json.Silverlight.xml
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\ICSharpCode.SharpZipLib.WindowsPhone.pdb
+D:\Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Demo.WindowsPhone.dll.config
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\app.config.example
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\ApplicationIcon.png
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\Background.png
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Demo.WindowsPhone.dll.config
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Demo.WindowsPhone.dll
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Demo.WindowsPhone.pdb
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\AppManifest.xaml
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Demo.WindowsPhone.xap
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\Configuration.dll
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\Hammock.WindowsPhone.dll
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Next.WindowsPhone.dll
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Next.WindowsPhone.Fluent.dll
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\Newtonsoft.Json.Silverlight.dll
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\ICSharpCode.SharpZipLib.WindowsPhone.dll
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Next.WindowsPhone.Fluent.pdb
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Next.WindowsPhone.pdb
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\Hammock.WindowsPhone.pdb
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\Newtonsoft.Json.Silverlight.xml
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\ICSharpCode.SharpZipLib.WindowsPhone.pdb
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\ResolveAssemblyReference.cache
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\App.g.i.cs
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\MainPage.g.i.cs
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\TweetSharp.Demo.WindowsPhone.g.resources
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\TweetSharp.Demo.WindowsPhone.dll
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\TweetSharp.Demo.WindowsPhone.pdb
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\XapCacheFile.xml

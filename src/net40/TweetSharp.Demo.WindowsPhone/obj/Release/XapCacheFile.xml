@@ -1,0 +1,15 @@
+﻿<xapCache source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\TweetSharp.Demo.WindowsPhone.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="1/15/2011 4:31:58 PM">
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Properties\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="11/16/2010 6:43:42 PM" />
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\obj\Release\TweetSharp.Demo.WindowsPhone.dll" archivePath="TweetSharp.Demo.WindowsPhone.dll" lastWriteTime="1/15/2011 4:31:57 PM" />
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\lib\net40\Configuration.dll" archivePath="Configuration.dll" lastWriteTime="1/8/2011 12:54:53 AM" />
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\lib\net40\Hammock.WindowsPhone.dll" archivePath="Hammock.WindowsPhone.dll" lastWriteTime="1/8/2011 12:45:58 AM" />
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\bin\next\net40\TweetSharp.Next.WindowsPhone.dll" archivePath="TweetSharp.Next.WindowsPhone.dll" lastWriteTime="1/15/2011 4:25:27 PM" />
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\bin\next\net40\TweetSharp.Next.WindowsPhone.Fluent.dll" archivePath="TweetSharp.Next.WindowsPhone.Fluent.dll" lastWriteTime="1/15/2011 4:25:28 PM" />
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\bin\next\net40\Newtonsoft.Json.Silverlight.dll" archivePath="Newtonsoft.Json.Silverlight.dll" lastWriteTime="1/8/2011 12:54:43 AM" />
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\lib\net40\ICSharpCode.SharpZipLib.WindowsPhone.dll" archivePath="ICSharpCode.SharpZipLib.WindowsPhone.dll" lastWriteTime="1/8/2011 12:45:57 AM" />
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\app.config.example" archivePath="app.config.example" lastWriteTime="1/8/2011 12:54:58 AM" />
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="11/16/2010 6:43:42 PM" />
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Background.png" archivePath="Background.png" lastWriteTime="11/16/2010 6:43:42 PM" />
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="11/16/2010 6:43:42 PM" />
+  <file source="D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\vs2010\TweetSharp.Demo.WindowsPhone\Bin\Release\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="1/8/2011 1:05:34 AM" />
+</xapCache>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata>
+		<id>TweetSharp</id>
+		<version>2.0.6</version>
+    <dependencies>
+      <dependency id="Hammock" version="1.2.3" />
+      <dependency id="Newtonsoft.Json" version="4.0.1" />      
+    </dependencies>
+		<authors>Daniel Crenna and Jason Diller</authors>
+		<owners>Daniel Crenna</owners>
+		<description>TweetSharp v2 is a fast, clean wrapper around the Twitter API. It uses T4 templates to make adding new endpoints easy. It can also be used as an example of how to write a service-specific API wrapper using Hammock.</description>
+		<summary>TweetSharp v2 is a fast, clean wrapper around the Twitter API. It uses T4 templates to make adding new endpoints easy.</summary>
+		<language>en-US</language>
+		<projectUrl>http://tweetsharp.com</projectUrl>
+		<licenseUrl>http://tweetsharp.codeplex.com/license</licenseUrl>
+		<iconUrl>http://apitize.com.s3.amazonaws.com/logo_tweetsharp.png</iconUrl>
+		<tags>twitter tweetsharp web api http rest wrapper json xml</tags>   
+	</metadata>
+</package>

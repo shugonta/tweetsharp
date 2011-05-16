@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <section name="ApplicationSettings"  type="Configuration.ApplicationSettingsSection,ConfigurationClient" />
+  </configSections>
+  <ApplicationSettings>
+    <appSettings>
+      <add key="ConsumerKey" value=""/>
+      <add key="ConsumerSecret" value="" />
+      <add key="AccessToken" value=""/>
+      <add key="AccessTokenSecret" value=""/>
+    </appSettings>
+  </ApplicationSettings>
+</configuration>

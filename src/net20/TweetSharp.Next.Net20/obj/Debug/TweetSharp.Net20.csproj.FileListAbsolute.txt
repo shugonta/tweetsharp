@@ -1,0 +1,5 @@
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\bin\lib\2.0\TweetSharp.dll
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\bin\lib\2.0\TweetSharp.pdb
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\net20\TweetSharp.Next.Net20\obj\Debug\ResolveAssemblyReference.cache
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\net20\TweetSharp.Next.Net20\obj\Debug\TweetSharp.dll
+D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\net20\TweetSharp.Next.Net20\obj\Debug\TweetSharp.pdb

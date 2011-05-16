@@ -1,0 +1,243 @@
+﻿<#@ template language="C#" hostspecific="True" #>
+<#@ output extension=".generated.cs" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Linq" #>
+<#
+	var methods = new List<TweetSharpMethod>(10);
+	
+	var manifests = new string[] { 
+		"_TwitterService.Account.json",
+		"_TwitterService.Blocks.json",	
+		"_TwitterService.DirectMessages.json",
+		"_TwitterService.Favorites.json",
+		"_TwitterService.FriendsFollowers.json",
+		"_TwitterService.Friendships.json",
+		"_TwitterService.Lists.json",		
+		"_TwitterService.Notifications.json",
+		"_TwitterService.SavedSearches.json",
+		"_TwitterService.Search.json",
+		"_TwitterService.Timelines.json", 
+		"_TwitterService.Trends.json", 
+		"_TwitterService.Tweets.json",
+		"_TwitterService.Users.json",		
+	};
+
+	foreach(var manifest in manifests)
+	{
+		string absolutePath = Host.ResolvePath(manifest);
+		string contents = File.ReadAllText(absolutePath);
+
+		var lines = contents.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+		lines = lines.Where(l => !l.StartsWith("//")).ToArray(); // <-- Ignore comments
+
+		foreach(var line in lines)
+		{
+			var method = new TweetSharpMethod(line);
+			methods.Add(method);
+		}
+	}	
+#>
+using System;
+using System.Collections.Generic;
+using Hammock;
+using Hammock.Web;
+
+namespace TweetSharp
+{
+#region Interface
+	public partial interface ITwitterService
+	{
+#if !SILVERLIGHT
+		#region Sequential Methods
+<# foreach(TweetSharpMethod method in methods) { #>
+		<#= method.Type #> <#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);	
+
+<# } #>
+		#endregion
+#endif
+
+#if !WINDOWS_PHONE
+		#region Asynchronous Methods (with IAsyncResult)
+<# foreach(TweetSharpMethod method in methods) { #>
+		IAsyncResult <#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #><# if(count > 0) {#>, <# } #>Action<<#= method.Type #>, TwitterResponse> action);		
+
+<# } #>
+		#endregion
+#endif
+
+#if !WINDOWS_PHONE
+		#region Asynchronous Methods (with Begin/End pattern)
+<# foreach(TweetSharpMethod method in methods.GroupBy(p => p.Name).Select(g => g.First())) { #>
+		IAsyncResult Begin<#= method.Name #>();
+
+		<#= method.Type #> End<#= method.Name #>(IAsyncResult result);		
+
+		<#= method.Type #> End<#= method.Name #>(IAsyncResult result, TimeSpan timeout);
+
+<# } #>
+		#endregion
+#endif
+	
+#if WINDOWS_PHONE
+		#region Asynchronous Methods (without IAsyncResult)
+<# foreach(TweetSharpMethod method in methods) { #>
+		void <#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #><# if(count > 0) {#>, <# } #>Action<<#= method.Type #>, TwitterResponse> action);
+
+<# } #>
+		#endregion
+#endif		
+	}
+#endregion
+}
+
+namespace TweetSharp
+{
+#region Implementation
+	public partial class TwitterService
+	{	
+#if !SILVERLIGHT
+		#region Sequential Methods
+<# foreach(TweetSharpMethod method in methods) { #>
+		public virtual <#= method.Type #> <#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>)
+		{
+			return WithHammock<<#= method.Type #>>(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #><#= method.Path #>, FormatAsString<# if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+		}
+
+<# } #>
+		#endregion
+#endif
+
+#if !WINDOWS_PHONE
+		#region Asynchronous Methods (with IAsyncResult)
+<# foreach(TweetSharpMethod method in methods) { #>
+		public virtual IAsyncResult <#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #><# if(count > 0) {#>, <# } #>Action<<#= method.Type #>, TwitterResponse> action)
+		{
+			return WithHammock(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #>action, <#= method.Path #>, FormatAsString<# if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+		}
+
+<# } #>
+		#endregion
+#endif
+
+#if !WINDOWS_PHONE
+		#region Asynchronous Methods (with Begin/End pattern)
+<# foreach(TweetSharpMethod method in methods) { #>
+		public virtual IAsyncResult Begin<#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>)
+		{
+			return BeginWithHammock<<#= method.Type #>>(WebMethod.<#= Helpers.Capitalize(method.Method) #>, <#= method.Path #>, FormatAsString<# if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+		}
+
+<# } #>
+<# foreach(TweetSharpMethod method in methods.GroupBy(p => p.Name).Select(g => g.First())) { #>
+		public virtual <#= method.Type #> End<#= method.Name #>(IAsyncResult result) 
+		{
+			return EndWithHammock<<#= method.Type #>>(result);
+		}
+
+		public virtual <#= method.Type #> End<#= method.Name #>(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<<#= method.Type #>>(result, timeout);
+		}
+
+<# } #>
+		#endregion
+#endif
+
+#if WINDOWS_PHONE
+		#region Asynchronous Methods (without IAsyncResult)
+<# foreach(TweetSharpMethod method in methods) { #>
+		public virtual void <#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #><# if(count > 0) {#>, <# } #>Action<<#= method.Type #>, TwitterResponse> action)
+		{
+			WithHammock(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #>action, <#= method.Path #>, FormatAsString<# if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+		}
+
+<# } #>
+		#endregion
+#endif	
+	}
+
+	#endregion
+}
+<#+
+	internal class Helpers
+	{
+		private const string UnderscoresPattern = "(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))";
+
+		public static string Capitalize(string upperCase)
+        {
+            var lower = upperCase.ToLowerInvariant();
+            return char.ToUpperInvariant(lower[0]) + lower.Substring(1);
+        }
+
+		public static string Underscore(string camelCase)
+		{
+			if(camelCase.StartsWith("@"))
+			{
+				camelCase = camelCase.Substring(1);
+			}
+			var underscored = Regex.Replace(camelCase, UnderscoresPattern,
+											new MatchEvaluator(m => string.Concat("_", m.Value.ToLowerInvariant())),
+											RegexOptions.Compiled);
+
+			return underscored;
+		}		
+	}
+
+	internal class TweetSharpMethod
+	{
+		public string Type
+		{
+			get; private set;
+		}
+		public string Name
+		{
+			get; private set;
+		}
+		public string Path
+		{
+			get; private set;
+		}
+		public string Method
+		{
+			get; private set;
+		}
+		public List<TweetSharpMethodParameter> Parameters
+		{
+			get; private set;
+		}
+
+		public TweetSharpMethod(string line)
+		{
+		     var parts = line.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+			 Type = parts[0].Trim();
+			 
+			 var pathParts = parts[1].Trim().Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
+			 Path = pathParts[0];
+			 Method = pathParts.Length > 1 ? Method = pathParts[1] : "GET";
+
+			 Name = parts[2].Trim();
+
+			 Parameters = new List<TweetSharpMethodParameter>();
+			 for(var i = 3; i < parts.Length; i++)
+			 {
+				var data = parts[i].Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+				Parameters.Add(new TweetSharpMethodParameter() { Type = data[0], Name = data[1] });
+			 }
+		}
+	}
+
+	internal class TweetSharpMethodParameter
+	{
+		public string Type
+		{
+			get; set;
+		}
+		public string Name
+		{
+			get; set;
+		}
+	}
+#>
