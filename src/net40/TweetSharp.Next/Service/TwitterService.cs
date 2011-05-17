@@ -151,6 +151,7 @@ namespace TweetSharp
             _client = new RestClient
                           {
                               Authority = Globals.RestAPIAuthority,
+                              QueryHandling = QueryHandling.AppendToParameters,
                               VersionPath = "1",
                               Serializer = _json,
                               Deserializer = _json,
@@ -164,8 +165,6 @@ namespace TweetSharp
                               HasElevatedPermissions = true
 #endif
                           };
-
-            _client.QueryHandling = QueryHandling.AppendToParameters;
 
             _oauth = new RestClient
                          {
@@ -182,6 +181,23 @@ namespace TweetSharp
                 Authority = Globals.UserStreamingAPIAuthority,
                 Proxy = Proxy,
                 VersionPath = "2",
+                Serializer = _json,
+                Deserializer = _json,
+                DecompressionMethods = DecompressionMethods.GZip,
+                UserAgent = "TweetSharp",
+#if !SILVERLIGHT
+                FollowRedirects = true,
+#endif
+#if SILVERLIGHT
+                HasElevatedPermissions = true
+#endif
+            };
+
+            _searchStreamingClient = new RestClient
+            {
+                Authority = Globals.SearchStreamingAPIAuthority,
+                Proxy = Proxy,
+                VersionPath = "1",
                 Serializer = _json,
                 Deserializer = _json,
                 DecompressionMethods = DecompressionMethods.GZip,

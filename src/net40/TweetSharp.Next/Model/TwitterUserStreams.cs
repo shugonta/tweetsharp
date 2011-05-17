@@ -15,7 +15,7 @@ namespace TweetSharp
 #if !Smartphone && !NET20
     [DataContract]
 #endif
-    public class TwitterUserStreamFriends : TwitterUserStreamArtifact
+    public class TwitterUserStreamFriends : TwitterStreamArtifact
     {
         private IEnumerable<long> _ids;
         
@@ -45,7 +45,7 @@ namespace TweetSharp
 #if !Smartphone && !NET20
     [DataContract]
 #endif
-    public class TwitterUserStreamStatus : TwitterUserStreamArtifact, ITweetable
+    public class TwitterUserStreamStatus : TwitterStreamArtifact, ITweetable
     {
         private TwitterStatus _status;
 
@@ -101,7 +101,7 @@ namespace TweetSharp
 #if !Smartphone && !NET20
     [DataContract]
 #endif
-    public class TwitterUserStreamDirectMessage: TwitterUserStreamArtifact, ITweetable
+    public class TwitterUserStreamDirectMessage: TwitterStreamArtifact, ITweetable
     {
         private TwitterDirectMessage _dm;
 
@@ -161,7 +161,7 @@ namespace TweetSharp
 #if !Smartphone && !NET20
     [DataContract]
 #endif
-    public class TwitterUserStreamEventBase : TwitterUserStreamArtifact
+    public class TwitterUserStreamEventBase : TwitterStreamArtifact
     {
         [JsonProperty("source")]
         public virtual TwitterUser Source { get; set; }
@@ -183,7 +183,7 @@ namespace TweetSharp
 #if !Smartphone && !NET20
     [DataContract]
 #endif
-    public class TwitterUserStreamDeleteStatus : TwitterUserStreamArtifact
+    public class TwitterUserStreamDeleteStatus : TwitterStreamArtifact
     {
         public virtual int UserId { get; set; }
         public virtual long StatusId { get; set; }
@@ -196,16 +196,16 @@ namespace TweetSharp
 #if !Smartphone && !NET20
     [DataContract]
 #endif
-    public class TwitterUserStreamDeleteDirectMessage : TwitterUserStreamArtifact
+    public class TwitterUserStreamDeleteDirectMessage : TwitterStreamArtifact
     {
         public virtual int UserId { get; set; }
         public virtual long DirectMessageId { get; set; }
     }
     
     /// <summary>
-    /// Denotes a stream event, resulting from a user action.
-    /// The source is always the initiating user, the target is always the affected user.
-    /// The target object depends on the initiating action: statuses, direct messages, and lists.
+    /// Denotes a stream event, resulting from a user action;
+    /// the source is always the initiating user, the target is always the affected user, and
+    /// the target object depends on the initiating action: statuses, direct messages, and lists.
     /// </summary>
     public class TwitterUserStreamEvent : TwitterUserStreamEventBase
     {
@@ -222,7 +222,7 @@ namespace TweetSharp
     }
 
     /// <summary>
-    /// Denotes the end of a user stream.
+    /// Denotes the end of a user stream
     /// </summary>
 #if !SILVERLIGHT
     [Serializable]
@@ -230,13 +230,13 @@ namespace TweetSharp
 #if !Smartphone && !NET20
     [DataContract]
 #endif
-    public class TwitterUserStreamEnd : TwitterUserStreamArtifact
+    public class TwitterUserStreamEnd : TwitterStreamArtifact
     {
         
     }
     
     /// <summary>
-    /// Denotes content surfaced in a user stream.
+    /// Denotes content surfaced in a stream
     /// </summary>
 #if !SILVERLIGHT
     [Serializable]
@@ -244,7 +244,7 @@ namespace TweetSharp
 #if !Smartphone && !NET20
     [DataContract]
 #endif
-    public class TwitterUserStreamArtifact : PropertyChangedBase, ITwitterModel 
+    public class TwitterStreamArtifact : PropertyChangedBase, ITwitterModel 
     {
         public virtual string RawSource { get; set; }
     }

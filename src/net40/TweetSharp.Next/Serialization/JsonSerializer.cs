@@ -61,7 +61,7 @@ namespace TweetSharp.Serialization
                 return DeserializeSingle<T>(inner);
             }
 
-            if (typeof(T) == typeof(TwitterUserStreamArtifact))
+            if (typeof(T) == typeof(TwitterStreamArtifact))
             {
                 content = content.Trim('\n');
                 if (content.StartsWith("{\"friends\":["))
@@ -127,7 +127,7 @@ namespace TweetSharp.Serialization
                         return (T)(ITwitterModel)@event;
                     }
 
-                    var unknown = new TwitterUserStreamArtifact();
+                    var unknown = new TwitterStreamArtifact();
                     unknown.RawSource = content;
                     return (T)(ITwitterModel)unknown;
                 }

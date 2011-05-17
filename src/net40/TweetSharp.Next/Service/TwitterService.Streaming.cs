@@ -8,6 +8,7 @@ namespace TweetSharp
     partial class TwitterService
     {
         private readonly RestClient _userStreamingClient;
+        private readonly RestClient _searchStreamingClient;
 
         /// <summary>
         /// Cancels pending streaming actions from this service.
@@ -18,6 +19,29 @@ namespace TweetSharp
             {
                 _userStreamingClient.CancelStreaming();
             }
+            if (_searchStreamingClient != null)
+            {
+                _searchStreamingClient.CancelStreaming();
+            }
+        }
+
+        /// <summary>
+        /// Accesses an asynchronous Twitter filter stream indefinitely, until terminated.
+        /// </summary>
+        /// <seealso href="http://dev.twitter.com/pages/streaming_api_methods#statuses-filter" />
+        /// <param name="action"></param>
+        /// <returns></returns>
+#if !WINDOWS_PHONE
+        public virtual IAsyncResult StreamFilter(Action<TwitterStreamArtifact, TwitterResponse> action)
+#else
+        public virtual void StreamFilter(Action<TwitterStreamArtifact, TwitterResponse> action)
+#endif
+        {
+            var options = new StreamOptions { ResultsPerCallback = 1 };
+#if !WINDOWS_PHONE
+            return 
+#endif
+            WithHammockSearchStreaming(options, action, "statuses/filter.json");
         }
 
         /// <summary>
@@ -27,9 +51,9 @@ namespace TweetSharp
         /// <param name="action"></param>
         /// <returns></returns>
 #if !WINDOWS_PHONE
-        public virtual IAsyncResult StreamUser(Action<TwitterUserStreamArtifact, TwitterResponse> action)
+        public virtual IAsyncResult StreamUser(Action<TwitterStreamArtifact, TwitterResponse> action)
 #else
-        public void StreamUser(Action<TwitterUserStreamArtifact, TwitterResponse> action)
+        public virtual void StreamUser(Action<TwitterStreamArtifact, TwitterResponse> action)
 #endif
         {
             var options = new StreamOptions { ResultsPerCallback = 1 };
@@ -51,6 +75,19 @@ namespace TweetSharp
             return 
 #endif 
             WithHammockStreamingImpl(_userStreamingClient, request, options, action);
+        }
+
+        #if !WINDOWS_PHONE
+        private IAsyncResult WithHammockSearchStreaming<T>(StreamOptions options, Action<T, TwitterResponse> action, string path) where T : class
+#else
+        private void WithHammockSearchStreaming<T>(StreamOptions options, Action<T, TwitterResponse> action, string path) where T : class
+#endif
+        {
+            var request = PrepareHammockQuery(path);
+#if !WINDOWS_PHONE
+            return 
+#endif 
+            WithHammockStreamingImpl(_searchStreamingClient, request, options, action);
         }
 
 #if !WINDOWS_PHONE
