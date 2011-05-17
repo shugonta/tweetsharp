@@ -1,5 +1,0 @@
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\bin\lib\SL4\TweetSharp.Silverlight.dll
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\bin\lib\SL4\TweetSharp.Silverlight.pdb
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\net40\TweetSharp.Silverlight\obj\Debug\ResolveAssemblyReference.cache
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\net40\TweetSharp.Silverlight\obj\Debug\TweetSharp.Silverlight.dll
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\net40\TweetSharp.Silverlight\obj\Debug\TweetSharp.Silverlight.pdb

@@ -1,5 +1,0 @@
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\net40\TweetSharp.Next.WindowsPhone\obj\Debug\ResolveAssemblyReference.cache
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\bin\lib\WP7\TweetSharp.WindowsPhone.dll
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\bin\lib\WP7\TweetSharp.WindowsPhone.pdb
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\net40\TweetSharp.Next.WindowsPhone\obj\Debug\TweetSharp.WindowsPhone.dll
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\net40\TweetSharp.Next.WindowsPhone\obj\Debug\TweetSharp.WindowsPhone.pdb

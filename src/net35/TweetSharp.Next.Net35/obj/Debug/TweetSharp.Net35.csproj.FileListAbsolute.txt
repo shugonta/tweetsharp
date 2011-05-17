@@ -1,5 +1,0 @@
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\net35\TweetSharp.Next.Net35\obj\Debug\ResolveAssemblyReference.cache
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\bin\lib\3.5\TweetSharp.dll
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\bin\lib\3.5\TweetSharp.pdb
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\net35\TweetSharp.Next.Net35\obj\Debug\TweetSharp.dll
-D:\My Dropbox\_7_Source_Code\_1_Projects\tweetsharp\src\net35\TweetSharp.Next.Net35\obj\Debug\TweetSharp.pdb
