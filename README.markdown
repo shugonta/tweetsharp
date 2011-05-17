@@ -267,8 +267,9 @@ There are four ways of handling errors at the Twitter API level.
     // Strategy 1 - Look for bad requests by inspecting the response for important info
     if(service.Response.StatusCode == HttpStatusCode.OK) // <-- Should be 401 - Unauthorized
     {
-        // Strategy 2 - If you get back an 200 - OK response, you might have received an error, not the objects you wanted
-        if(mentions.Count() == 1) // <-- If you were trying to get a collection, any errors are added to it, so look for only one result
+        // Strategy 2 - If you get back an 200 - OK response, you might have received an error, not the objects you wanted;
+        // if you were trying to get a collection, any errors are added to it, so look for only one collection item
+        if(mentions.Count() == 1) // <-- result
         {
             // Serialization failures will result in "bare" objects; if this tweet's Id is zero, you know it either
             // failed to deserialize properly, or, in the case of requesting collections, it contains the error returned from Twitter
@@ -298,15 +299,12 @@ There are four ways of handling errors at the Twitter API level.
     }
 
 ### Using Twitter Entities
-
-TweetSharp supports Twitter's upcoming entities feature. This feature provides additional metadata for locating mentions, links, and hashtags embedded in tweet text. TweetSharp goes a step further, emulating the entities support for classes that Twitter currently doesn't support, that implement ITweetable; namely TwitterStatus, TwitterDirectMessage and TwitterSearchStatus. All three of these classes contain an Entities property. This allows you to find these elements in UI columns that contain multiple tweet types, via the ITweetable interface. To retrieve all of the entities in an ITweetable ordered by where they appear in the text itself, you can call the Coalesce method on relevant TwitterEntities instance.
+TweetSharp supports Twitter's upcoming entities feature. This feature provides additional metadata for locating mentions, links, and hashtags embedded in tweet text. TweetSharp goes a step further, emulating the entities support for classes that Twitter currently doesn't support, that implement `ITweetable`; namely `TwitterStatus`, `TwitterDirectMessage` and `TwitterSearchStatus`. All three of these classes contain an Entities property. This allows you to find these elements in UI columns that contain multiple tweet types, via the `ITweetable` interface. To retrieve all of the entities in an ITweetable ordered by where they appear in the text itself, you can call the `Coalesce` method on relevant `TwitterEntities` instance.
 
 ### Client Development Features
-
 TweetSharp is a bit more than an API wrapper, it also provides support for client application development beyond the data. In this section, TweetSharp's features specific to developing client applications on the .NET Framework are highlighted.
-
-* All model objects are serializable, implement IPropertyNotifyChanged, use virtual signatures, and implement DataContract / DataMember where supported. This means all of our model objects are persistable in frameworks like NHibernate, observable in WPF, and serializable for over-the-wire communication in WCF.
-* ITweetable and ITweeter: TwitterStatus, TwitterDirectMessage, and TwitterSearchStatus all implement ITweetable, which is an interface to make it easier to blend tweets from different sources into the same UI display. ITweeter helps encapsulate common user display properties, and TweetSharp even provides emulation of the entity metadata for non-timeline ITweetables; this means that you can access mentions, hashtags, and links embedded in the text of any ITweetable, in the order they appear. 
+* All model objects are serializable, implement `IPropertyNotifyChanged`, use virtual signatures, and implement `DataContract` / `DataMember` where supported. This means all of our model objects are persistable in frameworks like NHibernate, observable in WPF, and serializable for over-the-wire communication in WCF.
+* `ITweetable` and `ITweeter`: `TwitterStatus`, `TwitterDirectMessage`, and `TwitterSearchStatus` all implement `ITweetable`, which is an interface to make it easier to blend tweets from different sources into the same UI display. `ITweeter` helps encapsulate common user display properties, and TweetSharp even provides emulation of the entity metadata for non-timeline `ITweetable`s; this means that you can access mentions, hashtags, and links embedded in the text of any `ITweetable`, in the order they appear. 
 
     public interface ITweetable
     {
