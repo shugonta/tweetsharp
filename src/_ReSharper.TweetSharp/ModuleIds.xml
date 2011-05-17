@@ -1,16 +1,4 @@
 <Modules>
-  <Module PersistentId="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484" ModuleId="TweetSharp.Next" />
-  <Module PersistentId="A65559D9-3E64-43BC-B5C8-32C29A0A57B0" ModuleId="TweetSharp.Fluent" />
+  <Module PersistentId="10BFAA13-B836-4B37-B2D3-D4FEB3F3C484" ModuleId="TweetSharp" />
   <Module PersistentId="C1BDDF6E-0BB1-43B9-AA2C-3F0BAFFA263D" ModuleId="TweetSharp.WindowsPhone" />
-  <Module PersistentId="5BE8393A-831B-42B1-A8F2-4E449E49E920" ModuleId="TweetSharp.WindowsPhone.Fluent" />
-  <Module PersistentId="D108B521-B7E1-4ED4-AB38-27A6C9685AF6" ModuleId="TweetSharp.Next.Tests" />
-  <Module PersistentId="5D8BE3B2-C51F-4A81-9E4F-8607C09C966A" ModuleId="TweetSharp.Net35" />
-  <Module PersistentId="7C951920-D463-4CFF-A083-F4B5EEFFBCB6" ModuleId="TweetSharp.Net35.Fluent" />
-  <Module PersistentId="7FEC89B1-DFFC-47BD-A8EF-B1F4883995A3" ModuleId="TweetSharp.Net20" />
-  <Module PersistentId="227937BC-7635-46CE-9CA6-651E15AA89C7" ModuleId="TweetSharp.Net20.Fluent" />
-  <Module PersistentId="E03AED92-E4B4-4DC3-965D-104F88497C00" ModuleId="TweetSharp.Site" />
-  <Module PersistentId="8BAC876F-19A2-4296-9828-E2F59AD8BAC5" ModuleId="TweetSharp.Silverlight" />
-  <Module PersistentId="d:Miscellaneous Files" ModuleId="Hammock.ClientProfile" />
-  <Module PersistentId="E56C7420-9623-4F16-A8D0-86C943DBD2A5" ModuleId="TweetSharp.Silverlight.Fluent" />
-  <Module PersistentId="Hammock.ClientProfile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d" ModuleId="Hammock.ClientProfile_1" />
 </Modules>

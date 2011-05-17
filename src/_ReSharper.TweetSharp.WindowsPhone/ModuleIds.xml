@@ -1,6 +1,0 @@
-<Modules>
-  <Module PersistentId="6B2D8183-EF43-41B6-8BD3-51045B14705A" ModuleId="TweetSharp.Demo.WindowsPhone" />
-  <Module PersistentId="5BE8393A-831B-42B1-A8F2-4E449E49E920" ModuleId="TweetSharp.WindowsPhone.Fluent" />
-  <Module PersistentId="C1BDDF6E-0BB1-43B9-AA2C-3F0BAFFA263D" ModuleId="TweetSharp.WindowsPhone" />
-  <Module PersistentId="3059FD1C-4B4B-4460-A0D4-53C84CCE6CAC" ModuleId="Hammock.WindowsPhone" />
-</Modules>

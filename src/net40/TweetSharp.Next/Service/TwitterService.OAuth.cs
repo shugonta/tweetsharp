@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text.RegularExpressions;
 using Hammock;
 using Hammock.Authentication.OAuth;
@@ -274,7 +275,7 @@ namespace TweetSharp
                     Exception exception;
                     var entity = TryAsyncResponse(() =>
                     {
-                        if (resp == null || resp.StatusCode != System.Net.HttpStatusCode.OK)
+                        if (resp == null || resp.StatusCode != HttpStatusCode.OK)
                         {
                             return null;
                         }
@@ -395,7 +396,7 @@ namespace TweetSharp
                                    Exception exception;
                                    var entity = TryAsyncResponse(() =>
                                    {
-                                       if (resp == null)
+                                       if (resp == null || resp.StatusCode != HttpStatusCode.OK)
                                        {
                                            return "";
                                        }

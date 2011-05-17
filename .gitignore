@@ -39,3 +39,5 @@ src/_ReSharper.TweetSharp.WindowsPhone/
 src/_ReSharper.TweetSharp/
 src/net20/TweetSharp.Next.Net20/obj
 src/net40/TweetSharp.Next/obj/
+*.user
+*.suo
