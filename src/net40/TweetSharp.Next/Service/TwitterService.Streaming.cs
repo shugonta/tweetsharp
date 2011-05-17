@@ -20,7 +20,6 @@ namespace TweetSharp
             }
         }
 
-
         /// <summary>
         /// Accesses an asynchronous Twitter user stream indefinitely, until terminated.
         /// </summary>

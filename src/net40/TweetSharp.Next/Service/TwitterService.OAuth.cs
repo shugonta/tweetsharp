@@ -274,13 +274,8 @@ namespace TweetSharp
                     Exception exception;
                     var entity = TryAsyncResponse(() =>
                     {
-                        if (resp == null)
+                        if (resp == null || resp.StatusCode != System.Net.HttpStatusCode.OK)
                         {
-                            return null;
-                        }
-                        if (resp.StatusCode != System.Net.HttpStatusCode.OK)
-                        {
-                            action(null, new TwitterResponse(resp));
                             return null;
                         }
                         var query = HttpUtility.ParseQueryString(resp.Content);
@@ -321,7 +316,7 @@ namespace TweetSharp
                                         Exception exception;
                                         var entity = TryAsyncResponse(() =>
                                         {
-                                            if (resp == null)
+                                            if (resp == null || resp.StatusCode != System.Net.HttpStatusCode.OK)
                                             {
                                                 return null;
                                             }
@@ -366,10 +361,10 @@ namespace TweetSharp
                                    Exception exception;
                                    var entity = TryAsyncResponse(() =>
                                    {
-                                       if (resp == null)
-                                       {
-                                           return null;
-                                       }
+                                        if (resp == null || resp.StatusCode != System.Net.HttpStatusCode.OK)
+                                        {
+                                            return null;
+                                        }
 
                                        var query = HttpUtility.ParseQueryString(resp.Content);
                                        var accessToken = new OAuthAccessToken
