@@ -8,7 +8,7 @@ TweetSharp is a Twitter API library that greatly simplifies the task of adding T
 #### Caveat Tractor / Public Service Announcement
 This project is open source software, not a commercial product, so please curb your enthusiasm around expecting 
 support or feature requests. After two and a half years of life and two years of active development, this project is
-officially archived / `dead`. It will not be extended, at least by the original authors. I am happy to accept any 
+officially `archived` / `dead`. It will not be extended, at least by the original authors. I am happy to accept any 
 reasonable pull requests, and the code is written with Visual Studio T4 templates, making it ridiculously easy to 
 extend for any API methods that Twitter introduces in the future. It would make a good base for a fork for those who
 are interested in carrying on. I will not be able to respond to requests for support, commercial or otherwise. 
