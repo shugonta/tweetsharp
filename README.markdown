@@ -328,6 +328,8 @@ TweetSharp is a bit more than an API wrapper, it also provides support for clien
 
 * `ITweetable` and `ITweeter`: `TwitterStatus`, `TwitterDirectMessage`, and `TwitterSearchStatus` all implement `ITweetable`, which is an interface to make it easier to blend tweets from different sources into the same UI display. `ITweeter` helps encapsulate common user display properties, and TweetSharp even provides emulation of the entity metadata for non-timeline `ITweetable`s; this means that you can access mentions, hashtags, and links embedded in the text of any `ITweetable`, in the order they appear. 
 
+These are the UI interfaces:
+
     public interface ITweetable
     {
         long Id { get; }
