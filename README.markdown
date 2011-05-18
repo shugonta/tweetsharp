@@ -17,7 +17,7 @@ API wrappers, in general, are a maintenance nightmare for both the consumer and 
 response to the fact that most APIs are not truly RESTful; if they were, we could consume them at the same level of
 abstraction as a browser, rather than constantly creating and maintaining bespoke mappings across service boundaries. 
 If you would rather maintain your own micro-libraries at the service level using a general purpose HTTP API client, I 
-suggest you use [Hammock](http://github.com/danielcrenna/hammock).
+suggest you use [Hammock](http://github.com/danielcrenna/hammock) or [RestSharp](http://github.com/johnsheehan/restsharp).
 
 #### Learn the Twitter API
 Make sure you visit (http://dev.twitter.com) to get acquainted with the Twitter API. Most of the time, confusion
