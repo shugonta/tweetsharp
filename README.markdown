@@ -14,14 +14,14 @@ TweetSharp is a Twitter API library that greatly simplifies the task of adding T
     are interested in carrying on. I will not be able to respond to requests for support, commercial or otherwise. 
 
     If you need commercial and/or active support for a Twitter-based API wrapper, you may want to orient your 
-    organization towards alternatives like (Twitterizer)[http://twitterizer.net] or (LINQ to Twitter)[http://linqtotwitter.codeplex.com]. 
+    organization towards alternatives like [Twitterizer](http://twitterizer.net) or [LINQ to Twitter](http://linqtotwitter.codeplex.com). 
 
     API wrappers, in general, are a maintenance nightmare for both the consumer and the maintainer, and are a malnourished
     response to the fact that most APIs are not truly RESTful; if they were, we could consume them at the same level of
     abstraction as a browser, rather than constantly creating and maintaining bespoke mappings across service boundaries. 
 
     If you would rather maintain your own micro-libraries at the service level using a general purpose HTTP API client, I 
-    suggest you use (Hammock)[http://github.com/danielcrenna/hammock].
+    suggest you use [Hammock](http://github.com/danielcrenna/hammock).
 
 #### Learn the Twitter API
 Make sure you visit [url:http://dev.twitter.com] to get acquainted with the Twitter API.
