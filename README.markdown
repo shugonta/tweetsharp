@@ -36,7 +36,7 @@ workflow.
 
 ### OAuth Authentication
 
-The first step to accessing the Twitter API is to create an application at (http://dev.twitter.com]. When that process is complete, your application is issued a Consumer Key and Consumer Secret. These tokens are responsible for identifying your application when it is in use by your customers. Once you have these values, you can create a new service and pass them in.
+The first step to accessing the Twitter API is to create an application at (http://dev.twitter.com). When that process is complete, your application is issued a Consumer Key and Consumer Secret. These tokens are responsible for identifying your application when it is in use by your customers. Once you have these values, you can create a new service and pass them in.
 
 #### Authenticating a client application (i.e. desktop)
     using TweetSharp;
