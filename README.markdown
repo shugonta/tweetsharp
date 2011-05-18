@@ -20,7 +20,9 @@ If you would rather maintain your own micro-libraries at the service level using
 suggest you use [Hammock](http://github.com/danielcrenna/hammock).
 
 #### Learn the Twitter API
-Make sure you visit [url:http://dev.twitter.com] to get acquainted with the Twitter API.
+Make sure you visit (http://dev.twitter.com) to get acquainted with the Twitter API. Most of the time, confusion
+around the methods in this library are a result of not understanding Twitter's requirements, or the OAuth authentication
+workflow.
 
 #### Hello, Twitter
     using TweetSharp;
@@ -34,9 +36,7 @@ Make sure you visit [url:http://dev.twitter.com] to get acquainted with the Twit
 
 ### OAuth Authentication
 
-The first step to accessing the Twitter API is to create an application at [url:http://dev.twitter.com]. When that process is complete, your application
-is issued a Consumer Key and Consumer Secret. These tokens are responsible for identifying your application when it is in use by your customers.
-Once you have these values, you can create a new service and pass them in.
+The first step to accessing the Twitter API is to create an application at (http://dev.twitter.com]. When that process is complete, your application is issued a Consumer Key and Consumer Secret. These tokens are responsible for identifying your application when it is in use by your customers. Once you have these values, you can create a new service and pass them in.
 
 #### Authenticating a client application (i.e. desktop)
     using TweetSharp;
@@ -67,7 +67,9 @@ Once you have these values, you can create a new service and pass them in.
     {
         // Step 1 - Retrieve an OAuth Request Token
         TwitterService service = new TwitterService("consumerKey", "consumerSecret");
-        OAuthRequestToken requestToken = service.GetRequestToken("http://localhost:9090/AuthorizeCallback"); // <-- The registered callback URL
+        
+        // This is the registered callback URL
+        OAuthRequestToken requestToken = service.GetRequestToken("http://localhost:9090/AuthorizeCallback"); 
         
         // Step 2 - Redirect to the OAuth Authorization URL
         Uri uri = service.GetAuthorizationUri(requestToken);
@@ -91,19 +93,16 @@ Once you have these values, you can create a new service and pass them in.
     }
 
 #### xAuth Authentication
-If you are building a mobile application and want to benefit from a seamless authentication experience with no additional steps for the user,
-you need to enroll your application in Twitter's xAuth support. You must complete this step in order for xAuth to function correctly.
+If you are building a mobile application and want to benefit from a seamless authentication experience with no additional steps for the user, you need to enroll your application in Twitter's xAuth support. You must complete this step in order for xAuth to function correctly.
 
     using TweetSharp;
 
     // OAuth Access Token Exchange
     TwitterService service = new TwitterService("consumerKey", "consumerSecret");
-    OAuthAccessToken access = service.GetAccessTokenWithXAuth("username", "password"); // <-- user supplied username and password
+    OAuthAccessToken access = service.GetAccessTokenWithXAuth("username", "password");
 
 #### OAuth Delegation with Echo
-Twitter provides OAuth Echo support, which allows you to use other services like TwitPic by delegating the user's existing credentials.
-TweetSharp uses [Hammock|url:http://hammock.codeplex.com] both internally and as a tool for you to make delegated requests. 
-This example shows how you would use TweetSharp and Hammock together to post an image on TwitPic using OAuth.
+Twitter provides OAuth Echo support, which allows you to use other services like TwitPic by delegating the user's existing credentials. TweetSharp uses [Hammock](http://hammockrest.com) both internally and as a tool for you to make delegated requests. This example shows how you would use TweetSharp and Hammock together to post an image on TwitPic using OAuth.
 
     using TweetSharp;
     using Hammock;
@@ -125,10 +124,9 @@ This example shows how you would use TweetSharp and Hammock together to post an 
 ### Discovering API Methods
 
 TweetSharp uses a consistent method naming convention to help you locate the method you're looking for.
-In general, methods that return multiple results begin with +List+, while methods that return a single result begin with +Get+.
+In general, methods that return multiple results begin with `List`, while methods that return a single result begin with `Get`.
 Most methods, like the Twitter API, have additional parameters for obtaining pages of results rather than the default count.
-Keep in mind that paging methods have limits that you can confirm at [url:http://dev.twitter.com].
-Here's a sample of some of the most common Twitter API methods:
+Keep in mind that paging methods have limits that you can confirm at (http://dev.twitter.com). Here's a sample of some of the most common Twitter API methods:
 
     using TweetSharp;
 
@@ -150,7 +148,9 @@ Here's a sample of some of the most common Twitter API methods:
 
 ### Dealing with Twitter API Rate Limiting
 
-Twitter limits the frequency of all API calls in a variety of ways, to help ensure the service is not abused. This means that your applications will have to account for possible rate limit shortages at the user and IP address level. Client applications that are meant for public consumption usually use the rate limit profile of users that are logging in to their application. Server-side integration applications usually use their own, white-listed account's rate limit so that they can process large jobs without exhausting their allowance. You can find out more about rate limiting at [url:http://dev.twitter.com/pages/rate_limiting_faq] and [http://dev.twitter.com/pages/rate_limiting]. TweetSharp provides two ways to access rate limiting data. You can either make an explicit API call to retrieve it, or inspect the TwitterResponse's RateLimitStatus property, if it's available. The latter option conserves HTTP traffic, as the information is embedded in the HTTP Response itself.
+Twitter limits the frequency of all API calls in a variety of ways, to help ensure the service is not abused. This means that your applications will have to account for possible rate limit shortages at the user and IP address level. Client applications that are meant for public consumption usually use the rate limit profile of users that are logging in to their application. Server-side integration applications usually use their own, white-listed account's rate limit so that they can process large jobs without exhausting their allowance. You can find out more about rate limiting at (http://dev.twitter.com/pages/rate_limiting_faq) and (http://dev.twitter.com/pages/rate_limiting). 
+
+TweetSharp provides two ways to access rate limiting data. You can either make an explicit API call to retrieve it, or inspect the `TwitterResponse`'s `RateLimitStatus` property, if it's available. The latter option conserves HTTP traffic, as the information is embedded in the HTTP Response itself.
 
     using TweetSharp;
 
@@ -169,7 +169,7 @@ Twitter limits the frequency of all API calls in a variety of ways, to help ensu
 ### Asynchronous Methods
 
 TweetSharp supports executing methods asynchronously, and provides two styles of operation. 
-The first is a delegate style, where you pass an Action into the named method after any optional parameters. 
+The first is a delegate style, where you pass an `Action` into the named method after any optional parameters. 
 This `Action` provides you with both the expected response that you would get if you called the method sequentially, 
 as well as the response info you would have accessed on `TwitterService`'s `Response` property.
 
@@ -189,7 +189,7 @@ as well as the response info you would have accessed on `TwitterService`'s `Resp
                 }
             });
 
-In addition to delegate-based asynchronous methods, TweetSharp lets you simplify asynchronous operations with the familiar .NET Begin/End pattern. This style of operation involves calling the same methods as the synchronous style, but prefixing the method with _Begin_. Similarly, to retrieve the results you were looking for, you call the appropriate method beginning with _End_, with the option to provide a timeout value.
+In addition to delegate-based asynchronous methods, TweetSharp lets you simplify asynchronous operations with the familiar .NET `Begin`/`End` pattern. This style of operation involves calling the same methods as the synchronous style, but prefixing the method with `Begin`. Similarly, to retrieve the results you were looking for, you call the appropriate method beginning with `End`, with the option to provide a timeout value.
 
 #### Asynchronous operation (begin/end style)
     using TweetSharp;
@@ -204,9 +204,7 @@ In addition to delegate-based asynchronous methods, TweetSharp lets you simplify
     }
 
 #### Using Windows Phone 7
-TweetSharp is designed with Windows Phone 7 in mind. Each sequential method on TwitterService also has an asynchronous equivalent
-for Windows Phone 7. Rather than expect a response, each method asks for a delegation Action to perform, which provides the expected result,
-as well as a wrapper class to help you handle unexpected results in your application.
+TweetSharp is designed with Windows Phone 7 in mind. Each sequential method on `TwitterService` also has an asynchronous equivalent for Windows Phone 7. Rather than expect a response, each method asks for a delegation `Action` to perform, which provides the expected result, as well as a wrapper class to help you handle unexpected results in your application.
 
     using TweetSharp;
 
@@ -246,18 +244,19 @@ as well as a wrapper class to help you handle unexpected results in your applica
 
 #### Data Format Handling
 
-By default, TweetSharp handles serialization and deserialization details for you, preferring JSON for its compact size, which leads to better performance. If you want to switch TweetSharp's internal serialization mechanism to XML, you can do this by changing the TwitterService's Format enum property to TwitterServiceFormat.Xml. You may want to do this if your application requires lower level control of the content returned by Twitter. If you change the format, the RawSource property on each model object will contain the format you selected. *In Windows Phone 7, JSON is the only supported format*
+By default, TweetSharp handles serialization and deserialization details for you, preferring JSON for its compact size, which leads to better performance. If you want to switch TweetSharp's internal serialization mechanism to XML, you can do this by changing the `TwitterService`'s `Format` enum property to `TwitterServiceFormat.Xml`. You may want to do this if your application requires lower level control of the content returned by Twitter. If you change the format, the `RawSource` property on each model object will contain the format you selected. *On Windows Phone 7, JSON is the only supported format.*
 
     using TweetSharp;
 
     TwitterService service = new TwitterService("consumerKey", "consumerSecret");
     service.Format = TwitterServiceFormat.Xml;
 
-If you go one step further and decide you don't trust our serializer, you can change TwitterService's Serializer and Deserializer properties, setting them to Hammock-compatible interfaces, and TwitterService will then defer to your custom serializer in all requests.
+If you go one step further and decide you don't trust our serializer, you can change `TwitterService`'s `Serializer` and `Deserializer` properties, setting them to Hammock-compatible interfaces, and `TwitterService` will then defer to your custom serializer in all requests.
 
     using TweetSharp;
+    using Hammock.Serialization;
 
-    MyAwesomeSerializer serializer = new MyAwesomeSerializer(); <-- Implements Hammock.ISerializer and Hammock.IDeserializer
+    MyAwesomeSerializer serializer = new MyAwesomeSerializer();
     TwitterService service = new TwitterService("consumerKey", "consumerSecret");
     service.Serializer = serializer;
     service.Deserializer = serializer;
@@ -265,16 +264,18 @@ If you go one step further and decide you don't trust our serializer, you can ch
 ### Handling Errors
 
 There are four ways of handling errors at the Twitter API level. 
-* You can use the TwitterResponse object to inspect details about the request and act accordingly. This object is available sequentially using TwitterService's Response property, which means the Response property will update after each API call is complete. If you're using Windows Phone 7, you get the TwitterResponse object passed into each Action delegate, so you know the response you're accessing belongs to the request that's returning through the callback. 
-* TweetSharp uses a relaxed JSON parsing strategy to mitigate exceptions when API objects change. This means that you won't receive a +null+ response if your API call returns an error instead of the expected object; you'll get the object with default initialization. This means, for major objects like TwitterUser and TwitterStatus, that if the Id property is 0, something went wrong.
-* You can use TwitterService's Deserialize<T>(ITwitterModel model) method to attempt to cast any result you get back from TwitterService into a TwitterError object. This will help you capture any details you get back from the Twitter API explicitly. You can check the ErrorMessage property to ensure the JSON parser returned a valid hash.
-* If you're not confident with the deserialization of your object, you can use the RawSource property that exists on all Twitter model objects to inspect the actual JSON response that was returned by Twitter, specific to that object. This means if you returned a collection of tweets, each tweet's RawSource will contain the JSON for that specific tweet. This is helpful if you want to perform custom parsing or tracing of the raw data.
+* You can use the `TwitterResponse` object to inspect details about the request and act accordingly. This object is available sequentially using `TwitterService`'s `Response` property, which means the `Response` property will update after each API call is complete. If you're using Windows Phone 7, you get the `TwitterResponse` object passed into each `Action` delegate, so you know the response you're accessing belongs to the request that's returning through the callback. 
+* TweetSharp uses a relaxed JSON parsing strategy to mitigate exceptions when API objects change. This means that you won't receive a `null` response if your API call returns an error instead of the expected object; you'll get the object with default initialization. This means, for major objects like `TwitterUser` and `TwitterStatus`, that if the Id property is 0, something went wrong.
+* You can use `TwitterService`'s `Deserialize<T>(ITwitterModel model)` method to attempt to cast any result you get back from `TwitterService` into a `TwitterError` object. This will help you capture any details you get back from the Twitter API explicitly. You can check the `ErrorMessage` property to ensure the JSON parser returned a valid error message hash.
+* If you're not confident with the deserialization of your object, you can use the `RawSource` property that exists on all Twitter model objects to inspect the actual JSON response that was returned by Twitter, specific to that object. This means if you returned a collection of tweets, each tweet's `RawSource` will contain the JSON for that specific tweet. This is helpful if you want to perform custom parsing or tracing of the raw data.
 
 #### Error Handling Examples (sequential service calls)
     using TweetSharp;
 
     TwitterService service = new TwitterService(_consumerKey, _consumerSecret)();
-    IEnumerable<TwitterStatus> mentions = service.ListTweetsMentioningMe(); // <-- Missing authentication; this call will fail
+
+    // Missing authentication; this call will fail
+    IEnumerable<TwitterStatus> mentions = service.ListTweetsMentioningMe(); 
 
     // Strategy 1 - Look for bad requests by inspecting the response for important info
     if(service.Response.StatusCode == HttpStatusCode.OK) // <-- Should be 401 - Unauthorized
@@ -283,8 +284,10 @@ There are four ways of handling errors at the Twitter API level.
         // if you were trying to get a collection, any errors are added to it, so look for only one collection item
         if(mentions.Count() == 1) // <-- result
         {
-            // Serialization failures will result in "bare" objects; if this tweet's Id is zero, you know it either
-            // failed to deserialize properly, or, in the case of requesting collections, it contains the error returned from Twitter
+            // Serialization failures will result in "bare" objects; if this tweet's Id is zero, 
+            // you know it either failed to deserialize properly, or, in the case of requesting collections, 
+            // it contains the error returned from Twitter in the first and only result.
+
             TwitterStatus mention = mentions.First();
             if(mention.Id == 0)
             {
@@ -292,7 +295,8 @@ There are four ways of handling errors at the Twitter API level.
             }
 
             // Strategy 3 - All model objects store their raw content in RawSource, even if serialization fails; 
-            // This means you can check to see if the content is a real error vs. a failed deserialization
+            // This means you can check to see if the content is a real error vs. a failed deserialization.
+
             TwitterError error = service.Deserialize<TwitterError>(mentions.First());
             if(!string.IsNullOrEmpty(error.ErrorMessage))
             {
@@ -311,11 +315,11 @@ There are four ways of handling errors at the Twitter API level.
     }
 
 ### Using Twitter Entities
-TweetSharp supports Twitter's upcoming entities feature. This feature provides additional metadata for locating mentions, links, and hashtags embedded in tweet text. TweetSharp goes a step further, emulating the entities support for classes that Twitter currently doesn't support, that implement `ITweetable`; namely `TwitterStatus`, `TwitterDirectMessage` and `TwitterSearchStatus`. All three of these classes contain an Entities property. This allows you to find these elements in UI columns that contain multiple tweet types, via the `ITweetable` interface. To retrieve all of the entities in an ITweetable ordered by where they appear in the text itself, you can call the `Coalesce` method on relevant `TwitterEntities` instance.
+TweetSharp supports Twitter's entities feature. This feature provides additional metadata for locating mentions, links, and hashtags embedded in tweet text. TweetSharp goes a step further, emulating the entities support for classes that Twitter currently doesn't support, that implement `ITweetable`; namely `TwitterStatus`, `TwitterDirectMessage` and `TwitterSearchStatus`. All three of these classes contain an `Entities` property. This allows you to find these elements in UI columns that contain multiple tweet types, via the `ITweetable` interface. To retrieve all of the entities in an `ITweetable` ordered by where they appear in the text itself, you can call the `Coalesce` method on the relevant `TwitterEntities` instance.
 
 ### Client Development Features
 TweetSharp is a bit more than an API wrapper, it also provides support for client application development beyond the data. In this section, TweetSharp's features specific to developing client applications on the .NET Framework are highlighted.
-* All model objects are serializable, implement `IPropertyNotifyChanged`, use virtual signatures, and implement `DataContract` / `DataMember` where supported. This means all of our model objects are persistable in frameworks like NHibernate, observable in WPF, and serializable for over-the-wire communication in WCF.
+* All model objects are `[Serializable]`, implement `IPropertyNotifyChanged`, use virtual signatures, and implement `DataContract` / `DataMember` where supported. This means all of our model objects are persistable in frameworks like NHibernate, observable in WPF, and serializable for over-the-wire communication in WCF.
 * `ITweetable` and `ITweeter`: `TwitterStatus`, `TwitterDirectMessage`, and `TwitterSearchStatus` all implement `ITweetable`, which is an interface to make it easier to blend tweets from different sources into the same UI display. `ITweeter` helps encapsulate common user display properties, and TweetSharp even provides emulation of the entity metadata for non-timeline `ITweetable`s; this means that you can access mentions, hashtags, and links embedded in the text of any `ITweetable`, in the order they appear. 
 
     public interface ITweetable
