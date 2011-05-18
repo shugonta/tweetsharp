@@ -264,9 +264,13 @@ If you go one step further and decide you don't trust our serializer, you can ch
 ### Handling Errors
 
 There are four ways of handling errors at the Twitter API level. 
+
 * You can use the `TwitterResponse` object to inspect details about the request and act accordingly. This object is available sequentially using `TwitterService`'s `Response` property, which means the `Response` property will update after each API call is complete. If you're using Windows Phone 7, you get the `TwitterResponse` object passed into each `Action` delegate, so you know the response you're accessing belongs to the request that's returning through the callback. 
+
 * TweetSharp uses a relaxed JSON parsing strategy to mitigate exceptions when API objects change. This means that you won't receive a `null` response if your API call returns an error instead of the expected object; you'll get the object with default initialization. This means, for major objects like `TwitterUser` and `TwitterStatus`, that if the Id property is 0, something went wrong.
+
 * You can use `TwitterService`'s `Deserialize<T>(ITwitterModel model)` method to attempt to cast any result you get back from `TwitterService` into a `TwitterError` object. This will help you capture any details you get back from the Twitter API explicitly. You can check the `ErrorMessage` property to ensure the JSON parser returned a valid error message hash.
+
 * If you're not confident with the deserialization of your object, you can use the `RawSource` property that exists on all Twitter model objects to inspect the actual JSON response that was returned by Twitter, specific to that object. This means if you returned a collection of tweets, each tweet's `RawSource` will contain the JSON for that specific tweet. This is helpful if you want to perform custom parsing or tracing of the raw data.
 
 #### Error Handling Examples (sequential service calls)
@@ -319,7 +323,9 @@ TweetSharp supports Twitter's entities feature. This feature provides additional
 
 ### Client Development Features
 TweetSharp is a bit more than an API wrapper, it also provides support for client application development beyond the data. In this section, TweetSharp's features specific to developing client applications on the .NET Framework are highlighted.
+
 * All model objects are `[Serializable]`, implement `IPropertyNotifyChanged`, use virtual signatures, and implement `DataContract` / `DataMember` where supported. This means all of our model objects are persistable in frameworks like NHibernate, observable in WPF, and serializable for over-the-wire communication in WCF.
+
 * `ITweetable` and `ITweeter`: `TwitterStatus`, `TwitterDirectMessage`, and `TwitterSearchStatus` all implement `ITweetable`, which is an interface to make it easier to blend tweets from different sources into the same UI display. `ITweeter` helps encapsulate common user display properties, and TweetSharp even provides emulation of the entity metadata for non-timeline `ITweetable`s; this means that you can access mentions, hashtags, and links embedded in the text of any `ITweetable`, in the order they appear. 
 
     public interface ITweetable
