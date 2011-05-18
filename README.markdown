@@ -11,10 +11,7 @@ support or feature requests. After two and a half years of life and two years of
 officially `archived` / `dead`. It will not be extended, at least by the original authors. I am happy to accept any 
 reasonable pull requests, and the code is written with Visual Studio T4 templates, making it ridiculously easy to 
 extend for any API methods that Twitter introduces in the future. It would make a good base for a fork for those who
-are interested in carrying on. I will not be able to respond to requests for support, commercial or otherwise. 
-
-If you need commercial and/or active support for a Twitter-based API wrapper, you may want to orient your 
-organization towards alternatives like [Twitterizer](http://twitterizer.net) or [LINQ to Twitter](http://linqtotwitter.codeplex.com). 
+are interested in carrying on. I will not be able to respond to requests for support, commercial or otherwise. If you need commercial and/or active support for a Twitter-based API wrapper, you may want to orient your organization towards alternatives like [Twitterizer](http://twitterizer.net) or [LINQ to Twitter](http://linqtotwitter.codeplex.com). 
 
 API wrappers, in general, are a maintenance nightmare for both the consumer and the maintainer, and are a malnourished
 response to the fact that most APIs are not truly RESTful; if they were, we could consume them at the same level of
