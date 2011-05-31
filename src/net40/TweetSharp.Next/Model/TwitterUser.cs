@@ -47,6 +47,7 @@ namespace TweetSharp
         private int _statusesCount;
         private int _friendsCount;
         private int _favouritesCount;
+        private int _listedCount;
         private string _timeZone;
         private string _utcOffset;
         private string _language;
@@ -363,6 +364,24 @@ namespace TweetSharp
 
                 _favouritesCount = value;
                 OnPropertyChanged("FavouritesCount");
+            }
+        }
+
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual int ListedCount
+        {
+            get { return _listedCount; }
+            set
+            {
+                if (_listedCount == value)
+                {
+                    return;
+                }
+
+                _listedCount = value;
+                OnPropertyChanged("ListedCount");
             }
         }
 

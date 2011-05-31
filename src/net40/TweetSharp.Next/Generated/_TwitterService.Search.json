@@ -11,3 +11,10 @@ TwitterSearchResult, "search", SearchSince, long since_id, string q, int rpp
 TwitterSearchResult, "search", SearchSince, long since_id, string q, int rpp, TwitterSearchResultType resultType
 TwitterSearchResult, "search", SearchSince, long since_id, string q, int page, int rpp
 TwitterSearchResult, "search", SearchSince, long since_id, string q, int page, int rpp, TwitterSearchResultType resultType
+
+TwitterSearchResult, "search", SearchBefore, long max_id, string q
+TwitterSearchResult, "search", SearchBefore, long max_id, string q, TwitterSearchResultType resultType
+TwitterSearchResult, "search", SearchBefore, long max_id, string q, int rpp
+TwitterSearchResult, "search", SearchBefore, long max_id, string q, int rpp, TwitterSearchResultType resultType
+TwitterSearchResult, "search", SearchBefore, long max_id, string q, int page, int rpp
+TwitterSearchResult, "search", SearchBefore, long max_id, string q, int page, int rpp, TwitterSearchResultType resultType
