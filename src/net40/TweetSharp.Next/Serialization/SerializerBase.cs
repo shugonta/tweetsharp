@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-#if NET40
-using System.Dynamic;
-#endif
 using System.IO;
 using Hammock;
 using Hammock.Serialization;
@@ -76,11 +73,7 @@ namespace TweetSharp.Serialization
                 }
             }
         }
-
-#if NET40
-        public abstract dynamic DeserializeDynamic<T>(RestResponse<T> response) where T : DynamicObject;
-#endif
-
+        
         public virtual string SerializeJson(object instance, Type type)
         {
             using (var stringWriter = new StringWriter())
@@ -101,5 +94,12 @@ namespace TweetSharp.Serialization
         public abstract string Serialize(object instance, Type type);
 
         public abstract string ContentType { get; }
+
+#if NET40
+        public dynamic DeserializeDynamic(RestResponse<dynamic> response)
+        {
+            throw new NotSupportedException();
+        }
+#endif
     }
 }

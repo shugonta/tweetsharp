@@ -22,6 +22,8 @@ namespace TweetSharp
     /// <seealso href="http://dev.twitter.com/doc" />
     public partial class TwitterService
     {
+        public bool TraceEnabled { get; set; }
+
         public string Proxy { get; set; }
 
         public bool IncludeEntities { get; set; }

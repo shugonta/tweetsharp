@@ -31,14 +31,7 @@ namespace TweetSharp.Serialization
 
             return DeserializeContent<T>(content);
         }
-
-#if NET40
-        public override dynamic DeserializeDynamic<T>(RestResponse<T> response)
-        {
-            throw new NotSupportedException();
-        }
-#endif
-
+        
         internal T DeserializeContent<T>(string content)
         {
             var wantsCollection = typeof (IEnumerable).IsAssignableFrom(typeof (T));

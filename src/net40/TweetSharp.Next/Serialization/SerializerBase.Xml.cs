@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-#if NET40
-using System.Dynamic;
-#endif
 using System.IO;
 using System.Linq;
 using System.Xml;

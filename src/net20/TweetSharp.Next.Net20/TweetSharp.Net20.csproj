@@ -40,14 +40,15 @@
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hammock">
-      <HintPath>..\..\packages\Hammock.1.2.3\lib\net20\Hammock.dll</HintPath>
+    <Reference Include="Hammock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Hammock.1.2.6\lib\net20\Hammock.dll</HintPath>
     </Reference>
-    <Reference Include="LinqBridge">
-      <HintPath>..\..\packages\Hammock.1.2.3\lib\net20\LinqBridge.dll</HintPath>
+    <Reference Include="LinqBridge, Version=1.2.0.0, Culture=neutral, PublicKeyToken=c2b14eb747628076, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Hammock.1.2.6\lib\net20\LinqBridge.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json.Net20">
-      <HintPath>..\..\packages\Newtonsoft.Json.4.0.1\lib\20\Newtonsoft.Json.Net20.dll</HintPath>
+    <Reference Include="Newtonsoft.Json.Net20, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.4.0.2\lib\net20\Newtonsoft.Json.Net20.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -215,6 +216,7 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="key.snk" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assembly.ico" />

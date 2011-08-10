@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-#if NET40
-using System.Dynamic;
-#endif
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -413,14 +410,7 @@ namespace TweetSharp.Serialization
         {
             return DeserializeJson(content, type);
         }
-
-#if NET40
-        public override dynamic DeserializeDynamic<T>(RestResponse<T> response)
-        {
-            return _dynamicDeserializer.DeserializeDynamic(response);
-        }
-#endif
-
+        
         public override string Serialize(object instance, Type type)
         {
             return SerializeJson(instance, type);
