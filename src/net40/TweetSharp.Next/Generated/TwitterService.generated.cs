@@ -240,6 +240,18 @@ namespace TweetSharp
 
 		TwitterSearchResult SearchSince(long since_id, string q, int page, int rpp, TwitterSearchResultType resultType);	
 
+		TwitterSearchResult SearchBefore(long max_id, string q);	
+
+		TwitterSearchResult SearchBefore(long max_id, string q, TwitterSearchResultType resultType);	
+
+		TwitterSearchResult SearchBefore(long max_id, string q, int rpp);	
+
+		TwitterSearchResult SearchBefore(long max_id, string q, int rpp, TwitterSearchResultType resultType);	
+
+		TwitterSearchResult SearchBefore(long max_id, string q, int page, int rpp);	
+
+		TwitterSearchResult SearchBefore(long max_id, string q, int page, int rpp, TwitterSearchResultType resultType);	
+
 		IEnumerable<TwitterStatus> ListTweetsOnPublicTimeline();	
 
 		IEnumerable<TwitterStatus> ListTweetsOnHomeTimeline();	
@@ -742,6 +754,18 @@ namespace TweetSharp
 		IAsyncResult SearchSince(long since_id, string q, int page, int rpp, Action<TwitterSearchResult, TwitterResponse> action);		
 
 		IAsyncResult SearchSince(long since_id, string q, int page, int rpp, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action);		
+
+		IAsyncResult SearchBefore(long max_id, string q, Action<TwitterSearchResult, TwitterResponse> action);		
+
+		IAsyncResult SearchBefore(long max_id, string q, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action);		
+
+		IAsyncResult SearchBefore(long max_id, string q, int rpp, Action<TwitterSearchResult, TwitterResponse> action);		
+
+		IAsyncResult SearchBefore(long max_id, string q, int rpp, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action);		
+
+		IAsyncResult SearchBefore(long max_id, string q, int page, int rpp, Action<TwitterSearchResult, TwitterResponse> action);		
+
+		IAsyncResult SearchBefore(long max_id, string q, int page, int rpp, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action);		
 
 		IAsyncResult ListTweetsOnPublicTimeline(Action<IEnumerable<TwitterStatus>, TwitterResponse> action);		
 
@@ -1364,6 +1388,12 @@ namespace TweetSharp
 
 		TwitterSearchResult EndSearchSince(IAsyncResult result, TimeSpan timeout);
 
+		IAsyncResult BeginSearchBefore();
+
+		TwitterSearchResult EndSearchBefore(IAsyncResult result);		
+
+		TwitterSearchResult EndSearchBefore(IAsyncResult result, TimeSpan timeout);
+
 		IAsyncResult BeginListTweetsOnPublicTimeline();
 
 		IEnumerable<TwitterStatus> EndListTweetsOnPublicTimeline(IAsyncResult result);		
@@ -1886,6 +1916,18 @@ namespace TweetSharp
 		void SearchSince(long since_id, string q, int page, int rpp, Action<TwitterSearchResult, TwitterResponse> action);
 
 		void SearchSince(long since_id, string q, int page, int rpp, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action);
+
+		void SearchBefore(long max_id, string q, Action<TwitterSearchResult, TwitterResponse> action);
+
+		void SearchBefore(long max_id, string q, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action);
+
+		void SearchBefore(long max_id, string q, int rpp, Action<TwitterSearchResult, TwitterResponse> action);
+
+		void SearchBefore(long max_id, string q, int rpp, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action);
+
+		void SearchBefore(long max_id, string q, int page, int rpp, Action<TwitterSearchResult, TwitterResponse> action);
+
+		void SearchBefore(long max_id, string q, int page, int rpp, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action);
 
 		void ListTweetsOnPublicTimeline(Action<IEnumerable<TwitterStatus>, TwitterResponse> action);
 
@@ -2741,6 +2783,36 @@ namespace TweetSharp
 		public virtual TwitterSearchResult SearchSince(long since_id, string q, int page, int rpp, TwitterSearchResultType resultType)
 		{
 			return WithHammock<TwitterSearchResult>("search", FormatAsString, "?since_id=", since_id, "&q=", q, "&page=", page, "&rpp=", rpp, "&result_type=", resultType);
+		}
+
+		public virtual TwitterSearchResult SearchBefore(long max_id, string q)
+		{
+			return WithHammock<TwitterSearchResult>("search", FormatAsString, "?max_id=", max_id, "&q=", q);
+		}
+
+		public virtual TwitterSearchResult SearchBefore(long max_id, string q, TwitterSearchResultType resultType)
+		{
+			return WithHammock<TwitterSearchResult>("search", FormatAsString, "?max_id=", max_id, "&q=", q, "&result_type=", resultType);
+		}
+
+		public virtual TwitterSearchResult SearchBefore(long max_id, string q, int rpp)
+		{
+			return WithHammock<TwitterSearchResult>("search", FormatAsString, "?max_id=", max_id, "&q=", q, "&rpp=", rpp);
+		}
+
+		public virtual TwitterSearchResult SearchBefore(long max_id, string q, int rpp, TwitterSearchResultType resultType)
+		{
+			return WithHammock<TwitterSearchResult>("search", FormatAsString, "?max_id=", max_id, "&q=", q, "&rpp=", rpp, "&result_type=", resultType);
+		}
+
+		public virtual TwitterSearchResult SearchBefore(long max_id, string q, int page, int rpp)
+		{
+			return WithHammock<TwitterSearchResult>("search", FormatAsString, "?max_id=", max_id, "&q=", q, "&page=", page, "&rpp=", rpp);
+		}
+
+		public virtual TwitterSearchResult SearchBefore(long max_id, string q, int page, int rpp, TwitterSearchResultType resultType)
+		{
+			return WithHammock<TwitterSearchResult>("search", FormatAsString, "?max_id=", max_id, "&q=", q, "&page=", page, "&rpp=", rpp, "&result_type=", resultType);
 		}
 
 		public virtual IEnumerable<TwitterStatus> ListTweetsOnPublicTimeline()
@@ -3993,6 +4065,36 @@ namespace TweetSharp
 			return WithHammock(action, "search", FormatAsString, "?since_id=", since_id, "&q=", q, "&page=", page, "&rpp=", rpp, "&result_type=", resultType);
 		}
 
+		public virtual IAsyncResult SearchBefore(long max_id, string q, Action<TwitterSearchResult, TwitterResponse> action)
+		{
+			return WithHammock(action, "search", FormatAsString, "?max_id=", max_id, "&q=", q);
+		}
+
+		public virtual IAsyncResult SearchBefore(long max_id, string q, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action)
+		{
+			return WithHammock(action, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&result_type=", resultType);
+		}
+
+		public virtual IAsyncResult SearchBefore(long max_id, string q, int rpp, Action<TwitterSearchResult, TwitterResponse> action)
+		{
+			return WithHammock(action, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&rpp=", rpp);
+		}
+
+		public virtual IAsyncResult SearchBefore(long max_id, string q, int rpp, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action)
+		{
+			return WithHammock(action, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&rpp=", rpp, "&result_type=", resultType);
+		}
+
+		public virtual IAsyncResult SearchBefore(long max_id, string q, int page, int rpp, Action<TwitterSearchResult, TwitterResponse> action)
+		{
+			return WithHammock(action, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&page=", page, "&rpp=", rpp);
+		}
+
+		public virtual IAsyncResult SearchBefore(long max_id, string q, int page, int rpp, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action)
+		{
+			return WithHammock(action, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&page=", page, "&rpp=", rpp, "&result_type=", resultType);
+		}
+
 		public virtual IAsyncResult ListTweetsOnPublicTimeline(Action<IEnumerable<TwitterStatus>, TwitterResponse> action)
 		{
 			return WithHammock(action, "statuses/public_timeline", FormatAsString);
@@ -5241,6 +5343,36 @@ namespace TweetSharp
 		public virtual IAsyncResult BeginSearchSince(long since_id, string q, int page, int rpp, TwitterSearchResultType resultType)
 		{
 			return BeginWithHammock<TwitterSearchResult>(WebMethod.Get, "search", FormatAsString, "?since_id=", since_id, "&q=", q, "&page=", page, "&rpp=", rpp, "&result_type=", resultType);
+		}
+
+		public virtual IAsyncResult BeginSearchBefore(long max_id, string q)
+		{
+			return BeginWithHammock<TwitterSearchResult>(WebMethod.Get, "search", FormatAsString, "?max_id=", max_id, "&q=", q);
+		}
+
+		public virtual IAsyncResult BeginSearchBefore(long max_id, string q, TwitterSearchResultType resultType)
+		{
+			return BeginWithHammock<TwitterSearchResult>(WebMethod.Get, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&result_type=", resultType);
+		}
+
+		public virtual IAsyncResult BeginSearchBefore(long max_id, string q, int rpp)
+		{
+			return BeginWithHammock<TwitterSearchResult>(WebMethod.Get, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&rpp=", rpp);
+		}
+
+		public virtual IAsyncResult BeginSearchBefore(long max_id, string q, int rpp, TwitterSearchResultType resultType)
+		{
+			return BeginWithHammock<TwitterSearchResult>(WebMethod.Get, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&rpp=", rpp, "&result_type=", resultType);
+		}
+
+		public virtual IAsyncResult BeginSearchBefore(long max_id, string q, int page, int rpp)
+		{
+			return BeginWithHammock<TwitterSearchResult>(WebMethod.Get, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&page=", page, "&rpp=", rpp);
+		}
+
+		public virtual IAsyncResult BeginSearchBefore(long max_id, string q, int page, int rpp, TwitterSearchResultType resultType)
+		{
+			return BeginWithHammock<TwitterSearchResult>(WebMethod.Get, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&page=", page, "&rpp=", rpp, "&result_type=", resultType);
 		}
 
 		public virtual IAsyncResult BeginListTweetsOnPublicTimeline()
@@ -6493,6 +6625,16 @@ namespace TweetSharp
 			return EndWithHammock<TwitterSearchResult>(result, timeout);
 		}
 
+		public virtual TwitterSearchResult EndSearchBefore(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterSearchResult>(result);
+		}
+
+		public virtual TwitterSearchResult EndSearchBefore(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterSearchResult>(result, timeout);
+		}
+
 		public virtual IEnumerable<TwitterStatus> EndListTweetsOnPublicTimeline(IAsyncResult result) 
 		{
 			return EndWithHammock<IEnumerable<TwitterStatus>>(result);
@@ -7551,6 +7693,36 @@ namespace TweetSharp
 		public virtual void SearchSince(long since_id, string q, int page, int rpp, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action)
 		{
 			WithHammock(action, "search", FormatAsString, "?since_id=", since_id, "&q=", q, "&page=", page, "&rpp=", rpp, "&result_type=", resultType);
+		}
+
+		public virtual void SearchBefore(long max_id, string q, Action<TwitterSearchResult, TwitterResponse> action)
+		{
+			WithHammock(action, "search", FormatAsString, "?max_id=", max_id, "&q=", q);
+		}
+
+		public virtual void SearchBefore(long max_id, string q, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action)
+		{
+			WithHammock(action, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&result_type=", resultType);
+		}
+
+		public virtual void SearchBefore(long max_id, string q, int rpp, Action<TwitterSearchResult, TwitterResponse> action)
+		{
+			WithHammock(action, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&rpp=", rpp);
+		}
+
+		public virtual void SearchBefore(long max_id, string q, int rpp, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action)
+		{
+			WithHammock(action, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&rpp=", rpp, "&result_type=", resultType);
+		}
+
+		public virtual void SearchBefore(long max_id, string q, int page, int rpp, Action<TwitterSearchResult, TwitterResponse> action)
+		{
+			WithHammock(action, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&page=", page, "&rpp=", rpp);
+		}
+
+		public virtual void SearchBefore(long max_id, string q, int page, int rpp, TwitterSearchResultType resultType, Action<TwitterSearchResult, TwitterResponse> action)
+		{
+			WithHammock(action, "search", FormatAsString, "?max_id=", max_id, "&q=", q, "&page=", page, "&rpp=", rpp, "&result_type=", resultType);
 		}
 
 		public virtual void ListTweetsOnPublicTimeline(Action<IEnumerable<TwitterStatus>, TwitterResponse> action)
