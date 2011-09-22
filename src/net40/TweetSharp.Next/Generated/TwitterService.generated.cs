@@ -176,9 +176,9 @@ namespace TweetSharp
 
 		IEnumerable<TwitterStatus> ListTweetsOnListBefore(string listOwner, string idOrSlug, long maxId, int page, int perPage);	
 
-		TwitterCursorList<TwitterList> ListListMembershipsFor(string listOwner);	
+		TwitterCursorList<TwitterList> ListListMembershipsFor(string screenName, bool filterToOwnedLists, long cursor);	
 
-		TwitterCursorList<TwitterUser> ListListMembers(string listOwner, string idOrSlug);	
+		TwitterCursorList<TwitterUser> ListListMembers(string ownerScreenName, string slug, long cursor);	
 
 		TwitterUser AddListMember(string listOwner, string listIdOrSlug, long id);	
 
@@ -691,9 +691,9 @@ namespace TweetSharp
 
 		IAsyncResult ListTweetsOnListBefore(string listOwner, string idOrSlug, long maxId, int page, int perPage, Action<IEnumerable<TwitterStatus>, TwitterResponse> action);		
 
-		IAsyncResult ListListMembershipsFor(string listOwner, Action<TwitterCursorList<TwitterList>, TwitterResponse> action);		
+		IAsyncResult ListListMembershipsFor(string screenName, bool filterToOwnedLists, long cursor, Action<TwitterCursorList<TwitterList>, TwitterResponse> action);		
 
-		IAsyncResult ListListMembers(string listOwner, string idOrSlug, Action<TwitterCursorList<TwitterUser>, TwitterResponse> action);		
+		IAsyncResult ListListMembers(string ownerScreenName, string slug, long cursor, Action<TwitterCursorList<TwitterUser>, TwitterResponse> action);		
 
 		IAsyncResult AddListMember(string listOwner, string listIdOrSlug, long id, Action<TwitterUser, TwitterResponse> action);		
 
@@ -1853,9 +1853,9 @@ namespace TweetSharp
 
 		void ListTweetsOnListBefore(string listOwner, string idOrSlug, long maxId, int page, int perPage, Action<IEnumerable<TwitterStatus>, TwitterResponse> action);
 
-		void ListListMembershipsFor(string listOwner, Action<TwitterCursorList<TwitterList>, TwitterResponse> action);
+		void ListListMembershipsFor(string screenName, bool filterToOwnedLists, long cursor, Action<TwitterCursorList<TwitterList>, TwitterResponse> action);
 
-		void ListListMembers(string listOwner, string idOrSlug, Action<TwitterCursorList<TwitterUser>, TwitterResponse> action);
+		void ListListMembers(string ownerScreenName, string slug, long cursor, Action<TwitterCursorList<TwitterUser>, TwitterResponse> action);
 
 		void AddListMember(string listOwner, string listIdOrSlug, long id, Action<TwitterUser, TwitterResponse> action);
 
@@ -2625,14 +2625,14 @@ namespace TweetSharp
 			return WithHammock<IEnumerable<TwitterStatus>>("{list_owner}/lists/{id_or_slug}/statuses", FormatAsString, "?list_owner=", listOwner, "&id_or_slug=", idOrSlug, "&max_id=", maxId, "&page=", page, "&per_page=", perPage);
 		}
 
-		public virtual TwitterCursorList<TwitterList> ListListMembershipsFor(string listOwner)
+		public virtual TwitterCursorList<TwitterList> ListListMembershipsFor(string screenName, bool filterToOwnedLists, long cursor)
 		{
-			return WithHammock<TwitterCursorList<TwitterList>>("{list_owner}/lists/memberships", FormatAsString, "?list_owner=", listOwner);
+			return WithHammock<TwitterCursorList<TwitterList>>("lists/memberships", FormatAsString, "?screen_name=", screenName, "&filter_to_owned_lists=", filterToOwnedLists, "&cursor=", cursor);
 		}
 
-		public virtual TwitterCursorList<TwitterUser> ListListMembers(string listOwner, string idOrSlug)
+		public virtual TwitterCursorList<TwitterUser> ListListMembers(string ownerScreenName, string slug, long cursor)
 		{
-			return WithHammock<TwitterCursorList<TwitterUser>>("{list_owner}/{id_or_slug}/members", FormatAsString, "?list_owner=", listOwner, "&id_or_slug=", idOrSlug);
+			return WithHammock<TwitterCursorList<TwitterUser>>("lists/members", FormatAsString, "?owner_screen_name=", ownerScreenName, "&slug=", slug, "&cursor=", cursor);
 		}
 
 		public virtual TwitterUser AddListMember(string listOwner, string listIdOrSlug, long id)
@@ -3905,14 +3905,14 @@ namespace TweetSharp
 			return WithHammock(action, "{list_owner}/lists/{id_or_slug}/statuses", FormatAsString, "?list_owner=", listOwner, "&id_or_slug=", idOrSlug, "&max_id=", maxId, "&page=", page, "&per_page=", perPage);
 		}
 
-		public virtual IAsyncResult ListListMembershipsFor(string listOwner, Action<TwitterCursorList<TwitterList>, TwitterResponse> action)
+		public virtual IAsyncResult ListListMembershipsFor(string screenName, bool filterToOwnedLists, long cursor, Action<TwitterCursorList<TwitterList>, TwitterResponse> action)
 		{
-			return WithHammock(action, "{list_owner}/lists/memberships", FormatAsString, "?list_owner=", listOwner);
+			return WithHammock(action, "lists/memberships", FormatAsString, "?screen_name=", screenName, "&filter_to_owned_lists=", filterToOwnedLists, "&cursor=", cursor);
 		}
 
-		public virtual IAsyncResult ListListMembers(string listOwner, string idOrSlug, Action<TwitterCursorList<TwitterUser>, TwitterResponse> action)
+		public virtual IAsyncResult ListListMembers(string ownerScreenName, string slug, long cursor, Action<TwitterCursorList<TwitterUser>, TwitterResponse> action)
 		{
-			return WithHammock(action, "{list_owner}/{id_or_slug}/members", FormatAsString, "?list_owner=", listOwner, "&id_or_slug=", idOrSlug);
+			return WithHammock(action, "lists/members", FormatAsString, "?owner_screen_name=", ownerScreenName, "&slug=", slug, "&cursor=", cursor);
 		}
 
 		public virtual IAsyncResult AddListMember(string listOwner, string listIdOrSlug, long id, Action<TwitterUser, TwitterResponse> action)
@@ -5185,14 +5185,14 @@ namespace TweetSharp
 			return BeginWithHammock<IEnumerable<TwitterStatus>>(WebMethod.Get, "{list_owner}/lists/{id_or_slug}/statuses", FormatAsString, "?list_owner=", listOwner, "&id_or_slug=", idOrSlug, "&max_id=", maxId, "&page=", page, "&per_page=", perPage);
 		}
 
-		public virtual IAsyncResult BeginListListMembershipsFor(string listOwner)
+		public virtual IAsyncResult BeginListListMembershipsFor(string screenName, bool filterToOwnedLists, long cursor)
 		{
-			return BeginWithHammock<TwitterCursorList<TwitterList>>(WebMethod.Get, "{list_owner}/lists/memberships", FormatAsString, "?list_owner=", listOwner);
+			return BeginWithHammock<TwitterCursorList<TwitterList>>(WebMethod.Get, "lists/memberships", FormatAsString, "?screen_name=", screenName, "&filter_to_owned_lists=", filterToOwnedLists, "&cursor=", cursor);
 		}
 
-		public virtual IAsyncResult BeginListListMembers(string listOwner, string idOrSlug)
+		public virtual IAsyncResult BeginListListMembers(string ownerScreenName, string slug, long cursor)
 		{
-			return BeginWithHammock<TwitterCursorList<TwitterUser>>(WebMethod.Get, "{list_owner}/{id_or_slug}/members", FormatAsString, "?list_owner=", listOwner, "&id_or_slug=", idOrSlug);
+			return BeginWithHammock<TwitterCursorList<TwitterUser>>(WebMethod.Get, "lists/members", FormatAsString, "?owner_screen_name=", ownerScreenName, "&slug=", slug, "&cursor=", cursor);
 		}
 
 		public virtual IAsyncResult BeginAddListMember(string listOwner, string listIdOrSlug, long id)
@@ -7535,14 +7535,14 @@ namespace TweetSharp
 			WithHammock(action, "{list_owner}/lists/{id_or_slug}/statuses", FormatAsString, "?list_owner=", listOwner, "&id_or_slug=", idOrSlug, "&max_id=", maxId, "&page=", page, "&per_page=", perPage);
 		}
 
-		public virtual void ListListMembershipsFor(string listOwner, Action<TwitterCursorList<TwitterList>, TwitterResponse> action)
+		public virtual void ListListMembershipsFor(string screenName, bool filterToOwnedLists, long cursor, Action<TwitterCursorList<TwitterList>, TwitterResponse> action)
 		{
-			WithHammock(action, "{list_owner}/lists/memberships", FormatAsString, "?list_owner=", listOwner);
+			WithHammock(action, "lists/memberships", FormatAsString, "?screen_name=", screenName, "&filter_to_owned_lists=", filterToOwnedLists, "&cursor=", cursor);
 		}
 
-		public virtual void ListListMembers(string listOwner, string idOrSlug, Action<TwitterCursorList<TwitterUser>, TwitterResponse> action)
+		public virtual void ListListMembers(string ownerScreenName, string slug, long cursor, Action<TwitterCursorList<TwitterUser>, TwitterResponse> action)
 		{
-			WithHammock(action, "{list_owner}/{id_or_slug}/members", FormatAsString, "?list_owner=", listOwner, "&id_or_slug=", idOrSlug);
+			WithHammock(action, "lists/members", FormatAsString, "?owner_screen_name=", ownerScreenName, "&slug=", slug, "&cursor=", cursor);
 		}
 
 		public virtual void AddListMember(string listOwner, string listIdOrSlug, long id, Action<TwitterUser, TwitterResponse> action)
