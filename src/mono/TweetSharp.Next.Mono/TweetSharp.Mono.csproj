@@ -216,9 +216,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.4.0.1\lib\35\Newtonsoft.Json.Net35.dll</HintPath>
     </Reference>
-    <Reference Include="Hammock.Mono, Version=1.0.4107.42924, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d">
+    <Reference Include="Hammock.Mono, Version=1.0.4169.13916, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Hammock.1.2.3\mono\Hammock.Mono.dll</HintPath>
+      <HintPath>..\..\packages\Hammock.1.2.6\mono\Hammock.Mono.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
