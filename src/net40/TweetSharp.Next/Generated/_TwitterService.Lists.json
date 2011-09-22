@@ -20,8 +20,8 @@ IEnumerable<TwitterStatus>, "{list_owner}/lists/{id_or_slug}/statuses", ListTwee
 
 // List Memberships Resources
 
-TwitterCursorList<TwitterList>, "{list_owner}/lists/memberships", ListListMembershipsFor, string listOwner
-TwitterCursorList<TwitterUser>, "{list_owner}/{id_or_slug}/members", ListListMembers, string listOwner, string idOrSlug
+TwitterCursorList<TwitterList>, "lists/memberships", ListListMembershipsFor, string screenName, bool filterToOwnedLists, long cursor
+TwitterCursorList<TwitterUser>, "lists/members", ListListMembers, string ownerScreenName, string slug, long cursor
 TwitterUser, "{list_owner}/{id_or_slug}/members":POST, AddListMember, string listOwner, string listIdOrSlug, long id
 TwitterUser, "{list_owner}/{id_or_slug}/members":DELETE, RemoveListMember, string listOwner, string listIdOrSlug, long id
 TwitterCursorList<TwitterList>, "{list_owner}/{id_or_slug}/create_all":POST, AddListMembers, string listOwner, string listIdOrSlug, long userId
