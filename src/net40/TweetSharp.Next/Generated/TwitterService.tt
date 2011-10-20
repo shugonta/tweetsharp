@@ -30,7 +30,7 @@
 		string absolutePath = Host.ResolvePath(manifest);
 		string contents = File.ReadAllText(absolutePath);
 
-		var lines = contents.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+		var lines = contents.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 		lines = lines.Where(l => !l.StartsWith("//")).ToArray(); // <-- Ignore comments
 
 		foreach(var line in lines)
