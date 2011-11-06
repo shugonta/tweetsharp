@@ -8,16 +8,20 @@ TweetSharp is a Twitter API library that greatly simplifies the task of adding T
 #### Caveat Tractor / Public Service Announcement
 This project is open source software, not a commercial product, so please curb your enthusiasm around expecting 
 support or feature requests. After two and a half years of life and two years of active development, this project is
-officially `archived` / `dead`. It will not be extended, at least by the original authors. I am happy to accept any 
-reasonable pull requests, and the code is written with Visual Studio T4 templates, making it ridiculously easy to 
-extend for any API methods that Twitter introduces in the future. It would make a good base for a fork for those who
-are interested in carrying on. I will not be able to respond to requests for support, commercial or otherwise. If you need commercial and/or active support for a Twitter-based API wrapper, you may want to orient your organization towards alternatives like [Twitterizer](http://twitterizer.net) or [LINQ to Twitter](http://linqtotwitter.codeplex.com). 
+no longer supported freely. I am happy to accept any reasonable pull requests, and the code is written with Visual Studio 
+T4 templates, making it ridiculously easy to extend for any API methods that Twitter introduces in the future. 
 
-API wrappers, in general, are a maintenance nightmare for both the consumer and the maintainer, and are a malnourished
-response to the fact that most APIs are not truly RESTful; if they were, we could consume them at the same level of
-abstraction as a browser, rather than constantly creating and maintaining bespoke mappings across service boundaries. 
-If you would rather maintain your own micro-libraries at the service level using a general purpose HTTP API client, I 
-suggest you use [Hammock](http://github.com/danielcrenna/hammock) or [RestSharp](http://github.com/johnsheehan/restsharp).
+Due to popular request, I will offer commercial support services, depending on the scope and time requirements of
+your project. There will be a formal process for purchasing support available shortly, but in the meantime, you may
+inquire about support requests by contacting me through GitHub. For the majority of cases, you should be able to 
+get on fine by forking, adding your desired API changes through the DSL, and issuing a pull request.
+
+API wrappers, in general, are a maintenance nightmare for both the consumer and the maintainer (this particular project
+tries very hard to be maintainable through code generation, DSLs, and a flexible data serialization scheme, but nothing
+is perfect), and are a malnourished response to the fact that most APIs are not truly RESTful; if they were, we could 
+consume them at the same level of abstraction as a browser, rather than constantly creating and maintaining bespoke 
+mappings across service boundaries. If you would rather maintain your own micro-libraries at the service level using a 
+general purpose HTTP API client, I suggest you use [Hammock](http://github.com/danielcrenna/hammock) or [RestSharp](http://github.com/johnsheehan/restsharp).
 
 #### Learn the Twitter API
 Make sure you visit (http://dev.twitter.com) to get acquainted with the Twitter API. Most of the time, confusion
