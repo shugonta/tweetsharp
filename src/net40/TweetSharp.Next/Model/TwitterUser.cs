@@ -51,7 +51,14 @@ namespace TweetSharp
         private string _timeZone;
         private string _utcOffset;
         private string _language;
-
+        private bool? _showAllInlineMedia;
+        private bool? _followRequestSent;
+        private bool? _isTranslator;
+        private bool? _contributorsEnabled;
+        private bool? _defaultProfile;
+        private string _profileBackgroundImageUrlHttps;
+        private string _profileImageUrlHttps;
+        
 #if !Smartphone && !NET20
         /// <summary>
         /// Gets or sets the ID.
@@ -548,6 +555,133 @@ namespace TweetSharp
 
                 _createdDate = value;
                 OnPropertyChanged("CreatedDate");
+            }
+        }
+
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual bool? ShowAllInlineMedia
+        {
+            get { return _showAllInlineMedia; }
+            set
+            {
+                if (_showAllInlineMedia == value)
+                {
+                    return;
+                }
+
+                _showAllInlineMedia = value;
+                OnPropertyChanged("ShowAllInlineMedia");
+            }
+        }
+
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual bool? FollowRequestSent
+        {
+            get { return _followRequestSent; }
+            set
+            {
+                if (_followRequestSent == value)
+                {
+                    return;
+                }
+
+                _followRequestSent = value;
+                OnPropertyChanged("FollowRequestSent");
+            }
+        }
+
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual bool? IsTranslator
+        {
+            get { return _isTranslator; }
+            set
+            {
+                if (_isTranslator == value)
+                {
+                    return;
+                }
+
+                _isTranslator = value;
+                OnPropertyChanged("IsTranslator");
+            }
+        }
+
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual bool? ContributorsEnabled
+        {
+            get { return _contributorsEnabled; }
+            set
+            {
+                if (_contributorsEnabled == value)
+                {
+                    return;
+                }
+
+                _contributorsEnabled = value;
+                OnPropertyChanged("ContributorsEnabled");
+            }
+        }
+
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual string ProfileBackgroundImageUrlHttps
+        {
+            get { return _profileBackgroundImageUrlHttps; }
+            set
+            {
+                if (_profileBackgroundImageUrlHttps == value)
+                {
+                    return;
+                }
+
+                _profileBackgroundImageUrlHttps = value;
+                OnPropertyChanged("ProfileBackgroundImageUrlHttps");
+            }
+        }
+        
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual string ProfileImageUrlHttps
+        {
+            get { return _profileImageUrlHttps; }
+            set
+            {
+                if (_profileImageUrlHttps == value)
+                {
+                    return;
+                }
+
+                _profileImageUrlHttps = value;
+                OnPropertyChanged("ProfileImageUrlHttps");
+            }
+        }
+
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        [JsonProperty("default_profile")]
+        public virtual bool? IsDefaultProfile
+        {
+            get { return _defaultProfile; }
+            set
+            {
+                if (_defaultProfile == value)
+                {
+                    return;
+                }
+
+                _defaultProfile = value;
+                OnPropertyChanged("IsDefaultProfile");
             }
         }
 

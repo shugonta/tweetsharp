@@ -26,7 +26,7 @@ namespace TweetSharp
     {
         private string _name;
         private string _infoName;
-        private short _utcOffset;
+        private string _utcOffset;
 
 #if !Smartphone && !NET20
         [DataMember]
@@ -68,7 +68,7 @@ namespace TweetSharp
 #if !Smartphone && !NET20
         [DataMember]
 #endif
-            public virtual short UtcOffset
+        public virtual string UtcOffset
         {
             get { return _utcOffset; }
             set
