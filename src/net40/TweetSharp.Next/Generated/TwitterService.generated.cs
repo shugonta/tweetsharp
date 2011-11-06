@@ -16,6 +16,18 @@ namespace TweetSharp
 
 		TwitterError EndSession();	
 
+		TwitterAccount GetAccountSettings();	
+
+		TwitterAccount UpdateAccountSettings(int trend_location_woeid);	
+
+		TwitterAccount UpdateAccountSettings(bool sleepTimeEnabled);	
+
+		TwitterAccount UpdateAccountSettings(bool sleepTimeEnabled, int startSleepTime, int endSleepTime);	
+
+		TwitterAccount UpdateAccountSettings(string lang);	
+
+		TwitterAccount UpdateAccountSettings(string timeZone, string lang);	
+
 		TwitterUser UpdateDeliveryDevice(TwitterDeliveryDevice device);	
 
 		TwitterUser UpdateProfileColors(string backgroundColor, string textColor, string linkColor, string sidebarFillColor, string sidebarBorderColor);	
@@ -526,6 +538,18 @@ namespace TweetSharp
 		IAsyncResult GetRateLimitStatus(Action<TwitterRateLimitStatus, TwitterResponse> action);		
 
 		IAsyncResult EndSession(Action<TwitterError, TwitterResponse> action);		
+
+		IAsyncResult GetAccountSettings(Action<TwitterAccount, TwitterResponse> action);		
+
+		IAsyncResult UpdateAccountSettings(int trend_location_woeid, Action<TwitterAccount, TwitterResponse> action);		
+
+		IAsyncResult UpdateAccountSettings(bool sleepTimeEnabled, Action<TwitterAccount, TwitterResponse> action);		
+
+		IAsyncResult UpdateAccountSettings(bool sleepTimeEnabled, int startSleepTime, int endSleepTime, Action<TwitterAccount, TwitterResponse> action);		
+
+		IAsyncResult UpdateAccountSettings(string lang, Action<TwitterAccount, TwitterResponse> action);		
+
+		IAsyncResult UpdateAccountSettings(string timeZone, string lang, Action<TwitterAccount, TwitterResponse> action);		
 
 		IAsyncResult UpdateDeliveryDevice(TwitterDeliveryDevice device, Action<TwitterUser, TwitterResponse> action);		
 
@@ -1049,6 +1073,18 @@ namespace TweetSharp
 		TwitterError EndEndSession(IAsyncResult result);		
 
 		TwitterError EndEndSession(IAsyncResult result, TimeSpan timeout);
+
+		IAsyncResult BeginGetAccountSettings();
+
+		TwitterAccount EndGetAccountSettings(IAsyncResult result);		
+
+		TwitterAccount EndGetAccountSettings(IAsyncResult result, TimeSpan timeout);
+
+		IAsyncResult BeginUpdateAccountSettings();
+
+		TwitterAccount EndUpdateAccountSettings(IAsyncResult result);		
+
+		TwitterAccount EndUpdateAccountSettings(IAsyncResult result, TimeSpan timeout);
 
 		IAsyncResult BeginUpdateDeliveryDevice();
 
@@ -1679,6 +1715,18 @@ namespace TweetSharp
 
 		void EndSession(Action<TwitterError, TwitterResponse> action);
 
+		void GetAccountSettings(Action<TwitterAccount, TwitterResponse> action);
+
+		void UpdateAccountSettings(int trend_location_woeid, Action<TwitterAccount, TwitterResponse> action);
+
+		void UpdateAccountSettings(bool sleepTimeEnabled, Action<TwitterAccount, TwitterResponse> action);
+
+		void UpdateAccountSettings(bool sleepTimeEnabled, int startSleepTime, int endSleepTime, Action<TwitterAccount, TwitterResponse> action);
+
+		void UpdateAccountSettings(string lang, Action<TwitterAccount, TwitterResponse> action);
+
+		void UpdateAccountSettings(string timeZone, string lang, Action<TwitterAccount, TwitterResponse> action);
+
 		void UpdateDeliveryDevice(TwitterDeliveryDevice device, Action<TwitterUser, TwitterResponse> action);
 
 		void UpdateProfileColors(string backgroundColor, string textColor, string linkColor, string sidebarFillColor, string sidebarBorderColor, Action<TwitterUser, TwitterResponse> action);
@@ -2205,6 +2253,36 @@ namespace TweetSharp
 		public virtual TwitterError EndSession()
 		{
 			return WithHammock<TwitterError>(WebMethod.Post, "account/end_session", FormatAsString);
+		}
+
+		public virtual TwitterAccount GetAccountSettings()
+		{
+			return WithHammock<TwitterAccount>("account/settings", FormatAsString);
+		}
+
+		public virtual TwitterAccount UpdateAccountSettings(int trend_location_woeid)
+		{
+			return WithHammock<TwitterAccount>(WebMethod.Post, "account/settings", FormatAsString, "?trend_location_woeid=", trend_location_woeid);
+		}
+
+		public virtual TwitterAccount UpdateAccountSettings(bool sleepTimeEnabled)
+		{
+			return WithHammock<TwitterAccount>(WebMethod.Post, "account/settings", FormatAsString, "?sleep_time_enabled=", sleepTimeEnabled);
+		}
+
+		public virtual TwitterAccount UpdateAccountSettings(bool sleepTimeEnabled, int startSleepTime, int endSleepTime)
+		{
+			return WithHammock<TwitterAccount>(WebMethod.Post, "account/settings", FormatAsString, "?sleep_time_enabled=", sleepTimeEnabled, "&start_sleep_time=", startSleepTime, "&end_sleep_time=", endSleepTime);
+		}
+
+		public virtual TwitterAccount UpdateAccountSettings(string lang)
+		{
+			return WithHammock<TwitterAccount>(WebMethod.Post, "account/settings", FormatAsString, "?lang=", lang);
+		}
+
+		public virtual TwitterAccount UpdateAccountSettings(string timeZone, string lang)
+		{
+			return WithHammock<TwitterAccount>(WebMethod.Post, "account/settings", FormatAsString, "?time_zone=", timeZone, "&lang=", lang);
 		}
 
 		public virtual TwitterUser UpdateDeliveryDevice(TwitterDeliveryDevice device)
@@ -3477,6 +3555,36 @@ namespace TweetSharp
 			return WithHammock(WebMethod.Post, action, "account/end_session", FormatAsString);
 		}
 
+		public virtual IAsyncResult GetAccountSettings(Action<TwitterAccount, TwitterResponse> action)
+		{
+			return WithHammock(action, "account/settings", FormatAsString);
+		}
+
+		public virtual IAsyncResult UpdateAccountSettings(int trend_location_woeid, Action<TwitterAccount, TwitterResponse> action)
+		{
+			return WithHammock(WebMethod.Post, action, "account/settings", FormatAsString, "?trend_location_woeid=", trend_location_woeid);
+		}
+
+		public virtual IAsyncResult UpdateAccountSettings(bool sleepTimeEnabled, Action<TwitterAccount, TwitterResponse> action)
+		{
+			return WithHammock(WebMethod.Post, action, "account/settings", FormatAsString, "?sleep_time_enabled=", sleepTimeEnabled);
+		}
+
+		public virtual IAsyncResult UpdateAccountSettings(bool sleepTimeEnabled, int startSleepTime, int endSleepTime, Action<TwitterAccount, TwitterResponse> action)
+		{
+			return WithHammock(WebMethod.Post, action, "account/settings", FormatAsString, "?sleep_time_enabled=", sleepTimeEnabled, "&start_sleep_time=", startSleepTime, "&end_sleep_time=", endSleepTime);
+		}
+
+		public virtual IAsyncResult UpdateAccountSettings(string lang, Action<TwitterAccount, TwitterResponse> action)
+		{
+			return WithHammock(WebMethod.Post, action, "account/settings", FormatAsString, "?lang=", lang);
+		}
+
+		public virtual IAsyncResult UpdateAccountSettings(string timeZone, string lang, Action<TwitterAccount, TwitterResponse> action)
+		{
+			return WithHammock(WebMethod.Post, action, "account/settings", FormatAsString, "?time_zone=", timeZone, "&lang=", lang);
+		}
+
 		public virtual IAsyncResult UpdateDeliveryDevice(TwitterDeliveryDevice device, Action<TwitterUser, TwitterResponse> action)
 		{
 			return WithHammock(action, "account/update_delivery_device", FormatAsString, "?device=", device);
@@ -4745,6 +4853,36 @@ namespace TweetSharp
 		public virtual IAsyncResult BeginEndSession()
 		{
 			return BeginWithHammock<TwitterError>(WebMethod.Post, "account/end_session", FormatAsString);
+		}
+
+		public virtual IAsyncResult BeginGetAccountSettings()
+		{
+			return BeginWithHammock<TwitterAccount>(WebMethod.Get, "account/settings", FormatAsString);
+		}
+
+		public virtual IAsyncResult BeginUpdateAccountSettings(int trend_location_woeid)
+		{
+			return BeginWithHammock<TwitterAccount>(WebMethod.Post, "account/settings", FormatAsString, "?trend_location_woeid=", trend_location_woeid);
+		}
+
+		public virtual IAsyncResult BeginUpdateAccountSettings(bool sleepTimeEnabled)
+		{
+			return BeginWithHammock<TwitterAccount>(WebMethod.Post, "account/settings", FormatAsString, "?sleep_time_enabled=", sleepTimeEnabled);
+		}
+
+		public virtual IAsyncResult BeginUpdateAccountSettings(bool sleepTimeEnabled, int startSleepTime, int endSleepTime)
+		{
+			return BeginWithHammock<TwitterAccount>(WebMethod.Post, "account/settings", FormatAsString, "?sleep_time_enabled=", sleepTimeEnabled, "&start_sleep_time=", startSleepTime, "&end_sleep_time=", endSleepTime);
+		}
+
+		public virtual IAsyncResult BeginUpdateAccountSettings(string lang)
+		{
+			return BeginWithHammock<TwitterAccount>(WebMethod.Post, "account/settings", FormatAsString, "?lang=", lang);
+		}
+
+		public virtual IAsyncResult BeginUpdateAccountSettings(string timeZone, string lang)
+		{
+			return BeginWithHammock<TwitterAccount>(WebMethod.Post, "account/settings", FormatAsString, "?time_zone=", timeZone, "&lang=", lang);
 		}
 
 		public virtual IAsyncResult BeginUpdateDeliveryDevice(TwitterDeliveryDevice device)
@@ -6027,6 +6165,26 @@ namespace TweetSharp
 			return EndWithHammock<TwitterError>(result, timeout);
 		}
 
+		public virtual TwitterAccount EndGetAccountSettings(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterAccount>(result);
+		}
+
+		public virtual TwitterAccount EndGetAccountSettings(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterAccount>(result, timeout);
+		}
+
+		public virtual TwitterAccount EndUpdateAccountSettings(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterAccount>(result);
+		}
+
+		public virtual TwitterAccount EndUpdateAccountSettings(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterAccount>(result, timeout);
+		}
+
 		public virtual TwitterUser EndUpdateDeliveryDevice(IAsyncResult result) 
 		{
 			return EndWithHammock<TwitterUser>(result);
@@ -7075,6 +7233,36 @@ namespace TweetSharp
 		public virtual void EndSession(Action<TwitterError, TwitterResponse> action)
 		{
 			WithHammock(WebMethod.Post, action, "account/end_session", FormatAsString);
+		}
+
+		public virtual void GetAccountSettings(Action<TwitterAccount, TwitterResponse> action)
+		{
+			WithHammock(action, "account/settings", FormatAsString);
+		}
+
+		public virtual void UpdateAccountSettings(int trend_location_woeid, Action<TwitterAccount, TwitterResponse> action)
+		{
+			WithHammock(WebMethod.Post, action, "account/settings", FormatAsString, "?trend_location_woeid=", trend_location_woeid);
+		}
+
+		public virtual void UpdateAccountSettings(bool sleepTimeEnabled, Action<TwitterAccount, TwitterResponse> action)
+		{
+			WithHammock(WebMethod.Post, action, "account/settings", FormatAsString, "?sleep_time_enabled=", sleepTimeEnabled);
+		}
+
+		public virtual void UpdateAccountSettings(bool sleepTimeEnabled, int startSleepTime, int endSleepTime, Action<TwitterAccount, TwitterResponse> action)
+		{
+			WithHammock(WebMethod.Post, action, "account/settings", FormatAsString, "?sleep_time_enabled=", sleepTimeEnabled, "&start_sleep_time=", startSleepTime, "&end_sleep_time=", endSleepTime);
+		}
+
+		public virtual void UpdateAccountSettings(string lang, Action<TwitterAccount, TwitterResponse> action)
+		{
+			WithHammock(WebMethod.Post, action, "account/settings", FormatAsString, "?lang=", lang);
+		}
+
+		public virtual void UpdateAccountSettings(string timeZone, string lang, Action<TwitterAccount, TwitterResponse> action)
+		{
+			WithHammock(WebMethod.Post, action, "account/settings", FormatAsString, "?time_zone=", timeZone, "&lang=", lang);
 		}
 
 		public virtual void UpdateDeliveryDevice(TwitterDeliveryDevice device, Action<TwitterUser, TwitterResponse> action)

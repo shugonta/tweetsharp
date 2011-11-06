@@ -70,12 +70,15 @@
     <Compile Include="Model\Enums\TwitterEnums.cs" />
     <Compile Include="Model\ICursored.cs" />
     <Compile Include="Model\ITweetable.cs" />
+    <Compile Include="Model\TwitterAccount.cs" />
     <Compile Include="Model\TwitterClientInfo.cs" />
     <Compile Include="Model\TwitterEntities.cs" />
     <Compile Include="Model\TwitterLocalTrends.cs" />
     <Compile Include="Model\TwitterSavedSearch.cs" />
     <Compile Include="Model\TwitterSearchResult.cs" />
     <Compile Include="Model\TwitterSearchStatus.cs" />
+    <Compile Include="Model\TwitterSleepTime.cs" />
+    <Compile Include="Model\TwitterTimeZone.cs" />
     <Compile Include="Model\TwitterTrend.cs" />
     <Compile Include="Model\TwitterTrends.cs" />
     <Compile Include="Model\TwitterUserStreams.cs" />

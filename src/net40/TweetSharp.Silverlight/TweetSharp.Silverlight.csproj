@@ -119,6 +119,9 @@
     <Compile Include="..\tweetsharp.next\model\OAuthRequestToken.cs">
       <Link>Model\OAuthRequestToken.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp.Next\Model\TwitterAccount.cs">
+      <Link>Model\TwitterAccount.cs</Link>
+    </Compile>
     <Compile Include="..\tweetsharp.next\model\TwitterClientInfo.cs">
       <Link>Model\TwitterClientInfo.cs</Link>
     </Compile>
@@ -176,8 +179,14 @@
     <Compile Include="..\tweetsharp.next\model\TwitterSearchStatus.cs">
       <Link>Model\TwitterSearchStatus.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp.Next\Model\TwitterSleepTime.cs">
+      <Link>Model\TwitterSleepTime.cs</Link>
+    </Compile>
     <Compile Include="..\tweetsharp.next\model\TwitterStatus.cs">
       <Link>Model\TwitterStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\TweetSharp.Next\Model\TwitterTimeZone.cs">
+      <Link>Model\TwitterTimeZone.cs</Link>
     </Compile>
     <Compile Include="..\TweetSharp.Next\Model\TwitterTrend.cs">
       <Link>Model\TwitterTrend.cs</Link>
