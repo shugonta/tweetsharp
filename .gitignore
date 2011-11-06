@@ -41,3 +41,5 @@ src/net20/TweetSharp.Next.Net20/obj
 src/net40/TweetSharp.Next/obj/
 *.user
 *.suo
+src/net40/TweetSharp.Next.Tests/App.config
+src/net40/TweetSharp.Next.Tests/bin/Release
