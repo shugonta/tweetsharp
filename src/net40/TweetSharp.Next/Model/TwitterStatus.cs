@@ -33,6 +33,7 @@ namespace TweetSharp
         private TwitterStatus _retweetedStatus;
         private TwitterGeoLocation _location;
         private TwitterEntities _entities;
+        private bool? _isPossiblySensitive;
 
 #if !Smartphone && !NET20
         [DataMember]
@@ -318,6 +319,25 @@ namespace TweetSharp
 
                 _entities = value;
                 OnPropertyChanged("Entities");
+            }
+        }
+
+        [JsonProperty("possibly_sensitive")]
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual bool? IsPossiblySensitive
+        {
+            get { return _isPossiblySensitive; }
+            set
+            {
+                if (_isPossiblySensitive == value)
+                {
+                    return;
+                }
+
+                _isPossiblySensitive = value;
+                OnPropertyChanged("IsPossiblySensitive");
             }
         }
 
