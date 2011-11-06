@@ -284,7 +284,7 @@ namespace TweetSharp
 
             if(_customDeserializer != null)
             {
-                return _customDeserializer.Deserialize(response);
+                return _customDeserializer.Deserialize<T>(response);
             }
 
             switch(Format)

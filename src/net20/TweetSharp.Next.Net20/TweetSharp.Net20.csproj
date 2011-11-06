@@ -41,14 +41,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Hammock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.2.6\lib\net20\Hammock.dll</HintPath>
+      <HintPath>..\..\packages\Hammock.1.2.7\lib\net20\Hammock.dll</HintPath>
     </Reference>
-    <Reference Include="LinqBridge, Version=1.2.0.0, Culture=neutral, PublicKeyToken=c2b14eb747628076, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.2.6\lib\net20\LinqBridge.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json.Net20, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.4.0.2\lib\net20\Newtonsoft.Json.Net20.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.4.0.3\lib\net20\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -211,6 +207,7 @@
     <Compile Include="..\..\net40\TweetSharp.Next\Service\TwitterServiceFormat.cs">
       <Link>Service\TwitterServiceFormat.cs</Link>
     </Compile>
+    <Compile Include="Compat\LinqBridge-1.2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

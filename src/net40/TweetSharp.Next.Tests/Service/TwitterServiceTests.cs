@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Compat.Web;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
@@ -314,7 +315,7 @@ namespace TweetSharp.Tests.Service
             var tweet = service.SendTweet(DateTime.UtcNow.Ticks.ToString(), 45.43989910068863, -75.69168090820312);
 
             var uri = service.Response.RequestUri;
-            var queryString = System.Compat.Web.HttpUtility.ParseQueryString(uri.Query);
+            var queryString = HttpUtility.ParseQueryString(uri.Query);
             var location = queryString["location"];
             Assert.AreNotEqual("TweetSharp.TwitterGeoLocation", location);
 
@@ -787,7 +788,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_user_lists()
         {
             var service = GetAuthenticatedService();
-            var lists = service.ListListsFor("danielcrenna");
+            var lists = service.ListListsFor("danielcrenna", -1);
 
             Assert.IsNotNull(lists);
             if(lists.Count == 0)
@@ -812,7 +813,7 @@ namespace TweetSharp.Tests.Service
             Assert.IsNotNullOrEmpty(list.Name);
             Assert.AreEqual(list.Name, "test-list");
 
-            list = service.DeleteList("danielcrenna", list.Slug);
+            list = service.DeleteList(list.Id);
             Assert.IsNotNull(list);
             Assert.IsNotNullOrEmpty(list.Name);
             Assert.AreEqual(list.Name, "test-list");

@@ -16,7 +16,7 @@ namespace TweetSharp.Serialization
 {
     internal class XmlSerializer : SerializerBase
     {
-        public override T Deserialize<T>(RestResponse<T> response)
+        public override T Deserialize<T>(RestResponseBase response)
         {
             if (response == null)
             {
@@ -134,7 +134,7 @@ namespace TweetSharp.Serialization
             return type;
         }
 
-        public override object Deserialize(RestResponse response, Type type)
+        public override object Deserialize(RestResponseBase response, Type type)
         {
             return Deserialize(response.Content, type);
         }

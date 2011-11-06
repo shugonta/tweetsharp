@@ -23,7 +23,7 @@ namespace TweetSharp.Serialization
         }
 #endif
 
-        public override T Deserialize<T>(RestResponse<T> response)
+        public override T Deserialize<T>(RestResponseBase response)
         {
             if (response == null)
             {
@@ -401,7 +401,7 @@ namespace TweetSharp.Serialization
             return type;
         }
 
-        public override object Deserialize(RestResponse response, Type type)
+        public override object Deserialize(RestResponseBase response, Type type)
         {
             return DeserializeJson(response.Content, type);
         }

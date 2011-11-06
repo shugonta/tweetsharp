@@ -48,9 +48,9 @@ namespace TweetSharp.Serialization
             }
         }
 
-        public abstract T Deserialize<T>(RestResponse<T> response);
-
-        public abstract object Deserialize(RestResponse response, Type type);
+        public abstract T Deserialize<T>(RestResponseBase response);
+       
+        public abstract object Deserialize(RestResponseBase response, Type type);
         
         public virtual object DeserializeJson(string content, Type type)
         {
@@ -96,7 +96,7 @@ namespace TweetSharp.Serialization
         public abstract string ContentType { get; }
 
 #if NET40
-        public dynamic DeserializeDynamic(RestResponse<dynamic> response)
+        public dynamic DeserializeDynamic(RestResponseBase response)
         {
             throw new NotSupportedException();
         }
