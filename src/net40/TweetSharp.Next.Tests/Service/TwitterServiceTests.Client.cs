@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using NUnit.Framework;
@@ -8,6 +9,19 @@ namespace TweetSharp.Tests.Service
     [TestFixture]
     public partial class TwitterServiceTests
     {
+        [Test]
+        [Ignore("This is a brittle test because it requires that you be me (and you are probably not me)")]
+        public void Can_get_parameterized_followers_of_lists()
+        {
+            // TwitterService.ListUserProfilesFor(IEnumerable<int>) => does not work properly, not sure why
+            var service = new TwitterService(_consumerKey, _consumerSecret);
+            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+
+            //  TwitterService.ListUserProfilesFor(IEnumerable<int>) => does not work properly, not sure why
+            IEnumerable<TwitterUser> result = service.ListUserProfilesFor(new[] {12345});
+            Console.WriteLine(result.Count());
+        }
+
         [Test]
         [Ignore("This is a brittle test because it requires that you be me (and you are probably not me)")]
         public void Can_get_updated_user_properties()

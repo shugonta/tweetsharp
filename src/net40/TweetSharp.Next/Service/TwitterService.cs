@@ -369,7 +369,7 @@ namespace TweetSharp
                     segments[i] = ((DateTime) segments[i]).ToString("yyyy-MM-dd");
                 }
 
-                if (typeof (IEnumerable).IsAssignableFrom(segments[i].GetType()) && !(segments[i].GetType() == typeof (string)))
+                if (typeof(IEnumerable).IsAssignableFrom(segments[i].GetType()) && !(segments[i] is string))
                 {
                     ResolveEnumerableUrlSegments(segments, i);
                 }
@@ -392,13 +392,14 @@ namespace TweetSharp
 
         private static void ResolveEnumerableUrlSegments(IList<object> segments, int i)
         {
-            var collection = (IEnumerable<object>) segments[i];
+            // [DC] Enumerable segments will be typed, but we only care about string values
+            var collection = (from object item in (IEnumerable) segments[i] select item.ToString()).ToList();
             var total = collection.Count();
             var sb = new StringBuilder();
             var count = 0;
             foreach (var item in collection)
             {
-                sb.Append(item.ToString());
+                sb.Append(item);
                 if (count < total - 1)
                 {
                     sb.Append(",");
