@@ -13,13 +13,11 @@ namespace TweetSharp.Tests.Service
         [Ignore("This is a brittle test because it requires that you be me (and you are probably not me)")]
         public void Can_get_parameterized_followers_of_lists()
         {
-            // TwitterService.ListUserProfilesFor(IEnumerable<int>) => does not work properly, not sure why
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            //  TwitterService.ListUserProfilesFor(IEnumerable<int>) => does not work properly, not sure why
-            IEnumerable<TwitterUser> result = service.ListUserProfilesFor(new[] {12345});
-            Console.WriteLine(result.Count());
+            var result = service.ListUserProfilesFor(new [] { "danielcrenna"}, new[] {12345});
+            Assert.AreEqual(2, result.Count());
         }
 
         [Test]
