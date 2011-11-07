@@ -1,4 +1,6 @@
-﻿IEnumerable<TwitterStatus>, "statuses/public_timeline", ListTweetsOnPublicTimeline
+﻿// https://dev.twitter.com/docs/api#timelines
+
+IEnumerable<TwitterStatus>, "statuses/public_timeline", ListTweetsOnPublicTimeline
 
 IEnumerable<TwitterStatus>, "statuses/home_timeline", ListTweetsOnHomeTimeline
 IEnumerable<TwitterStatus>, "statuses/home_timeline", ListTweetsOnHomeTimeline, int count

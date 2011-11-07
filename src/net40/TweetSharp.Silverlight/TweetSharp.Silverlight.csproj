@@ -161,6 +161,9 @@
     <Compile Include="..\TweetSharp.Next\Model\TwitterLocalTrends.cs">
       <Link>Model\TwitterLocalTrends.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp.Next\Model\TwitterPlace.cs">
+      <Link>Model\TwitterPlace.cs</Link>
+    </Compile>
     <Compile Include="..\tweetsharp.next\model\TwitterRateLimitStatus.cs">
       <Link>Model\TwitterRateLimitStatus.cs</Link>
     </Compile>

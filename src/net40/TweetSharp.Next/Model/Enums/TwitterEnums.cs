@@ -31,4 +31,15 @@ namespace TweetSharp
         Mention,
         Url
     }
+
+#if !SILVERLIGHT
+    [Serializable]
+#endif
+    public enum TwitterPlaceType
+    {
+        City,
+        Neighborhood,
+        Country,
+        Admin
+    }
 }

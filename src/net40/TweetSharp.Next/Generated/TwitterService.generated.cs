@@ -528,6 +528,16 @@ namespace TweetSharp
 
 		TwitterUserSuggestions ListSuggestedUsers(string categorySlug);	
 
+		TwitterPlace GetPlace(string id);	
+
+		IEnumerable<TwitterPlace> ReverseGeocode(double lat, double @long);	
+
+		IEnumerable<TwitterPlace> GeoSearchByCoordinates(double lat, double @long);	
+
+		IEnumerable<TwitterPlace> GeoSearchByQuery(string query);	
+
+		IEnumerable<TwitterPlace> GeoSearchByIp(string ip);	
+
 		#endregion
 #endif
 
@@ -1050,6 +1060,16 @@ namespace TweetSharp
 		IAsyncResult ListSuggestedUserCategories(Action<IEnumerable<TwitterUserSuggestions>, TwitterResponse> action);		
 
 		IAsyncResult ListSuggestedUsers(string categorySlug, Action<TwitterUserSuggestions, TwitterResponse> action);		
+
+		IAsyncResult GetPlace(string id, Action<TwitterPlace, TwitterResponse> action);		
+
+		IAsyncResult ReverseGeocode(double lat, double @long, Action<IEnumerable<TwitterPlace>, TwitterResponse> action);		
+
+		IAsyncResult GeoSearchByCoordinates(double lat, double @long, Action<IEnumerable<TwitterPlace>, TwitterResponse> action);		
+
+		IAsyncResult GeoSearchByQuery(string query, Action<IEnumerable<TwitterPlace>, TwitterResponse> action);		
+
+		IAsyncResult GeoSearchByIp(string ip, Action<IEnumerable<TwitterPlace>, TwitterResponse> action);		
 
 		#endregion
 #endif
@@ -1704,6 +1724,36 @@ namespace TweetSharp
 
 		TwitterUserSuggestions EndListSuggestedUsers(IAsyncResult result, TimeSpan timeout);
 
+		IAsyncResult BeginGetPlace();
+
+		TwitterPlace EndGetPlace(IAsyncResult result);		
+
+		TwitterPlace EndGetPlace(IAsyncResult result, TimeSpan timeout);
+
+		IAsyncResult BeginReverseGeocode();
+
+		IEnumerable<TwitterPlace> EndReverseGeocode(IAsyncResult result);		
+
+		IEnumerable<TwitterPlace> EndReverseGeocode(IAsyncResult result, TimeSpan timeout);
+
+		IAsyncResult BeginGeoSearchByCoordinates();
+
+		IEnumerable<TwitterPlace> EndGeoSearchByCoordinates(IAsyncResult result);		
+
+		IEnumerable<TwitterPlace> EndGeoSearchByCoordinates(IAsyncResult result, TimeSpan timeout);
+
+		IAsyncResult BeginGeoSearchByQuery();
+
+		IEnumerable<TwitterPlace> EndGeoSearchByQuery(IAsyncResult result);		
+
+		IEnumerable<TwitterPlace> EndGeoSearchByQuery(IAsyncResult result, TimeSpan timeout);
+
+		IAsyncResult BeginGeoSearchByIp();
+
+		IEnumerable<TwitterPlace> EndGeoSearchByIp(IAsyncResult result);		
+
+		IEnumerable<TwitterPlace> EndGeoSearchByIp(IAsyncResult result, TimeSpan timeout);
+
 		#endregion
 #endif
 	
@@ -2226,6 +2276,16 @@ namespace TweetSharp
 		void ListSuggestedUserCategories(Action<IEnumerable<TwitterUserSuggestions>, TwitterResponse> action);
 
 		void ListSuggestedUsers(string categorySlug, Action<TwitterUserSuggestions, TwitterResponse> action);
+
+		void GetPlace(string id, Action<TwitterPlace, TwitterResponse> action);
+
+		void ReverseGeocode(double lat, double @long, Action<IEnumerable<TwitterPlace>, TwitterResponse> action);
+
+		void GeoSearchByCoordinates(double lat, double @long, Action<IEnumerable<TwitterPlace>, TwitterResponse> action);
+
+		void GeoSearchByQuery(string query, Action<IEnumerable<TwitterPlace>, TwitterResponse> action);
+
+		void GeoSearchByIp(string ip, Action<IEnumerable<TwitterPlace>, TwitterResponse> action);
 
 		#endregion
 #endif		
@@ -3535,6 +3595,31 @@ namespace TweetSharp
 			return WithHammock<TwitterUserSuggestions>("/users/suggestions/{category_slug}", FormatAsString, "?category_slug=", categorySlug);
 		}
 
+		public virtual TwitterPlace GetPlace(string id)
+		{
+			return WithHammock<TwitterPlace>("geo/id/{id}", FormatAsString, "?id=", id);
+		}
+
+		public virtual IEnumerable<TwitterPlace> ReverseGeocode(double lat, double @long)
+		{
+			return WithHammock<IEnumerable<TwitterPlace>>("geo/reverse_geocode", FormatAsString, "?lat=", lat, "&long=", @long);
+		}
+
+		public virtual IEnumerable<TwitterPlace> GeoSearchByCoordinates(double lat, double @long)
+		{
+			return WithHammock<IEnumerable<TwitterPlace>>("geo/search", FormatAsString, "?lat=", lat, "&long=", @long);
+		}
+
+		public virtual IEnumerable<TwitterPlace> GeoSearchByQuery(string query)
+		{
+			return WithHammock<IEnumerable<TwitterPlace>>("geo/search", FormatAsString, "?query=", query);
+		}
+
+		public virtual IEnumerable<TwitterPlace> GeoSearchByIp(string ip)
+		{
+			return WithHammock<IEnumerable<TwitterPlace>>("geo/search", FormatAsString, "?ip=", ip);
+		}
+
 		#endregion
 #endif
 
@@ -4833,6 +4918,31 @@ namespace TweetSharp
 		public virtual IAsyncResult ListSuggestedUsers(string categorySlug, Action<TwitterUserSuggestions, TwitterResponse> action)
 		{
 			return WithHammock(action, "/users/suggestions/{category_slug}", FormatAsString, "?category_slug=", categorySlug);
+		}
+
+		public virtual IAsyncResult GetPlace(string id, Action<TwitterPlace, TwitterResponse> action)
+		{
+			return WithHammock(action, "geo/id/{id}", FormatAsString, "?id=", id);
+		}
+
+		public virtual IAsyncResult ReverseGeocode(double lat, double @long, Action<IEnumerable<TwitterPlace>, TwitterResponse> action)
+		{
+			return WithHammock(action, "geo/reverse_geocode", FormatAsString, "?lat=", lat, "&long=", @long);
+		}
+
+		public virtual IAsyncResult GeoSearchByCoordinates(double lat, double @long, Action<IEnumerable<TwitterPlace>, TwitterResponse> action)
+		{
+			return WithHammock(action, "geo/search", FormatAsString, "?lat=", lat, "&long=", @long);
+		}
+
+		public virtual IAsyncResult GeoSearchByQuery(string query, Action<IEnumerable<TwitterPlace>, TwitterResponse> action)
+		{
+			return WithHammock(action, "geo/search", FormatAsString, "?query=", query);
+		}
+
+		public virtual IAsyncResult GeoSearchByIp(string ip, Action<IEnumerable<TwitterPlace>, TwitterResponse> action)
+		{
+			return WithHammock(action, "geo/search", FormatAsString, "?ip=", ip);
 		}
 
 		#endregion
@@ -6135,6 +6245,31 @@ namespace TweetSharp
 			return BeginWithHammock<TwitterUserSuggestions>(WebMethod.Get, "/users/suggestions/{category_slug}", FormatAsString, "?category_slug=", categorySlug);
 		}
 
+		public virtual IAsyncResult BeginGetPlace(string id)
+		{
+			return BeginWithHammock<TwitterPlace>(WebMethod.Get, "geo/id/{id}", FormatAsString, "?id=", id);
+		}
+
+		public virtual IAsyncResult BeginReverseGeocode(double lat, double @long)
+		{
+			return BeginWithHammock<IEnumerable<TwitterPlace>>(WebMethod.Get, "geo/reverse_geocode", FormatAsString, "?lat=", lat, "&long=", @long);
+		}
+
+		public virtual IAsyncResult BeginGeoSearchByCoordinates(double lat, double @long)
+		{
+			return BeginWithHammock<IEnumerable<TwitterPlace>>(WebMethod.Get, "geo/search", FormatAsString, "?lat=", lat, "&long=", @long);
+		}
+
+		public virtual IAsyncResult BeginGeoSearchByQuery(string query)
+		{
+			return BeginWithHammock<IEnumerable<TwitterPlace>>(WebMethod.Get, "geo/search", FormatAsString, "?query=", query);
+		}
+
+		public virtual IAsyncResult BeginGeoSearchByIp(string ip)
+		{
+			return BeginWithHammock<IEnumerable<TwitterPlace>>(WebMethod.Get, "geo/search", FormatAsString, "?ip=", ip);
+		}
+
 		public virtual TwitterUser EndVerifyCredentials(IAsyncResult result) 
 		{
 			return EndWithHammock<TwitterUser>(result);
@@ -7213,6 +7348,56 @@ namespace TweetSharp
 		public virtual TwitterUserSuggestions EndListSuggestedUsers(IAsyncResult result, TimeSpan timeout) 
 		{
 			return EndWithHammock<TwitterUserSuggestions>(result, timeout);
+		}
+
+		public virtual TwitterPlace EndGetPlace(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterPlace>(result);
+		}
+
+		public virtual TwitterPlace EndGetPlace(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterPlace>(result, timeout);
+		}
+
+		public virtual IEnumerable<TwitterPlace> EndReverseGeocode(IAsyncResult result) 
+		{
+			return EndWithHammock<IEnumerable<TwitterPlace>>(result);
+		}
+
+		public virtual IEnumerable<TwitterPlace> EndReverseGeocode(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<IEnumerable<TwitterPlace>>(result, timeout);
+		}
+
+		public virtual IEnumerable<TwitterPlace> EndGeoSearchByCoordinates(IAsyncResult result) 
+		{
+			return EndWithHammock<IEnumerable<TwitterPlace>>(result);
+		}
+
+		public virtual IEnumerable<TwitterPlace> EndGeoSearchByCoordinates(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<IEnumerable<TwitterPlace>>(result, timeout);
+		}
+
+		public virtual IEnumerable<TwitterPlace> EndGeoSearchByQuery(IAsyncResult result) 
+		{
+			return EndWithHammock<IEnumerable<TwitterPlace>>(result);
+		}
+
+		public virtual IEnumerable<TwitterPlace> EndGeoSearchByQuery(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<IEnumerable<TwitterPlace>>(result, timeout);
+		}
+
+		public virtual IEnumerable<TwitterPlace> EndGeoSearchByIp(IAsyncResult result) 
+		{
+			return EndWithHammock<IEnumerable<TwitterPlace>>(result);
+		}
+
+		public virtual IEnumerable<TwitterPlace> EndGeoSearchByIp(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<IEnumerable<TwitterPlace>>(result, timeout);
 		}
 
 		#endregion
@@ -8513,6 +8698,31 @@ namespace TweetSharp
 		public virtual void ListSuggestedUsers(string categorySlug, Action<TwitterUserSuggestions, TwitterResponse> action)
 		{
 			WithHammock(action, "/users/suggestions/{category_slug}", FormatAsString, "?category_slug=", categorySlug);
+		}
+
+		public virtual void GetPlace(string id, Action<TwitterPlace, TwitterResponse> action)
+		{
+			WithHammock(action, "geo/id/{id}", FormatAsString, "?id=", id);
+		}
+
+		public virtual void ReverseGeocode(double lat, double @long, Action<IEnumerable<TwitterPlace>, TwitterResponse> action)
+		{
+			WithHammock(action, "geo/reverse_geocode", FormatAsString, "?lat=", lat, "&long=", @long);
+		}
+
+		public virtual void GeoSearchByCoordinates(double lat, double @long, Action<IEnumerable<TwitterPlace>, TwitterResponse> action)
+		{
+			WithHammock(action, "geo/search", FormatAsString, "?lat=", lat, "&long=", @long);
+		}
+
+		public virtual void GeoSearchByQuery(string query, Action<IEnumerable<TwitterPlace>, TwitterResponse> action)
+		{
+			WithHammock(action, "geo/search", FormatAsString, "?query=", query);
+		}
+
+		public virtual void GeoSearchByIp(string ip, Action<IEnumerable<TwitterPlace>, TwitterResponse> action)
+		{
+			WithHammock(action, "geo/search", FormatAsString, "?ip=", ip);
 		}
 
 		#endregion

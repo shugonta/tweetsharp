@@ -26,7 +26,7 @@ namespace TweetSharp
     {
         private string _name;
         private string _infoName;
-        private string _utcOffset;
+        private short _utcOffset;
 
 #if !Smartphone && !NET20
         [DataMember]
@@ -68,7 +68,7 @@ namespace TweetSharp
 #if !Smartphone && !NET20
         [DataMember]
 #endif
-        public virtual string UtcOffset
+            public virtual short UtcOffset
         {
             get { return _utcOffset; }
             set
@@ -83,20 +83,44 @@ namespace TweetSharp
             }
         }
 
-
         public int CompareTo(TwitterTimeZone other)
         {
-            throw new NotImplementedException();
+            return InfoName.CompareTo(other.InfoName);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof (TwitterTimeZone)) return false;
+            return Equals((TwitterTimeZone) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (RawSource != null ? RawSource.GetHashCode() : 0);
+        }
+
+        public static bool operator ==(TwitterTimeZone left, TwitterTimeZone right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(TwitterTimeZone left, TwitterTimeZone right)
+        {
+            return !Equals(left, right);
         }
 
         public bool Equals(TwitterTimeZone other)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Equals(other.RawSource, RawSource);
         }
 
 #if !Smartphone && !NET20
-        [DataMember]
+       [DataMember]
 #endif
-            public virtual string RawSource { get; set; }
+       public virtual string RawSource { get; set; }
     }
 }

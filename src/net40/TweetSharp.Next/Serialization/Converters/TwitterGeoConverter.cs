@@ -11,8 +11,7 @@ namespace TweetSharp
     /// </summary>
     internal class TwitterGeoConverter : TwitterConverterBase
     {
-        private const string GeoTemplate =
-            "\"geo\":{{\"type\":\"Point\",\"coordinates\":[{0}, {1}]}}";
+        private const string GeoTemplate = "\"geo\":{{\"type\":\"Point\",\"coordinates\":[{0}, {1}]}}";
 
         /// <summary>
         /// Writes the JSON.

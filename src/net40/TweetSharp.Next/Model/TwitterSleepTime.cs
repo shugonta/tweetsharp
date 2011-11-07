@@ -5,10 +5,7 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-    // "sleep_time":{"start_time":0,"end_time":12,"enabled":true}
-    // (apparently I sleep from midnight to noon)
-
-    #if !SILVERLIGHT
+#if !SILVERLIGHT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
@@ -81,12 +78,37 @@ namespace TweetSharp
 
         public int CompareTo(TwitterSleepTime other)
         {
-            throw new NotImplementedException();
+            return StartTime.CompareTo(other.StartTime);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof (TwitterSleepTime)) return false;
+            return Equals((TwitterSleepTime) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (RawSource != null ? RawSource.GetHashCode() : 0);
+        }
+
+        public static bool operator ==(TwitterSleepTime left, TwitterSleepTime right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(TwitterSleepTime left, TwitterSleepTime right)
+        {
+            return !Equals(left, right);
         }
 
         public bool Equals(TwitterSleepTime other)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Equals(other.RawSource, RawSource);
         }
 
 #if !Smartphone && !NET20

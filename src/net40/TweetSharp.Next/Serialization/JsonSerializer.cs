@@ -72,7 +72,7 @@ namespace TweetSharp.Serialization
                         return (T) (ITwitterModel) result;
                     }
                 }
-                    // {"delete":{"status":{"user_id_str":"14363427","id_str":"45331017418014721","id":45331017418014721,"user_id":14363427}}}
+                // {"delete":{"status":{"user_id_str":"14363427","id_str":"45331017418014721","id":45331017418014721,"user_id":14363427}}}
                 else if (content.StartsWith("{\"delete\":{\"status\":"))
                 {
                     var deleted = JObject.Parse(content)["delete"]["status"];
@@ -112,21 +112,20 @@ namespace TweetSharp.Serialization
                     if (artifact["user"] != null)
                     {
                         var tweet = DeserializeSingle<TwitterStatus>(content);
-                        var @event = new TwitterUserStreamStatus { Status = tweet, RawSource = content };
-                        return (T)(ITwitterModel)@event;
+                        var @event = new TwitterUserStreamStatus {Status = tweet, RawSource = content};
+                        return (T) (ITwitterModel) @event;
                     }
 
-                    if(artifact["direct_message"] != null)
+                    if (artifact["direct_message"] != null)
                     {
                         var json = artifact["direct_message"].ToString();
                         var dm = DeserializeSingle<TwitterDirectMessage>(json);
-                        var @event = new TwitterUserStreamDirectMessage { DirectMessage = dm, RawSource = json };
-                        return (T)(ITwitterModel)@event;
+                        var @event = new TwitterUserStreamDirectMessage {DirectMessage = dm, RawSource = json};
+                        return (T) (ITwitterModel) @event;
                     }
 
-                    var unknown = new TwitterStreamArtifact();
-                    unknown.RawSource = content;
-                    return (T)(ITwitterModel)unknown;
+                    var unknown = new TwitterStreamArtifact {RawSource = content};
+                    return (T) (ITwitterModel) unknown;
                 }
             }
 
@@ -259,6 +258,7 @@ namespace TweetSharp.Serialization
                 instance = ParseInnerContent<T>("users", content, cursor, instance, ref array);
                 instance = ParseInnerContent<T>("lists", content, cursor, instance, ref array);
                 instance = ParseInnerContent<T>("ids", content, cursor, instance, ref array);
+                instance = ParseInnerContent<T>("result", content, cursor, instance, ref array);
 
                 if(array == null)
                 {
@@ -332,7 +332,17 @@ namespace TweetSharp.Serialization
             }
             else
             {
-                array = JArray.Parse(content);
+                // [DC]: We need to go one level deeper than "result" in the case of places
+                if(type.Equals("result"))
+                {
+                    instance = JObject.Parse(content);
+                    var inner = instance["result"]["places"].ToString();
+                    array = JArray.Parse(inner);
+                }
+                else
+                {
+                    array = JArray.Parse(content);
+                }
             }
             return array;
         }

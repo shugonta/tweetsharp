@@ -220,12 +220,37 @@ namespace TweetSharp
 
         public int CompareTo(TwitterAccount other)
         {
-            throw new NotImplementedException();
+            return other.ScreenName.CompareTo(ScreenName);
         }
 
         public bool Equals(TwitterAccount other)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Equals(other.RawSource, RawSource);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof (TwitterAccount)) return false;
+            return Equals((TwitterAccount) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (RawSource != null ? RawSource.GetHashCode() : 0);
+        }
+
+        public static bool operator ==(TwitterAccount left, TwitterAccount right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(TwitterAccount left, TwitterAccount right)
+        {
+            return !Equals(left, right);
         }
     }
 }

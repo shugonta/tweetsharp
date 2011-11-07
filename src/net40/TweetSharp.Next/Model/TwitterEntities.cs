@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
@@ -155,6 +156,7 @@ namespace TweetSharp
 #endif
 #if !Smartphone && !NET20
     [DataContract]
+    [DebuggerDisplay("@{Value}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterUrl : TwitterEntity
@@ -187,6 +189,7 @@ namespace TweetSharp
 #endif
 #if !Smartphone && !NET20
     [DataContract]
+    [DebuggerDisplay("@{ScreenName}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterMention : TwitterEntity
@@ -220,6 +223,7 @@ namespace TweetSharp
 #endif
 #if !Smartphone && !NET20
     [DataContract]
+    [DebuggerDisplay("#{Text}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterHashTag : TwitterEntity

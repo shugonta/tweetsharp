@@ -50,12 +50,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.4.0.3\lib\sl3-wp\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Net" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +136,9 @@
     </Compile>
     <Compile Include="..\TweetSharp.Next\Model\TwitterLocalTrends.cs">
       <Link>Model\TwitterLocalTrends.cs</Link>
+    </Compile>
+    <Compile Include="..\TweetSharp.Next\Model\TwitterPlace.cs">
+      <Link>Model\TwitterPlace.cs</Link>
     </Compile>
     <Compile Include="..\TweetSharp.Next\Model\TwitterRateLimitStatus.cs">
       <Link>Model\TwitterRateLimitStatus.cs</Link>

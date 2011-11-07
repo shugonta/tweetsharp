@@ -25,7 +25,7 @@ namespace TweetSharp
                 writer.WriteValue(boolean.ToString());
             }
 
-            if (value is Boolean || value is bool?)
+            if (value is bool)
             {
                 writer.WriteValue(value.ToString());
             }
@@ -47,10 +47,7 @@ namespace TweetSharp
             }
 
             var value = reader.Value.ToString();
-            var wonkyBool = value.Equals("0") ? true
-                                : value.Equals("1")
-                                      ? false
-                                      : TryConvertBool(value);
+            var wonkyBool = value.Equals("0") || !value.Equals("1") && TryConvertBool(value);
             return wonkyBool;
         }
 

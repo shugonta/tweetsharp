@@ -74,6 +74,7 @@
     <Compile Include="Model\TwitterClientInfo.cs" />
     <Compile Include="Model\TwitterEntities.cs" />
     <Compile Include="Model\TwitterLocalTrends.cs" />
+    <Compile Include="Model\TwitterPlace.cs" />
     <Compile Include="Model\TwitterSavedSearch.cs" />
     <Compile Include="Model\TwitterSearchResult.cs" />
     <Compile Include="Model\TwitterSearchStatus.cs" />
@@ -144,6 +145,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Generated\_TwitterService.Trends.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Generated\_TwitterService.Places.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Generated\_TwitterService.Notifications.json">

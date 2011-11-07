@@ -23,6 +23,7 @@
 		"_TwitterService.Trends.json", 
 		"_TwitterService.Tweets.json",
 		"_TwitterService.Users.json",		
+		"_TwitterService.Places.json",
 	};
 
 	foreach(var manifest in manifests)

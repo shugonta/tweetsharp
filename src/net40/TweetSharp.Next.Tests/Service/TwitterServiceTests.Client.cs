@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using NUnit.Framework;
 
 namespace TweetSharp.Tests.Service
@@ -9,6 +9,88 @@ namespace TweetSharp.Tests.Service
     [TestFixture]
     public partial class TwitterServiceTests
     {
+        [Test]
+        public void Can_get_basic_place()
+        {
+            var service = new TwitterService(_consumerKey, _consumerSecret);
+            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+
+            // Presidio
+            var place = service.GetPlace("df51dec6f4ee2b2c");
+            Assert.IsNotNull(place);
+            Assert.AreEqual("df51dec6f4ee2b2c", place.Id);
+            Assert.AreEqual("Presidio", place.Name);
+            Assert.AreEqual("United States", place.Country);
+            Assert.AreEqual("US", place.CountryCode);
+            Assert.AreEqual("Presidio, San Francisco", place.FullName);
+        }
+
+        [Test]
+        public void Can_get_reverse_geocode()
+        {
+            var service = new TwitterService(_consumerKey, _consumerSecret);
+            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+
+            var places = service.ReverseGeocode(45.42153, -75.697193).ToList();
+            Assert.IsNotEmpty(places);
+            Assert.AreEqual(4, places.Count);
+
+            places = places.OrderBy(p => p.Id).ToList();
+            
+            Assert.AreEqual("Ottawa, Ontario", places[0].FullName);
+            Assert.AreEqual(TwitterPlaceType.City, places[0].PlaceType);
+            Assert.AreEqual("06183ca2a30a18e8", places[0].Id);
+            Assert.AreEqual(1, places[0].ContainedWithin.Count());
+            Assert.AreEqual("89b2eb8b2b9847f7", places[0].ContainedWithin.ToList()[0].Id);
+            
+            Assert.AreEqual("Canada", places[1].FullName);
+            Assert.AreEqual("3376992a082d67c7", places[1].Id);
+            Assert.AreEqual(TwitterPlaceType.Country, places[1].PlaceType);
+
+            Assert.AreEqual("Ontario, Canada", places[2].FullName);
+            Assert.AreEqual(TwitterPlaceType.Admin, places[2].PlaceType);
+
+            Assert.AreEqual("Québec, Canada", places[3].FullName);
+            Assert.AreEqual(TwitterPlaceType.Admin, places[3].PlaceType);
+        }
+
+        [Test]
+        public void Can_search_geo_by_lat_long()
+        {
+            var service = new TwitterService(_consumerKey, _consumerSecret);
+            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+
+            var places = service.GeoSearchByCoordinates(45.42153, -75.697193).ToList();
+            Assert.IsNotEmpty(places);
+
+            places = places.OrderBy(p => p.Id).ToList();
+            Assert.AreEqual("06183ca2a30a18e8", places[0].Id);
+        }
+
+        [Test]
+        public void Can_search_geo_by_ip()
+        {
+            var service = new TwitterService(_consumerKey, _consumerSecret);
+            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+
+            var places = service.GeoSearchByIp("24.246.1.165").ToList();
+            Assert.IsNotEmpty(places);
+
+            places = places.OrderBy(p => p.Id).ToList();
+            Assert.AreEqual("06183ca2a30a18e8", places[0].Id);
+        }
+
+        [Test]
+        [Ignore("This is a brittle test because it requires that you be me (and you are probably not me)")]
+        public void Can_get_geo_coordinates_from_specific_tweet()
+        {
+            var service = new TwitterService(_consumerKey, _consumerSecret);
+            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+
+            var last = service.GetTweet(133314374797492224);
+            Console.WriteLine(last.Text);
+        }
+
         [Test]
         [Ignore("This is a brittle test because it requires that you be me (and you are probably not me)")]
         public void Can_get_parameterized_followers_of_lists()
