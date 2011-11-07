@@ -653,7 +653,7 @@ namespace TweetSharp.Tests.Service
                 Console.WriteLine("HTML: " + tweet.TextAsHtml);
                 foreach(var entity in coalesced)
                 {
-                    switch(entity.Type)
+                    switch(entity.EntityType)
                     {
                         case TwitterEntityType.HashTag:
                             var hashtag = ((TwitterHashTag) entity).Text;

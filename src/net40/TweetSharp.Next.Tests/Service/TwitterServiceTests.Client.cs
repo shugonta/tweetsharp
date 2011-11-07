@@ -8,6 +8,33 @@ namespace TweetSharp.Tests.Service
     [TestFixture]
     public partial class TwitterServiceTests
     {
+        [Test]
+        public void Can_get_media_links_from_entities()
+        {
+            var service = new TwitterService(_consumerKey, _consumerSecret);
+            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+
+            var tweet = service.GetTweet(128818112387756032);
+            Assert.IsNotNull(tweet.Entities);
+            Assert.AreEqual(1, tweet.Entities.Media.Count);
+
+            var media = tweet.Entities.Media[0];
+            Assert.AreEqual("http://p.twimg.com/AcmnZAXCMAEaDD1.jpg", media.MediaUrl);
+            Assert.AreEqual("https://p.twimg.com/AcmnZAXCMAEaDD1.jpg", media.MediaUrlHttps);
+            Assert.AreEqual("http://twitter.com/sarah_hatton/status/128818112387756032/photo/1", media.ExpandedUrl);
+            Assert.AreEqual("pic.twitter.com/xCdS2Emt", media.DisplayUrl);
+            Assert.AreEqual(TwitterMediaType.Photo, media.MediaType);
+            Assert.AreEqual(69, media.Indices[0]);
+            Assert.AreEqual(89, media.Indices[1]);
+            Assert.AreEqual("128818112391950337", media.IdAsString);
+            Assert.AreEqual(128818112391950337, media.Id);
+
+            // Sizes
+            Assert.AreEqual(4, media.Sizes.Count());
+            Assert.AreEqual("fit", media.Sizes.Large.Resize);
+            Assert.AreEqual(597, media.Sizes.Large.Height);
+            Assert.AreEqual(800, media.Sizes.Large.Width);
+        }
 
         [Test]
         public void Can_get_basic_place()
@@ -181,7 +208,7 @@ namespace TweetSharp.Tests.Service
             Console.WriteLine(account.RawSource);
 
             Assert.AreEqual(false, account.IsProtected);
-            Assert.AreEqual(false, account.GeoEnabled);
+            Assert.AreEqual(true, account.GeoEnabled);
             Assert.IsNotNull(account.TrendLocations);
             Assert.AreEqual(1, account.TrendLocations.Count());
             Assert.AreEqual("CA", account.TrendLocations.Single().CountryCode);

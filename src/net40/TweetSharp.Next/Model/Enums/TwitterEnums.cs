@@ -29,7 +29,8 @@ namespace TweetSharp
     {
         HashTag,
         Mention,
-        Url
+        Url,
+        Media
     }
 
 #if !SILVERLIGHT
@@ -41,5 +42,13 @@ namespace TweetSharp
         Neighborhood,
         Country,
         Admin
+    }
+
+#if !SILVERLIGHT
+    [Serializable]
+#endif
+    public enum TwitterMediaType
+    {
+        Photo
     }
 }
