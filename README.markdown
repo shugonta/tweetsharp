@@ -162,6 +162,7 @@ IEnumerable<TwitterStatus> ListTweetsOnHomeTimelineSince(long sinceId, int page,
 Twitter limits the frequency of all API calls in a variety of ways, to help ensure the service is not abused. This means that your applications will have to account for possible rate limit shortages at the user and IP address level. Client applications that are meant for public consumption usually use the rate limit profile of users that are logging in to their application. Server-side integration applications usually use their own, white-listed account's rate limit so that they can process large jobs without exhausting their allowance. You can find out more about rate limiting at (http://dev.twitter.com/pages/rate_limiting_faq) and (http://dev.twitter.com/pages/rate_limiting). 
 
 TweetSharp provides two ways to access rate limiting data. You can either make an explicit API call to retrieve it, or inspect the `TwitterResponse`'s `RateLimitStatus` property, if it's available. The latter option conserves HTTP traffic, as the information is embedded in the HTTP Response itself.
+
 ```csharp
 using TweetSharp;
 
@@ -220,6 +221,7 @@ foreach (var tweet in tweets)
 
 #### Using Windows Phone 7
 TweetSharp is designed with Windows Phone 7 in mind. Each sequential method on `TwitterService` also has an asynchronous equivalent for Windows Phone 7. Rather than expect a response, each method asks for a delegation `Action` to perform, which provides the expected result, as well as a wrapper class to help you handle unexpected results in your application.
+
 ```csharp
 using TweetSharp;
 
@@ -261,6 +263,7 @@ service.SendTweet("Tweeting with #tweetsharp for #wp7", (tweet, response) =>
 #### Data Format Handling
 
 By default, TweetSharp handles serialization and deserialization details for you, preferring JSON for its compact size, which leads to better performance. If you want to switch TweetSharp's internal serialization mechanism to XML, you can do this by changing the `TwitterService`'s `Format` enum property to `TwitterServiceFormat.Xml`. You may want to do this if your application requires lower level control of the content returned by Twitter. If you change the format, the `RawSource` property on each model object will contain the format you selected. *On Windows Phone 7, JSON is the only supported format.*
+
 ```csharp
 using TweetSharp;
 
@@ -269,6 +272,7 @@ service.Format = TwitterServiceFormat.Xml;
 ```
 
 If you go one step further and decide you don't trust our serializer, you can change `TwitterService`'s `Serializer` and `Deserializer` properties, setting them to Hammock-compatible interfaces, and `TwitterService` will then defer to your custom serializer in all requests.
+
 ```csharp
 using TweetSharp;
 using Hammock.Serialization;
@@ -292,6 +296,7 @@ There are four ways of handling errors at the Twitter API level.
 * If you're not confident with the deserialization of your object, you can use the `RawSource` property that exists on all Twitter model objects to inspect the actual JSON response that was returned by Twitter, specific to that object. This means if you returned a collection of tweets, each tweet's `RawSource` will contain the JSON for that specific tweet. This is helpful if you want to perform custom parsing or tracing of the raw data.
 
 #### Error Handling Examples (sequential service calls)
+
 ```csharp
 using TweetSharp;
 
