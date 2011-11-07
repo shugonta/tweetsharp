@@ -34,6 +34,7 @@ namespace TweetSharp
         private TwitterGeoLocation _location;
         private TwitterEntities _entities;
         private bool? _isPossiblySensitive;
+        private TwitterPlace _place;
 
 #if !Smartphone && !NET20
         [DataMember]
@@ -338,6 +339,24 @@ namespace TweetSharp
 
                 _isPossiblySensitive = value;
                 OnPropertyChanged("IsPossiblySensitive");
+            }
+        }
+
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual TwitterPlace Place
+        {
+            get { return _place; }
+            set
+            {
+                if (_place == value)
+                {
+                    return;
+                }
+
+                _place = value;
+                OnPropertyChanged("Place");
             }
         }
 

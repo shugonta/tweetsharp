@@ -48,7 +48,6 @@ namespace TweetSharp
                 return null;
             }
 
-
             if (reader.TokenType != JsonToken.StartArray)
             {
                 return null;

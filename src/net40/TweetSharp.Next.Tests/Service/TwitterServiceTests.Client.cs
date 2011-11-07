@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using NUnit.Framework;
 
 namespace TweetSharp.Tests.Service
@@ -9,6 +8,7 @@ namespace TweetSharp.Tests.Service
     [TestFixture]
     public partial class TwitterServiceTests
     {
+
         [Test]
         public void Can_get_basic_place()
         {
@@ -87,8 +87,22 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
+            /*
+             "geo": {
+                    "type": "Point",
+                    "coordinates": [
+                        46.01364037,
+                        -81.40501187
+                    ]
+                }, 
+             */
+
             var last = service.GetTweet(133314374797492224);
-            Console.WriteLine(last.Text);
+            Assert.IsNotNull(last.Place);
+            Assert.IsNotNull(last.Location);
+            Assert.AreEqual("Point", last.Location.Type);
+            Assert.AreEqual(46.01364037, last.Location.Coordinates.Latitude);
+            Assert.AreEqual(-81.40501187, last.Location.Coordinates.Longitude);
         }
 
         [Test]

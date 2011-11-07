@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Serialization;
 using Hammock.Model;
 using Newtonsoft.Json;
 
@@ -9,8 +11,14 @@ namespace TweetSharp
 #if !SILVERLIGHT
     [Serializable]
 #endif
+#if !Smartphone && !NET20
+    [DataContract]
+    [DebuggerDisplay("{Type}:{Coordinates.Latitude},{Coordinates.Longitude}")]
+#endif
     [JsonObject(MemberSerialization.OptIn)]
-    public class TwitterGeoLocation : PropertyChangedBase, IEquatable<TwitterGeoLocation>, ITwitterModel
+    public class TwitterGeoLocation : PropertyChangedBase,  
+                                      IEquatable<TwitterGeoLocation>,
+                                      ITwitterModel
     {
 #if !SILVERLIGHT
         /// <summary>
@@ -111,6 +119,7 @@ namespace TweetSharp
         /// Gets or sets the inner spatial coordinates.
         /// </summary>
         /// <value>The coordinates.</value>
+        [JsonProperty("coordinates")]
         public virtual GeoCoordinates Coordinates
         {
             get { return _coordinates;  }
@@ -125,6 +134,7 @@ namespace TweetSharp
         /// Gets or sets the type of location.
         /// </summary>
         /// <value>The type.</value>
+        [JsonProperty("type")]
         public virtual string Type
         {
             get { return _type;  }
@@ -236,6 +246,9 @@ namespace TweetSharp
             }
         }
 
-        public string RawSource { get; set; }
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual string RawSource { get; set; }
     }
 }
