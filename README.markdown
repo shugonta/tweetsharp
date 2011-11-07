@@ -12,7 +12,7 @@ no longer supported freely. I am happy to accept any reasonable pull requests, a
 T4 templates, making it ridiculously easy to extend for any API methods that Twitter introduces in the future. 
 
 Due to popular request, I will offer commercial support services, depending on the scope and time requirements of
-your project. You may inquire about support requests by contacting me through GitHub. For the majority of cases, though,
+your project (spare time only, nothing mission critical, etc.); you may inquire about support requests by contacting me through GitHub. For the majority of cases, though,
 you should be able to get on fine by forking, adding your desired API changes through the DSL, and issuing a pull 
 request.
 
