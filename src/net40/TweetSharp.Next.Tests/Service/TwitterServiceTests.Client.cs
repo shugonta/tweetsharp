@@ -9,6 +9,16 @@ namespace TweetSharp.Tests.Service
     public partial class TwitterServiceTests
     {
         [Test]
+        public void Can_support_secure_urls_in_entitities()
+        {
+            var service = new TwitterService(_consumerKey, _consumerSecret);
+            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+
+            var tweet = service.GetTweet(131501393033961472);
+            Console.WriteLine(tweet.RawSource);
+        }
+
+        [Test]
         public void Can_get_media_links_from_entities()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
