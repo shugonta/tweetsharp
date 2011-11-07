@@ -12,9 +12,9 @@ no longer supported freely. I am happy to accept any reasonable pull requests, a
 T4 templates, making it ridiculously easy to extend for any API methods that Twitter introduces in the future. 
 
 Due to popular request, I will offer commercial support services, depending on the scope and time requirements of
-your project. There will be a formal process for purchasing support available shortly, but in the meantime, you may
-inquire about support requests by contacting me through GitHub. For the majority of cases, you should be able to 
-get on fine by forking, adding your desired API changes through the DSL, and issuing a pull request.
+your project. You may inquire about support requests by contacting me through GitHub. For the majority of cases, though,
+you should be able to get on fine by forking, adding your desired API changes through the DSL, and issuing a pull 
+request.
 
 API wrappers, in general, are a maintenance nightmare for both the consumer and the maintainer (this particular project
 tries very hard to be maintainable through code generation, DSLs, and a flexible data serialization scheme, but nothing
