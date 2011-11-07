@@ -12,9 +12,9 @@
 		<description>TweetSharp v2 is a fast, clean wrapper around the Twitter API. It uses T4 templates to make adding new endpoints easy. It can also be used as an example of how to write a service-specific API wrapper using Hammock.</description>
 		<summary>TweetSharp v2 is a fast, clean wrapper around the Twitter API. It uses T4 templates to make adding new endpoints easy.</summary>
 		<language>en-US</language>
-		<projectUrl>http://tweetsharp.com</projectUrl>
-		<licenseUrl>http://tweetsharp.codeplex.com/license</licenseUrl>
+		<projectUrl>http://github.com/danielcrenna/tweetsharp</projectUrl>
+		<licenseUrl>https://github.com/danielcrenna/tweetsharp/blob/master/LICENSE</licenseUrl>
 		<iconUrl>http://apitize.com.s3.amazonaws.com/logo_tweetsharp.png</iconUrl>
-		<tags>twitter tweetsharp web api http rest wrapper json xml</tags>   
+		<tags>twitter tweetsharp web api http rest wrapper json xml wp7 mango</tags>   
 	</metadata>
 </package>
