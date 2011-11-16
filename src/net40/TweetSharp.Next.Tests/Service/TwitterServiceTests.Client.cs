@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using NUnit.Framework;
 
 namespace TweetSharp.Tests.Service
@@ -149,8 +151,28 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var result = service.ListUserProfilesFor(new [] { "danielcrenna"}, new[] {12345});
-            Assert.AreEqual(2, result.Count());
+            var users = new List<TwitterUser>();
+            var ids = service.ListFriendIdsOf("mtamermahoney", -1);
+            var pages = Math.Ceiling(Convert.ToDouble(ids.Count()) / 100);
+            for(var i = 0; i < pages; i++)
+            {
+                var list = ids.Skip(i * 100).Take(100);
+                var segment = service.ListUserProfilesFor(list);
+                if (segment == null)
+                {
+                    if(service.Response.StatusCode == HttpStatusCode.OK)
+                    {
+                        throw new Exception("No results, but Twitter returned OK...");
+                    }
+                    Console.WriteLine("Twitter failed legitimately: {0} {1}", service.Response.StatusCode, service.Response.StatusDescription);
+                }
+                
+                if(segment.Count() > 0)
+                {
+                    users.AddRange(segment);
+                }
+            }
+            Assert.AreEqual(users.Count, ids.Count());
         }
 
         [Test]

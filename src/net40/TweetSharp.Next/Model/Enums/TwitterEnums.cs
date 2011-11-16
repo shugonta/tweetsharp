@@ -41,7 +41,8 @@ namespace TweetSharp
         City,
         Neighborhood,
         Country,
-        Admin
+        Admin,
+        POI
     }
 
 #if !SILVERLIGHT
