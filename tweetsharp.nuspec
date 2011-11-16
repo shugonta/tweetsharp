@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>TweetSharp</id>
-		<version>2.1.1</version>
+		<version>2.1.2</version>
     <dependencies>
       <dependency id="Hammock" version="1.2.7" />
       <dependency id="Newtonsoft.Json" version="4.0.3" />      
