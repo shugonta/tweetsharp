@@ -45,6 +45,7 @@ foreach (var tweet in tweets)
 The first step to accessing the Twitter API is to create an application at (http://dev.twitter.com). When that process is complete, your application is issued a Consumer Key and Consumer Secret. These tokens are responsible for identifying your application when it is in use by your customers. Once you have these values, you can create a new service and pass them in.
 
 #### Authenticating a client application (i.e. desktop)
+
 ```csharp
 using TweetSharp;
 
@@ -68,6 +69,7 @@ IEnumerable<TwitterStatus> mentions = service.ListTweetsMentioningMe();
 ```
 
 #### Authenticating a browser application
+
 ```csharp
 using TweetSharp;
 
@@ -103,6 +105,7 @@ public ActionResult Authorize()
 
 #### xAuth Authentication
 If you are building a mobile application and want to benefit from a seamless authentication experience with no additional steps for the user, you need to enroll your application in Twitter's xAuth support. You must complete this step in order for xAuth to function correctly.
+
 ```csharp
 using TweetSharp;
 
@@ -113,6 +116,7 @@ OAuthAccessToken access = service.GetAccessTokenWithXAuth("username", "password"
 
 #### OAuth Delegation with Echo
 Twitter provides OAuth Echo support, which allows you to use other services like TwitPic by delegating the user's existing credentials. TweetSharp uses [Hammock](http://hammockrest.com) both internally and as a tool for you to make delegated requests. This example shows how you would use TweetSharp and Hammock together to post an image on TwitPic using OAuth.
+
 ```csharp
 using TweetSharp;
 using Hammock;
@@ -137,6 +141,7 @@ TweetSharp uses a consistent method naming convention to help you locate the met
 In general, methods that return multiple results begin with `List`, while methods that return a single result begin with `Get`.
 Most methods, like the Twitter API, have additional parameters for obtaining pages of results rather than the default count.
 Keep in mind that paging methods have limits that you can confirm at (http://dev.twitter.com). Here's a sample of some of the most common Twitter API methods:
+
 ```csharp
 using TweetSharp;
 
