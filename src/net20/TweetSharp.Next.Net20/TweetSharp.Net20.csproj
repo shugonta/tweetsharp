@@ -40,11 +40,11 @@
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hammock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.2.7\lib\net20\Hammock.dll</HintPath>
+    <Reference Include="Hammock">
+      <HintPath>..\..\packages\Hammock.1.2.9\lib\2.0\Hammock.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.4.0.3\lib\net20\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.4.0.8\lib\net20\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
