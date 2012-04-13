@@ -430,11 +430,8 @@ namespace TweetSharp
             var workflow = new OAuthWorkflow(credentials);
 
             var info = workflow.BuildProtectedResourceInfo(request.Method.Value, request.GetAllHeaders(), url);
-#if !Mono
             var query = credentials.GetQueryFor(url, request, info, request.Method.Value, TraceEnabled);
-#else
-            var query = credentials.GetQueryFor(url, request, info, request.Method.Value);
-#endif
+
             ((OAuthWebQuery)query).Realm = "http://api.twitter.com";
             var auth = query.GetAuthorizationContent();
 
