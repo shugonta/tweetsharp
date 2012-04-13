@@ -28,7 +28,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\bin\lib\SL4\</OutputPath>
+    <OutputPath>..\..\..\bin\lib\sl4\</OutputPath>
     <DefineConstants>TRACE;DEBUG;SILVERLIGHT,NET40</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -38,7 +38,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\bin\lib\SL4\</OutputPath>
+    <OutputPath>..\..\..\bin\lib\sl4\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT,NET40</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -46,31 +46,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hammock.Silverlight">
-      <HintPath>..\..\packages\Hammock.1.2.9\lib\SL4\Hammock.Silverlight.dll</HintPath>
+    <Reference Include="Hammock.Silverlight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Hammock.1.3.0\lib\sl4\Hammock.Silverlight.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib.Silverlight">
-      <HintPath>..\..\packages\Hammock.1.2.9\lib\SL4\ICSharpCode.SharpZipLib.Silverlight.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib.Silverlight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Hammock.1.3.0\lib\sl4\ICSharpCode.SharpZipLib.Silverlight.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.2.9\lib\SL4\Microsoft.CSharp.dll</HintPath>
+      <HintPath>..\..\packages\Hammock.1.3.0\lib\sl4\Microsoft.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.4.0.3\lib\sl4\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.4.5.2\lib\sl4\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Json, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.2.9\lib\SL4\System.Json.dll</HintPath>
+      <HintPath>..\..\packages\Hammock.1.3.0\lib\sl4\System.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Runtime.Serialization.Json, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.2.9\lib\SL4\System.Runtime.Serialization.Json.dll</HintPath>
+      <HintPath>..\..\packages\Hammock.1.3.0\lib\sl4\System.Runtime.Serialization.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -79,7 +80,7 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Browser" />
     <Reference Include="System.Xml.Linq, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.2.9\lib\SL4\System.Xml.Linq.dll</HintPath>
+      <HintPath>..\..\packages\Hammock.1.3.0\lib\sl4\System.Xml.Linq.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
