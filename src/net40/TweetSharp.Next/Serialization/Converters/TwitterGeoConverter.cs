@@ -21,16 +21,16 @@ namespace TweetSharp
         /// <param name="serializer">The serializer.</param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (!(value is TwitterGeoLocation))
+            if (!(value is TwitterGeoLocation.GeoCoordinates))
             {
                 return;
             }
 
-            var location = (TwitterGeoLocation)value;
-            var latitude = location.Coordinates.Latitude.ToString(CultureInfo.InvariantCulture);
-            var longitude = location.Coordinates.Longitude.ToString(CultureInfo.InvariantCulture);
+            var location = (TwitterGeoLocation.GeoCoordinates)value;
+            var latitude = location.Latitude.ToString(CultureInfo.InvariantCulture);
+            var longitude = location.Longitude.ToString(CultureInfo.InvariantCulture);
             var json = string.Format(GeoTemplate, latitude, longitude);
-            writer.WriteValue(json);
+            writer.WriteRawValue(json);
         }
 
         /// <summary>
