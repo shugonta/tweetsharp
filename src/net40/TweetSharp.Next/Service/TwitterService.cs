@@ -402,8 +402,7 @@ namespace TweetSharp
 
             segments.Insert(0, path);
 
-            var concatenated = string.Concat((string[])segments.ToArray());
-            return concatenated.ToString(CultureInfo.InvariantCulture);
+            return string.Concat(segments.ToArray()).ToString(CultureInfo.InvariantCulture);
         }
 
         private static void ResolveEnumerableUrlSegments(IList<object> segments, int i)

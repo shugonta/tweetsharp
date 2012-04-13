@@ -487,7 +487,7 @@ namespace TweetSharp.Tests.Service
         public void Can_search()
         {
             var service = new TwitterService();
-            var results = service.Search("#tweetsharp", 10 /* rpp */);
+            var results = service.Search("tweetsharp", 10 /* rpp */);
             
             Assert.IsNotNull(results);
             Assert.IsTrue(results.Statuses.Count() <= 10);

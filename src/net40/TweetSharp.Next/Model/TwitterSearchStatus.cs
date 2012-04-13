@@ -67,7 +67,6 @@ namespace TweetSharp
                 }
 
                 _text = value;
-                _entities = null;
                 OnPropertyChanged("Text");
             }
         }
@@ -318,7 +317,7 @@ namespace TweetSharp
 #endif
         public virtual TwitterEntities Entities
         {
-            get { return _entities ?? (_entities = Text.ParseTwitterageToEntities()); }
+            get { return _entities; }
             set
             {
                 if (_entities == value)
