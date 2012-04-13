@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -61,7 +62,8 @@ namespace TweetSharp
             var indexes = names.Select(n => segments.IndexOf(n) + 1).ToList();
             for (var i = 0; i < indexes.Count(); i++)
             {
-                var value = segments[indexes[i]].ToString();
+                var segment = segments[indexes[i]];
+                var value = segment.ToString();
                 segments[indexes[i]] = Uri.EscapeDataString(value);
             }
         }

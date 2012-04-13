@@ -369,7 +369,22 @@ namespace TweetSharp
                     segments[i] = ((DateTime) segments[i]).ToString("yyyy-MM-dd");
                 }
 
-                if (typeof(IEnumerable).IsAssignableFrom(segments[i].GetType()) && !(segments[i] is string))
+                if(segments[i] is double)
+                {
+                    segments[i] = ((double) segments[i]).ToString(CultureInfo.InvariantCulture);
+                }
+
+                if (segments[i] is decimal)
+                {
+                    segments[i] = ((decimal)segments[i]).ToString(CultureInfo.InvariantCulture);
+                }
+
+                if (segments[i] is float)
+                {
+                    segments[i] = ((float)segments[i]).ToString(CultureInfo.InvariantCulture);
+                }
+
+                if (segments[i] is IEnumerable && !(segments[i] is string))
                 {
                     ResolveEnumerableUrlSegments(segments, i);
                 }
@@ -387,7 +402,8 @@ namespace TweetSharp
 
             segments.Insert(0, path);
 
-            return string.Concat(segments.ToArray()).ToString(CultureInfo.InvariantCulture);
+            var concatenated = string.Concat((string[])segments.ToArray());
+            return concatenated.ToString(CultureInfo.InvariantCulture);
         }
 
         private static void ResolveEnumerableUrlSegments(IList<object> segments, int i)
