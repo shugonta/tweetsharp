@@ -7,10 +7,6 @@ using Newtonsoft.Json;
 namespace TweetSharp
 {
 #if !SILVERLIGHT
-    /// <summary>
-    /// This data class provides more information than the basic data provided by
-    /// <see cref="TwitterUser" /> returned in other calls for friends and followers.
-    /// </summary>
     [Serializable]
 #endif
 #if !Smartphone && !NET20

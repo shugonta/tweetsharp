@@ -14,7 +14,6 @@
 		"_TwitterService.DirectMessages.json",
 		"_TwitterService.Favorites.json",
 		"_TwitterService.FriendsFollowers.json",
-		"_TwitterService.Friendships.json",
 		"_TwitterService.Lists.json",		
 		"_TwitterService.Notifications.json",  
 		"_TwitterService.SavedSearches.json",

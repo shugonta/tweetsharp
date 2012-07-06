@@ -130,21 +130,13 @@ namespace TweetSharp
 
 		TwitterStatus UnfavoriteTweet(long id);	
 
-		TwitterCursorList<int> ListFriendIdsOf(string screenName, long cursor);	
-
-		TwitterCursorList<int> ListFriendIdsOf(int userId, long cursor);	
-
 		TwitterCursorList<int> ListFollowerIdsOf(int userId, long cursor);	
 
 		TwitterCursorList<int> ListFollowerIdsOf(string screenName, long cursor);	
 
-		TwitterUser FollowUser(int userId);	
+		TwitterCursorList<int> ListFriendIdsOf(string screenName, long cursor);	
 
-		TwitterUser FollowUser(string screenName);	
-
-		TwitterUser UnfollowUser(string screenName);	
-
-		TwitterUser UnfollowUser(int userId);	
+		TwitterCursorList<int> ListFriendIdsOf(int userId, long cursor);	
 
 		TwitterCursorList<int> GetIncomingFriendRequests();	
 
@@ -157,6 +149,20 @@ namespace TweetSharp
 		TwitterFriendship GetFriendshipInfo(string sourceScreenName, string targetScreenName);	
 
 		TwitterFriendship GetFriendshipInfo(int sourceId, int targetId);	
+
+		TwitterUser FollowUser(int userId);	
+
+		TwitterUser FollowUser(string screenName);	
+
+		TwitterUser UnfollowUser(string screenName);	
+
+		TwitterUser UnfollowUser(int userId);	
+
+		IEnumerable<TwitterFriendshipLookup> ListFriendshipsFor(IEnumerable<string> screenName);	
+
+		IEnumerable<TwitterFriendshipLookup> ListFriendshipsFor(IEnumerable<int> userId);	
+
+		IEnumerable<TwitterFriendshipLookup> ListFriendshipsFor(IEnumerable<string> screenName, IEnumerable<int> userId);	
 
 		TwitterList CreateList(string listOwner, string name);	
 
@@ -663,21 +669,13 @@ namespace TweetSharp
 
 		IAsyncResult UnfavoriteTweet(long id, Action<TwitterStatus, TwitterResponse> action);		
 
-		IAsyncResult ListFriendIdsOf(string screenName, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action);		
-
-		IAsyncResult ListFriendIdsOf(int userId, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action);		
-
 		IAsyncResult ListFollowerIdsOf(int userId, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action);		
 
 		IAsyncResult ListFollowerIdsOf(string screenName, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action);		
 
-		IAsyncResult FollowUser(int userId, Action<TwitterUser, TwitterResponse> action);		
+		IAsyncResult ListFriendIdsOf(string screenName, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action);		
 
-		IAsyncResult FollowUser(string screenName, Action<TwitterUser, TwitterResponse> action);		
-
-		IAsyncResult UnfollowUser(string screenName, Action<TwitterUser, TwitterResponse> action);		
-
-		IAsyncResult UnfollowUser(int userId, Action<TwitterUser, TwitterResponse> action);		
+		IAsyncResult ListFriendIdsOf(int userId, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action);		
 
 		IAsyncResult GetIncomingFriendRequests(Action<TwitterCursorList<int>, TwitterResponse> action);		
 
@@ -690,6 +688,20 @@ namespace TweetSharp
 		IAsyncResult GetFriendshipInfo(string sourceScreenName, string targetScreenName, Action<TwitterFriendship, TwitterResponse> action);		
 
 		IAsyncResult GetFriendshipInfo(int sourceId, int targetId, Action<TwitterFriendship, TwitterResponse> action);		
+
+		IAsyncResult FollowUser(int userId, Action<TwitterUser, TwitterResponse> action);		
+
+		IAsyncResult FollowUser(string screenName, Action<TwitterUser, TwitterResponse> action);		
+
+		IAsyncResult UnfollowUser(string screenName, Action<TwitterUser, TwitterResponse> action);		
+
+		IAsyncResult UnfollowUser(int userId, Action<TwitterUser, TwitterResponse> action);		
+
+		IAsyncResult ListFriendshipsFor(IEnumerable<string> screenName, Action<IEnumerable<TwitterFriendshipLookup>, TwitterResponse> action);		
+
+		IAsyncResult ListFriendshipsFor(IEnumerable<int> userId, Action<IEnumerable<TwitterFriendshipLookup>, TwitterResponse> action);		
+
+		IAsyncResult ListFriendshipsFor(IEnumerable<string> screenName, IEnumerable<int> userId, Action<IEnumerable<TwitterFriendshipLookup>, TwitterResponse> action);		
 
 		IAsyncResult CreateList(string listOwner, string name, Action<TwitterList, TwitterResponse> action);		
 
@@ -1238,29 +1250,17 @@ namespace TweetSharp
 
 		TwitterStatus EndUnfavoriteTweet(IAsyncResult result, TimeSpan timeout);
 
-		IAsyncResult BeginListFriendIdsOf();
-
-		TwitterCursorList<int> EndListFriendIdsOf(IAsyncResult result);		
-
-		TwitterCursorList<int> EndListFriendIdsOf(IAsyncResult result, TimeSpan timeout);
-
 		IAsyncResult BeginListFollowerIdsOf();
 
 		TwitterCursorList<int> EndListFollowerIdsOf(IAsyncResult result);		
 
 		TwitterCursorList<int> EndListFollowerIdsOf(IAsyncResult result, TimeSpan timeout);
 
-		IAsyncResult BeginFollowUser();
+		IAsyncResult BeginListFriendIdsOf();
 
-		TwitterUser EndFollowUser(IAsyncResult result);		
+		TwitterCursorList<int> EndListFriendIdsOf(IAsyncResult result);		
 
-		TwitterUser EndFollowUser(IAsyncResult result, TimeSpan timeout);
-
-		IAsyncResult BeginUnfollowUser();
-
-		TwitterUser EndUnfollowUser(IAsyncResult result);		
-
-		TwitterUser EndUnfollowUser(IAsyncResult result, TimeSpan timeout);
+		TwitterCursorList<int> EndListFriendIdsOf(IAsyncResult result, TimeSpan timeout);
 
 		IAsyncResult BeginGetIncomingFriendRequests();
 
@@ -1279,6 +1279,24 @@ namespace TweetSharp
 		TwitterFriendship EndGetFriendshipInfo(IAsyncResult result);		
 
 		TwitterFriendship EndGetFriendshipInfo(IAsyncResult result, TimeSpan timeout);
+
+		IAsyncResult BeginFollowUser();
+
+		TwitterUser EndFollowUser(IAsyncResult result);		
+
+		TwitterUser EndFollowUser(IAsyncResult result, TimeSpan timeout);
+
+		IAsyncResult BeginUnfollowUser();
+
+		TwitterUser EndUnfollowUser(IAsyncResult result);		
+
+		TwitterUser EndUnfollowUser(IAsyncResult result, TimeSpan timeout);
+
+		IAsyncResult BeginListFriendshipsFor();
+
+		IEnumerable<TwitterFriendshipLookup> EndListFriendshipsFor(IAsyncResult result);		
+
+		IEnumerable<TwitterFriendshipLookup> EndListFriendshipsFor(IAsyncResult result, TimeSpan timeout);
 
 		IAsyncResult BeginCreateList();
 
@@ -1879,21 +1897,13 @@ namespace TweetSharp
 
 		void UnfavoriteTweet(long id, Action<TwitterStatus, TwitterResponse> action);
 
-		void ListFriendIdsOf(string screenName, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action);
-
-		void ListFriendIdsOf(int userId, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action);
-
 		void ListFollowerIdsOf(int userId, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action);
 
 		void ListFollowerIdsOf(string screenName, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action);
 
-		void FollowUser(int userId, Action<TwitterUser, TwitterResponse> action);
+		void ListFriendIdsOf(string screenName, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action);
 
-		void FollowUser(string screenName, Action<TwitterUser, TwitterResponse> action);
-
-		void UnfollowUser(string screenName, Action<TwitterUser, TwitterResponse> action);
-
-		void UnfollowUser(int userId, Action<TwitterUser, TwitterResponse> action);
+		void ListFriendIdsOf(int userId, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action);
 
 		void GetIncomingFriendRequests(Action<TwitterCursorList<int>, TwitterResponse> action);
 
@@ -1906,6 +1916,20 @@ namespace TweetSharp
 		void GetFriendshipInfo(string sourceScreenName, string targetScreenName, Action<TwitterFriendship, TwitterResponse> action);
 
 		void GetFriendshipInfo(int sourceId, int targetId, Action<TwitterFriendship, TwitterResponse> action);
+
+		void FollowUser(int userId, Action<TwitterUser, TwitterResponse> action);
+
+		void FollowUser(string screenName, Action<TwitterUser, TwitterResponse> action);
+
+		void UnfollowUser(string screenName, Action<TwitterUser, TwitterResponse> action);
+
+		void UnfollowUser(int userId, Action<TwitterUser, TwitterResponse> action);
+
+		void ListFriendshipsFor(IEnumerable<string> screenName, Action<IEnumerable<TwitterFriendshipLookup>, TwitterResponse> action);
+
+		void ListFriendshipsFor(IEnumerable<int> userId, Action<IEnumerable<TwitterFriendshipLookup>, TwitterResponse> action);
+
+		void ListFriendshipsFor(IEnumerable<string> screenName, IEnumerable<int> userId, Action<IEnumerable<TwitterFriendshipLookup>, TwitterResponse> action);
 
 		void CreateList(string listOwner, string name, Action<TwitterList, TwitterResponse> action);
 
@@ -2600,16 +2624,6 @@ namespace TweetSharp
 			return WithHammock<TwitterStatus>(WebMethod.Delete, "favorites/destroy/{id}", FormatAsString, "?id=", id);
 		}
 
-		public virtual TwitterCursorList<int> ListFriendIdsOf(string screenName, long cursor)
-		{
-			return WithHammock<TwitterCursorList<int>>("friends/ids", FormatAsString, "?screen_name=", screenName, "&cursor=", cursor);
-		}
-
-		public virtual TwitterCursorList<int> ListFriendIdsOf(int userId, long cursor)
-		{
-			return WithHammock<TwitterCursorList<int>>("friends/ids", FormatAsString, "?user_id=", userId, "&cursor=", cursor);
-		}
-
 		public virtual TwitterCursorList<int> ListFollowerIdsOf(int userId, long cursor)
 		{
 			return WithHammock<TwitterCursorList<int>>("followers/ids", FormatAsString, "?user_id=", userId, "&cursor=", cursor);
@@ -2620,24 +2634,14 @@ namespace TweetSharp
 			return WithHammock<TwitterCursorList<int>>("followers/ids", FormatAsString, "?screen_name=", screenName, "&cursor=", cursor);
 		}
 
-		public virtual TwitterUser FollowUser(int userId)
+		public virtual TwitterCursorList<int> ListFriendIdsOf(string screenName, long cursor)
 		{
-			return WithHammock<TwitterUser>(WebMethod.Post, "friendships/create", FormatAsString, "?user_id=", userId);
+			return WithHammock<TwitterCursorList<int>>("friends/ids", FormatAsString, "?screen_name=", screenName, "&cursor=", cursor);
 		}
 
-		public virtual TwitterUser FollowUser(string screenName)
+		public virtual TwitterCursorList<int> ListFriendIdsOf(int userId, long cursor)
 		{
-			return WithHammock<TwitterUser>(WebMethod.Post, "friendships/create", FormatAsString, "?screen_name=", screenName);
-		}
-
-		public virtual TwitterUser UnfollowUser(string screenName)
-		{
-			return WithHammock<TwitterUser>(WebMethod.Delete, "friendships/destroy", FormatAsString, "?screen_name=", screenName);
-		}
-
-		public virtual TwitterUser UnfollowUser(int userId)
-		{
-			return WithHammock<TwitterUser>(WebMethod.Delete, "friendships/destroy", FormatAsString, "?user_id=", userId);
+			return WithHammock<TwitterCursorList<int>>("friends/ids", FormatAsString, "?user_id=", userId, "&cursor=", cursor);
 		}
 
 		public virtual TwitterCursorList<int> GetIncomingFriendRequests()
@@ -2668,6 +2672,41 @@ namespace TweetSharp
 		public virtual TwitterFriendship GetFriendshipInfo(int sourceId, int targetId)
 		{
 			return WithHammock<TwitterFriendship>("friendships/show", FormatAsString, "?source_id=", sourceId, "&target_id=", targetId);
+		}
+
+		public virtual TwitterUser FollowUser(int userId)
+		{
+			return WithHammock<TwitterUser>(WebMethod.Post, "friendships/create", FormatAsString, "?user_id=", userId);
+		}
+
+		public virtual TwitterUser FollowUser(string screenName)
+		{
+			return WithHammock<TwitterUser>(WebMethod.Post, "friendships/create", FormatAsString, "?screen_name=", screenName);
+		}
+
+		public virtual TwitterUser UnfollowUser(string screenName)
+		{
+			return WithHammock<TwitterUser>(WebMethod.Delete, "friendships/destroy", FormatAsString, "?screen_name=", screenName);
+		}
+
+		public virtual TwitterUser UnfollowUser(int userId)
+		{
+			return WithHammock<TwitterUser>(WebMethod.Delete, "friendships/destroy", FormatAsString, "?user_id=", userId);
+		}
+
+		public virtual IEnumerable<TwitterFriendshipLookup> ListFriendshipsFor(IEnumerable<string> screenName)
+		{
+			return WithHammock<IEnumerable<TwitterFriendshipLookup>>("friendships/lookup", FormatAsString, "?screen_name=", screenName);
+		}
+
+		public virtual IEnumerable<TwitterFriendshipLookup> ListFriendshipsFor(IEnumerable<int> userId)
+		{
+			return WithHammock<IEnumerable<TwitterFriendshipLookup>>("friendships/lookup", FormatAsString, "?user_id=", userId);
+		}
+
+		public virtual IEnumerable<TwitterFriendshipLookup> ListFriendshipsFor(IEnumerable<string> screenName, IEnumerable<int> userId)
+		{
+			return WithHammock<IEnumerable<TwitterFriendshipLookup>>("friendships/lookup", FormatAsString, "?screen_name=", screenName, "&user_id=", userId);
 		}
 
 		public virtual TwitterList CreateList(string listOwner, string name)
@@ -3925,16 +3964,6 @@ namespace TweetSharp
 			return WithHammock(WebMethod.Delete, action, "favorites/destroy/{id}", FormatAsString, "?id=", id);
 		}
 
-		public virtual IAsyncResult ListFriendIdsOf(string screenName, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action)
-		{
-			return WithHammock(action, "friends/ids", FormatAsString, "?screen_name=", screenName, "&cursor=", cursor);
-		}
-
-		public virtual IAsyncResult ListFriendIdsOf(int userId, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action)
-		{
-			return WithHammock(action, "friends/ids", FormatAsString, "?user_id=", userId, "&cursor=", cursor);
-		}
-
 		public virtual IAsyncResult ListFollowerIdsOf(int userId, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action)
 		{
 			return WithHammock(action, "followers/ids", FormatAsString, "?user_id=", userId, "&cursor=", cursor);
@@ -3945,24 +3974,14 @@ namespace TweetSharp
 			return WithHammock(action, "followers/ids", FormatAsString, "?screen_name=", screenName, "&cursor=", cursor);
 		}
 
-		public virtual IAsyncResult FollowUser(int userId, Action<TwitterUser, TwitterResponse> action)
+		public virtual IAsyncResult ListFriendIdsOf(string screenName, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action)
 		{
-			return WithHammock(WebMethod.Post, action, "friendships/create", FormatAsString, "?user_id=", userId);
+			return WithHammock(action, "friends/ids", FormatAsString, "?screen_name=", screenName, "&cursor=", cursor);
 		}
 
-		public virtual IAsyncResult FollowUser(string screenName, Action<TwitterUser, TwitterResponse> action)
+		public virtual IAsyncResult ListFriendIdsOf(int userId, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action)
 		{
-			return WithHammock(WebMethod.Post, action, "friendships/create", FormatAsString, "?screen_name=", screenName);
-		}
-
-		public virtual IAsyncResult UnfollowUser(string screenName, Action<TwitterUser, TwitterResponse> action)
-		{
-			return WithHammock(WebMethod.Delete, action, "friendships/destroy", FormatAsString, "?screen_name=", screenName);
-		}
-
-		public virtual IAsyncResult UnfollowUser(int userId, Action<TwitterUser, TwitterResponse> action)
-		{
-			return WithHammock(WebMethod.Delete, action, "friendships/destroy", FormatAsString, "?user_id=", userId);
+			return WithHammock(action, "friends/ids", FormatAsString, "?user_id=", userId, "&cursor=", cursor);
 		}
 
 		public virtual IAsyncResult GetIncomingFriendRequests(Action<TwitterCursorList<int>, TwitterResponse> action)
@@ -3993,6 +4012,41 @@ namespace TweetSharp
 		public virtual IAsyncResult GetFriendshipInfo(int sourceId, int targetId, Action<TwitterFriendship, TwitterResponse> action)
 		{
 			return WithHammock(action, "friendships/show", FormatAsString, "?source_id=", sourceId, "&target_id=", targetId);
+		}
+
+		public virtual IAsyncResult FollowUser(int userId, Action<TwitterUser, TwitterResponse> action)
+		{
+			return WithHammock(WebMethod.Post, action, "friendships/create", FormatAsString, "?user_id=", userId);
+		}
+
+		public virtual IAsyncResult FollowUser(string screenName, Action<TwitterUser, TwitterResponse> action)
+		{
+			return WithHammock(WebMethod.Post, action, "friendships/create", FormatAsString, "?screen_name=", screenName);
+		}
+
+		public virtual IAsyncResult UnfollowUser(string screenName, Action<TwitterUser, TwitterResponse> action)
+		{
+			return WithHammock(WebMethod.Delete, action, "friendships/destroy", FormatAsString, "?screen_name=", screenName);
+		}
+
+		public virtual IAsyncResult UnfollowUser(int userId, Action<TwitterUser, TwitterResponse> action)
+		{
+			return WithHammock(WebMethod.Delete, action, "friendships/destroy", FormatAsString, "?user_id=", userId);
+		}
+
+		public virtual IAsyncResult ListFriendshipsFor(IEnumerable<string> screenName, Action<IEnumerable<TwitterFriendshipLookup>, TwitterResponse> action)
+		{
+			return WithHammock(action, "friendships/lookup", FormatAsString, "?screen_name=", screenName);
+		}
+
+		public virtual IAsyncResult ListFriendshipsFor(IEnumerable<int> userId, Action<IEnumerable<TwitterFriendshipLookup>, TwitterResponse> action)
+		{
+			return WithHammock(action, "friendships/lookup", FormatAsString, "?user_id=", userId);
+		}
+
+		public virtual IAsyncResult ListFriendshipsFor(IEnumerable<string> screenName, IEnumerable<int> userId, Action<IEnumerable<TwitterFriendshipLookup>, TwitterResponse> action)
+		{
+			return WithHammock(action, "friendships/lookup", FormatAsString, "?screen_name=", screenName, "&user_id=", userId);
 		}
 
 		public virtual IAsyncResult CreateList(string listOwner, string name, Action<TwitterList, TwitterResponse> action)
@@ -5250,16 +5304,6 @@ namespace TweetSharp
 			return BeginWithHammock<TwitterStatus>(WebMethod.Delete, "favorites/destroy/{id}", FormatAsString, "?id=", id);
 		}
 
-		public virtual IAsyncResult BeginListFriendIdsOf(string screenName, long cursor)
-		{
-			return BeginWithHammock<TwitterCursorList<int>>(WebMethod.Get, "friends/ids", FormatAsString, "?screen_name=", screenName, "&cursor=", cursor);
-		}
-
-		public virtual IAsyncResult BeginListFriendIdsOf(int userId, long cursor)
-		{
-			return BeginWithHammock<TwitterCursorList<int>>(WebMethod.Get, "friends/ids", FormatAsString, "?user_id=", userId, "&cursor=", cursor);
-		}
-
 		public virtual IAsyncResult BeginListFollowerIdsOf(int userId, long cursor)
 		{
 			return BeginWithHammock<TwitterCursorList<int>>(WebMethod.Get, "followers/ids", FormatAsString, "?user_id=", userId, "&cursor=", cursor);
@@ -5270,24 +5314,14 @@ namespace TweetSharp
 			return BeginWithHammock<TwitterCursorList<int>>(WebMethod.Get, "followers/ids", FormatAsString, "?screen_name=", screenName, "&cursor=", cursor);
 		}
 
-		public virtual IAsyncResult BeginFollowUser(int userId)
+		public virtual IAsyncResult BeginListFriendIdsOf(string screenName, long cursor)
 		{
-			return BeginWithHammock<TwitterUser>(WebMethod.Post, "friendships/create", FormatAsString, "?user_id=", userId);
+			return BeginWithHammock<TwitterCursorList<int>>(WebMethod.Get, "friends/ids", FormatAsString, "?screen_name=", screenName, "&cursor=", cursor);
 		}
 
-		public virtual IAsyncResult BeginFollowUser(string screenName)
+		public virtual IAsyncResult BeginListFriendIdsOf(int userId, long cursor)
 		{
-			return BeginWithHammock<TwitterUser>(WebMethod.Post, "friendships/create", FormatAsString, "?screen_name=", screenName);
-		}
-
-		public virtual IAsyncResult BeginUnfollowUser(string screenName)
-		{
-			return BeginWithHammock<TwitterUser>(WebMethod.Delete, "friendships/destroy", FormatAsString, "?screen_name=", screenName);
-		}
-
-		public virtual IAsyncResult BeginUnfollowUser(int userId)
-		{
-			return BeginWithHammock<TwitterUser>(WebMethod.Delete, "friendships/destroy", FormatAsString, "?user_id=", userId);
+			return BeginWithHammock<TwitterCursorList<int>>(WebMethod.Get, "friends/ids", FormatAsString, "?user_id=", userId, "&cursor=", cursor);
 		}
 
 		public virtual IAsyncResult BeginGetIncomingFriendRequests()
@@ -5318,6 +5352,41 @@ namespace TweetSharp
 		public virtual IAsyncResult BeginGetFriendshipInfo(int sourceId, int targetId)
 		{
 			return BeginWithHammock<TwitterFriendship>(WebMethod.Get, "friendships/show", FormatAsString, "?source_id=", sourceId, "&target_id=", targetId);
+		}
+
+		public virtual IAsyncResult BeginFollowUser(int userId)
+		{
+			return BeginWithHammock<TwitterUser>(WebMethod.Post, "friendships/create", FormatAsString, "?user_id=", userId);
+		}
+
+		public virtual IAsyncResult BeginFollowUser(string screenName)
+		{
+			return BeginWithHammock<TwitterUser>(WebMethod.Post, "friendships/create", FormatAsString, "?screen_name=", screenName);
+		}
+
+		public virtual IAsyncResult BeginUnfollowUser(string screenName)
+		{
+			return BeginWithHammock<TwitterUser>(WebMethod.Delete, "friendships/destroy", FormatAsString, "?screen_name=", screenName);
+		}
+
+		public virtual IAsyncResult BeginUnfollowUser(int userId)
+		{
+			return BeginWithHammock<TwitterUser>(WebMethod.Delete, "friendships/destroy", FormatAsString, "?user_id=", userId);
+		}
+
+		public virtual IAsyncResult BeginListFriendshipsFor(IEnumerable<string> screenName)
+		{
+			return BeginWithHammock<IEnumerable<TwitterFriendshipLookup>>(WebMethod.Get, "friendships/lookup", FormatAsString, "?screen_name=", screenName);
+		}
+
+		public virtual IAsyncResult BeginListFriendshipsFor(IEnumerable<int> userId)
+		{
+			return BeginWithHammock<IEnumerable<TwitterFriendshipLookup>>(WebMethod.Get, "friendships/lookup", FormatAsString, "?user_id=", userId);
+		}
+
+		public virtual IAsyncResult BeginListFriendshipsFor(IEnumerable<string> screenName, IEnumerable<int> userId)
+		{
+			return BeginWithHammock<IEnumerable<TwitterFriendshipLookup>>(WebMethod.Get, "friendships/lookup", FormatAsString, "?screen_name=", screenName, "&user_id=", userId);
 		}
 
 		public virtual IAsyncResult BeginCreateList(string listOwner, string name)
@@ -6540,16 +6609,6 @@ namespace TweetSharp
 			return EndWithHammock<TwitterStatus>(result, timeout);
 		}
 
-		public virtual TwitterCursorList<int> EndListFriendIdsOf(IAsyncResult result) 
-		{
-			return EndWithHammock<TwitterCursorList<int>>(result);
-		}
-
-		public virtual TwitterCursorList<int> EndListFriendIdsOf(IAsyncResult result, TimeSpan timeout) 
-		{
-			return EndWithHammock<TwitterCursorList<int>>(result, timeout);
-		}
-
 		public virtual TwitterCursorList<int> EndListFollowerIdsOf(IAsyncResult result) 
 		{
 			return EndWithHammock<TwitterCursorList<int>>(result);
@@ -6560,24 +6619,14 @@ namespace TweetSharp
 			return EndWithHammock<TwitterCursorList<int>>(result, timeout);
 		}
 
-		public virtual TwitterUser EndFollowUser(IAsyncResult result) 
+		public virtual TwitterCursorList<int> EndListFriendIdsOf(IAsyncResult result) 
 		{
-			return EndWithHammock<TwitterUser>(result);
+			return EndWithHammock<TwitterCursorList<int>>(result);
 		}
 
-		public virtual TwitterUser EndFollowUser(IAsyncResult result, TimeSpan timeout) 
+		public virtual TwitterCursorList<int> EndListFriendIdsOf(IAsyncResult result, TimeSpan timeout) 
 		{
-			return EndWithHammock<TwitterUser>(result, timeout);
-		}
-
-		public virtual TwitterUser EndUnfollowUser(IAsyncResult result) 
-		{
-			return EndWithHammock<TwitterUser>(result);
-		}
-
-		public virtual TwitterUser EndUnfollowUser(IAsyncResult result, TimeSpan timeout) 
-		{
-			return EndWithHammock<TwitterUser>(result, timeout);
+			return EndWithHammock<TwitterCursorList<int>>(result, timeout);
 		}
 
 		public virtual TwitterCursorList<int> EndGetIncomingFriendRequests(IAsyncResult result) 
@@ -6608,6 +6657,36 @@ namespace TweetSharp
 		public virtual TwitterFriendship EndGetFriendshipInfo(IAsyncResult result, TimeSpan timeout) 
 		{
 			return EndWithHammock<TwitterFriendship>(result, timeout);
+		}
+
+		public virtual TwitterUser EndFollowUser(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterUser>(result);
+		}
+
+		public virtual TwitterUser EndFollowUser(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterUser>(result, timeout);
+		}
+
+		public virtual TwitterUser EndUnfollowUser(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterUser>(result);
+		}
+
+		public virtual TwitterUser EndUnfollowUser(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterUser>(result, timeout);
+		}
+
+		public virtual IEnumerable<TwitterFriendshipLookup> EndListFriendshipsFor(IAsyncResult result) 
+		{
+			return EndWithHammock<IEnumerable<TwitterFriendshipLookup>>(result);
+		}
+
+		public virtual IEnumerable<TwitterFriendshipLookup> EndListFriendshipsFor(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<IEnumerable<TwitterFriendshipLookup>>(result, timeout);
 		}
 
 		public virtual TwitterList EndCreateList(IAsyncResult result) 
@@ -7705,16 +7784,6 @@ namespace TweetSharp
 			WithHammock(WebMethod.Delete, action, "favorites/destroy/{id}", FormatAsString, "?id=", id);
 		}
 
-		public virtual void ListFriendIdsOf(string screenName, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action)
-		{
-			WithHammock(action, "friends/ids", FormatAsString, "?screen_name=", screenName, "&cursor=", cursor);
-		}
-
-		public virtual void ListFriendIdsOf(int userId, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action)
-		{
-			WithHammock(action, "friends/ids", FormatAsString, "?user_id=", userId, "&cursor=", cursor);
-		}
-
 		public virtual void ListFollowerIdsOf(int userId, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action)
 		{
 			WithHammock(action, "followers/ids", FormatAsString, "?user_id=", userId, "&cursor=", cursor);
@@ -7725,24 +7794,14 @@ namespace TweetSharp
 			WithHammock(action, "followers/ids", FormatAsString, "?screen_name=", screenName, "&cursor=", cursor);
 		}
 
-		public virtual void FollowUser(int userId, Action<TwitterUser, TwitterResponse> action)
+		public virtual void ListFriendIdsOf(string screenName, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action)
 		{
-			WithHammock(WebMethod.Post, action, "friendships/create", FormatAsString, "?user_id=", userId);
+			WithHammock(action, "friends/ids", FormatAsString, "?screen_name=", screenName, "&cursor=", cursor);
 		}
 
-		public virtual void FollowUser(string screenName, Action<TwitterUser, TwitterResponse> action)
+		public virtual void ListFriendIdsOf(int userId, long cursor, Action<TwitterCursorList<int>, TwitterResponse> action)
 		{
-			WithHammock(WebMethod.Post, action, "friendships/create", FormatAsString, "?screen_name=", screenName);
-		}
-
-		public virtual void UnfollowUser(string screenName, Action<TwitterUser, TwitterResponse> action)
-		{
-			WithHammock(WebMethod.Delete, action, "friendships/destroy", FormatAsString, "?screen_name=", screenName);
-		}
-
-		public virtual void UnfollowUser(int userId, Action<TwitterUser, TwitterResponse> action)
-		{
-			WithHammock(WebMethod.Delete, action, "friendships/destroy", FormatAsString, "?user_id=", userId);
+			WithHammock(action, "friends/ids", FormatAsString, "?user_id=", userId, "&cursor=", cursor);
 		}
 
 		public virtual void GetIncomingFriendRequests(Action<TwitterCursorList<int>, TwitterResponse> action)
@@ -7773,6 +7832,41 @@ namespace TweetSharp
 		public virtual void GetFriendshipInfo(int sourceId, int targetId, Action<TwitterFriendship, TwitterResponse> action)
 		{
 			WithHammock(action, "friendships/show", FormatAsString, "?source_id=", sourceId, "&target_id=", targetId);
+		}
+
+		public virtual void FollowUser(int userId, Action<TwitterUser, TwitterResponse> action)
+		{
+			WithHammock(WebMethod.Post, action, "friendships/create", FormatAsString, "?user_id=", userId);
+		}
+
+		public virtual void FollowUser(string screenName, Action<TwitterUser, TwitterResponse> action)
+		{
+			WithHammock(WebMethod.Post, action, "friendships/create", FormatAsString, "?screen_name=", screenName);
+		}
+
+		public virtual void UnfollowUser(string screenName, Action<TwitterUser, TwitterResponse> action)
+		{
+			WithHammock(WebMethod.Delete, action, "friendships/destroy", FormatAsString, "?screen_name=", screenName);
+		}
+
+		public virtual void UnfollowUser(int userId, Action<TwitterUser, TwitterResponse> action)
+		{
+			WithHammock(WebMethod.Delete, action, "friendships/destroy", FormatAsString, "?user_id=", userId);
+		}
+
+		public virtual void ListFriendshipsFor(IEnumerable<string> screenName, Action<IEnumerable<TwitterFriendshipLookup>, TwitterResponse> action)
+		{
+			WithHammock(action, "friendships/lookup", FormatAsString, "?screen_name=", screenName);
+		}
+
+		public virtual void ListFriendshipsFor(IEnumerable<int> userId, Action<IEnumerable<TwitterFriendshipLookup>, TwitterResponse> action)
+		{
+			WithHammock(action, "friendships/lookup", FormatAsString, "?user_id=", userId);
+		}
+
+		public virtual void ListFriendshipsFor(IEnumerable<string> screenName, IEnumerable<int> userId, Action<IEnumerable<TwitterFriendshipLookup>, TwitterResponse> action)
+		{
+			WithHammock(action, "friendships/lookup", FormatAsString, "?screen_name=", screenName, "&user_id=", userId);
 		}
 
 		public virtual void CreateList(string listOwner, string name, Action<TwitterList, TwitterResponse> action)

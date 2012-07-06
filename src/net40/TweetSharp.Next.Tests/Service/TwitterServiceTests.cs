@@ -932,75 +932,83 @@ namespace TweetSharp.Tests.Service
             var service = GetAuthenticatedService();
 
             service.StreamUser((streamEvent, response) =>
-                                   {
-                                       if (streamEvent is TwitterUserStreamEnd)
-                                       {
-                                           block.Set();
-                                       }
+            {
+                if (streamEvent is TwitterUserStreamEnd)
+                {
+                    block.Set();
+                }
 
-                                       if (response.StatusCode == 0)
-                                       {
-                                           if(streamEvent is TwitterUserStreamFriends)
-                                           {
-                                               var friends = (TwitterUserStreamFriends) streamEvent;
-                                               Assert.IsNotNull(friends);
-                                               Assert.IsNotNull(friends.RawSource);
-                                               Assert.IsTrue(friends.Ids.Count() > 0);
-                                           }
+                if (response.StatusCode == 0)
+                {
+                    if (streamEvent is TwitterUserStreamFriends)
+                    {
+                        var friends = (TwitterUserStreamFriends)streamEvent;
+                        Assert.IsNotNull(friends);
+                        Assert.IsNotNull(friends.RawSource);
+                        Assert.IsTrue(friends.Ids.Count() > 0);
+                    }
 
-                                           if(streamEvent is TwitterUserStreamEvent)
-                                           {
-                                               var @event = (TwitterUserStreamEvent) streamEvent;
-                                               Assert.IsNotNull(@event);
-                                               Assert.IsNotNull(@event.TargetObject);
-                                               Assert.IsNotNull(@event.RawSource);
-                                           }
+                    if (streamEvent is TwitterUserStreamEvent)
+                    {
+                        var @event = (TwitterUserStreamEvent)streamEvent;
+                        Assert.IsNotNull(@event);
+                        Assert.IsNotNull(@event.TargetObject);
+                        Assert.IsNotNull(@event.RawSource);
+                    }
 
-                                           if (streamEvent is TwitterUserStreamStatus)
-                                           {
-                                               var tweet = ((TwitterUserStreamStatus)streamEvent).Status;
-                                               Assert.IsNotNull(tweet);
-                                               Assert.IsNotNull(tweet.Id);
-                                               Assert.IsNotNull(tweet.User);
-                                               Assert.IsNotNull(tweet.RawSource);
-                                               Assert.IsNotNull(tweet.User.ScreenName);
-                                           }
+                    if (streamEvent is TwitterUserStreamStatus)
+                    {
+                        var tweet = ((TwitterUserStreamStatus)streamEvent).Status;
+                        Assert.IsNotNull(tweet);
+                        Assert.IsNotNull(tweet.Id);
+                        Assert.IsNotNull(tweet.User);
+                        Assert.IsNotNull(tweet.RawSource);
+                        Assert.IsNotNull(tweet.User.ScreenName);
+                    }
 
-                                           if (streamEvent is TwitterUserStreamDirectMessage)
-                                           {
-                                               var dm = ((TwitterUserStreamDirectMessage) streamEvent).DirectMessage;
-                                               Assert.IsNotNull(dm);
-                                               Assert.IsNotNull(dm.Id);
-                                               Assert.IsNotNull(dm.Sender);
-                                               Assert.IsNotNull(dm.Recipient);
-                                               Assert.IsNotNull(dm.RawSource);
-                                           }
+                    if (streamEvent is TwitterUserStreamDirectMessage)
+                    {
+                        var dm = ((TwitterUserStreamDirectMessage)streamEvent).DirectMessage;
+                        Assert.IsNotNull(dm);
+                        Assert.IsNotNull(dm.Id);
+                        Assert.IsNotNull(dm.Sender);
+                        Assert.IsNotNull(dm.Recipient);
+                        Assert.IsNotNull(dm.RawSource);
+                    }
 
-                                           if(streamEvent is TwitterUserStreamDeleteStatus)
-                                           {
-                                               var deleted = (TwitterUserStreamDeleteStatus) streamEvent;
-                                               Assert.IsNotNull(deleted);
-                                               Assert.IsTrue(deleted.StatusId > 0);
-                                               Assert.IsTrue(deleted.UserId > 0);
-                                           }
+                    if (streamEvent is TwitterUserStreamDeleteStatus)
+                    {
+                        var deleted = (TwitterUserStreamDeleteStatus)streamEvent;
+                        Assert.IsNotNull(deleted);
+                        Assert.IsTrue(deleted.StatusId > 0);
+                        Assert.IsTrue(deleted.UserId > 0);
+                    }
 
-                                           if(streamEvent is TwitterUserStreamDeleteDirectMessage)
-                                           {
-                                               var deleted = (TwitterUserStreamDeleteDirectMessage)streamEvent;
-                                               Assert.IsNotNull(deleted);
-                                               Assert.IsTrue(deleted.DirectMessageId > 0);
-                                               Assert.IsTrue(deleted.UserId > 0);
-                                           }
-                                       }
-                                       else
-                                       {
-                                           Assert.Ignore(string.Format("Stream responsed with status code: {0}", response.StatusCode));
-                                       }
-                                   }
-                );
+                    if (streamEvent is TwitterUserStreamDeleteDirectMessage)
+                    {
+                        var deleted = (TwitterUserStreamDeleteDirectMessage)streamEvent;
+                        Assert.IsNotNull(deleted);
+                        Assert.IsTrue(deleted.DirectMessageId > 0);
+                        Assert.IsTrue(deleted.UserId > 0);
+                    }
+                }
+                else
+                {
+                    Assert.Ignore(string.Format("Stream responsed with status code: {0}", response.StatusCode));
+                }
+            });
 
             block.WaitOne();
             service.CancelStreaming();
+        }
+
+        [Test]
+        public void Can_get_friendship_lookup()
+        {
+            var service = GetAuthenticatedService();
+
+            var friendships = service.ListFriendshipsFor(new[] { "danielcrenna"});
+            Assert.IsNotNull(friendships);
         }
     }
 }
