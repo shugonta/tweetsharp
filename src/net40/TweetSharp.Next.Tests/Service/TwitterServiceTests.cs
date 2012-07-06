@@ -1019,5 +1019,22 @@ namespace TweetSharp.Tests.Service
             var friendships = service.ListFriendshipsFor(new[] { "danielcrenna"});
             Assert.IsNotNull(friendships);
         }
+
+        [Test]
+        public void Can_loop_through_followers()
+        {
+            var service = GetAuthenticatedService();
+            var me = service.GetUserProfile();
+
+            var count = 0;
+            var followers = service.ListFollowersOf(me.Id, -1);
+            count += followers.Count;
+            while (followers != null && followers.NextCursor != 0)
+            {
+                followers = service.ListFollowersOf(me.Id, (long)followers.NextCursor);
+                count += followers.Count;
+            }     
+            Assert.AreEqual(me.FollowersCount, count);
+        }
     }
 }
