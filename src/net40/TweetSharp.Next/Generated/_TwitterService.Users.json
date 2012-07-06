@@ -1,18 +1,4 @@
-﻿TwitterCursorList<TwitterUser>, "statuses/friends", ListFriends
-TwitterCursorList<TwitterUser>, "statuses/friends", ListFriends, long cursor
-TwitterCursorList<TwitterUser>, "statuses/friends", ListFriendsOf, int userId 
-TwitterCursorList<TwitterUser>, "statuses/friends", ListFriendsOf, int userId, long cursor
-TwitterCursorList<TwitterUser>, "statuses/friends", ListFriendsOf, string screenName
-TwitterCursorList<TwitterUser>, "statuses/friends", ListFriendsOf, string screenName, long cursor
-
-TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowers
-TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowers, long cursor
-TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowersOf, int userId 
-TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowersOf, int userId, long cursor
-TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowersOf, string screenName
-TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowersOf, string screenName, long cursor
-
-TwitterUser, "account/verify_credentials", GetUserProfile
+﻿TwitterUser, "account/verify_credentials", GetUserProfile
 TwitterUser, "users/show", GetUserProfileFor, string screenName
 TwitterUser, "users/show", GetUserProfileFor, int id
 

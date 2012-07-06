@@ -18,3 +18,17 @@ IEnumerable<TwitterFriendshipLookup>, "friendships/lookup", ListFriendshipsFor, 
 IEnumerable<TwitterFriendshipLookup>, "friendships/lookup", ListFriendshipsFor, IEnumerable<string> screenName, IEnumerable<int> userId
 // TODO: friendships/update
 // TODO: friendships/no_retweet_ids
+
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/friends", ListFriends
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/friends", ListFriends, long cursor
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/friends", ListFriendsOf, int userId 
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/friends", ListFriendsOf, int userId, long cursor
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/friends", ListFriendsOf, string screenName
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/friends", ListFriendsOf, string screenName, long cursor
+
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowers
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowers, long cursor
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowersOf, int userId 
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowersOf, int userId, long cursor
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowersOf, string screenName
+DEPRECATED, TwitterCursorList<TwitterUser>, "statuses/followers", ListFollowersOf, string screenName, long cursor

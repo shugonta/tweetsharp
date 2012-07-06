@@ -362,7 +362,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_followers()
         {
             var service = GetAuthenticatedService();
-            var followers = service.ListFollowersOf(_hero);
+            var followers = service.ListFollowers();
             Assert.IsNotNull(followers);
         }
 

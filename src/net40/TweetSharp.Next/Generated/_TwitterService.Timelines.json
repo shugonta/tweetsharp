@@ -1,6 +1,4 @@
-﻿// https://dev.twitter.com/docs/api#timelines
-
-IEnumerable<TwitterStatus>, "statuses/public_timeline", ListTweetsOnPublicTimeline
+﻿DEPRECATED, IEnumerable<TwitterStatus>, "statuses/public_timeline", ListTweetsOnPublicTimeline
 
 IEnumerable<TwitterStatus>, "statuses/home_timeline", ListTweetsOnHomeTimeline
 IEnumerable<TwitterStatus>, "statuses/home_timeline", ListTweetsOnHomeTimeline, int count
@@ -12,15 +10,15 @@ IEnumerable<TwitterStatus>, "statuses/home_timeline", ListTweetsOnHomeTimelineBe
 IEnumerable<TwitterStatus>, "statuses/home_timeline", ListTweetsOnHomeTimelineBefore, long maxId, int count
 IEnumerable<TwitterStatus>, "statuses/home_timeline", ListTweetsOnHomeTimelineBefore, long maxId, int page, int count
 
-IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimeline
-IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimeline, int count
-IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimeline, int page, int count
-IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimelineSince, long sinceId
-IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimelineSince, long sinceId, int count
-IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimelineSince, long sinceId, int page, int count
-IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimelineBefore, long maxId
-IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimelineBefore, long maxId, int count
-IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimelineBefore, long maxId, int page, int count
+DEPRECATED, IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimeline
+DEPRECATED, IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimeline, int count
+DEPRECATED, IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimeline, int page, int count
+DEPRECATED, IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimelineSince, long sinceId
+DEPRECATED, IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimelineSince, long sinceId, int count
+DEPRECATED, IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimelineSince, long sinceId, int page, int count
+DEPRECATED, IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimelineBefore, long maxId
+DEPRECATED, IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimelineBefore, long maxId, int count
+DEPRECATED, IEnumerable<TwitterStatus>, "statuses/friends_timeline", ListTweetsOnFriendsTimelineBefore, long maxId, int page, int count
 
 IEnumerable<TwitterStatus>, "statuses/user_timeline", ListTweetsOnUserTimeline
 IEnumerable<TwitterStatus>, "statuses/user_timeline", ListTweetsOnUserTimeline, int count
