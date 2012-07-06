@@ -1006,7 +1006,6 @@ namespace TweetSharp.Tests.Service
         public void Can_get_friendship_lookup()
         {
             var service = GetAuthenticatedService();
-
             var friendships = service.ListFriendshipsFor(new[] { "danielcrenna"});
             Assert.IsNotNull(friendships);
         }
