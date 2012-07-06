@@ -15,6 +15,14 @@
 		<projectUrl>http://github.com/danielcrenna/tweetsharp</projectUrl>
 		<licenseUrl>https://github.com/danielcrenna/tweetsharp/blob/master/LICENSE</licenseUrl>
 		<iconUrl>http://apitize.com.s3.amazonaws.com/logo_tweetsharp.png</iconUrl>
-		<tags>twitter tweetsharp web api http rest wrapper json xml wp7 mango</tags>   
+		<tags>twitter tweetsharp web api http rest wrapper json xml wp7 mango</tags>
+    <releaseNotes>
+      New in 2.2
+      ----------
+      - Added several fixed identified in issues
+      - Deprecated methods now issue a warning to the user to find an alternative
+      - Reviewed code to ensure more serious deprecations are handled; they are
+      - Added 'friendships/lookup' method (ListFriendshipsFor)
+    </releaseNotes>
 	</metadata>
 </package>
