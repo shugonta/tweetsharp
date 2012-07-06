@@ -151,33 +151,33 @@ namespace TweetSharp
             FormatAsString = ".json";
 
             _client = new RestClient
-                          {
-                              Authority = Globals.RestAPIAuthority,
-                              QueryHandling = QueryHandling.AppendToParameters,
-                              VersionPath = "1",
-                              Serializer = _json,
-                              Deserializer = _json,
-                              DecompressionMethods = DecompressionMethods.GZip,
-                              UserAgent = "TweetSharp",
-                              Proxy = Proxy,
+            {
+                Authority = Globals.RestAPIAuthority,
+                QueryHandling = QueryHandling.AppendToParameters,
+                VersionPath = "1",
+                Serializer = _json,
+                Deserializer = _json,
+                DecompressionMethods = DecompressionMethods.GZip,
+                UserAgent = "TweetSharp",
+                Proxy = Proxy,
 #if !SILVERLIGHT
-                              FollowRedirects = true,
+                FollowRedirects = true,
 #endif
 #if SILVERLIGHT
-                              HasElevatedPermissions = true
+                HasElevatedPermissions = true
 #endif
-                          };
+            };
 
             _oauth = new RestClient
-                         {
-                             Authority = Globals.RestAPIAuthority,
-                             Proxy = Proxy,
-                             UserAgent = "TweetSharp",
-                             DecompressionMethods = DecompressionMethods.GZip,
+            {
+                Authority = Globals.RestAPIAuthority,
+                Proxy = Proxy,
+                UserAgent = "TweetSharp",
+                DecompressionMethods = DecompressionMethods.GZip,
 #if SILVERLIGHT
-                             HasElevatedPermissions = true
+                HasElevatedPermissions = true
 #endif
-                         };
+            };
 
             _userStreamingClient = new RestClient
             {

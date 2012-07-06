@@ -191,6 +191,7 @@ namespace TweetSharp
         }
 
         private string _textAsHtml;
+        [Obsolete("For most cases you want to use Entitites to find elements you can turn into HTML. This method does not know about entities.")]
         public virtual string TextAsHtml
         {
             get
