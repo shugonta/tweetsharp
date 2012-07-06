@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -251,8 +252,27 @@ namespace TweetSharp
             request.Path = path;
 
             SetTwitterClientInfo(request);
-            
+
+            // A little hacky, but these URLS have never changed
+            if (path.Contains("account/update_profile_background_image") ||
+                path.Contains("account/update_profile_image"))
+            {
+                PrepareUpload(request, path);
+            }
+
             return request;
+        }
+
+        private static void PrepareUpload(RestBase request, string path)
+        {
+            //account/update_profile_image.json?image=[FILE_PATH]&include_entities=1
+            var startIndex = path.IndexOf("?image=", StringComparison.Ordinal) + 7;
+            var endIndex = path.LastIndexOf("&", StringComparison.Ordinal);
+            var uri = path.Substring(startIndex, endIndex - startIndex);
+            path = path.Replace(string.Format("image={0}&", uri), "");
+            request.Path = path;
+            request.Method = WebMethod.Post;
+            request.AddFile("image", Path.GetFileName(uri), Path.GetFullPath(uri), "multipart/form-data");
         }
 
         private void SetTwitterClientInfo(RestBase request)

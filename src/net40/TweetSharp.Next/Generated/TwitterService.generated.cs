@@ -47,7 +47,7 @@ namespace TweetSharp
 		TwitterAccount UpdateAccountSettings(string timeZone, string lang);	
 
  
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		TwitterUser UpdateDeliveryDevice(TwitterDeliveryDevice device);	
 
  
@@ -72,11 +72,11 @@ namespace TweetSharp
 
  
         
-		TwitterUser UpdateProfileImage(string path);	
+		TwitterUser UpdateProfileImage(string imagePath);	
 
  
         
-		TwitterUser UpdateProfileBackgroundImage(string path);	
+		TwitterUser UpdateProfileBackgroundImage(string imagePath);	
 
  
         
@@ -1110,7 +1110,7 @@ namespace TweetSharp
         
 		IAsyncResult UpdateAccountSettings(string timeZone, string lang, Action<TwitterAccount, TwitterResponse> action);		
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		IAsyncResult UpdateDeliveryDevice(TwitterDeliveryDevice device, Action<TwitterUser, TwitterResponse> action);		
 
         
@@ -1129,10 +1129,10 @@ namespace TweetSharp
 		IAsyncResult UpdateProfileColors(string backgroundColor, string textColor, string linkColor, string sidebarFillColor, Action<TwitterUser, TwitterResponse> action);		
 
         
-		IAsyncResult UpdateProfileImage(string path, Action<TwitterUser, TwitterResponse> action);		
+		IAsyncResult UpdateProfileImage(string imagePath, Action<TwitterUser, TwitterResponse> action);		
 
         
-		IAsyncResult UpdateProfileBackgroundImage(string path, Action<TwitterUser, TwitterResponse> action);		
+		IAsyncResult UpdateProfileBackgroundImage(string imagePath, Action<TwitterUser, TwitterResponse> action);		
 
         
 		IAsyncResult UpdateProfile(string name, string description, string email, string url, string location, Action<TwitterUser, TwitterResponse> action);		
@@ -1924,7 +1924,7 @@ namespace TweetSharp
 
 		TwitterAccount EndUpdateAccountSettings(IAsyncResult result, TimeSpan timeout);
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		IAsyncResult BeginUpdateDeliveryDevice();
 
 		TwitterUser EndUpdateDeliveryDevice(IAsyncResult result);		
@@ -2719,7 +2719,7 @@ namespace TweetSharp
         
 		void UpdateAccountSettings(string timeZone, string lang, Action<TwitterAccount, TwitterResponse> action);
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		void UpdateDeliveryDevice(TwitterDeliveryDevice device, Action<TwitterUser, TwitterResponse> action);
 
         
@@ -2738,10 +2738,10 @@ namespace TweetSharp
 		void UpdateProfileColors(string backgroundColor, string textColor, string linkColor, string sidebarFillColor, Action<TwitterUser, TwitterResponse> action);
 
         
-		void UpdateProfileImage(string path, Action<TwitterUser, TwitterResponse> action);
+		void UpdateProfileImage(string imagePath, Action<TwitterUser, TwitterResponse> action);
 
         
-		void UpdateProfileBackgroundImage(string path, Action<TwitterUser, TwitterResponse> action);
+		void UpdateProfileBackgroundImage(string imagePath, Action<TwitterUser, TwitterResponse> action);
 
         
 		void UpdateProfile(string name, string description, string email, string url, string location, Action<TwitterUser, TwitterResponse> action);
@@ -3560,7 +3560,7 @@ namespace TweetSharp
 			return WithHammock<TwitterAccount>(WebMethod.Post, "account/settings", FormatAsString, "?time_zone=", timeZone, "&lang=", lang);
 		}
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual TwitterUser UpdateDeliveryDevice(TwitterDeliveryDevice device)
 		{
 			return WithHammock<TwitterUser>("account/update_delivery_device", FormatAsString, "?device=", device);
@@ -3597,15 +3597,15 @@ namespace TweetSharp
 		}
 
         
-		public virtual TwitterUser UpdateProfileImage(string path)
+		public virtual TwitterUser UpdateProfileImage(string imagePath)
 		{
-			return WithHammock<TwitterUser>(WebMethod.Post, "account/update_profile_image", FormatAsString, "?path=", path);
+			return WithHammock<TwitterUser>(WebMethod.Post, "account/update_profile_image", FormatAsString, "?image_path=", imagePath);
 		}
 
         
-		public virtual TwitterUser UpdateProfileBackgroundImage(string path)
+		public virtual TwitterUser UpdateProfileBackgroundImage(string imagePath)
 		{
-			return WithHammock<TwitterUser>(WebMethod.Post, "account/update_profile_background_image", FormatAsString, "?path=", path);
+			return WithHammock<TwitterUser>(WebMethod.Post, "account/update_profile_background_image", FormatAsString, "?image_path=", imagePath);
 		}
 
         
@@ -5167,7 +5167,7 @@ namespace TweetSharp
 			return WithHammock(WebMethod.Post, action, "account/settings", FormatAsString, "?time_zone=", timeZone, "&lang=", lang);
 		}
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual IAsyncResult UpdateDeliveryDevice(TwitterDeliveryDevice device, Action<TwitterUser, TwitterResponse> action)
 		{
 			return WithHammock(action, "account/update_delivery_device", FormatAsString, "?device=", device);
@@ -5204,15 +5204,15 @@ namespace TweetSharp
 		}
 
         
-		public virtual IAsyncResult UpdateProfileImage(string path, Action<TwitterUser, TwitterResponse> action)
+		public virtual IAsyncResult UpdateProfileImage(string imagePath, Action<TwitterUser, TwitterResponse> action)
 		{
-			return WithHammock(WebMethod.Post, action, "account/update_profile_image", FormatAsString, "?path=", path);
+			return WithHammock(WebMethod.Post, action, "account/update_profile_image", FormatAsString, "?image_path=", imagePath);
 		}
 
         
-		public virtual IAsyncResult UpdateProfileBackgroundImage(string path, Action<TwitterUser, TwitterResponse> action)
+		public virtual IAsyncResult UpdateProfileBackgroundImage(string imagePath, Action<TwitterUser, TwitterResponse> action)
 		{
-			return WithHammock(WebMethod.Post, action, "account/update_profile_background_image", FormatAsString, "?path=", path);
+			return WithHammock(WebMethod.Post, action, "account/update_profile_background_image", FormatAsString, "?image_path=", imagePath);
 		}
 
         
@@ -6774,7 +6774,7 @@ namespace TweetSharp
 			return BeginWithHammock<TwitterAccount>(WebMethod.Post, "account/settings", FormatAsString, "?time_zone=", timeZone, "&lang=", lang);
 		}
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual IAsyncResult BeginUpdateDeliveryDevice(TwitterDeliveryDevice device)
 		{
 			return BeginWithHammock<TwitterUser>(WebMethod.Get, "account/update_delivery_device", FormatAsString, "?device=", device);
@@ -6811,15 +6811,15 @@ namespace TweetSharp
 		}
 
         
-		public virtual IAsyncResult BeginUpdateProfileImage(string path)
+		public virtual IAsyncResult BeginUpdateProfileImage(string imagePath)
 		{
-			return BeginWithHammock<TwitterUser>(WebMethod.Post, "account/update_profile_image", FormatAsString, "?path=", path);
+			return BeginWithHammock<TwitterUser>(WebMethod.Post, "account/update_profile_image", FormatAsString, "?image_path=", imagePath);
 		}
 
         
-		public virtual IAsyncResult BeginUpdateProfileBackgroundImage(string path)
+		public virtual IAsyncResult BeginUpdateProfileBackgroundImage(string imagePath)
 		{
-			return BeginWithHammock<TwitterUser>(WebMethod.Post, "account/update_profile_background_image", FormatAsString, "?path=", path);
+			return BeginWithHammock<TwitterUser>(WebMethod.Post, "account/update_profile_background_image", FormatAsString, "?image_path=", imagePath);
 		}
 
         
@@ -8382,13 +8382,13 @@ namespace TweetSharp
 			return EndWithHammock<TwitterAccount>(result, timeout);
 		}
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual TwitterUser EndUpdateDeliveryDevice(IAsyncResult result) 
 		{
 			return EndWithHammock<TwitterUser>(result);
 		}
 
-		
+		[Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual TwitterUser EndUpdateDeliveryDevice(IAsyncResult result, TimeSpan timeout) 
 		{
 			return EndWithHammock<TwitterUser>(result, timeout);
@@ -9749,7 +9749,7 @@ namespace TweetSharp
 			WithHammock(WebMethod.Post, action, "account/settings", FormatAsString, "?time_zone=", timeZone, "&lang=", lang);
 		}
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual void UpdateDeliveryDevice(TwitterDeliveryDevice device, Action<TwitterUser, TwitterResponse> action)
 		{
 			WithHammock(action, "account/update_delivery_device", FormatAsString, "?device=", device);
@@ -9786,15 +9786,15 @@ namespace TweetSharp
 		}
 
         
-		public virtual void UpdateProfileImage(string path, Action<TwitterUser, TwitterResponse> action)
+		public virtual void UpdateProfileImage(string imagePath, Action<TwitterUser, TwitterResponse> action)
 		{
-			WithHammock(WebMethod.Post, action, "account/update_profile_image", FormatAsString, "?path=", path);
+			WithHammock(WebMethod.Post, action, "account/update_profile_image", FormatAsString, "?image_path=", imagePath);
 		}
 
         
-		public virtual void UpdateProfileBackgroundImage(string path, Action<TwitterUser, TwitterResponse> action)
+		public virtual void UpdateProfileBackgroundImage(string imagePath, Action<TwitterUser, TwitterResponse> action)
 		{
-			WithHammock(WebMethod.Post, action, "account/update_profile_background_image", FormatAsString, "?path=", path);
+			WithHammock(WebMethod.Post, action, "account/update_profile_background_image", FormatAsString, "?image_path=", imagePath);
 		}
 
         

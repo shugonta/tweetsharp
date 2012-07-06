@@ -880,6 +880,16 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
+        public void Can_update_profile_image()
+        {
+            var service = GetAuthenticatedService();
+            var user = service.UpdateProfileImage("daniel_8bit.png");
+            Assert.IsNotNull(user);
+            Assert.AreEqual(HttpStatusCode.OK, service.Response.StatusCode);
+        }
+
+
+        [Test]
         public void Can_get_local_trends()
         {
             var service = GetAuthenticatedService();
