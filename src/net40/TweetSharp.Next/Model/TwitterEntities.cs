@@ -107,14 +107,8 @@ namespace TweetSharp
 #endif
         public virtual TwitterEntityType EntityType { get; protected set; }
 
-#if !Smartphone && !NET20
-        [DataMember]
-#endif
         public virtual int StartIndex { get { return Indices.Count > 0 ? Indices[0] : -1; }}
 
-#if !Smartphone && !NET20
-        [DataMember]
-#endif
         public virtual int EndIndex { get { return Indices.Count > 1 ? Indices[1] : -1; } }
 
         public virtual int CompareTo(TwitterEntity other)
