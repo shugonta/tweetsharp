@@ -494,7 +494,7 @@ namespace TweetSharp.Tests.Service
 
             foreach(var tweet in results.Statuses)
             {
-                Console.WriteLine("{0} says '{1}", tweet.FromUserScreenName, tweet.Text);   
+                Console.WriteLine("{0} says '{1}", tweet.FromUserScreenName, tweet.Text);
             }
         }
 
