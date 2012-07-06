@@ -22,6 +22,7 @@ namespace TweetSharp
     {
         private DateTime _createdDate;
         private int _fromUserId;
+        private string _fromUserName;
         private string _fromUserScreenName;
         private long _id;
         private string _isoLanguageCode;
@@ -199,6 +200,25 @@ namespace TweetSharp
 
                 _fromUserScreenName = value;
                 OnPropertyChanged("FromUserScreenName");
+            }
+        }
+
+        [JsonProperty("from_user_name")]
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public string FromUserName
+        {
+            get { return _fromUserName; }
+            set
+            {
+                if (_fromUserName == value)
+                {
+                    return;
+                }
+
+                _fromUserName = value;
+                OnPropertyChanged("FromUserName");
             }
         }
 
