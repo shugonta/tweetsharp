@@ -48,6 +48,9 @@ IEnumerable<TwitterStatus>, "statuses/user_timeline", ListTweetsOnSpecifiedUserT
 IEnumerable<TwitterStatus>, "statuses/user_timeline", ListTweetsOnSpecifiedUserTimelineBefore, string screenName, long maxId, int page
 IEnumerable<TwitterStatus>, "statuses/user_timeline", ListTweetsOnSpecifiedUserTimelineBefore, string screenName, long maxId, int page, int count
 
+IEnumerable<TwitterStatus>, "statuses/user_timeline", ListTweetsAndRetweetsOnSpecifiedUserTimeline, string screenName, bool includeRts
+IEnumerable<TwitterStatus>, "statuses/user_timeline", ListTweetsAndRetweetsOnSpecifiedUserTimelineSince, string screenName, long sinceId, bool includeRts
+
 IEnumerable<TwitterStatus>, "statuses/mentions", ListTweetsMentioningMe
 IEnumerable<TwitterStatus>, "statuses/mentions", ListTweetsMentioningMe, int count
 IEnumerable<TwitterStatus>, "statuses/mentions", ListTweetsMentioningMe, int page, int count
