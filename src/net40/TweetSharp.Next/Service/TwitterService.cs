@@ -266,13 +266,13 @@ namespace TweetSharp
         private static void PrepareUpload(RestBase request, string path)
         {
             //account/update_profile_image.json?image=[FILE_PATH]&include_entities=1
-            var startIndex = path.IndexOf("?image=", StringComparison.Ordinal) + 7;
+            var startIndex = path.IndexOf("?image_path=", StringComparison.Ordinal) + 12;
             var endIndex = path.LastIndexOf("&", StringComparison.Ordinal);
             var uri = path.Substring(startIndex, endIndex - startIndex);
-            path = path.Replace(string.Format("image={0}&", uri), "");
+            path = path.Replace(string.Format("image_path={0}&", uri), "");
             request.Path = path;
             request.Method = WebMethod.Post;
-            request.AddFile("image", Path.GetFileName(uri), Path.GetFullPath(uri), "multipart/form-data");
+            request.AddFile("image", Path.GetFileName(Uri.UnescapeDataString(uri)), Path.GetFullPath(Uri.UnescapeDataString(uri)), "multipart/form-data");
         }
 
         private void SetTwitterClientInfo(RestBase request)
