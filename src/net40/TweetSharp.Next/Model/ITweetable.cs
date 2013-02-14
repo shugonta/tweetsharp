@@ -2,7 +2,7 @@ using System;
 
 namespace TweetSharp
 {
-    public interface ITweetable
+    public interface ITweetable : ITwitterModel 
     {
         long Id { get; }
         string Text { get; }
@@ -13,7 +13,7 @@ namespace TweetSharp
         string RawSource { get; set; }
     }
 
-    public interface ITweeter
+    public interface ITweeter : ITwitterModel
     {
         string ScreenName { get; }
         string ProfileImageUrl { get; }
