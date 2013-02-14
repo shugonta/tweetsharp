@@ -756,6 +756,14 @@ namespace TweetSharp
 
  
         
+		IEnumerable<TwitterStatus> ListTweetsAndRetweetsOnSpecifiedUserTimeline(string screenName, bool includeRts);	
+
+ 
+        
+		IEnumerable<TwitterStatus> ListTweetsAndRetweetsOnSpecifiedUserTimelineSince(string screenName, long sinceId, bool includeRts);	
+
+ 
+        
 		IEnumerable<TwitterStatus> ListTweetsMentioningMe();	
 
  
@@ -1642,6 +1650,12 @@ namespace TweetSharp
 		IAsyncResult ListTweetsOnSpecifiedUserTimelineBefore(string screenName, long maxId, int page, int count, Action<IEnumerable<TwitterStatus>, TwitterResponse> action);		
 
         
+		IAsyncResult ListTweetsAndRetweetsOnSpecifiedUserTimeline(string screenName, bool includeRts, Action<IEnumerable<TwitterStatus>, TwitterResponse> action);		
+
+        
+		IAsyncResult ListTweetsAndRetweetsOnSpecifiedUserTimelineSince(string screenName, long sinceId, bool includeRts, Action<IEnumerable<TwitterStatus>, TwitterResponse> action);		
+
+        
 		IAsyncResult ListTweetsMentioningMe(Action<IEnumerable<TwitterStatus>, TwitterResponse> action);		
 
         
@@ -1918,63 +1932,63 @@ namespace TweetSharp
 		TwitterAccount EndGetAccountSettings(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginUpdateAccountSettings();
+		IAsyncResult BeginUpdateAccountSettings(int trend_location_woeid);
 
 		TwitterAccount EndUpdateAccountSettings(IAsyncResult result);		
 
 		TwitterAccount EndUpdateAccountSettings(IAsyncResult result, TimeSpan timeout);
 
         [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
-		IAsyncResult BeginUpdateDeliveryDevice();
+		IAsyncResult BeginUpdateDeliveryDevice(TwitterDeliveryDevice device);
 
 		TwitterUser EndUpdateDeliveryDevice(IAsyncResult result);		
 
 		TwitterUser EndUpdateDeliveryDevice(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginUpdateProfileColors();
+		IAsyncResult BeginUpdateProfileColors(string backgroundColor, string textColor, string linkColor, string sidebarFillColor, string sidebarBorderColor);
 
 		TwitterUser EndUpdateProfileColors(IAsyncResult result);		
 
 		TwitterUser EndUpdateProfileColors(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginUpdateProfileImage();
+		IAsyncResult BeginUpdateProfileImage(string imagePath);
 
 		TwitterUser EndUpdateProfileImage(IAsyncResult result);		
 
 		TwitterUser EndUpdateProfileImage(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginUpdateProfileBackgroundImage();
+		IAsyncResult BeginUpdateProfileBackgroundImage(string imagePath);
 
 		TwitterUser EndUpdateProfileBackgroundImage(IAsyncResult result);		
 
 		TwitterUser EndUpdateProfileBackgroundImage(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginUpdateProfile();
+		IAsyncResult BeginUpdateProfile(string name, string description, string email, string url, string location);
 
 		TwitterUser EndUpdateProfile(IAsyncResult result);		
 
 		TwitterUser EndUpdateProfile(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginBlockUser();
+		IAsyncResult BeginBlockUser(int userId);
 
 		TwitterUser EndBlockUser(IAsyncResult result);		
 
 		TwitterUser EndBlockUser(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginUnblockUser();
+		IAsyncResult BeginUnblockUser(int userId);
 
 		TwitterUser EndUnblockUser(IAsyncResult result);		
 
 		TwitterUser EndUnblockUser(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginVerifyBlocking();
+		IAsyncResult BeginVerifyBlocking(int userId);
 
 		TwitterUser EndVerifyBlocking(IAsyncResult result);		
 
@@ -2002,14 +2016,14 @@ namespace TweetSharp
 		IEnumerable<TwitterDirectMessage> EndListDirectMessagesReceived(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListDirectMessagesReceivedSince();
+		IAsyncResult BeginListDirectMessagesReceivedSince(long sinceId);
 
 		IEnumerable<TwitterDirectMessage> EndListDirectMessagesReceivedSince(IAsyncResult result);		
 
 		IEnumerable<TwitterDirectMessage> EndListDirectMessagesReceivedSince(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListDirectMessagesReceivedBefore();
+		IAsyncResult BeginListDirectMessagesReceivedBefore(long maxId);
 
 		IEnumerable<TwitterDirectMessage> EndListDirectMessagesReceivedBefore(IAsyncResult result);		
 
@@ -2023,28 +2037,28 @@ namespace TweetSharp
 		IEnumerable<TwitterDirectMessage> EndListDirectMessagesSent(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListDirectMessagesSentSince();
+		IAsyncResult BeginListDirectMessagesSentSince(long sinceId);
 
 		IEnumerable<TwitterDirectMessage> EndListDirectMessagesSentSince(IAsyncResult result);		
 
 		IEnumerable<TwitterDirectMessage> EndListDirectMessagesSentSince(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListDirectMessagesSentBefore();
+		IAsyncResult BeginListDirectMessagesSentBefore(long maxId);
 
 		IEnumerable<TwitterDirectMessage> EndListDirectMessagesSentBefore(IAsyncResult result);		
 
 		IEnumerable<TwitterDirectMessage> EndListDirectMessagesSentBefore(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginDeleteDirectMessage();
+		IAsyncResult BeginDeleteDirectMessage(long id);
 
 		TwitterDirectMessage EndDeleteDirectMessage(IAsyncResult result);		
 
 		TwitterDirectMessage EndDeleteDirectMessage(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginSendDirectMessage();
+		IAsyncResult BeginSendDirectMessage(int userId, string text);
 
 		TwitterDirectMessage EndSendDirectMessage(IAsyncResult result);		
 
@@ -2058,35 +2072,35 @@ namespace TweetSharp
 		IEnumerable<TwitterStatus> EndListFavoriteTweets(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListFavoriteTweetsFor();
+		IAsyncResult BeginListFavoriteTweetsFor(int userId);
 
 		IEnumerable<TwitterStatus> EndListFavoriteTweetsFor(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListFavoriteTweetsFor(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginFavoriteTweet();
+		IAsyncResult BeginFavoriteTweet(long id);
 
 		TwitterStatus EndFavoriteTweet(IAsyncResult result);		
 
 		TwitterStatus EndFavoriteTweet(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginUnfavoriteTweet();
+		IAsyncResult BeginUnfavoriteTweet(long id);
 
 		TwitterStatus EndUnfavoriteTweet(IAsyncResult result);		
 
 		TwitterStatus EndUnfavoriteTweet(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListFollowerIdsOf();
+		IAsyncResult BeginListFollowerIdsOf(int userId, long cursor);
 
 		TwitterCursorList<int> EndListFollowerIdsOf(IAsyncResult result);		
 
 		TwitterCursorList<int> EndListFollowerIdsOf(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListFriendIdsOf();
+		IAsyncResult BeginListFriendIdsOf(string screenName, long cursor);
 
 		TwitterCursorList<int> EndListFriendIdsOf(IAsyncResult result);		
 
@@ -2107,28 +2121,28 @@ namespace TweetSharp
 		TwitterCursorList<int> EndGetOutgoingFriendRequests(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginGetFriendshipInfo();
+		IAsyncResult BeginGetFriendshipInfo(string sourceScreenName, string targetScreenName);
 
 		TwitterFriendship EndGetFriendshipInfo(IAsyncResult result);		
 
 		TwitterFriendship EndGetFriendshipInfo(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginFollowUser();
+		IAsyncResult BeginFollowUser(int userId);
 
 		TwitterUser EndFollowUser(IAsyncResult result);		
 
 		TwitterUser EndFollowUser(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginUnfollowUser();
+		IAsyncResult BeginUnfollowUser(string screenName);
 
 		TwitterUser EndUnfollowUser(IAsyncResult result);		
 
 		TwitterUser EndUnfollowUser(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListFriendshipsFor();
+		IAsyncResult BeginListFriendshipsFor(IEnumerable<string> screenName);
 
 		IEnumerable<TwitterFriendshipLookup> EndListFriendshipsFor(IAsyncResult result);		
 
@@ -2142,7 +2156,7 @@ namespace TweetSharp
 		TwitterCursorList<TwitterUser> EndListFriends(IAsyncResult result, TimeSpan timeout);
 
         [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
-		IAsyncResult BeginListFriendsOf();
+		IAsyncResult BeginListFriendsOf(int userId);
 
 		TwitterCursorList<TwitterUser> EndListFriendsOf(IAsyncResult result);		
 
@@ -2156,140 +2170,140 @@ namespace TweetSharp
 		TwitterCursorList<TwitterUser> EndListFollowers(IAsyncResult result, TimeSpan timeout);
 
         [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
-		IAsyncResult BeginListFollowersOf();
+		IAsyncResult BeginListFollowersOf(int userId);
 
 		TwitterCursorList<TwitterUser> EndListFollowersOf(IAsyncResult result);		
 
 		TwitterCursorList<TwitterUser> EndListFollowersOf(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginCreateList();
+		IAsyncResult BeginCreateList(string listOwner, string name);
 
 		TwitterList EndCreateList(IAsyncResult result);		
 
 		TwitterList EndCreateList(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListListsFor();
+		IAsyncResult BeginListListsFor(string screenName, long cursor);
 
 		TwitterCursorList<TwitterList> EndListListsFor(IAsyncResult result);		
 
 		TwitterCursorList<TwitterList> EndListListsFor(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginGetList();
+		IAsyncResult BeginGetList(string ownerScreenName, string slug);
 
 		TwitterList EndGetList(IAsyncResult result);		
 
 		TwitterList EndGetList(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginDeleteList();
+		IAsyncResult BeginDeleteList(long listId);
 
 		TwitterList EndDeleteList(IAsyncResult result);		
 
 		TwitterList EndDeleteList(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListTweetsOnList();
+		IAsyncResult BeginListTweetsOnList(string ownerScreenName, string slug);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnList(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListTweetsOnList(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListTweetsOnListSince();
+		IAsyncResult BeginListTweetsOnListSince(string ownerScreenName, string slug, long sinceId);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnListSince(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListTweetsOnListSince(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListTweetsOnListBefore();
+		IAsyncResult BeginListTweetsOnListBefore(string ownerScreenName, string slug, long maxId);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnListBefore(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListTweetsOnListBefore(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListListMembershipsFor();
+		IAsyncResult BeginListListMembershipsFor(string screenName, bool filterToOwnedLists, long cursor);
 
 		TwitterCursorList<TwitterList> EndListListMembershipsFor(IAsyncResult result);		
 
 		TwitterCursorList<TwitterList> EndListListMembershipsFor(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListListMembers();
+		IAsyncResult BeginListListMembers(string ownerScreenName, string slug, long cursor);
 
 		TwitterCursorList<TwitterUser> EndListListMembers(IAsyncResult result);		
 
 		TwitterCursorList<TwitterUser> EndListListMembers(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginAddListMember();
+		IAsyncResult BeginAddListMember(string ownerScreenName, string slug, string screenName);
 
 		TwitterUser EndAddListMember(IAsyncResult result);		
 
 		TwitterUser EndAddListMember(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginRemoveListMember();
+		IAsyncResult BeginRemoveListMember(string ownerScreenName, string slug, string screenName);
 
 		TwitterUser EndRemoveListMember(IAsyncResult result);		
 
 		TwitterUser EndRemoveListMember(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginVerifyListMembership();
+		IAsyncResult BeginVerifyListMembership(string ownerScreenName, string slug, string screenName);
 
 		TwitterUser EndVerifyListMembership(IAsyncResult result);		
 
 		TwitterUser EndVerifyListMembership(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListListSubscriptionsFor();
+		IAsyncResult BeginListListSubscriptionsFor(string screenName);
 
 		IEnumerable<TwitterList> EndListListSubscriptionsFor(IAsyncResult result);		
 
 		IEnumerable<TwitterList> EndListListSubscriptionsFor(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListListSubscribers();
+		IAsyncResult BeginListListSubscribers(string ownerScreenName, string slug, long cursor);
 
 		TwitterCursorList<TwitterUser> EndListListSubscribers(IAsyncResult result);		
 
 		TwitterCursorList<TwitterUser> EndListListSubscribers(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginFollowList();
+		IAsyncResult BeginFollowList(string ownerScreenName, string slug);
 
 		TwitterUser EndFollowList(IAsyncResult result);		
 
 		TwitterUser EndFollowList(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginUnfollowList();
+		IAsyncResult BeginUnfollowList(string ownerScreenName, string slug);
 
 		TwitterUser EndUnfollowList(IAsyncResult result);		
 
 		TwitterUser EndUnfollowList(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginVerifyListSubscription();
+		IAsyncResult BeginVerifyListSubscription(string ownerScreenName, string slug, string screenName);
 
 		TwitterUser EndVerifyListSubscription(IAsyncResult result);		
 
 		TwitterUser EndVerifyListSubscription(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginFollowUserNotifications();
+		IAsyncResult BeginFollowUserNotifications(string screenName);
 
 		TwitterUser EndFollowUserNotifications(IAsyncResult result);		
 
 		TwitterUser EndFollowUserNotifications(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginUnfollowUserNotifications();
+		IAsyncResult BeginUnfollowUserNotifications(int userId);
 
 		TwitterUser EndUnfollowUserNotifications(IAsyncResult result);		
 
@@ -2303,42 +2317,42 @@ namespace TweetSharp
 		IEnumerable<TwitterSavedSearch> EndListSavedSearches(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginGetSavedSearch();
+		IAsyncResult BeginGetSavedSearch(long id);
 
 		TwitterSavedSearch EndGetSavedSearch(IAsyncResult result);		
 
 		TwitterSavedSearch EndGetSavedSearch(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginCreateSavedSearch();
+		IAsyncResult BeginCreateSavedSearch(string query);
 
 		TwitterSavedSearch EndCreateSavedSearch(IAsyncResult result);		
 
 		TwitterSavedSearch EndCreateSavedSearch(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginDeleteSavedSearch();
+		IAsyncResult BeginDeleteSavedSearch(long id);
 
 		TwitterSavedSearch EndDeleteSavedSearch(IAsyncResult result);		
 
 		TwitterSavedSearch EndDeleteSavedSearch(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginSearch();
+		IAsyncResult BeginSearch(string q);
 
 		TwitterSearchResult EndSearch(IAsyncResult result);		
 
 		TwitterSearchResult EndSearch(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginSearchSince();
+		IAsyncResult BeginSearchSince(long since_id, string q);
 
 		TwitterSearchResult EndSearchSince(IAsyncResult result);		
 
 		TwitterSearchResult EndSearchSince(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginSearchBefore();
+		IAsyncResult BeginSearchBefore(long max_id, string q);
 
 		TwitterSearchResult EndSearchBefore(IAsyncResult result);		
 
@@ -2359,14 +2373,14 @@ namespace TweetSharp
 		IEnumerable<TwitterStatus> EndListTweetsOnHomeTimeline(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListTweetsOnHomeTimelineSince();
+		IAsyncResult BeginListTweetsOnHomeTimelineSince(long sinceId);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnHomeTimelineSince(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListTweetsOnHomeTimelineSince(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListTweetsOnHomeTimelineBefore();
+		IAsyncResult BeginListTweetsOnHomeTimelineBefore(long maxId);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnHomeTimelineBefore(IAsyncResult result);		
 
@@ -2380,14 +2394,14 @@ namespace TweetSharp
 		IEnumerable<TwitterStatus> EndListTweetsOnFriendsTimeline(IAsyncResult result, TimeSpan timeout);
 
         [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
-		IAsyncResult BeginListTweetsOnFriendsTimelineSince();
+		IAsyncResult BeginListTweetsOnFriendsTimelineSince(long sinceId);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnFriendsTimelineSince(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListTweetsOnFriendsTimelineSince(IAsyncResult result, TimeSpan timeout);
 
         [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
-		IAsyncResult BeginListTweetsOnFriendsTimelineBefore();
+		IAsyncResult BeginListTweetsOnFriendsTimelineBefore(long maxId);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnFriendsTimelineBefore(IAsyncResult result);		
 
@@ -2401,39 +2415,53 @@ namespace TweetSharp
 		IEnumerable<TwitterStatus> EndListTweetsOnUserTimeline(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListTweetsOnUserTimelineSince();
+		IAsyncResult BeginListTweetsOnUserTimelineSince(long sinceId);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnUserTimelineSince(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListTweetsOnUserTimelineSince(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListTweetsOnUserTimelineBefore();
+		IAsyncResult BeginListTweetsOnUserTimelineBefore(long maxId);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnUserTimelineBefore(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListTweetsOnUserTimelineBefore(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListTweetsOnSpecifiedUserTimeline();
+		IAsyncResult BeginListTweetsOnSpecifiedUserTimeline(int userId);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnSpecifiedUserTimeline(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListTweetsOnSpecifiedUserTimeline(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListTweetsOnSpecifiedUserTimelineSince();
+		IAsyncResult BeginListTweetsOnSpecifiedUserTimelineSince(int userId, long sinceId);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnSpecifiedUserTimelineSince(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListTweetsOnSpecifiedUserTimelineSince(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListTweetsOnSpecifiedUserTimelineBefore();
+		IAsyncResult BeginListTweetsOnSpecifiedUserTimelineBefore(int userId, long maxId);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnSpecifiedUserTimelineBefore(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListTweetsOnSpecifiedUserTimelineBefore(IAsyncResult result, TimeSpan timeout);
+
+        
+		IAsyncResult BeginListTweetsAndRetweetsOnSpecifiedUserTimeline(string screenName, bool includeRts);
+
+		IEnumerable<TwitterStatus> EndListTweetsAndRetweetsOnSpecifiedUserTimeline(IAsyncResult result);		
+
+		IEnumerable<TwitterStatus> EndListTweetsAndRetweetsOnSpecifiedUserTimeline(IAsyncResult result, TimeSpan timeout);
+
+        
+		IAsyncResult BeginListTweetsAndRetweetsOnSpecifiedUserTimelineSince(string screenName, long sinceId, bool includeRts);
+
+		IEnumerable<TwitterStatus> EndListTweetsAndRetweetsOnSpecifiedUserTimelineSince(IAsyncResult result);		
+
+		IEnumerable<TwitterStatus> EndListTweetsAndRetweetsOnSpecifiedUserTimelineSince(IAsyncResult result, TimeSpan timeout);
 
         
 		IAsyncResult BeginListTweetsMentioningMe();
@@ -2443,14 +2471,14 @@ namespace TweetSharp
 		IEnumerable<TwitterStatus> EndListTweetsMentioningMe(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListTweetsMentioningMeSince();
+		IAsyncResult BeginListTweetsMentioningMeSince(long sinceId);
 
 		IEnumerable<TwitterStatus> EndListTweetsMentioningMeSince(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListTweetsMentioningMeSince(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListTweetsMentioningMeBefore();
+		IAsyncResult BeginListTweetsMentioningMeBefore(long maxId);
 
 		IEnumerable<TwitterStatus> EndListTweetsMentioningMeBefore(IAsyncResult result);		
 
@@ -2464,14 +2492,14 @@ namespace TweetSharp
 		IEnumerable<TwitterStatus> EndListRetweetsByMe(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListRetweetsByMeSince();
+		IAsyncResult BeginListRetweetsByMeSince(long sinceId, int count);
 
 		IEnumerable<TwitterStatus> EndListRetweetsByMeSince(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListRetweetsByMeSince(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListRetweetsByMeBefore();
+		IAsyncResult BeginListRetweetsByMeBefore(long maxId);
 
 		IEnumerable<TwitterStatus> EndListRetweetsByMeBefore(IAsyncResult result);		
 
@@ -2485,14 +2513,14 @@ namespace TweetSharp
 		IEnumerable<TwitterStatus> EndListRetweetsToMe(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListRetweetsToMeSince();
+		IAsyncResult BeginListRetweetsToMeSince(long sinceId);
 
 		IEnumerable<TwitterStatus> EndListRetweetsToMeSince(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListRetweetsToMeSince(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListRetweetsToMeBefore();
+		IAsyncResult BeginListRetweetsToMeBefore(long maxId);
 
 		IEnumerable<TwitterStatus> EndListRetweetsToMeBefore(IAsyncResult result);		
 
@@ -2506,14 +2534,14 @@ namespace TweetSharp
 		IEnumerable<TwitterStatus> EndListRetweetsOfMyTweets(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListRetweetsOfMyTweetsSince();
+		IAsyncResult BeginListRetweetsOfMyTweetsSince(long sinceId, int count);
 
 		IEnumerable<TwitterStatus> EndListRetweetsOfMyTweetsSince(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndListRetweetsOfMyTweetsSince(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListRetweetsOfMyTweetsBefore();
+		IAsyncResult BeginListRetweetsOfMyTweetsBefore(long maxId, int count);
 
 		IEnumerable<TwitterStatus> EndListRetweetsOfMyTweetsBefore(IAsyncResult result);		
 
@@ -2548,56 +2576,56 @@ namespace TweetSharp
 		IEnumerable<WhereOnEarthLocation> EndListAvailableTrendsLocations(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListLocalTrendsFor();
+		IAsyncResult BeginListLocalTrendsFor(long woeId);
 
 		TwitterLocalTrends EndListLocalTrendsFor(IAsyncResult result);		
 
 		TwitterLocalTrends EndListLocalTrendsFor(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginGetTweet();
+		IAsyncResult BeginGetTweet(long id);
 
 		TwitterStatus EndGetTweet(IAsyncResult result);		
 
 		TwitterStatus EndGetTweet(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginSendTweet();
+		IAsyncResult BeginSendTweet(string status);
 
 		TwitterStatus EndSendTweet(IAsyncResult result);		
 
 		TwitterStatus EndSendTweet(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginDeleteTweet();
+		IAsyncResult BeginDeleteTweet(long id);
 
 		TwitterStatus EndDeleteTweet(IAsyncResult result);		
 
 		TwitterStatus EndDeleteTweet(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginRetweet();
+		IAsyncResult BeginRetweet(long id);
 
 		TwitterStatus EndRetweet(IAsyncResult result);		
 
 		TwitterStatus EndRetweet(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginRetweets();
+		IAsyncResult BeginRetweets(long id);
 
 		IEnumerable<TwitterStatus> EndRetweets(IAsyncResult result);		
 
 		IEnumerable<TwitterStatus> EndRetweets(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListUsersWhoRetweeted();
+		IAsyncResult BeginListUsersWhoRetweeted(long id);
 
 		IEnumerable<TwitterUser> EndListUsersWhoRetweeted(IAsyncResult result);		
 
 		IEnumerable<TwitterUser> EndListUsersWhoRetweeted(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListUserIdsWhoRetweeted();
+		IAsyncResult BeginListUserIdsWhoRetweeted(long id);
 
 		IEnumerable<int> EndListUserIdsWhoRetweeted(IAsyncResult result);		
 
@@ -2611,28 +2639,28 @@ namespace TweetSharp
 		TwitterUser EndGetUserProfile(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginGetUserProfileFor();
+		IAsyncResult BeginGetUserProfileFor(string screenName);
 
 		TwitterUser EndGetUserProfileFor(IAsyncResult result);		
 
 		TwitterUser EndGetUserProfileFor(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginSearchForUser();
+		IAsyncResult BeginSearchForUser(string q);
 
 		IEnumerable<TwitterUser> EndSearchForUser(IAsyncResult result);		
 
 		IEnumerable<TwitterUser> EndSearchForUser(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListUserProfilesFor();
+		IAsyncResult BeginListUserProfilesFor(IEnumerable<string> screenName);
 
 		IEnumerable<TwitterUser> EndListUserProfilesFor(IAsyncResult result);		
 
 		IEnumerable<TwitterUser> EndListUserProfilesFor(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginGetProfileImageFor();
+		IAsyncResult BeginGetProfileImageFor(string screenName);
 
 		byte[] EndGetProfileImageFor(IAsyncResult result);		
 
@@ -2646,42 +2674,42 @@ namespace TweetSharp
 		IEnumerable<TwitterUserSuggestions> EndListSuggestedUserCategories(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListSuggestedUsers();
+		IAsyncResult BeginListSuggestedUsers(string categorySlug);
 
 		TwitterUserSuggestions EndListSuggestedUsers(IAsyncResult result);		
 
 		TwitterUserSuggestions EndListSuggestedUsers(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginGetPlace();
+		IAsyncResult BeginGetPlace(string id);
 
 		TwitterPlace EndGetPlace(IAsyncResult result);		
 
 		TwitterPlace EndGetPlace(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginReverseGeocode();
+		IAsyncResult BeginReverseGeocode(double lat, double @long);
 
 		IEnumerable<TwitterPlace> EndReverseGeocode(IAsyncResult result);		
 
 		IEnumerable<TwitterPlace> EndReverseGeocode(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginGeoSearchByCoordinates();
+		IAsyncResult BeginGeoSearchByCoordinates(double lat, double @long);
 
 		IEnumerable<TwitterPlace> EndGeoSearchByCoordinates(IAsyncResult result);		
 
 		IEnumerable<TwitterPlace> EndGeoSearchByCoordinates(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginGeoSearchByQuery();
+		IAsyncResult BeginGeoSearchByQuery(string query);
 
 		IEnumerable<TwitterPlace> EndGeoSearchByQuery(IAsyncResult result);		
 
 		IEnumerable<TwitterPlace> EndGeoSearchByQuery(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginGeoSearchByIp();
+		IAsyncResult BeginGeoSearchByIp(string ip);
 
 		IEnumerable<TwitterPlace> EndGeoSearchByIp(IAsyncResult result);		
 
@@ -3251,6 +3279,12 @@ namespace TweetSharp
 		void ListTweetsOnSpecifiedUserTimelineBefore(string screenName, long maxId, int page, int count, Action<IEnumerable<TwitterStatus>, TwitterResponse> action);
 
         
+		void ListTweetsAndRetweetsOnSpecifiedUserTimeline(string screenName, bool includeRts, Action<IEnumerable<TwitterStatus>, TwitterResponse> action);
+
+        
+		void ListTweetsAndRetweetsOnSpecifiedUserTimelineSince(string screenName, long sinceId, bool includeRts, Action<IEnumerable<TwitterStatus>, TwitterResponse> action);
+
+        
 		void ListTweetsMentioningMe(Action<IEnumerable<TwitterStatus>, TwitterResponse> action);
 
         
@@ -3502,7 +3536,7 @@ namespace TweetSharp
 namespace TweetSharp
 {
 #region Implementation
-	public partial class TwitterService
+	public partial class TwitterService : ITwitterService
 	{	
 #if !SILVERLIGHT
 		#region Sequential Methods
@@ -4620,6 +4654,18 @@ namespace TweetSharp
 		public virtual IEnumerable<TwitterStatus> ListTweetsOnSpecifiedUserTimelineBefore(string screenName, long maxId, int page, int count)
 		{
 			return WithHammock<IEnumerable<TwitterStatus>>("statuses/user_timeline", FormatAsString, "?screen_name=", screenName, "&max_id=", maxId, "&page=", page, "&count=", count);
+		}
+
+        
+		public virtual IEnumerable<TwitterStatus> ListTweetsAndRetweetsOnSpecifiedUserTimeline(string screenName, bool includeRts)
+		{
+			return WithHammock<IEnumerable<TwitterStatus>>("statuses/user_timeline", FormatAsString, "?screen_name=", screenName, "&include_rts=", includeRts);
+		}
+
+        
+		public virtual IEnumerable<TwitterStatus> ListTweetsAndRetweetsOnSpecifiedUserTimelineSince(string screenName, long sinceId, bool includeRts)
+		{
+			return WithHammock<IEnumerable<TwitterStatus>>("statuses/user_timeline", FormatAsString, "?screen_name=", screenName, "&since_id=", sinceId, "&include_rts=", includeRts);
 		}
 
         
@@ -6230,6 +6276,18 @@ namespace TweetSharp
 		}
 
         
+		public virtual IAsyncResult ListTweetsAndRetweetsOnSpecifiedUserTimeline(string screenName, bool includeRts, Action<IEnumerable<TwitterStatus>, TwitterResponse> action)
+		{
+			return WithHammock(action, "statuses/user_timeline", FormatAsString, "?screen_name=", screenName, "&include_rts=", includeRts);
+		}
+
+        
+		public virtual IAsyncResult ListTweetsAndRetweetsOnSpecifiedUserTimelineSince(string screenName, long sinceId, bool includeRts, Action<IEnumerable<TwitterStatus>, TwitterResponse> action)
+		{
+			return WithHammock(action, "statuses/user_timeline", FormatAsString, "?screen_name=", screenName, "&since_id=", sinceId, "&include_rts=", includeRts);
+		}
+
+        
 		public virtual IAsyncResult ListTweetsMentioningMe(Action<IEnumerable<TwitterStatus>, TwitterResponse> action)
 		{
 			return WithHammock(action, "statuses/mentions", FormatAsString);
@@ -7837,6 +7895,18 @@ namespace TweetSharp
 		}
 
         
+		public virtual IAsyncResult BeginListTweetsAndRetweetsOnSpecifiedUserTimeline(string screenName, bool includeRts)
+		{
+			return BeginWithHammock<IEnumerable<TwitterStatus>>(WebMethod.Get, "statuses/user_timeline", FormatAsString, "?screen_name=", screenName, "&include_rts=", includeRts);
+		}
+
+        
+		public virtual IAsyncResult BeginListTweetsAndRetweetsOnSpecifiedUserTimelineSince(string screenName, long sinceId, bool includeRts)
+		{
+			return BeginWithHammock<IEnumerable<TwitterStatus>>(WebMethod.Get, "statuses/user_timeline", FormatAsString, "?screen_name=", screenName, "&since_id=", sinceId, "&include_rts=", includeRts);
+		}
+
+        
 		public virtual IAsyncResult BeginListTweetsMentioningMe()
 		{
 			return BeginWithHammock<IEnumerable<TwitterStatus>>(WebMethod.Get, "statuses/mentions", FormatAsString);
@@ -9254,6 +9324,30 @@ namespace TweetSharp
 
 		
 		public virtual IEnumerable<TwitterStatus> EndListTweetsOnSpecifiedUserTimelineBefore(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<IEnumerable<TwitterStatus>>(result, timeout);
+		}
+
+        
+		public virtual IEnumerable<TwitterStatus> EndListTweetsAndRetweetsOnSpecifiedUserTimeline(IAsyncResult result) 
+		{
+			return EndWithHammock<IEnumerable<TwitterStatus>>(result);
+		}
+
+		
+		public virtual IEnumerable<TwitterStatus> EndListTweetsAndRetweetsOnSpecifiedUserTimeline(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<IEnumerable<TwitterStatus>>(result, timeout);
+		}
+
+        
+		public virtual IEnumerable<TwitterStatus> EndListTweetsAndRetweetsOnSpecifiedUserTimelineSince(IAsyncResult result) 
+		{
+			return EndWithHammock<IEnumerable<TwitterStatus>>(result);
+		}
+
+		
+		public virtual IEnumerable<TwitterStatus> EndListTweetsAndRetweetsOnSpecifiedUserTimelineSince(IAsyncResult result, TimeSpan timeout) 
 		{
 			return EndWithHammock<IEnumerable<TwitterStatus>>(result, timeout);
 		}
@@ -10809,6 +10903,18 @@ namespace TweetSharp
 		public virtual void ListTweetsOnSpecifiedUserTimelineBefore(string screenName, long maxId, int page, int count, Action<IEnumerable<TwitterStatus>, TwitterResponse> action)
 		{
 			WithHammock(action, "statuses/user_timeline", FormatAsString, "?screen_name=", screenName, "&max_id=", maxId, "&page=", page, "&count=", count);
+		}
+
+        
+		public virtual void ListTweetsAndRetweetsOnSpecifiedUserTimeline(string screenName, bool includeRts, Action<IEnumerable<TwitterStatus>, TwitterResponse> action)
+		{
+			WithHammock(action, "statuses/user_timeline", FormatAsString, "?screen_name=", screenName, "&include_rts=", includeRts);
+		}
+
+        
+		public virtual void ListTweetsAndRetweetsOnSpecifiedUserTimelineSince(string screenName, long sinceId, bool includeRts, Action<IEnumerable<TwitterStatus>, TwitterResponse> action)
+		{
+			WithHammock(action, "statuses/user_timeline", FormatAsString, "?screen_name=", screenName, "&since_id=", sinceId, "&include_rts=", includeRts);
 		}
 
         

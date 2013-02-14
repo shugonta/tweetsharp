@@ -74,7 +74,7 @@ namespace TweetSharp
 		#region Asynchronous Methods (with Begin/End pattern)
 <# foreach(TweetSharpMethod method in methods.GroupBy(p => p.Name).Select(g => g.First())) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		IAsyncResult Begin<#= method.Name #>();
+		IAsyncResult Begin<#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
 
 		<#= method.Type #> End<#= method.Name #>(IAsyncResult result);		
 
@@ -100,7 +100,7 @@ namespace TweetSharp
 namespace TweetSharp
 {
 #region Implementation
-	public partial class TwitterService
+	public partial class TwitterService : ITwitterService
 	{	
 #if !SILVERLIGHT
 		#region Sequential Methods
