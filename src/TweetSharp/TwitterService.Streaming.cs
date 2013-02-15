@@ -7,21 +7,21 @@ namespace TweetSharp
 {
     partial class TwitterService
     {
-        private readonly RestClient _userStreamingClient;
-        private readonly RestClient _searchStreamingClient;
+        private readonly RestClient _userStreamsClient;
+        private readonly RestClient _publicStreamsClient;
 
         /// <summary>
         /// Cancels pending streaming actions from this service.
         /// </summary>
         public virtual void CancelStreaming()
         {
-            if(_userStreamingClient != null)
+            if(_userStreamsClient != null)
             {
-                _userStreamingClient.CancelStreaming();
+                _userStreamsClient.CancelStreaming();
             }
-            if (_searchStreamingClient != null)
+            if (_publicStreamsClient != null)
             {
-                _searchStreamingClient.CancelStreaming();
+                _publicStreamsClient.CancelStreaming();
             }
         }
 
@@ -74,7 +74,7 @@ namespace TweetSharp
 #if !WINDOWS_PHONE
             return 
 #endif 
-            WithHammockStreamingImpl(_userStreamingClient, request, options, action);
+            WithHammockStreamingImpl(_userStreamsClient, request, options, action);
         }
 
         #if !WINDOWS_PHONE
@@ -87,7 +87,7 @@ namespace TweetSharp
 #if !WINDOWS_PHONE
             return 
 #endif 
-            WithHammockStreamingImpl(_searchStreamingClient, request, options, action);
+            WithHammockStreamingImpl(_publicStreamsClient, request, options, action);
         }
 
 #if !WINDOWS_PHONE

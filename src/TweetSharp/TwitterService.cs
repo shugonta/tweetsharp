@@ -112,27 +112,9 @@ namespace TweetSharp
 
             FormatAsString = ".json";
 
-            _client = new RestClient
-            {
-                Authority = Globals.RestAPIAuthority,
-                QueryHandling = QueryHandling.AppendToParameters,
-                VersionPath = "1",
-                Serializer = _json,
-                Deserializer = _json,
-                DecompressionMethods = DecompressionMethods.GZip,
-                UserAgent = "TweetSharp",
-                Proxy = Proxy,
-#if !SILVERLIGHT
-                FollowRedirects = true,
-#endif
-#if SILVERLIGHT
-                HasElevatedPermissions = true
-#endif
-            };
-
             _oauth = new RestClient
             {
-                Authority = Globals.RestAPIAuthority,
+                Authority = Globals.Authority,
                 Proxy = Proxy,
                 UserAgent = "TweetSharp",
                 DecompressionMethods = DecompressionMethods.GZip,
@@ -141,11 +123,29 @@ namespace TweetSharp
 #endif
             };
 
-            _userStreamingClient = new RestClient
+            _client = new RestClient
             {
-                Authority = Globals.UserStreamingAPIAuthority,
+                Authority = Globals.Authority,
+                QueryHandling = QueryHandling.AppendToParameters,
+                VersionPath = "1.1",
+                Serializer = _json,
+                Deserializer = _json,
+                DecompressionMethods = DecompressionMethods.GZip,
+                UserAgent = "TweetSharp",
                 Proxy = Proxy,
-                VersionPath = "2",
+#if !SILVERLIGHT
+                FollowRedirects = true,
+#endif
+#if SILVERLIGHT
+                HasElevatedPermissions = true
+#endif
+            };
+
+            _userStreamsClient = new RestClient
+            {
+                Authority = Globals.UserStreamsAuthorityt,
+                Proxy = Proxy,
+                VersionPath = "1.1",
                 Serializer = _json,
                 Deserializer = _json,
                 DecompressionMethods = DecompressionMethods.GZip,
@@ -158,11 +158,11 @@ namespace TweetSharp
 #endif
             };
 
-            _searchStreamingClient = new RestClient
+            _publicStreamsClient = new RestClient
             {
-                Authority = Globals.SearchStreamingAPIAuthority,
+                Authority = Globals.PublicStreamsAuthority,
                 Proxy = Proxy,
-                VersionPath = "1",
+                VersionPath = "1.1",
                 Serializer = _json,
                 Deserializer = _json,
                 DecompressionMethods = DecompressionMethods.GZip,
@@ -273,19 +273,6 @@ namespace TweetSharp
         private string ResolveUrlSegments(string path, List<object> segments)
         {
             if (segments == null) throw new ArgumentNullException("segments");
-
-            // Support alternate client authorities here
-
-            if (path.Equals("search"))
-            {
-                _client.Authority = Globals.SearchAPIAuthority;
-                _client.VersionPath = null;
-            }
-            else
-            {
-                _client.Authority = Globals.RestAPIAuthority;
-                _client.VersionPath = "1";
-            }
 
             for (var i = 0; i < segments.Count; i++)
             {

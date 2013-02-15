@@ -2,9 +2,8 @@
 {
     public static class Globals
     {
-        public const string RestAPIAuthority = "https://api.twitter.com";
-        public const string SearchAPIAuthority = "https://search.twitter.com";
-        public const string UserStreamingAPIAuthority = "https://userstream.twitter.com";
-        public const string SearchStreamingAPIAuthority = "https://stream.twitter.com";
+        public const string Authority = "https://api.twitter.com";
+        public const string UserStreamsAuthorityt = "https://userstream.twitter.com";
+        public const string PublicStreamsAuthority = "https://stream.twitter.com";
     }
 }
