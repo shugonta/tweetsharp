@@ -1,22 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp", "net40\TweetSharp.Next\TweetSharp.csproj", "{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp.Tests", "net40\TweetSharp.Next.Tests\TweetSharp.Tests.csproj", "{D108B521-B7E1-4ED4-AB38-27A6C9685AF6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET 4.0", ".NET 4.0", "{A22A425B-6F70-42C1-82C1-C2DD2CB4330C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET 3.5", ".NET 3.5", "{B970B6B4-2C3D-434A-8724-FC67FE71E05F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET 2.0", ".NET 2.0", "{A2C286C9-9ED7-4FA3-AE15-499BD368158B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{A6320B84-C7A3-452B-9FC7-3978761DE952}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp.Net35", "net35\TweetSharp.Next.Net35\TweetSharp.Net35.csproj", "{5D8BE3B2-C51F-4A81-9E4F-8607C09C966A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp.Net20", "net20\TweetSharp.Next.Net20\TweetSharp.Net20.csproj", "{7FEC89B1-DFFC-47BD-A8EF-B1F4883995A3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F0C51C5C-F9A7-4108-93C2-6C60CC4356F7}"
 	ProjectSection(SolutionItems) = preProject
 		..\clean.bat = ..\clean.bat
@@ -25,37 +9,50 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\tweetsharp.nuspec = ..\tweetsharp.nuspec
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp.Net20", "TweetSharp.Net20\TweetSharp.Net20.csproj", "{7FEC89B1-DFFC-47BD-A8EF-B1F4883995A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp.Net35", "TweetSharp.Net35\TweetSharp.Net35.csproj", "{5D8BE3B2-C51F-4A81-9E4F-8607C09C966A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp", "TweetSharp\TweetSharp.csproj", "{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp.WindowsPhone", "TweetSharp.WindowsPhone\TweetSharp.WindowsPhone.csproj", "{C1BDDF6E-0BB1-43B9-AA2C-3F0BAFFA263D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp.WindowsPhone.Mango", "TweetSharp.WindowsPhone.Mango\TweetSharp.WindowsPhone.Mango.csproj", "{51554319-87B7-4D38-9DDA-8F771FDA70FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp.Tests", "TweetSharp.Tests\TweetSharp.Tests.csproj", "{D108B521-B7E1-4ED4-AB38-27A6C9685AF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D108B521-B7E1-4ED4-AB38-27A6C9685AF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D108B521-B7E1-4ED4-AB38-27A6C9685AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D108B521-B7E1-4ED4-AB38-27A6C9685AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D108B521-B7E1-4ED4-AB38-27A6C9685AF6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D8BE3B2-C51F-4A81-9E4F-8607C09C966A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D8BE3B2-C51F-4A81-9E4F-8607C09C966A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D8BE3B2-C51F-4A81-9E4F-8607C09C966A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D8BE3B2-C51F-4A81-9E4F-8607C09C966A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7FEC89B1-DFFC-47BD-A8EF-B1F4883995A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7FEC89B1-DFFC-47BD-A8EF-B1F4883995A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FEC89B1-DFFC-47BD-A8EF-B1F4883995A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FEC89B1-DFFC-47BD-A8EF-B1F4883995A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D8BE3B2-C51F-4A81-9E4F-8607C09C966A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D8BE3B2-C51F-4A81-9E4F-8607C09C966A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D8BE3B2-C51F-4A81-9E4F-8607C09C966A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D8BE3B2-C51F-4A81-9E4F-8607C09C966A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1BDDF6E-0BB1-43B9-AA2C-3F0BAFFA263D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1BDDF6E-0BB1-43B9-AA2C-3F0BAFFA263D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1BDDF6E-0BB1-43B9-AA2C-3F0BAFFA263D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1BDDF6E-0BB1-43B9-AA2C-3F0BAFFA263D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51554319-87B7-4D38-9DDA-8F771FDA70FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51554319-87B7-4D38-9DDA-8F771FDA70FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51554319-87B7-4D38-9DDA-8F771FDA70FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51554319-87B7-4D38-9DDA-8F771FDA70FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D108B521-B7E1-4ED4-AB38-27A6C9685AF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D108B521-B7E1-4ED4-AB38-27A6C9685AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D108B521-B7E1-4ED4-AB38-27A6C9685AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D108B521-B7E1-4ED4-AB38-27A6C9685AF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{A6320B84-C7A3-452B-9FC7-3978761DE952} = {A22A425B-6F70-42C1-82C1-C2DD2CB4330C}
-		{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484} = {A22A425B-6F70-42C1-82C1-C2DD2CB4330C}
-		{D108B521-B7E1-4ED4-AB38-27A6C9685AF6} = {A6320B84-C7A3-452B-9FC7-3978761DE952}
-		{5D8BE3B2-C51F-4A81-9E4F-8607C09C966A} = {B970B6B4-2C3D-434A-8724-FC67FE71E05F}
-		{7FEC89B1-DFFC-47BD-A8EF-B1F4883995A3} = {A2C286C9-9ED7-4FA3-AE15-499BD368158B}
 	EndGlobalSection
 EndGlobal
