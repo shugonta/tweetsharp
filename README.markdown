@@ -1,4 +1,4 @@
-## Tweetsharp - Short, sweet, social.
+## Tweetsharp
 
     PM> Install-Package TweetSharp
 
