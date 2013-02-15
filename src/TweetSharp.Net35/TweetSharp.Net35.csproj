@@ -185,9 +185,6 @@
     <Compile Include="..\TweetSharp\TwitterService.Streaming.cs">
       <Link>TwitterService.Streaming.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp\TwitterServiceFormat.cs">
-      <Link>TwitterServiceFormat.cs</Link>
-    </Compile>
     <Compile Include="..\TweetSharp\TwitterSleepTime.cs">
       <Link>TwitterSleepTime.cs</Link>
     </Compile>
@@ -220,9 +217,6 @@
     </Compile>
     <Compile Include="..\TweetSharp\WhereOnEarthPlaceType.cs">
       <Link>WhereOnEarthPlaceType.cs</Link>
-    </Compile>
-    <Compile Include="..\TweetSharp\XmlSerializer.cs">
-      <Link>XmlSerializer.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

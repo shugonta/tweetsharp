@@ -23,20 +23,12 @@ namespace TweetSharp
     /// <seealso href="http://dev.twitter.com/doc" />
     public partial class TwitterService
     {
-        public bool TraceEnabled { get; set; }
-
-        public string Proxy { get; set; }
-
-        public bool IncludeEntities { get; set; }
-        
-        private TwitterServiceFormat _format;
-        
         private readonly RestClient _client;
-
         private readonly JsonSerializer _json;
-#if !SILVERLIGHT
-        private readonly XmlSerializer _xml;
-#endif
+
+        public bool TraceEnabled { get; set; }
+        public string Proxy { get; set; }
+        public bool IncludeEntities { get; set; }
 
         public string UserAgent
         {
@@ -54,21 +46,7 @@ namespace TweetSharp
         {
             get
             {
-                if(_customDeserializer != null)
-                {
-                    return _customDeserializer;
-                }
-                switch(Format)
-                {
-                    case TwitterServiceFormat.Json:
-                        return _json;
-#if !SILVERLIGHT
-                    case TwitterServiceFormat.Xml:
-                        return _xml;
-#endif
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                return _customDeserializer ?? _json;
             }
             set { _customDeserializer = value; }
         }
@@ -77,21 +55,7 @@ namespace TweetSharp
         {
             get
             {
-                if (_customSerializer != null)
-                {
-                    return _customSerializer;
-                }
-                switch (Format)
-                {
-                    case TwitterServiceFormat.Json:
-                        return _json;
-#if !SILVERLIGHT
-                    case TwitterServiceFormat.Xml:
-                        return _xml;
-#endif
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                return _customSerializer ?? _json;
             }
             set { _customSerializer = value; }
         }
@@ -145,9 +109,6 @@ namespace TweetSharp
         public TwitterService()
         {
             _json = new JsonSerializer();
-#if !SILVERLIGHT
-            _xml = new XmlSerializer();
-#endif
 
             FormatAsString = ".json";
 
@@ -302,65 +263,9 @@ namespace TweetSharp
         {
             var response = new RestResponse<T> { StatusCode = HttpStatusCode.OK };
             response.SetContent(content);
-
-            if(_customDeserializer != null)
-            {
-                return _customDeserializer.Deserialize<T>(response);
-            }
-
-            switch(Format)
-            {
-                case TwitterServiceFormat.Json:
-                    return _json.DeserializeContent<T>(content);
-#if !SILVERLIGHT
-                case TwitterServiceFormat.Xml:
-                    return _xml.DeserializeContent<T>(content);
-#endif
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        public TwitterServiceFormat Format
-        {
-            get { return _format; }
-            set
-            {
-                if (_format == value)
-                {
-                    return;
-                }
-                _format = value;
-                FormatAsString = string.Concat(".", Format.ToString().ToLowerInvariant());
-                switch(Format)
-                {
-                    case TwitterServiceFormat.Json:
-                        if(_customSerializer == null)
-                        {
-                            _client.Serializer = _json;
-                        }
-                        if(_customDeserializer == null)
-                        {
-                            _client.Deserializer = _json;
-                        }
-                        break;
-#if !SILVERLIGHT
-                    case TwitterServiceFormat.Xml:
-
-                        if(_customSerializer == null)
-                        {
-                            _client.Serializer = _xml;
-                        }
-                        if(_customDeserializer == null)
-                        {
-                            _client.Deserializer = _xml;
-                        }
-                        break;
-#endif
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
+            return _customDeserializer != null
+                       ? _customDeserializer.Deserialize<T>(response)
+                       : _json.DeserializeContent<T>(content);
         }
 
         internal string FormatAsString { get; private set; }

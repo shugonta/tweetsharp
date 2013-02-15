@@ -160,7 +160,7 @@ namespace TweetSharp.Tests.Service
         [Test]
         public void Can_get_mentions_and_fail_in_xml()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret) { Format = TwitterServiceFormat.Xml };
+            var service = new TwitterService(_consumerKey, _consumerSecret);
             var mentions = service.ListTweetsMentioningMe();
 
             Assert.AreEqual(HttpStatusCode.Unauthorized, service.Response.StatusCode);
@@ -340,22 +340,6 @@ namespace TweetSharp.Tests.Service
             }
 
             Assert.IsNotNull(response);
-        }
-
-        [Test]
-        public void Can_use_xml_internally()
-        {
-            var service = new TwitterService { Format = TwitterServiceFormat.Xml };
-            var tweets = service.ListTweetsOnPublicTimeline();
-
-            Assert.IsNotNull(tweets);
-            Assert.AreEqual(20, tweets.Count());
-
-            foreach (var tweet in tweets)
-            {
-                Assert.IsNotNull(tweet.RawSource);
-                Console.WriteLine("{0}[{1} says '{2}", tweet.User.ScreenName, tweet.Id, tweet.Text);
-            }
         }
 
         [Test]

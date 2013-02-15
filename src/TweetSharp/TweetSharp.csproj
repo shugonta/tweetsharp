@@ -91,7 +91,6 @@
     <Compile Include="TwitterWonkyBooleanConverter.cs" />
     <Compile Include="SerializerBase.Xml.cs" />
     <Compile Include="TwitterService.Streaming.cs" />
-    <Compile Include="XmlSerializer.cs" />
     <Compile Include="ITwitterModel.cs" />
     <Compile Include="TwitterDateFormat.cs" />
     <Compile Include="TwitterDateTime.cs" />
@@ -116,7 +115,6 @@
     <Compile Include="SerializerBase.cs" />
     <Compile Include="TwitterService.cs" />
     <Compile Include="TwitterService.OAuth.cs" />
-    <Compile Include="TwitterServiceFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="_TwitterService.Blocks.json">
