@@ -60,7 +60,7 @@ namespace TweetSharp.Tests.Service
             Assert.IsNotNull(access);
 
             service.AuthenticateWith(access.Token, access.TokenSecret);
-            var mentions = service.ListTweetsMentioningMe();
+            var mentions = service.ListTweetsMentioningMe(new ListTweetsMentioningMeOptions());
             Assert.IsNotNull(mentions);
             Assert.AreEqual(20, mentions.Count());
         }
@@ -71,7 +71,7 @@ namespace TweetSharp.Tests.Service
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
-            var status = service.SendTweet(DateTime.Now.Ticks.ToString());
+            var status = service.SendTweet(new SendTweetOptions { Status = DateTime.Now.Ticks.ToString() });
             Assert.IsNotNull(status);
         }
 
@@ -87,9 +87,7 @@ namespace TweetSharp.Tests.Service
         [Ignore("This test requires a TwitPic API key")]
         public void Can_make_oauth_echo_request()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
-
+            var service = GetAuthenticatedService();
             var response = service.GetEchoRequest("http://api.twitpic.com/2/users/show.json?username=danielcrenna");
             Assert.IsNotNull(response);
             AssertResultWas(service, HttpStatusCode.OK);
@@ -98,9 +96,8 @@ namespace TweetSharp.Tests.Service
         [Test]
         public void Can_verify_credentials()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
-            var user = service.VerifyCredentials();
+            var service = GetAuthenticatedService();
+            var user = service.VerifyCredentials(new VerifyCredentialsOptions());
             Assert.IsNotNull(user);
         }
     }

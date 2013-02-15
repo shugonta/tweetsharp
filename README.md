@@ -2,26 +2,20 @@
 
     PM> Install-Package TweetSharp
 
+*V2.3+ supports Twitter API v1.1, and does not support v1.0; you need to upgrade before March 5th, as this is when the blackout periods begin.*
+
 #### Introduction
 TweetSharp is a Twitter API library that greatly simplifies the task of adding Twitter to your desktop, web, and mobile applications. You can build simple widgets, or complex application suites using TweetSharp. The second version, a rewrite,  was designed to be lighter, faster, and more intuitive than the original. You write fewer lines of code, make fewer decisions, and get better results. Visual Studio T4 templates are employed to automatically generate new API methods from a simple text-based DSL.
 
-#### Caveat Tractor / Public Service Announcement
-This project is open source software, not a commercial product, so please curb your enthusiasm around expecting 
-support or feature requests. After two and a half years of life and two years of active development, this project is
-no longer supported freely. I am happy to accept any reasonable pull requests, and the code is written with Visual Studio 
-T4 templates, making it ridiculously easy to extend for any API methods that Twitter introduces in the future. 
+#### Open source support
+This project is open source software. I am happy to accept any reasonable pull requests, and the code is written with Visual Studio 
+T4 templates, making it ridiculously easy to extend for any API methods that Twitter introduces in the future. Historically, almost
+no pull requests are received, so please plan accordingly, engage commercial support, or help out!
 
-Due to popular request, I will offer commercial support services, depending on the scope and time requirements of
-your project (spare time only, nothing mission critical, etc.); you may inquire about support requests by contacting me through GitHub. For the majority of cases, though,
-you should be able to get on fine by forking, adding your desired API changes through the DSL, and issuing a pull 
-request.
-
-API wrappers, in general, are a maintenance nightmare for both the consumer and the maintainer (this particular project
-tries very hard to be maintainable through code generation, DSLs, and a flexible data serialization scheme, but nothing
-is perfect), and are a malnourished response to the fact that most APIs are not truly RESTful; if they were, we could 
-consume them at the same level of abstraction as a browser, rather than constantly creating and maintaining bespoke 
-mappings across service boundaries. If you would rather maintain your own micro-libraries at the service level using a 
-general purpose HTTP API client, I suggest you use Microsoft.Net.Http's `HttpClient` or [RestSharp](http://github.com/johnsheehan/restsharp).
+#### Commercial support
+Due to popular request, I offer commercial support services; you may inquire about support requests by contacting me through GitHub. 
+For the majority of cases, though, you should be able to get on fine by forking, adding your desired API changes through the DSL, 
+and issuing a pull request.
 
 #### Learn the Twitter API
 Make sure you visit (http://dev.twitter.com) to get acquainted with the Twitter API. Most of the time, confusion

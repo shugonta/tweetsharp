@@ -29,6 +29,7 @@ namespace TweetSharp
         public bool TraceEnabled { get; set; }
         public string Proxy { get; set; }
         public bool IncludeEntities { get; set; }
+        public bool IncludeRetweets { get; set; }
 
         public string UserAgent
         {
@@ -181,6 +182,7 @@ namespace TweetSharp
         private void InitializeService()
         {
             IncludeEntities = true;
+            IncludeRetweets = true;
         }
 
         private readonly Func<RestRequest> _noAuthQuery
@@ -307,9 +309,14 @@ namespace TweetSharp
 
             PathHelpers.EscapeDataContainingUrlSegments(segments);
 
-            if(IncludeEntities)// && !path.Contains("/lists"))
+            if(IncludeEntities)
             {
                 segments.Add(segments.Count() > 1 ? "&include_entities=" : "?include_entities=");
+                segments.Add("1");
+            }
+            if (IncludeRetweets)
+            {
+                segments.Add(segments.Count() > 1 ? "&include_rts=" : "?include_rts=");
                 segments.Add("1");
             }
 

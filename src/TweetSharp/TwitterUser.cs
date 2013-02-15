@@ -17,12 +17,11 @@ namespace TweetSharp
     public class TwitterUser : PropertyChangedBase,
                                IComparable<TwitterUser>,
                                IEquatable<TwitterUser>,
-                               ITwitterModel,
                                ITweeter
     {
         private string _description;
         private int _followersCount;
-        private int _id;
+        private long _id;
         private bool? _isProtected;
         private string _location;
         private string _name;
@@ -56,13 +55,9 @@ namespace TweetSharp
         private string _profileImageUrlHttps;
         
 #if !Smartphone && !NET20
-        /// <summary>
-        /// Gets or sets the ID.
-        /// </summary>
-        /// <value>The ID.</value>
         [DataMember]
 #endif
-        public virtual int Id
+        public virtual long Id
         {
             get { return _id; }
             set
@@ -78,10 +73,6 @@ namespace TweetSharp
         }
 
 #if !Smartphone && !NET20
-        /// <summary>
-        /// Gets or sets the followers count.
-        /// </summary>
-        /// <value>The followers count.</value>
         [DataMember]
 #endif
         public virtual int FollowersCount

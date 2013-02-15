@@ -38,40 +38,10 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_get_public_timeline()
-        {
-            var service = new TwitterService();
-            var tweets = service.ListTweetsOnPublicTimeline();
-
-            Assert.IsNotNull(tweets);
-            Assert.AreEqual(20, tweets.Count());
-
-            Assert.IsNotNull(service.Response);
-            Assert.AreEqual(HttpStatusCode.OK, service.Response.StatusCode);
-            
-            var unfavorited = 20;
-            foreach (var tweet in tweets)
-            {
-                Assert.IsNotNullOrEmpty(tweet.RawSource);
-                Assert.AreNotEqual(default(DateTime), tweet.CreatedDate);
-
-                Console.WriteLine("{0} said '{1}'", tweet.User.ScreenName, tweet.Text);
-                if(tweet.IsFavorited)
-                {
-                    unfavorited--;
-                }
-            }
-
-            Assert.IsTrue(unfavorited > 0);
-            AssertRateLimitStatus(service);
-        }
-
-        [Test]
         public void Can_get_direct_messages()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
-            var dms = service.ListDirectMessagesReceived();
+            var service = GetAuthenticatedService();
+            var dms = service.ListDirectMessagesReceived(new ListDirectMessagesReceivedOptions());
 
             Assert.IsNotNull(dms);
             Assert.IsTrue(dms.Count() <= 20);
@@ -91,19 +61,19 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_get_public_timeline_async_callback_style()
+        public void Can_get_direct_messages_async_callback_style()
         {
-            var service = new TwitterService();
-            var result = service.ListTweetsOnPublicTimeline(
-                (tweets, response) =>
+            var service = GetAuthenticatedService();
+            var result = service.ListDirectMessagesReceived(new ListDirectMessagesReceivedOptions(),
+                (dms, response) =>
                     {
                         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-                        Assert.IsNotNull(tweets);
-                        Assert.AreEqual(20, tweets.Count());
+                        Assert.IsNotNull(dms);
+                        Assert.AreEqual(20, dms.Count());
 
-                        foreach (var tweet in tweets)
+                        foreach (var dm in dms)
                         {
-                            Console.WriteLine("{0} said '{1}'", tweet.User.ScreenName, tweet.Text);
+                            Console.WriteLine("{0} said '{1}'", dm.SenderScreenName, dm.Text);
                         }
                     });
 
@@ -111,26 +81,26 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_get_public_timeline_begin_end_style()
+        public void Can_get_direct_messages_begin_end_style()
         {
-            var service = new TwitterService();
-            var result = service.BeginListTweetsOnPublicTimeline();
-            var tweets = service.EndListTweetsOnPublicTimeline(result, TimeSpan.FromSeconds(5));
+            var service = GetAuthenticatedService();
+            var result = service.BeginListDirectMessagesReceived(new ListDirectMessagesReceivedOptions());
+            var dms = service.EndListDirectMessagesReceived(result, TimeSpan.FromSeconds(5));
             
-            Assert.IsNotNull(tweets);
-            Assert.AreEqual(20, tweets.Count());
+            Assert.IsNotNull(dms);
+            Assert.AreEqual(20, dms.Count());
 
-            foreach (var tweet in tweets)
+            foreach (var dm in dms)
             {
-                Console.WriteLine("{0} said '{1}'", tweet.User.ScreenName, tweet.Text);
+                Console.WriteLine("{0} said '{1}'", dm.SenderScreenName, dm.Text);
             }
         }
         
         [Test]
         public void Can_deserialize_dates()
         {
-            var service = new TwitterService();
-            var tweets = service.ListTweetsOnPublicTimeline();
+            var service = GetAuthenticatedService();
+            var tweets = service.ListTweetsOnHomeTimeline(new ListTweetsOnHomeTimelineOptions());
 
             Assert.IsNotNull(tweets);
             Assert.AreEqual(20, tweets.Count());
@@ -143,25 +113,10 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_get_mentions_and_fail()
+        public void Can_get_mentions_and_fail_due_to_unauthorized_request()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            var mentions = service.ListTweetsMentioningMe();
-
-            Assert.AreEqual(HttpStatusCode.Unauthorized, service.Response.StatusCode);
-            Assert.IsTrue(mentions.Count() == 1);
-
-            var error = service.Deserialize<TwitterError>(mentions.First());
-            Assert.IsNotNull(error);
-            Assert.IsNotNullOrEmpty(error.Request);
-            Assert.IsNotNullOrEmpty(error.ErrorMessage);
-        }
-
-        [Test]
-        public void Can_get_mentions_and_fail_in_xml()
-        {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            var mentions = service.ListTweetsMentioningMe();
+            var service = new TwitterService();
+            var mentions = service.ListTweetsMentioningMe(new ListTweetsMentioningMeOptions());
 
             Assert.AreEqual(HttpStatusCode.Unauthorized, service.Response.StatusCode);
             Assert.IsTrue(mentions.Count() == 1);
@@ -176,7 +131,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_mentions()
         {
             var service = GetAuthenticatedService();
-            var mentions = service.ListTweetsMentioningMe();
+            var mentions = service.ListTweetsMentioningMe(new ListTweetsMentioningMeOptions());
 
             AssertResultWas(service, HttpStatusCode.OK);
             Assert.IsNotNull(mentions);
@@ -184,10 +139,10 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_get_user_profile()
+        public void Can_get_authenticated_user_profile()
         {
             var service = GetAuthenticatedService();
-            var profile = service.GetUserProfile();
+            var profile = service.GetUserProfile(new GetUserProfileOptions());
 
             Trace.WriteLine(service.Response.Response);
 
@@ -200,7 +155,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_user_profile_for()
         {
             var service = GetAuthenticatedService();
-            var profile = service.GetUserProfileFor("tweetsharp");
+            var profile = GetHeroProfile(service);
 
             Trace.WriteLine(service.Response.Response);
 
@@ -214,7 +169,7 @@ namespace TweetSharp.Tests.Service
         public void Can_tweet()
         {
             var service = GetAuthenticatedService();
-            var tweet = service.SendTweet("@danielcrenna " + DateTime.UtcNow.Ticks + " @danielcrenna");
+            var tweet = service.SendTweet(new SendTweetOptions{ Status = _hero + DateTime.UtcNow.Ticks + " @danielcrenna"});
 
             AssertResultWas(service, HttpStatusCode.OK);
             Assert.IsNotNull(tweet);
@@ -227,7 +182,7 @@ namespace TweetSharp.Tests.Service
         {
             // status=123&lat=56.95&%40long=24.1&include_entities=1
             var service = GetAuthenticatedService();
-            var tweet = service.SendTweet(DateTime.UtcNow.Ticks.ToString(), 56.95, 24.1);
+            var tweet = service.SendTweet(new SendTweetOptions { Status = DateTime.UtcNow.Ticks.ToString(), Lat = 56.95, Long = 24.1});
 
             AssertResultWas(service, HttpStatusCode.OK);
             Assert.IsNotNull(tweet);
@@ -240,8 +195,8 @@ namespace TweetSharp.Tests.Service
         {
             var service = GetAuthenticatedService();
 
-            var recipient = service.GetUserProfileFor("danielcrenna");
-            var tweet = service.SendDirectMessage(recipient.Id, DateTime.UtcNow.Ticks.ToString());
+            var recipient = GetHeroProfile(service);
+            var tweet = service.SendDirectMessage(new SendDirectMessageOptions() { UserId = recipient.Id, Text = DateTime.UtcNow.Ticks.ToString()});
             
             Assert.IsNotNull(tweet);
             Assert.AreNotEqual(0, tweet.Id);
@@ -253,8 +208,8 @@ namespace TweetSharp.Tests.Service
         {
             var service = GetAuthenticatedService();
 
-            var recipient = service.GetUserProfileFor("danielcrenna");
-            var tweet = service.SendDirectMessage(recipient.Id, string.Format("http://tweetsharp.com {0}", DateTime.UtcNow.Ticks));
+            var recipient = GetHeroProfile(service);
+            var tweet = service.SendDirectMessage(new SendDirectMessageOptions { UserId = recipient.Id, Text = string.Format("http://tweetsharp.com {0}", DateTime.UtcNow.Ticks)});
             var urls = tweet.Entities.OfType<TwitterUrl>();
 
             Assert.IsNotNull(tweet);
@@ -274,11 +229,16 @@ namespace TweetSharp.Tests.Service
         {
             var service = GetAuthenticatedService();
 
-            var recipient = service.GetUserProfileFor("danielcrenna");
-            var tweet = service.SendDirectMessage(recipient.ScreenName, DateTime.UtcNow.Ticks.ToString());
+            var recipient = GetHeroProfile(service);
+            var tweet = service.SendDirectMessage(new SendDirectMessageOptions { ScreenName = recipient.ScreenName, Text = DateTime.UtcNow.Ticks.ToString()});
 
             Assert.IsNotNull(tweet);
             Assert.AreNotEqual(0, tweet.Id);
+        }
+
+        private TwitterUser GetHeroProfile(TwitterService service)
+        {
+            return service.GetUserProfileFor(new GetUserProfileForOptions { ScreenName = _hero });
         }
 
         [Test]
@@ -287,8 +247,8 @@ namespace TweetSharp.Tests.Service
         {
             var service = GetAuthenticatedService();
 
-            var recipient = service.GetUserProfileFor("danielcrenna");
-            var tweet = service.SendDirectMessage(recipient.Id, "http://tweetsharp.com");
+            var recipient = GetHeroProfile(service);
+            var tweet = service.SendDirectMessage(new SendDirectMessageOptions { UserId = recipient.Id, Text = "http://tweetsharp.com"});
 
             Assert.IsNotNull(tweet);
             Assert.AreNotEqual(0, tweet.Id);
@@ -301,7 +261,7 @@ namespace TweetSharp.Tests.Service
             var service = GetAuthenticatedService();
 
             var message = "!@#$%^&*();:-" + DateTime.UtcNow.Ticks;
-            var tweet = service.SendTweet(message);
+            var tweet = service.SendTweet(new SendTweetOptions { Status = message });
             Assert.IsNotNull(tweet);
             Assert.AreNotEqual(0, tweet.Id);
         }
@@ -311,9 +271,8 @@ namespace TweetSharp.Tests.Service
         public void Can_tweet_with_location_custom_type()
         {
             var service = GetAuthenticatedService();
-
-            var tweet = service.SendTweet(DateTime.UtcNow.Ticks.ToString(), 45.43989910068863, -75.69168090820312);
-
+            var tweet = service.SendTweet(new SendTweetOptions { Status = DateTime.UtcNow.Ticks.ToString(), Lat = 45.43989910068863, Long = -75.69168090820312 });
+            
             var uri = service.Response.RequestUri;
             var queryString = HttpUtility.ParseQueryString(uri.Query);
             var location = queryString["location"];
@@ -329,8 +288,8 @@ namespace TweetSharp.Tests.Service
         {
             var service = GetAuthenticatedService();
 
-            service.SendTweet("Can_tweet_and_handle_dupes:Tweet");
-            var response = service.SendTweet("Can_tweet_and_handle_dupes:Tweet");
+            service.SendTweet(new SendTweetOptions { Status = "Can_tweet_and_handle_dupes:Tweet"});
+            var response = service.SendTweet(new SendTweetOptions { Status = "Can_tweet_and_handle_dupes:Tweet"});
             
             if(service.Response != null && service.Response.StatusCode != HttpStatusCode.OK)
             {
@@ -343,18 +302,18 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_get_followers()
+        public void Can_get_followers_on_first_page()
         {
             var service = GetAuthenticatedService();
-            var followers = service.ListFollowers();
+            var followers = service.ListFollowers(new ListFollowersOptions());
             Assert.IsNotNull(followers);
         }
 
         [Test]
-        public void Can_get_friends()
+        public void Can_get_friends_on_first_page()
         {
             var service = GetAuthenticatedService();
-            TwitterCursorList<TwitterUser> followers = service.ListFriends(-1);
+            TwitterCursorList<TwitterUser> followers = service.ListFriends(new ListFriendsOptions());
             Assert.IsNotNull(followers);
         }
 
@@ -362,7 +321,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_followers_from_authenticated_user()
         {
             var service = GetAuthenticatedService();
-            var followers = service.ListFollowers();
+            var followers = service.ListFollowers(new ListFollowersOptions());
             Assert.IsNotNull(followers);
             Assert.IsTrue(followers.Count > 0);
         }
@@ -371,7 +330,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_favorites_for()
         {
             var service = GetAuthenticatedService();
-            var tweets = service.ListFavoriteTweetsFor("danielcrenna");
+            var tweets = service.ListFavoriteTweets(new ListFavoriteTweetsOptions { ScreenName = _hero });
 
             Console.WriteLine(service.Response.Response);
 
@@ -386,7 +345,7 @@ namespace TweetSharp.Tests.Service
         {
             // http://twitter.com/#!/kellabyte/status/16578173168779264
             var service = GetAuthenticatedService();
-            var fave = service.FavoriteTweet(16578173168779264);
+            var fave = service.FavoriteTweet(new FavoriteTweetOptions { Id = 16578173168779264 });
             if(service.Response != null && (int)service.Response.StatusCode == 403)
             {
                 Trace.WriteLine("This tweet is already a favorite.");
@@ -397,7 +356,7 @@ namespace TweetSharp.Tests.Service
                 Assert.IsNotNull(fave);
             }
 
-            var unfave = service.UnfavoriteTweet(16578173168779264);
+            var unfave = service.UnfavoriteTweet(new UnfavoriteTweetOptions{ Id = 16578173168779264 });
             AssertResultWas(service, HttpStatusCode.OK);
             Assert.IsNotNull(unfave);
         }
@@ -406,7 +365,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_favorites()
         {
             var service = GetAuthenticatedService();
-            var tweets = service.ListFavoriteTweets();
+            var tweets = service.ListFavoriteTweets(new ListFavoriteTweetsOptions());
 
             Console.WriteLine(service.Response.Response);
 
@@ -420,8 +379,8 @@ namespace TweetSharp.Tests.Service
         public void Can_get_favorites_async()
         {
             var service = GetAuthenticatedService();
-            var result = service.BeginListFavoriteTweetsFor("danielcrenna");
-            var tweets = service.EndListFavoriteTweetsFor(result);
+            var result = service.BeginListFavoriteTweets(new ListFavoriteTweetsOptions { ScreenName = "_hero"});
+            var tweets = service.EndListFavoriteTweets(result);
 
             Console.WriteLine(service.Response.Response);
 
@@ -437,7 +396,7 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var followers = service.ListFollowersOf(_hero, -1);
+            var followers = service.ListFollowers(new ListFollowersOptions { ScreenName = _hero });
             Assert.IsNotNull(followers);
             Assert.IsNotNull(followers.NextCursor);
             Assert.IsNotNull(followers.PreviousCursor);
@@ -450,19 +409,19 @@ namespace TweetSharp.Tests.Service
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
             // Twitter 403's on duplicate saved search requests, so delete if found
-            var searches = service.ListSavedSearches();
+            var searches = service.ListSavedSearches(new ListSavedSearchesOptions());
             Assert.IsNotNull(searches);
 
-            var existing = searches.Where(s => s.Query.Equals("tweetsharp")).SingleOrDefault();
+            var existing = searches.SingleOrDefault(s => s.Query.Equals("tweetsharp"));
             if(existing != null)
             {
-                var deleted = service.DeleteSavedSearch(existing.Id);
+                var deleted = service.DeleteSavedSearch(new DeleteSavedSearchOptions { Id = existing.Id });
                 Assert.IsNotNull(deleted);
                 Assert.IsNotNullOrEmpty(deleted.Query);
                 Assert.AreEqual(deleted.Query, existing.Query);
             }
-            
-            var search = service.CreateSavedSearch("tweetsharp");
+
+            var search = service.CreateSavedSearch(new CreateSavedSearchOptions { Query = "tweetsharp" });
             Assert.IsNotNull(search);
             Assert.AreEqual("tweetsharp", search.Query);
         }
@@ -471,7 +430,7 @@ namespace TweetSharp.Tests.Service
         public void Can_search()
         {
             var service = new TwitterService();
-            var results = service.Search("tweetsharp", 10 /* rpp */);
+            var results = service.Search(new SearchOptions { Q = "tweetsharp", Count = 10});
             
             Assert.IsNotNull(results);
             Assert.IsTrue(results.Statuses.Count() <= 10);
@@ -486,7 +445,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_raw_source_from_search()
         {
             var service = new TwitterService();
-            var results = service.Search("tweetsharp", 10 /* rpp */);
+            var results = service.Search(new SearchOptions {Q = "tweetsharp", Count = 10});
 
             Assert.IsNotNull(results);
             Assert.IsTrue(results.Statuses.Count() <= 10);
@@ -507,7 +466,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_friendship_info()
         {
             var service = new TwitterService();
-            var friendship =  service.GetFriendshipInfo("tweetsharp", "danielcrenna");
+            var friendship =  service.GetFriendshipInfo(new GetFriendshipInfoOptions { SourceScreenName = "jdiller", TargetScreenName = "danielcrenna" });
 
             Assert.IsNotNull(friendship);
             Assert.IsNotNull(friendship.Relationship);
@@ -519,7 +478,7 @@ namespace TweetSharp.Tests.Service
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 
             var service = new TwitterService();
-            var categories = service.ListSuggestedUserCategories();
+            var categories = service.ListSuggestedUserCategories(new ListSuggestedUserCategoriesOptions());
             Assert.IsNotNull(categories);
             Assert.IsTrue(categories.Count() > 0);
 
@@ -529,7 +488,7 @@ namespace TweetSharp.Tests.Service
                 Trace.WriteLine(string.Format("{0}({1})", category.Name, category.Slug));
             }
             
-            var suggestions = service.ListSuggestedUsers(categories.First().Slug);
+            var suggestions = service.ListSuggestedUsers(new ListSuggestedUsersOptions() { Slug = categories.First().Slug});
             Assert.IsNotNull(suggestions);
             Assert.IsNotNull(suggestions.Users);
             Assert.IsTrue(suggestions.Users.Count() > 0);
@@ -544,7 +503,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_tweet()
         {
             var service = new TwitterService();
-            var tweet = service.GetTweet(10080880705929216);
+            var tweet = service.GetTweet(new GetTweetOptions() { Id = 10080880705929216 });
 
             Assert.IsNotNull(tweet);
             Assert.IsNotNull(service.Response);
@@ -555,7 +514,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_tweet_async()
         {
             var service = new TwitterService();
-            var result = service.BeginGetTweet(10080880705929216);
+            var result = service.BeginGetTweet(new GetTweetOptions() { Id = 10080880705929216 });
             var tweet = service.EndGetTweet(result);
 
             Assert.IsNotNull(tweet);
@@ -564,33 +523,16 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_get_profile_image()
-        {
-            var service = new TwitterService();
-            var image = service.GetProfileImageFor(_hero);
-
-            Assert.IsNotNull(image);
-        }
-
-        [Test]
-        [Ignore("This test is only relevant until Twitter decides to turn on entities by default")]
-        public void Can_avoid_entities_on_timeline()
-        {
-            var service = new TwitterService { IncludeEntities = false };
-            var tweets = service.ListTweetsOnPublicTimeline();
-            foreach(var tweet in tweets)
-            {
-                Assert.IsNull(tweet.Entities);
-            }
-        }
-
-        [Test]
         [Ignore("Makes a live direct message")]
         public void Can_send_direct_message()
         {
             var service = new TwitterService { IncludeEntities = true };
             service.AuthenticateWith(_consumerKey, _consumerSecret, _accessToken, _accessTokenSecret);
-            var response = service.SendDirectMessage(_hero, "http://tweetsharp.com @dimebrain #thisisatest " + DateTime.Now.Ticks);
+            var response = service.SendDirectMessage(new SendDirectMessageOptions
+            {
+                ScreenName = _hero,
+                Text = "http://tweetsharp.com @dimebrain #thisisatest " + DateTime.Now.Ticks
+            });
             
             AssertResultWas(service, HttpStatusCode.OK);
             Assert.IsNotNull(response);
@@ -602,12 +544,16 @@ namespace TweetSharp.Tests.Service
         {
             var service = new TwitterService { IncludeEntities = true };
             service.AuthenticateWith(_consumerKey, _consumerSecret, _accessToken, _accessTokenSecret);
-            var created = service.SendDirectMessage(_hero, "http://tweetsharp.com @dimebrain #thisisatest " + DateTime.Now.Ticks);
+            var created = service.SendDirectMessage(new SendDirectMessageOptions
+            {
+                ScreenName = _hero,
+                Text = "http://tweetsharp.com @dimebrain #thisisatest " + DateTime.Now.Ticks
+            });
             AssertResultWas(service, HttpStatusCode.OK);
             Assert.IsNotNull(created);
             Assert.IsFalse(created.Id == 0);
 
-            var deleted = service.DeleteDirectMessage(created.Id);
+            var deleted = service.DeleteDirectMessage(new DeleteDirectMessageOptions { Id = created.Id});
             Assert.IsNotNull(deleted);
             Assert.AreEqual(deleted.Id, created.Id);
         }
@@ -618,8 +564,8 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService { IncludeEntities = true };            
             service.AuthenticateWith(_consumerKey, _consumerSecret, _accessToken, _accessTokenSecret);
             
-            var tweets = service.ListDirectMessagesSent();
-            if(tweets.Count() < 1)
+            var tweets = service.ListDirectMessagesSent(new ListDirectMessagesSentOptions());
+            if(!tweets.Any())
             {
                 Assert.Ignore("No direct messages available to verify entities");
             }
@@ -668,13 +614,13 @@ namespace TweetSharp.Tests.Service
         [Test]
         public void Can_get_entities_on_timeline()
         {
-            var service = new TwitterService();
-            var tweets = service.ListTweetsOnPublicTimeline();
+            var service = GetAuthenticatedService();
+            var tweets = service.ListTweetsOnHomeTimeline(new ListTweetsOnHomeTimelineOptions());
             
             foreach (var tweet in tweets)
             {
                 Assert.IsNotNull(tweet.Entities);
-                if (tweet.Entities.HashTags.Count() > 0)
+                if (tweet.Entities.HashTags.Any())
                 {
                     foreach (var hashtag in tweet.Entities.HashTags)
                     {
@@ -701,8 +647,8 @@ namespace TweetSharp.Tests.Service
         [Test]
         public void Can_coalesce_entities_on_timeline()
         {
-            var service = new TwitterService();
-            var tweets = service.ListTweetsOnPublicTimeline();
+            var service = GetAuthenticatedService();
+            var tweets = service.ListTweetsOnHomeTimeline(new ListTweetsOnHomeTimelineOptions());
 
             var passed = false;
             
@@ -736,20 +682,24 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        public void Can_get_tweets_on_user_timeline_with_paging()
+        public void Can_get_tweets_on_user_timeline_with_since_paging()
         {
             var service = GetAuthenticatedService();
-            
-            for(var i = 0; i < 10; i++)
+            var tweets = service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions { SinceId = 0, Count = 200 }).ToList();
+            foreach (var tweet in tweets)
             {
-                var tweets = service.ListTweetsOnUserTimeline(i, 200);
-                foreach (var tweet in tweets)
-                {
-                    Assert.IsNotNull(tweet.RawSource);
-                    Assert.IsNotNull(tweet.Entities);
+                Assert.IsNotNull(tweet.RawSource);
+                Assert.IsNotNull(tweet.Entities);
 
-                    Console.WriteLine("{0} said '{1}'", tweet.User.ScreenName, tweet.Text);
-                }
+                Console.WriteLine("{0} said '{1}'", tweet.User.ScreenName, tweet.Text);
+            }
+            if(!tweets.Any()) Assert.Ignore();
+            var sinceId = tweets.Last().Id;
+            var tweets2 = service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions { SinceId = sinceId, Count = 200 });
+            foreach (var tweet in tweets2)
+            {
+                Assert.IsNotNull(tweet.RawSource);
+                Assert.IsNotNull(tweet.Entities);
             }
         }
 
@@ -758,7 +708,7 @@ namespace TweetSharp.Tests.Service
         {
             var service = GetAuthenticatedService();
 
-            var tweets = service.ListTweetsOnSpecifiedUserTimeline("mabster");
+            var tweets = service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions { ScreenName = "mabster" });
             foreach(var tweet in tweets)
             {
                 Assert.IsNotNull(tweet.RawSource);
@@ -772,10 +722,10 @@ namespace TweetSharp.Tests.Service
         public void Can_get_user_lists()
         {
             var service = GetAuthenticatedService();
-            var lists = service.ListListsFor("danielcrenna", -1);
+            var lists = service.ListListsFor(new ListListsForOptions() { ScreenName = _hero });
 
             Assert.IsNotNull(lists);
-            if(lists.Count == 0)
+            if(!lists.Any())
             {
                 Assert.Ignore("This test account has no lists");
             }
@@ -791,13 +741,19 @@ namespace TweetSharp.Tests.Service
         public void Can_create_and_delete_list()
         {
             var service = GetAuthenticatedService();
-            var list = service.CreateList("danielcrenna", "test-list", "private");
+            var list =
+                service.CreateList(new CreateListOptions
+                                       {
+                                           ListOwner = _hero,
+                                           Description = "test-list",
+                                           Mode = TwitterListMode.Public
+                                       });
 
             Assert.IsNotNull(list);
             Assert.IsNotNullOrEmpty(list.Name);
             Assert.AreEqual(list.Name, "test-list");
 
-            list = service.DeleteList(list.Id);
+            list = service.DeleteList(new DeleteListOptions { ListId = list.Id});
             Assert.IsNotNull(list);
             Assert.IsNotNullOrEmpty(list.Name);
             Assert.AreEqual(list.Name, "test-list");
@@ -807,7 +763,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_followers_ids()
         {
             var service = GetAuthenticatedService();
-            var followers = service.ListFollowerIdsOf("tweetsharp", -1);
+            var followers = service.ListFollowerIdsOf(new ListFollowerIdsOfOptions(){ScreenName = _hero});
             Assert.IsNotNull(followers);
             Assert.IsTrue(followers.Count > 0);
         }
@@ -816,45 +772,16 @@ namespace TweetSharp.Tests.Service
         public void Can_get_friend_ids()
         {
             var service = GetAuthenticatedService();
-            var friends = service.ListFriendIdsOf("tweetsharp", -1);
+            var friends = service.ListFriendIdsOf(new ListFriendIdsOfOptions(){ScreenName = _hero});
             Assert.IsNotNull(friends);
             Assert.IsTrue(friends.Count > 0);
         }
-
-        [Test]
-        public void Can_get_current_trends()
-        {
-            var service = GetAuthenticatedService();
-            var trends = service.ListCurrentTrends();
-            Assert.IsNotNull(trends);
-            Assert.IsTrue(trends.Count() ==10);
-        }
-
-        [Test]
-        public void Can_get_daily_trends()
-        {
-            var service = GetAuthenticatedService();
-            var trends = service.ListDailyTrends();
-            Assert.IsNotNull(trends);
-            Assert.IsTrue(trends.Count() == 20 * 24);
-        }
-
-        [Test]
-        public void Can_get_weekly_trends_with_date()
-        {
-            var yesterday = DateTime.UtcNow.Subtract(TimeSpan.FromDays(1));
-
-            var service = GetAuthenticatedService();
-            var trends = service.ListWeeklyTrends(yesterday);
-            Assert.IsNotNull(trends);
-            Assert.IsTrue(trends.Count() == 30 * 7);
-        }
-
+        
         [Test]
         public void Can_get_available_local_trend_locations()
         {
             var service = GetAuthenticatedService();
-            var locations = service.ListAvailableTrendsLocations();
+            var locations = service.ListAvailableTrendsLocations(new ListAvailableTrendsLocationsOptions());
             Assert.IsNotNull(locations);
 
             foreach(var location in locations)
@@ -867,7 +794,7 @@ namespace TweetSharp.Tests.Service
         public void Can_update_profile_image()
         {
             var service = GetAuthenticatedService();
-            var user = service.UpdateProfileImage("daniel_8bit.png");
+            var user = service.UpdateProfileImage(new UpdateProfileImageOptions() { ImagePath = "daniel_8bit.png" });
             Assert.IsNotNull(user);
             Assert.AreEqual(HttpStatusCode.OK, service.Response.StatusCode);
         }
@@ -877,7 +804,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_local_trends()
         {
             var service = GetAuthenticatedService();
-            var trends = service.ListLocalTrendsFor(4118);
+            var trends = service.ListLocalTrendsFor(new ListLocalTrendsForOptions() { Id = 4118 });
             Assert.IsNotNull(trends);
 
             foreach (var trend in trends)
@@ -890,7 +817,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_multiple_user_profiles()
         {
             var service = GetAuthenticatedService();
-            var users = service.ListUserProfilesFor(new[] {"danielcrenna", "jdiller"});
+            var users = service.ListUserProfilesFor(new ListUserProfilesForOptions() { ScreenName = new[] { "danielcrenna", "jdiller" } });
 
             Assert.IsNotNull(users);
             Assert.AreEqual(2, users.Count());
@@ -1000,7 +927,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_friendship_lookup()
         {
             var service = GetAuthenticatedService();
-            var friendships = service.ListFriendshipsFor(new[] { "danielcrenna"});
+            var friendships = service.ListFriendshipsFor(new ListFriendshipsForOptions() { ScreenName = new[] { "danielcrenna" } });
             Assert.IsNotNull(friendships);
         }
 
@@ -1008,14 +935,14 @@ namespace TweetSharp.Tests.Service
         public void Can_loop_through_followers()
         {
             var service = GetAuthenticatedService();
-            var me = service.GetUserProfile();
+            var me = service.GetUserProfile(new GetUserProfileOptions());
 
             var count = 0;
-            var followers = service.ListFollowersOf(me.Id, -1);
+            var followers = service.ListFollowers(new ListFollowersOptions { UserId = me.Id});
             count += followers.Count;
-            while (followers != null && followers.NextCursor != 0)
+            while (followers.NextCursor != 0)
             {
-                followers = service.ListFollowersOf(me.Id, (long)followers.NextCursor);
+                followers = service.ListFollowers(new ListFollowersOptions { UserId = me.Id, Cursor = followers.NextCursor});
                 count += followers.Count;
             }     
             Assert.AreEqual(me.FollowersCount, count);

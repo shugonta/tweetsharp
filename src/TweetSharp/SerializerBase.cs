@@ -4,9 +4,9 @@ using System.IO;
 using Hammock;
 using Hammock.Serialization;
 using Newtonsoft.Json;
-using Formatting = Newtonsoft.Json.Formatting;
+using TweetSharp.Serialization;
 
-namespace TweetSharp.Serialization
+namespace TweetSharp
 {
     internal abstract partial class SerializerBase : Utf8Serializer, ISerializer, IDeserializer
     {

@@ -41,7 +41,7 @@ namespace TweetSharp
 #if !WINDOWS_PHONE
             return 
 #endif
-            WithHammockSearchStreaming(options, action, "statuses/filter.json");
+            WithHammockPublicStreaming(options, action, "statuses/filter.json");
         }
 
         /// <summary>
@@ -78,9 +78,9 @@ namespace TweetSharp
         }
 
         #if !WINDOWS_PHONE
-        private IAsyncResult WithHammockSearchStreaming<T>(StreamOptions options, Action<T, TwitterResponse> action, string path) where T : class
+        private IAsyncResult WithHammockPublicStreaming<T>(StreamOptions options, Action<T, TwitterResponse> action, string path) where T : class
 #else
-        private void WithHammockSearchStreaming<T>(StreamOptions options, Action<T, TwitterResponse> action, string path) where T : class
+        private void WithHammockPublicStreaming<T>(StreamOptions options, Action<T, TwitterResponse> action, string path) where T : class
 #endif
         {
             var request = PrepareHammockQuery(path);

@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\bin\lib\4.0\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,7 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\bin\lib\4.0\</OutputPath>
+    <OutputPath>..\..\bin\lib\4.0\</OutputPath>
     <DefineConstants>TRACE;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -89,7 +89,6 @@
     <Compile Include="TwitterDateTimeConverter.cs" />
     <Compile Include="TwitterGeoConverter.cs" />
     <Compile Include="TwitterWonkyBooleanConverter.cs" />
-    <Compile Include="SerializerBase.Xml.cs" />
     <Compile Include="TwitterService.Streaming.cs" />
     <Compile Include="ITwitterModel.cs" />
     <Compile Include="TwitterDateFormat.cs" />
@@ -117,45 +116,18 @@
     <Compile Include="TwitterService.OAuth.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="_TwitterService.Blocks.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="_TwitterService.DirectMessages.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="_TwitterService.Users.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="_TwitterService.SavedSearches.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="_TwitterService.Search.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="_TwitterService.Lists.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="_TwitterService.FriendsFollowers.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="_TwitterService.Trends.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="_TwitterService.Places.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Include="_TwitterService.Notifications.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Content Include="_TwitterService.Tweets.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="_TwitterService.Account.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="_TwitterService.Favorites.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="_TwitterService.5.DirectMessages.json" />
+    <Content Include="_TwitterService.7.Users.json" />
+    <Content Include="_TwitterService.11.SavedSearches.json" />
+    <Content Include="_TwitterService.3.Search.json" />
+    <Content Include="_TwitterService.10.Lists.json" />
+    <Content Include="_TwitterService.6.FriendsFollowers.json" />
+    <Content Include="_TwitterService.13.Trends.json" />
+    <Content Include="_TwitterService.12.Places.json" />
+    <Content Include="_TwitterService.2.Tweets.json" />
+    <Content Include="_TwitterService.14.Help.json" />
+    <Content Include="_TwitterService.9.Favorites.json" />
+    <Content Include="_TwitterService.8.SuggestedUsers.json" />
     <None Include="TwitterService.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TwitterService.generated.cs</LastGenOutput>
@@ -167,9 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assembly.ico" />
-    <Content Include="_TwitterService.Timelines.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="_TwitterService.1.Timelines.json" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

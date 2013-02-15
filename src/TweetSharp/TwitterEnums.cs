@@ -52,4 +52,14 @@ namespace TweetSharp
     {
         Photo
     }
+
+
+#if !SILVERLIGHT
+    [Serializable]
+#endif
+    public enum TwitterListMode
+    {
+        Public,
+        Private
+    }
 }

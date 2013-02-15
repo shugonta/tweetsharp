@@ -14,5 +14,6 @@ namespace TweetSharp
         public virtual string ConsumerKey { get; set; }
         public virtual string ConsumerSecret { get; set; }
         public virtual bool IncludeEntities { get; set; }
+        public virtual bool IncludeRetweets { get; set; }
     }
 }

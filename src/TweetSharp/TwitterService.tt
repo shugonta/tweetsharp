@@ -9,20 +9,20 @@
 	var methods = new List<TweetSharpMethod>(10);
 	
 	var manifests = new string[] { 
-		"_TwitterService.Account.json",
-		"_TwitterService.Blocks.json",	
-		"_TwitterService.DirectMessages.json",
-		"_TwitterService.Favorites.json",
-		"_TwitterService.FriendsFollowers.json",
-		"_TwitterService.Lists.json",		
-		"_TwitterService.Notifications.json",  
-		"_TwitterService.SavedSearches.json",
-		"_TwitterService.Search.json",
-		"_TwitterService.Timelines.json", 
-		"_TwitterService.Trends.json", 
-		"_TwitterService.Tweets.json",
-		"_TwitterService.Users.json",		
-		"_TwitterService.Places.json",
+		"_TwitterService.1.Timelines.json", 
+		"_TwitterService.2.Tweets.json",
+		// 4 is Streaming, handled elsewhere
+		"_TwitterService.3.Search.json",		
+		"_TwitterService.5.DirectMessages.json",
+		"_TwitterService.6.FriendsFollowers.json",
+		"_TwitterService.7.Users.json",		
+		"_TwitterService.8.SuggestedUsers.json",		
+		"_TwitterService.9.Favorites.json",		
+		"_TwitterService.10.Lists.json",
+		"_TwitterService.11.SavedSearches.json",		
+		"_TwitterService.12.Places.json",
+		"_TwitterService.13.Trends.json", 		
+		"_TwitterService.14.Help.json", 	
 	};
 
 	foreach(var manifest in manifests)
@@ -40,6 +40,10 @@
 		}
 	}	
 #>
+/// <summary>
+/// This code is generated. Any changes to it will be destroyed on subsequent generations. Use the DSL instead.
+/// </summary>
+
 using System;
 using System.Collections.Generic;
 using Hammock;
@@ -47,14 +51,22 @@ using Hammock.Web;
 
 namespace TweetSharp
 {
+#region Options<# foreach(TweetSharpMethod method in methods) { #> 
+    <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>		
+	public class <#= method.Name #>Options
+	{<# foreach(var parameter in method.Parameters) { #> 
+		public <#= parameter.Type #> <#= parameter.PropertyName #> { get; set; } <# } #>			
+	}			
+<# } #>
+#endregion
+
 #region Interface
 	public partial interface ITwitterService
 	{
 #if !SILVERLIGHT
-		#region Sequential Methods
-<# foreach(TweetSharpMethod method in methods) { #> 
+		#region Sequential Methods<# foreach(TweetSharpMethod method in methods) { #> 
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		<#= method.Type #> <#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);	
+		<#= method.Type #> <#= method.Name #>(<#= method.Name #>Options options);	
 
 <# } #>
 		#endregion
@@ -64,7 +76,7 @@ namespace TweetSharp
 		#region Asynchronous Methods (with IAsyncResult)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		IAsyncResult <#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #><# if(count > 0) {#>, <# } #>Action<<#= method.Type #>, TwitterResponse> action);		
+		IAsyncResult <#= method.Name #>(<#= method.Name #>Options options, Action<<#= method.Type #>, TwitterResponse> action);		
 
 <# } #>
 		#endregion
@@ -74,7 +86,7 @@ namespace TweetSharp
 		#region Asynchronous Methods (with Begin/End pattern)
 <# foreach(TweetSharpMethod method in methods.GroupBy(p => p.Name).Select(g => g.First())) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		IAsyncResult Begin<#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+		IAsyncResult Begin<#= method.Name #>(<#= method.Name #>Options options);
 
 		<#= method.Type #> End<#= method.Name #>(IAsyncResult result);		
 
@@ -88,7 +100,7 @@ namespace TweetSharp
 		#region Asynchronous Methods (without IAsyncResult)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		void <#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #><# if(count > 0) {#>, <# } #>Action<<#= method.Type #>, TwitterResponse> action);
+		void <#= method.Name #>(<#= method.Name #>Options options, Action<<#= method.Type #>, TwitterResponse> action);
 
 <# } #>
 		#endregion
@@ -106,9 +118,12 @@ namespace TweetSharp
 		#region Sequential Methods
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual <#= method.Type #> <#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>)
+		public virtual <#= method.Type #> <#= method.Name #>(<#= method.Name #>Options options)
 		{
-			return WithHammock<<#= method.Type #>>(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #><#= method.Path #>, FormatAsString<# if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
+			<# } #>
+			
+			return WithHammock<<#= method.Type #>>(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #><#= method.Path #>, FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
 		}
 
 <# } #>
@@ -119,9 +134,12 @@ namespace TweetSharp
 		#region Asynchronous Methods (with IAsyncResult)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual IAsyncResult <#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #><# if(count > 0) {#>, <# } #>Action<<#= method.Type #>, TwitterResponse> action)
+		public virtual IAsyncResult <#= method.Name #>(<#= method.Name #>Options options, Action<<#= method.Type #>, TwitterResponse> action)
 		{
-			return WithHammock(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #>action, <#= method.Path #>, FormatAsString<# if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
+			<# } #>
+
+			return WithHammock(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #>action, <#= method.Path #>, FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
 		}
 
 <# } #>
@@ -132,9 +150,12 @@ namespace TweetSharp
 		#region Asynchronous Methods (with Begin/End pattern)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual IAsyncResult Begin<#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>)
+		public virtual IAsyncResult Begin<#= method.Name #>(<#= method.Name #>Options options)
 		{
-			return BeginWithHammock<<#= method.Type #>>(WebMethod.<#= Helpers.Capitalize(method.Method) #>, <#= method.Path #>, FormatAsString<# if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
+			<# } #>
+
+			return BeginWithHammock<<#= method.Type #>>(WebMethod.<#= Helpers.Capitalize(method.Method) #>, <#= method.Path #>, FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
 		}
 
 <# } #>
@@ -159,9 +180,12 @@ namespace TweetSharp
 		#region Asynchronous Methods (without IAsyncResult)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual void <#= method.Name #>(<# var count = method.Parameters.Count(); for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #><#= parameter.Type #> <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #><# if(count > 0) {#>, <# } #>Action<<#= method.Type #>, TwitterResponse> action)
+		public virtual void <#= method.Name #>(<#= method.Name #>Options options, Action<<#= method.Type #>, TwitterResponse> action)
 		{
-			WithHammock(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #>action, <#= method.Path #>, FormatAsString<# if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
+			<# } #>
+
+			WithHammock(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #>action, <#= method.Path #>, FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
 		}
 
 <# } #>
@@ -181,6 +205,13 @@ namespace TweetSharp
             var lower = upperCase.ToLowerInvariant();
             return char.ToUpperInvariant(lower[0]) + lower.Substring(1);
         }
+
+		public static string PascalCase(string lowercaseUnderscore)
+		{
+			var cultureInfo = System.Threading.Thread.CurrentThread.CurrentCulture;
+			var titleCase = cultureInfo.TextInfo.ToTitleCase(lowercaseUnderscore.ToLower());
+			return titleCase.Replace("_", "");
+		}
 
 		public static string Underscore(string camelCase)
 		{
@@ -244,20 +275,15 @@ namespace TweetSharp
 			 for(var i = 3; i < parts.Length; i++)
 			 {
 				var data = parts[i].Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-				Parameters.Add(new TweetSharpMethodParameter() { Type = data[0], Name = data[1] });
+				Parameters.Add(new TweetSharpMethodParameter() { Type = data[0], Name = data[1], PropertyName = Helpers.PascalCase(data[1]) });
 			 }
 		}
 	}
 
 	internal class TweetSharpMethodParameter
 	{
-		public string Type
-		{
-			get; set;
-		}
-		public string Name
-		{
-			get; set;
-		}
+		public string Type { get; set; }
+		public string Name { get; set; }
+		public string PropertyName { get; set; }
 	}
 #>

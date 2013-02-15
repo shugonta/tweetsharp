@@ -16,7 +16,7 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var tweet = service.GetTweet(131501393033961472);
+            var tweet = service.GetTweet(new GetTweetOptions { Id = 131501393033961472});
             Console.WriteLine(tweet.RawSource);
         }
 
@@ -26,7 +26,7 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var tweet = service.GetTweet(128818112387756032);
+            var tweet = service.GetTweet(new GetTweetOptions { Id = 128818112387756032 });
             Assert.IsNotNull(tweet.Entities);
             Assert.AreEqual(1, tweet.Entities.Media.Count);
 
@@ -55,7 +55,7 @@ namespace TweetSharp.Tests.Service
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
             // Presidio
-            var place = service.GetPlace("df51dec6f4ee2b2c");
+            var place = service.GetPlace(new GetPlaceOptions { PlaceId = "df51dec6f4ee2b2c" });
             Assert.IsNotNull(place);
             Assert.AreEqual("df51dec6f4ee2b2c", place.Id);
             Assert.AreEqual("Presidio", place.Name);
@@ -70,18 +70,18 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var places = service.ReverseGeocode(45.42153, -75.697193).ToList();
+            var places = service.ReverseGeocode(new ReverseGeocodeOptions { Lat = 45.42153, Long = -75.697193 }).ToList();
             Assert.IsNotEmpty(places);
             Assert.AreEqual(4, places.Count);
 
             places = places.OrderBy(p => p.Id).ToList();
-            
+
             Assert.AreEqual("Ottawa, Ontario", places[0].FullName);
             Assert.AreEqual(TwitterPlaceType.City, places[0].PlaceType);
             Assert.AreEqual("06183ca2a30a18e8", places[0].Id);
             Assert.AreEqual(1, places[0].ContainedWithin.Count());
             Assert.AreEqual("89b2eb8b2b9847f7", places[0].ContainedWithin.ToList()[0].Id);
-            
+
             Assert.AreEqual("Canada", places[1].FullName);
             Assert.AreEqual("3376992a082d67c7", places[1].Id);
             Assert.AreEqual(TwitterPlaceType.Country, places[1].PlaceType);
@@ -99,7 +99,7 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var places = service.GeoSearchByCoordinates(45.42153, -75.697193).ToList();
+            var places = service.GeoSearch(new GeoSearchOptions { Lat = 45.42153, Long = -75.697193}).ToList();
             Assert.IsNotEmpty(places);
 
             places = places.OrderBy(p => p.Id).ToList();
@@ -112,7 +112,7 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var places = service.GeoSearchByIp("24.246.1.165").ToList();
+            var places = service.GeoSearch(new GeoSearchOptions { Ip = "24.246.1.165" }).ToList();
             Assert.IsNotEmpty(places);
 
             places = places.OrderBy(p => p.Id).ToList();
@@ -136,7 +136,7 @@ namespace TweetSharp.Tests.Service
                 }, 
              */
 
-            var last = service.GetTweet(133314374797492224);
+            var last = service.GetTweet(new GetTweetOptions { Id = 133314374797492224 });
             Assert.IsNotNull(last.Place);
             Assert.IsNotNull(last.Location);
             Assert.AreEqual("Point", last.Location.Type);
@@ -152,12 +152,12 @@ namespace TweetSharp.Tests.Service
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
             var users = new List<TwitterUser>();
-            var ids = service.ListFriendIdsOf("mtamermahoney", -1);
+            var ids = service.ListFriendIdsOf(new ListFriendIdsOfOptions { ScreenName = "mtamermahoney" });
             var pages = Math.Ceiling(Convert.ToDouble(ids.Count()) / 100);
             for(var i = 0; i < pages; i++)
             {
                 var list = ids.Skip(i * 100).Take(100);
-                var segment = service.ListUserProfilesFor(list);
+                var segment = service.ListUserProfilesFor(new ListUserProfilesForOptions { UserId = list });
                 if (segment == null)
                 {
                     if(service.Response.StatusCode == HttpStatusCode.OK)
@@ -208,7 +208,7 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var user = service.GetUserProfile();
+            var user = service.GetUserProfile(new GetUserProfileOptions());
             Assert.AreEqual(true, user.ShowAllInlineMedia);
             Assert.AreEqual(false, user.FollowRequestSent);
             Assert.AreEqual(false, user.IsTranslator);
@@ -236,7 +236,7 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var account = service.GetAccountSettings();
+            var account = service.GetAccountSettings(new GetAccountSettingsOptions());
             Console.WriteLine(account.RawSource);
 
             Assert.AreEqual(false, account.IsProtected);
@@ -265,17 +265,17 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var original = service.GetAccountSettings();
+            TwitterAccount original = service.GetAccountSettings(new GetAccountSettingsOptions());
             var state = !original.SleepTime.Enabled.Value;
 
             Trace.WriteLine("Sleep state was " + original.SleepTime.Enabled);
             
-            var updated = service.UpdateAccountSettings(state);
+            var updated = service.UpdateAccountSettings(new UpdateAccountSettingsOptions { SleepTimeEnabled = state });
             Assert.AreEqual(state, updated.SleepTime.Enabled);
 
             Trace.WriteLine("Sleep state is now " + updated.SleepTime.Enabled);
 
-            updated = service.UpdateAccountSettings(!state);
+            updated = service.UpdateAccountSettings(new UpdateAccountSettingsOptions() { SleepTimeEnabled = !state});
             Assert.AreEqual(!state, updated.SleepTime.Enabled);
 
             Trace.WriteLine("Sleep state is now " + updated.SleepTime.Enabled);
