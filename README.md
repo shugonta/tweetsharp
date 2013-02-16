@@ -20,6 +20,11 @@ Due to popular request, I offer commercial support services; you may inquire abo
 For the majority of cases, though, you should be able to get on fine by forking, adding your desired API changes through the DSL, 
 and issuing a pull request.
 
+#### Corporate sponsorships
+Ongoing development on V2 of this project wouldn't have been possible without contributions from these companies.
+
+[![SmartParents](https://raw.github.com/danielcrenna/tweetsharp/master/sponsors/SmartParents_RGB_logo_250px.png)](http://smartparents.com)
+
 #### Learn the Twitter API
 Make sure you visit (http://dev.twitter.com) to get acquainted with the Twitter API. Most of the time, confusion
 around the methods in this library are a result of not understanding Twitter's requirements, or the OAuth authentication
