@@ -338,14 +338,19 @@ if(service.Response.StatusCode == HttpStatusCode.OK) // <-- Should be 401 - Unau
         else
         {
             // It could be an issue with serialization, you can check the content
-            Console.WriteLine(service.Response.Response);
+            var content = service.Response.Response;
+            
+            Console.WriteLine(content);
+            
+            // And try to deserialize it into something else
+            var myError = service.Deserialize<MyTwitterError>(content);
         }
     }
 }
 else
 {
     // Likely this is an error; we don't have to go fishing for it
-    TwitterError error = service.Response.TwitterError ?? service.Deserialize<TwitterError>(service.Response.Response);
+    TwitterError error = service.Response.TwitterError;
     if(error != null)
     {
         // You now know you have a real error from Twitter, and can handle it
