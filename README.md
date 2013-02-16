@@ -1,11 +1,13 @@
 ## Tweetsharp
 ```powershell
-    PM> Install-Package TweetSharp # This is currently the v1.0 release, until March 5th.
+    PM> Install-Package TweetSharp          # This is currently the v1.0 release, until March 5th.
 ```
->**_The upcoming V2.3+ release supports Twitter API v1.1, and does not support v1.0; you need to upgrade before March 5th, as this is when the blackout periods begin._**
+
 ```powershell
-	PM> Install-Package TweetSharp -Pre # Help us test support for v1.1!
+    PM> Install-Package TweetSharp -Pre     # This is the v1.1 release; help us test it!
 ```
+
+**_The upcoming V2.3+ release supports Twitter API v1.1, and does not support v1.0; you need to upgrade before March 5th, as this is when the blackout periods begin._**
 
 #### Introduction
 TweetSharp is a Twitter API library that greatly simplifies the task of adding Twitter to your desktop, web, and mobile applications. You can build simple widgets, or complex application suites using TweetSharp. The second version, a rewrite,  was designed to be lighter, faster, and more intuitive than the original. You write fewer lines of code, make fewer decisions, and get better results. Visual Studio T4 templates are employed to automatically generate new API methods from a simple text-based DSL.
