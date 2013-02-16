@@ -1,7 +1,6 @@
 v1.1
 ----
-- Don't send any options that are null
-- Rate limit statuses need to be re-done
-- Update README with new options-based signatures
-- Fix tests
+- Update README with new options-based signatures and error handling approach
 - Don't require an options class if there are no options to begin with
+- Thorough review of all model properties for serialization
+- There appears to be a bug with disabled sleep time via the API; investigate and file

@@ -13,9 +13,7 @@ namespace TweetSharp.Tests.Service
         [Test]
         public void Can_support_secure_urls_in_entitities()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
-
+            var service = GetAuthenticatedService();
             var tweet = service.GetTweet(new GetTweetOptions { Id = 131501393033961472});
             Console.WriteLine(tweet.RawSource);
         }
@@ -23,16 +21,15 @@ namespace TweetSharp.Tests.Service
         [Test]
         public void Can_get_media_links_from_entities()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+            var service = GetAuthenticatedService();
 
             var tweet = service.GetTweet(new GetTweetOptions { Id = 128818112387756032 });
             Assert.IsNotNull(tweet.Entities);
             Assert.AreEqual(1, tweet.Entities.Media.Count);
 
             var media = tweet.Entities.Media[0];
-            Assert.AreEqual("http://p.twimg.com/AcmnZAXCMAEaDD1.jpg", media.MediaUrl);
-            Assert.AreEqual("https://p.twimg.com/AcmnZAXCMAEaDD1.jpg", media.MediaUrlHttps);
+            Assert.AreEqual("http://pbs.twimg.com/media/AcmnZAXCMAEaDD1.jpg", media.MediaUrl);
+            Assert.AreEqual("https://pbs.twimg.com/media/AcmnZAXCMAEaDD1.jpg", media.MediaUrlHttps);
             Assert.AreEqual("http://twitter.com/sarah_hatton/status/128818112387756032/photo/1", media.ExpandedUrl);
             Assert.AreEqual("pic.twitter.com/xCdS2Emt", media.DisplayUrl);
             Assert.AreEqual(TwitterMediaType.Photo, media.MediaType);
@@ -51,8 +48,7 @@ namespace TweetSharp.Tests.Service
         [Test]
         public void Can_get_basic_place()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+            var service = GetAuthenticatedService();
 
             // Presidio
             var place = service.GetPlace(new GetPlaceOptions { PlaceId = "df51dec6f4ee2b2c" });
@@ -67,8 +63,7 @@ namespace TweetSharp.Tests.Service
         [Test]
         public void Can_get_reverse_geocode()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+            var service = GetAuthenticatedService();
 
             var places = service.ReverseGeocode(new ReverseGeocodeOptions { Lat = 45.42153, Long = -75.697193 }).ToList();
             Assert.IsNotEmpty(places);
@@ -148,8 +143,7 @@ namespace TweetSharp.Tests.Service
         [Ignore("This is a brittle test because it requires that you be me (and you are probably not me)")]
         public void Can_get_parameterized_followers_of_lists()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+            var service = GetAuthenticatedService();
 
             var users = new List<TwitterUser>();
             var ids = service.ListFriendIdsOf(new ListFriendIdsOfOptions { ScreenName = "mtamermahoney" });
@@ -167,7 +161,7 @@ namespace TweetSharp.Tests.Service
                     Console.WriteLine("Twitter failed legitimately: {0} {1}", service.Response.StatusCode, service.Response.StatusDescription);
                 }
                 
-                if(segment.Count() > 0)
+                if(segment.Any())
                 {
                     users.AddRange(segment);
                 }
@@ -204,12 +198,10 @@ namespace TweetSharp.Tests.Service
             //"status":{"possibly_sensitive":false,"place":null,"retweet_count":0,"in_reply_to_screen_name":null,"created_at":"Sun Nov 06 14:23:43 +0000 2011","retweeted":false,"in_reply_to_status_id_str":null,"in_reply_to_user_id_str":null,"contributors":null,"id_str":"133187813599481856","in_reply_to_user_id":null,"in_reply_to_status_id":null,"source":"\u003Ca href=\"http:\/\/twitter.com\/tweetbutton\" rel=\"nofollow\"\u003ETweet Button\u003C\/a\u003E","geo":null,"favorited":false,"id":133187813599481856,"entities":{"urls":[{"display_url":"binpress.com\/blog\/2011\/08\/2\u2026","indices":[53,73],"url":"http:\/\/t.co\/KTGrKmeK","expanded_url":"http:\/\/www.binpress.com\/blog\/2011\/08\/25\/why-isnt-it-free-commercial-open-source\/"}],"user_mentions":[{"name":"Binpress","indices":[78,87],"screen_name":"Binpress","id_str":"204787796","id":204787796}],"hashtags":[]},"coordinates":null,"truncated":false,"text":"Why isn't it free - commercial open-source revisited http:\/\/t.co\/KTGrKmeK via @binpress"},"profile_use_background_image":true,"favourites_count":151,"location":"Ottawa, ON, Canada","id_str":"11173402","default_profile_image":false,"show_all_inline_media":true,"profile_text_color":"666666","screen_name":"danielcrenna","statuses_count":4669,"profile_background_image_url":"http:\/\/a1.twimg.com\/images\/themes\/theme9\/bg.gif","url":"http:\/\/danielcrenna.com","time_zone":"Eastern Time (US & Canada)","profile_link_color":"2FC2EF","id":11173402,
             //"follow_request_sent":false,
             //"lang":"en"}
-            
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+
+            var service = GetAuthenticatedService();
 
             var user = service.GetUserProfile(new GetUserProfileOptions());
-            Assert.AreEqual(true, user.ShowAllInlineMedia);
             Assert.AreEqual(false, user.FollowRequestSent);
             Assert.AreEqual(false, user.IsTranslator);
             Assert.AreEqual(false, user.ContributorsEnabled);
@@ -233,22 +225,20 @@ namespace TweetSharp.Tests.Service
             //"time_zone":{"name":"Eastern Time (US & Canada)","utc_offset":-18000,"tzinfo_name":"America\/New_York"},
             //"discoverable_by_email":true}
 
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+            var service = GetAuthenticatedService();
 
             var account = service.GetAccountSettings(new GetAccountSettingsOptions());
             Console.WriteLine(account.RawSource);
 
-            Assert.AreEqual(false, account.IsProtected);
-            Assert.AreEqual(true, account.GeoEnabled);
+            Assert.AreEqual(false, account.IsProtected, "IsProtected");
+            Assert.AreEqual(true, account.GeoEnabled, "GeoEnabled");
             Assert.IsNotNull(account.TrendLocations);
             Assert.AreEqual(1, account.TrendLocations.Count());
             Assert.AreEqual("CA", account.TrendLocations.Single().CountryCode);
             Assert.AreEqual("Canada", account.TrendLocations.Single().Name);
             Assert.AreEqual("Canada", account.TrendLocations.Single().Country);
             Assert.AreEqual("en", account.Language);
-            Assert.AreEqual("danielcrenna", account.ScreenName);
-            Assert.AreEqual(true, account.ShowAllInlineMedia);
+            Assert.AreEqual("danielcrenna", account.ScreenName, "ScreenName");
             Assert.IsNotNull(account.TimeZone);
             Assert.AreEqual("Eastern Time (US & Canada)", account.TimeZone.Name);
             Assert.AreEqual(-18000, account.TimeZone.UtcOffset);
@@ -256,14 +246,13 @@ namespace TweetSharp.Tests.Service
             Assert.IsNotNull(account.SleepTime);
             Assert.AreEqual(0, account.SleepTime.StartTime, "start_time");
             Assert.AreEqual(12, account.SleepTime.EndTime, "end_time");
-            Assert.AreEqual(true, account.SleepTime.Enabled);
+            Assert.AreEqual(true, account.SleepTime.Enabled, "SleepTime");
         }
 
         [Test]
         public void Can_update_account_settings()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+            var service = GetAuthenticatedService();
 
             TwitterAccount original = service.GetAccountSettings(new GetAccountSettingsOptions());
             var state = !original.SleepTime.Enabled.Value;
@@ -271,12 +260,12 @@ namespace TweetSharp.Tests.Service
             Trace.WriteLine("Sleep state was " + original.SleepTime.Enabled);
             
             var updated = service.UpdateAccountSettings(new UpdateAccountSettingsOptions { SleepTimeEnabled = state });
-            Assert.AreEqual(state, updated.SleepTime.Enabled);
+            Assert.AreEqual(state, updated.SleepTime.Enabled, "Didn't update");
 
             Trace.WriteLine("Sleep state is now " + updated.SleepTime.Enabled);
 
             updated = service.UpdateAccountSettings(new UpdateAccountSettingsOptions() { SleepTimeEnabled = !state});
-            Assert.AreEqual(!state, updated.SleepTime.Enabled);
+            Assert.AreEqual(!state, updated.SleepTime.Enabled, "Didn't update again");
 
             Trace.WriteLine("Sleep state is now " + updated.SleepTime.Enabled);
         }

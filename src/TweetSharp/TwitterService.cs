@@ -9,7 +9,6 @@ using System.Text;
 using Hammock;
 using Hammock.Serialization;
 using Hammock.Web;
-using TweetSharp.Serialization;
 
 #if SILVERLIGHT
 using Hammock.Silverlight.Compat;
@@ -119,6 +118,7 @@ namespace TweetSharp
                 Proxy = Proxy,
                 UserAgent = "TweetSharp",
                 DecompressionMethods = DecompressionMethods.GZip,
+                GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
 #if SILVERLIGHT
                 HasElevatedPermissions = true
 #endif
@@ -132,6 +132,7 @@ namespace TweetSharp
                 Serializer = _json,
                 Deserializer = _json,
                 DecompressionMethods = DecompressionMethods.GZip,
+                GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
                 UserAgent = "TweetSharp",
                 Proxy = Proxy,
 #if !SILVERLIGHT
@@ -150,6 +151,7 @@ namespace TweetSharp
                 Serializer = _json,
                 Deserializer = _json,
                 DecompressionMethods = DecompressionMethods.GZip,
+                GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
                 UserAgent = "TweetSharp",
 #if !SILVERLIGHT
                 FollowRedirects = true,
@@ -223,6 +225,7 @@ namespace TweetSharp
                 PrepareUpload(request, path);
             }
 
+            request.TraceEnabled = TraceEnabled;
             return request;
         }
 
@@ -230,7 +233,7 @@ namespace TweetSharp
         {
             //account/update_profile_image.json?image=[FILE_PATH]&include_entities=1
             var startIndex = path.IndexOf("?image_path=", StringComparison.Ordinal) + 12;
-            var endIndex = path.LastIndexOf("&", StringComparison.Ordinal);
+            var endIndex = path.IndexOf("&", StringComparison.Ordinal);
             var uri = path.Substring(startIndex, endIndex - startIndex);
             path = path.Replace(string.Format("image_path={0}&", uri), "");
             request.Path = path;
@@ -267,7 +270,7 @@ namespace TweetSharp
             response.SetContent(content);
             return _customDeserializer != null
                        ? _customDeserializer.Deserialize<T>(response)
-                       : _json.DeserializeContent<T>(content);
+                       : (T)_json.DeserializeContent(content, typeof(T));
         }
 
         internal string FormatAsString { get; private set; }
@@ -289,6 +292,14 @@ namespace TweetSharp
                     var value = segments[i];    
                     if (value != null)
                     {
+                        if (cleansed.Count == 1 && key is string)
+                        {
+                            var keyString = key.ToString();
+                            if (keyString.StartsWith("&"))
+                            {
+                                key = "?" + keyString.Substring(1);
+                            }
+                        }
                         cleansed.Add(key);
                         cleansed.Add(value);
                     }
@@ -298,10 +309,15 @@ namespace TweetSharp
 
             for (var i = 0; i < segments.Count; i++)
             {
-                // Currently only trends takes DateTimes
                 if (segments[i] is DateTime)
                 {
                     segments[i] = ((DateTime) segments[i]).ToString("yyyy-MM-dd");
+                }
+
+                if (segments[i] is bool)
+                {
+                    var flag = (bool) segments[i];
+                    segments[i] = flag ? "1" : "0";
                 }
 
                 if(segments[i] is double)
@@ -452,7 +468,9 @@ namespace TweetSharp
 
         private T WithHammock<T>(WebMethod method, string path, params object[] segments)
         {
-            return WithHammock<T>(method, ResolveUrlSegments(path, segments.ToList()));
+            var url = ResolveUrlSegments(path, segments.ToList());
+
+            return WithHammock<T>(method, url);
         }
 
         private T WithHammockImpl<T>(RestRequest request)

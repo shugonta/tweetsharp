@@ -17,7 +17,7 @@ namespace TweetSharp
         /// <param name="writer">The writer.</param>
         /// <param name="value">The value.</param>
         /// <param name="serializer">The serializer.</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object value, Newtonsoft.Json.JsonSerializer serializer)
         {
             if (value is string)
             {
@@ -39,7 +39,7 @@ namespace TweetSharp
         /// <param name="existingValue">The existing value.</param>
         /// <param name="serializer">The serializer.</param>
         /// <returns></returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
         {
             if (reader.TokenType == JsonToken.Null)
             {

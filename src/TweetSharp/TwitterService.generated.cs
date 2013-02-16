@@ -2114,7 +2114,7 @@ namespace TweetSharp
 			var id = options.Id;
 			var include_entities = options.IncludeEntities;
 						
-			return WithHammock<TwitterDirectMessage>(WebMethod.Post, "direct_messages/destroy/{id}", FormatAsString, "?id=", id, "&include_entities=", include_entities);
+			return WithHammock<TwitterDirectMessage>(WebMethod.Post, "direct_messages/destroy", FormatAsString, "?id=", id, "&include_entities=", include_entities);
 		}
 
         
@@ -2449,7 +2449,7 @@ namespace TweetSharp
 		{
 			var id = options.Id;
 						
-			return WithHammock<TwitterStatus>(WebMethod.Post, "favorites/destroy/{id}", FormatAsString, "?id=", id);
+			return WithHammock<TwitterStatus>(WebMethod.Post, "favorites/destroy", FormatAsString, "?id=", id);
 		}
 
         
@@ -2458,7 +2458,7 @@ namespace TweetSharp
 			var id = options.Id;
 			var include_entities = options.IncludeEntities;
 						
-			return WithHammock<TwitterStatus>(WebMethod.Post, "favorites/create/{id}", FormatAsString, "?id=", id, "&include_entities=", include_entities);
+			return WithHammock<TwitterStatus>(WebMethod.Post, "favorites/create", FormatAsString, "?id=", id, "&include_entities=", include_entities);
 		}
 
         
@@ -2467,7 +2467,7 @@ namespace TweetSharp
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
 						
-			return WithHammock<IEnumerable<TwitterList>>("lists/lists", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+			return WithHammock<IEnumerable<TwitterList>>("lists/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
 		}
 
         
@@ -2917,7 +2917,7 @@ namespace TweetSharp
 			var id = options.Id;
 			var include_entities = options.IncludeEntities;
 			
-			return WithHammock(WebMethod.Post, action, "direct_messages/destroy/{id}", FormatAsString, "?id=", id, "&include_entities=", include_entities);
+			return WithHammock(WebMethod.Post, action, "direct_messages/destroy", FormatAsString, "?id=", id, "&include_entities=", include_entities);
 		}
 
         
@@ -3252,7 +3252,7 @@ namespace TweetSharp
 		{
 			var id = options.Id;
 			
-			return WithHammock(WebMethod.Post, action, "favorites/destroy/{id}", FormatAsString, "?id=", id);
+			return WithHammock(WebMethod.Post, action, "favorites/destroy", FormatAsString, "?id=", id);
 		}
 
         
@@ -3261,7 +3261,7 @@ namespace TweetSharp
 			var id = options.Id;
 			var include_entities = options.IncludeEntities;
 			
-			return WithHammock(WebMethod.Post, action, "favorites/create/{id}", FormatAsString, "?id=", id, "&include_entities=", include_entities);
+			return WithHammock(WebMethod.Post, action, "favorites/create", FormatAsString, "?id=", id, "&include_entities=", include_entities);
 		}
 
         
@@ -3270,7 +3270,7 @@ namespace TweetSharp
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
 			
-			return WithHammock(action, "lists/lists", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+			return WithHammock(action, "lists/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
 		}
 
         
@@ -3720,7 +3720,7 @@ namespace TweetSharp
 			var id = options.Id;
 			var include_entities = options.IncludeEntities;
 			
-			return BeginWithHammock<TwitterDirectMessage>(WebMethod.Post, "direct_messages/destroy/{id}", FormatAsString, "?id=", id, "&include_entities=", include_entities);
+			return BeginWithHammock<TwitterDirectMessage>(WebMethod.Post, "direct_messages/destroy", FormatAsString, "?id=", id, "&include_entities=", include_entities);
 		}
 
         
@@ -4055,7 +4055,7 @@ namespace TweetSharp
 		{
 			var id = options.Id;
 			
-			return BeginWithHammock<TwitterStatus>(WebMethod.Post, "favorites/destroy/{id}", FormatAsString, "?id=", id);
+			return BeginWithHammock<TwitterStatus>(WebMethod.Post, "favorites/destroy", FormatAsString, "?id=", id);
 		}
 
         
@@ -4064,7 +4064,7 @@ namespace TweetSharp
 			var id = options.Id;
 			var include_entities = options.IncludeEntities;
 			
-			return BeginWithHammock<TwitterStatus>(WebMethod.Post, "favorites/create/{id}", FormatAsString, "?id=", id, "&include_entities=", include_entities);
+			return BeginWithHammock<TwitterStatus>(WebMethod.Post, "favorites/create", FormatAsString, "?id=", id, "&include_entities=", include_entities);
 		}
 
         
@@ -4073,7 +4073,7 @@ namespace TweetSharp
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
 			
-			return BeginWithHammock<IEnumerable<TwitterList>>(WebMethod.Get, "lists/lists", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+			return BeginWithHammock<IEnumerable<TwitterList>>(WebMethod.Get, "lists/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
 		}
 
         
@@ -5411,7 +5411,7 @@ namespace TweetSharp
 			var id = options.Id;
 			var include_entities = options.IncludeEntities;
 			
-			WithHammock(WebMethod.Post, action, "direct_messages/destroy/{id}", FormatAsString, "?id=", id, "&include_entities=", include_entities);
+			WithHammock(WebMethod.Post, action, "direct_messages/destroy", FormatAsString, "?id=", id, "&include_entities=", include_entities);
 		}
 
         
@@ -5746,7 +5746,7 @@ namespace TweetSharp
 		{
 			var id = options.Id;
 			
-			WithHammock(WebMethod.Post, action, "favorites/destroy/{id}", FormatAsString, "?id=", id);
+			WithHammock(WebMethod.Post, action, "favorites/destroy", FormatAsString, "?id=", id);
 		}
 
         
@@ -5755,7 +5755,7 @@ namespace TweetSharp
 			var id = options.Id;
 			var include_entities = options.IncludeEntities;
 			
-			WithHammock(WebMethod.Post, action, "favorites/create/{id}", FormatAsString, "?id=", id, "&include_entities=", include_entities);
+			WithHammock(WebMethod.Post, action, "favorites/create", FormatAsString, "?id=", id, "&include_entities=", include_entities);
 		}
 
         
@@ -5764,7 +5764,7 @@ namespace TweetSharp
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
 			
-			WithHammock(action, "lists/lists", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+			WithHammock(action, "lists/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
 		}
 
         

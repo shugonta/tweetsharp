@@ -46,7 +46,6 @@ namespace TweetSharp
         private string _timeZone;
         private string _utcOffset;
         private string _language;
-        private bool? _showAllInlineMedia;
         private bool? _followRequestSent;
         private bool? _isTranslator;
         private bool? _contributorsEnabled;
@@ -542,24 +541,6 @@ namespace TweetSharp
 
                 _createdDate = value;
                 OnPropertyChanged("CreatedDate");
-            }
-        }
-
-#if !Smartphone && !NET20
-        [DataMember]
-#endif
-        public virtual bool? ShowAllInlineMedia
-        {
-            get { return _showAllInlineMedia; }
-            set
-            {
-                if (_showAllInlineMedia == value)
-                {
-                    return;
-                }
-
-                _showAllInlineMedia = value;
-                OnPropertyChanged("ShowAllInlineMedia");
             }
         }
 

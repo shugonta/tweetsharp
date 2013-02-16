@@ -61,9 +61,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hammock.WindowsPhone.Mango">
-      <HintPath>..\packages\Hammock.1.3.0\lib\sl4-wp71\Hammock.WindowsPhone.Mango.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib.WindowsPhone">
       <HintPath>..\packages\Hammock.1.3.0\lib\sl4-wp71\ICSharpCode.SharpZipLib.WindowsPhone.dll</HintPath>
     </Reference>
@@ -190,9 +187,6 @@
     <Compile Include="..\TweetSharp\TwitterSearchResult.cs">
       <Link>TwitterSearchResult.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp\TwitterSearchStatus.cs">
-      <Link>TwitterSearchStatus.cs</Link>
-    </Compile>
     <Compile Include="..\TweetSharp\TwitterService.cs">
       <Link>TwitterService.cs</Link>
     </Compile>
@@ -254,6 +248,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\hammock\src\net40\Hammock.WindowsPhone\Hammock.WindowsPhone.csproj">
+      <Project>{3059FD1C-4B4B-4460-A0D4-53C84CCE6CAC}</Project>
+      <Name>Hammock.WindowsPhone</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

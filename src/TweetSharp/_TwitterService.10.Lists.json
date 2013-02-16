@@ -1,5 +1,5 @@
 ﻿// https://dev.twitter.com/docs/api/1.1/get/lists/list
-IEnumerable<TwitterList>, "lists/lists", ListListsFor, long? user_id, string screen_name
+IEnumerable<TwitterList>, "lists/list", ListListsFor, long? user_id, string screen_name
 
 // https://dev.twitter.com/docs/api/1.1/get/lists/statuses
 IEnumerable<TwitterStatus>, "lists/statuses", ListTweetsOnList, long? list_id, string slug, string owner_screen_name, long? owner_id, long? since_id, long? max_id, int? count, bool? include_entities, bool? include_rts

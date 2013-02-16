@@ -38,9 +38,6 @@
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hammock.ClientProfile">
-      <HintPath>..\packages\Hammock.1.3.0\lib\net40-client\Hammock.ClientProfile.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -63,6 +60,10 @@
     <Compile Include="TwitterServiceTests.OAuth.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\hammock\src\net40\Hammock.ClientProfile\Hammock.ClientProfile.csproj">
+      <Project>{487b7e3c-9689-47bc-8785-73ccd92a3749}</Project>
+      <Name>Hammock.ClientProfile %28Supporting\.NET 4.0\Hammock.ClientProfile%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TweetSharp\TweetSharp.csproj">
       <Project>{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484}</Project>
       <Name>TweetSharp</Name>

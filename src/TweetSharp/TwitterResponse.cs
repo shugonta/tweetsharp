@@ -30,9 +30,15 @@ namespace TweetSharp
         {
             get
             {
-                var limit = Headers["X-RateLimit-Limit"];
-                var remaining = Headers["X-RateLimit-Remaining"];
-                var reset = Headers["X-RateLimit-Reset"];
+                /*
+                X-Rate-Limit-Limit: 15
+                X-Rate-Limit-Remaining: 14
+                X-Rate-Limit-Reset: 1360991702
+                */
+
+                var limit = Headers["X-Rate-Limit-Limit"];
+                var remaining = Headers["X-Rate-Limit-Remaining"];
+                var reset = Headers["X-Rate-Limit-Reset"];
 
                 limit = IsStringANumber(!string.IsNullOrEmpty(limit) ? limit.Trim() : "-1") ? limit : "-1";
                 remaining = IsStringANumber(!string.IsNullOrEmpty(remaining) ? remaining.Trim() : "-1") ? remaining : "-1";
@@ -52,9 +58,12 @@ namespace TweetSharp
 
         private static bool IsStringANumber(IEnumerable<char> limit)
         {
-            return limit.All(c => char.IsNumber(c));
+            return limit.All(char.IsNumber);
         }
-
+        public virtual TwitterError Error
+        {
+            get { return _response.ErrorContentEntity as TwitterError; }
+        }
         public virtual NameValueCollection Headers
         {
             get { return _response.Headers; }

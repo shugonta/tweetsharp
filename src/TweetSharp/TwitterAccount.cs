@@ -27,7 +27,6 @@ namespace TweetSharp
         private string _language;
         private IEnumerable<WhereOnEarthLocation> _trendLocations;
         private string _screenName;
-        private bool? _showAllInlineMedia;
         private TwitterTimeZone _timeZone;
         private TwitterSleepTime _sleepTime;
 
@@ -138,24 +137,6 @@ namespace TweetSharp
 
                 _trendLocations = value;
                 OnPropertyChanged("TrendLocations");
-            }
-        }
-
-#if !Smartphone && !NET20
-        [DataMember]
-#endif
-        public virtual bool? ShowAllInlineMedia
-        {
-            get { return _showAllInlineMedia; }
-            set
-            {
-                if (_showAllInlineMedia == value)
-                {
-                    return;
-                }
-
-                _showAllInlineMedia = value;
-                OnPropertyChanged("ShowAllInlineMedia");
             }
         }
 

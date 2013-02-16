@@ -8,7 +8,7 @@ using TweetSharp.Serialization;
 
 namespace TweetSharp
 {
-    internal abstract partial class SerializerBase : Utf8Serializer, ISerializer, IDeserializer
+    public abstract class SerializerBase : Utf8Serializer, ISerializer, IDeserializer
     {
         private readonly Newtonsoft.Json.JsonSerializer _serializer;
         
@@ -62,7 +62,7 @@ namespace TweetSharp
                 }
             }
         }
-        
+
         public virtual T DeserializeJson<T>(string content)
         {
             using (var stringReader = new StringReader(content))

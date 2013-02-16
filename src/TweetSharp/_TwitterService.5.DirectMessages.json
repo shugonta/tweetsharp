@@ -8,7 +8,7 @@ IEnumerable<TwitterDirectMessage>, "direct_messages/sent", ListDirectMessagesSen
 TwitterDirectMessage, "direct_messages/show", GetDirectMessage, long id
 
 // https://dev.twitter.com/docs/api/1.1/post/direct_messages/destroy
-TwitterDirectMessage, "direct_messages/destroy/{id}":POST, DeleteDirectMessage, long id, bool? include_entities
+TwitterDirectMessage, "direct_messages/destroy":POST, DeleteDirectMessage, long id, bool? include_entities
 
 // https://dev.twitter.com/docs/api/1.1/post/direct_messages/new
 TwitterDirectMessage, "direct_messages/new":POST, SendDirectMessage, string text, long user_id, string screen_name

@@ -14,28 +14,9 @@ namespace TweetSharp
     [DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
-    public class TwitterTrends : PropertyChangedBase, ITwitterModel, IEnumerable<TwitterTrend> 
+    public class TwitterTrends : PropertyChangedBase, ITwitterModel, IEnumerable<TwitterTrend>
     {
-        private DateTime _asOf;
         private List<TwitterTrend> _trends;
-        
-#if !Smartphone && !NET20
-        [DataMember]
-#endif
-        public virtual DateTime AsOf
-        {
-            get { return _asOf; }
-            set
-            {
-                if (_asOf == value)
-                {
-                    return;
-                }
-
-                _asOf = value;
-                OnPropertyChanged("AsOf");
-            }
-        }
 
 #if !Smartphone && !NET20
         [DataMember]

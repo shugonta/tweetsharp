@@ -9,7 +9,7 @@
 	var methods = new List<TweetSharpMethod>(10);
 	
 	var manifests = new string[] { 
-		"_TwitterService.1.Timelines.json", 
+		"_TwitterService.1.Timelines.json",  
 		"_TwitterService.2.Tweets.json",
 		// 4 is Streaming, handled elsewhere
 		"_TwitterService.3.Search.json",		

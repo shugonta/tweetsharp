@@ -40,9 +40,6 @@
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hammock">
-      <HintPath>..\packages\Hammock.1.3.0\lib\net20\Hammock.dll</HintPath>
-    </Reference>
     <Reference Include="LinqBridge">
       <HintPath>..\packages\Hammock.1.3.0\lib\net20\LinqBridge.dll</HintPath>
     </Reference>
@@ -165,9 +162,6 @@
     <Compile Include="..\TweetSharp\TwitterSearchResult.cs">
       <Link>TwitterSearchResult.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp\TwitterSearchStatus.cs">
-      <Link>TwitterSearchStatus.cs</Link>
-    </Compile>
     <Compile Include="..\TweetSharp\TwitterService.cs">
       <Link>TwitterService.cs</Link>
     </Compile>
@@ -215,7 +209,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\hammock\src\net20\Hammock\Hammock.csproj">
+      <Project>{80647b8c-e162-4e34-a758-590280f11b97}</Project>
+      <Name>Hammock %28Supporting\.NET 2.0\Hammock%29</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="key.snk" />
     <None Include="packages.config" />
