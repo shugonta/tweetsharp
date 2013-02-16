@@ -1,6 +1,6 @@
 ## Tweetsharp
 ```powershell
-    PM> Install-Package TweetSharp
+    PM> Install-Package TweetSharp # This is currently the v1.0 release, until March 5th.
 ```
 >**_The upcoming V2.3+ release supports Twitter API v1.1, and does not support v1.0; you need to upgrade before March 5th, as this is when the blackout periods begin._**
 ```powershell
