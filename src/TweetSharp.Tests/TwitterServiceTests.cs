@@ -841,6 +841,7 @@ namespace TweetSharp.Tests.Service
         private TwitterService GetAuthenticatedService()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
+            service.TraceEnabled = true;
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
             return service;
         }

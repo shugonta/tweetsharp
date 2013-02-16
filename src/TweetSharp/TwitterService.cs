@@ -276,6 +276,26 @@ namespace TweetSharp
         {
             if (segments == null) throw new ArgumentNullException("segments");
 
+            var cleansed = new List<object>();
+            for (var i = 0; i < segments.Count; i++)
+            {
+                if (i == 0)
+                {
+                    cleansed.Add(segments[i]);
+                }
+                if (i > 0 && i % 2 == 0)
+                {
+                    var key = segments[i - 1];
+                    var value = segments[i];    
+                    if (value != null)
+                    {
+                        cleansed.Add(key);
+                        cleansed.Add(value);
+                    }
+                }
+            }
+            segments = cleansed;
+
             for (var i = 0; i < segments.Count; i++)
             {
                 // Currently only trends takes DateTimes
@@ -418,9 +438,10 @@ namespace TweetSharp
 
         private T WithHammock<T>(string path, params object[] segments)
         {
-            return WithHammock<T>(ResolveUrlSegments(path, segments.ToList()));
+            var url = ResolveUrlSegments(path, segments.ToList());
+            return WithHammock<T>(url);
         }
-        
+
         private T WithHammock<T>(WebMethod method, string path)
         {
             var request = PrepareHammockQuery(path);
