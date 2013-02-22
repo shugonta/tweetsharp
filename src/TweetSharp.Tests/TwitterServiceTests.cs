@@ -104,7 +104,7 @@ namespace TweetSharp.Tests.Service
             var tweets = service.ListTweetsOnHomeTimeline(new ListTweetsOnHomeTimelineOptions());
 
             Assert.IsNotNull(tweets);
-            Assert.IsTrue(tweets.Count() > 0);
+            Assert.IsTrue(tweets.Any());
 
             foreach (var tweet in tweets)
             {
@@ -445,6 +445,25 @@ namespace TweetSharp.Tests.Service
             foreach(var tweet in results.Statuses)
             {
                 Console.WriteLine("{0} says '{1}", tweet.User.ScreenName, tweet.Text);
+            }
+        }
+
+        [Test]
+        public void Searches_with_explicit_include_options_still_work()
+        {
+            var service = GetAuthenticatedService();
+            var results = service.Search(new SearchOptions
+            {
+                Count = 500,
+                Resulttype = TwitterSearchResultType.Mixed,
+                IncludeEntities = false,
+                Q = "stackoverflow"
+            });
+
+            Assert.IsNotNull(results);
+            foreach (var result in results.Statuses)
+            {
+                Console.WriteLine(result.Text);
             }
         }
 

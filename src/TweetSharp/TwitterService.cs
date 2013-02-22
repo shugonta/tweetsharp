@@ -345,20 +345,36 @@ namespace TweetSharp
 
             PathHelpers.EscapeDataContainingUrlSegments(segments);
 
-            if(IncludeEntities)
+            const string includeEntities = "include_entities";
+            const string includeRetweets = "include_rts";
+
+            if (IncludeEntities && !IsKeyAlreadySet(segments, includeEntities))
             {
-                segments.Add(segments.Count() > 1 ? "&include_entities=" : "?include_entities=");
+                segments.Add(segments.Count() > 1 ? "&" + includeEntities + "=" : "?" + includeEntities + "=");
                 segments.Add("1");
             }
-            if (IncludeRetweets)
+            if (IncludeRetweets && !IsKeyAlreadySet(segments, includeRetweets))
             {
-                segments.Add(segments.Count() > 1 ? "&include_rts=" : "?include_rts=");
+                segments.Add(segments.Count() > 1 ? "&" + includeRetweets + "=" : "?" + includeRetweets + "=");
                 segments.Add("1");
             }
 
             segments.Insert(0, path);
 
             return string.Concat(segments.ToArray()).ToString(CultureInfo.InvariantCulture);
+        }
+
+        private bool IsKeyAlreadySet(IList<object> segments, string key)
+        {
+            for (var i = 1; i < segments.Count; i++)
+            {
+                if (i % 2 != 1 || !(segments[i] is string)) continue;
+                var segment = ((string)segments[i]).Trim(new[] { '&', '=', '?' });
+
+                if (!segment.Contains(key)) continue;
+                return true;
+            }
+            return false;
         }
 
         private static void ResolveEnumerableUrlSegments(IList<object> segments, int i)
