@@ -482,6 +482,20 @@ namespace TweetSharp
             return WithHammockImpl<T>(request);
         }
 
+        //hacky
+        private T WithHammock<T>(WebMethod method, string path, IDictionary<string,Stream> files, params object[] segments)
+        {
+            var url = ResolveUrlSegments(path, segments.ToList());
+            var request = PrepareHammockQuery(url);
+            request.Method = method;
+            request.QueryHandling = QueryHandling.AppendToParameters;
+            foreach (var file in files)
+            {
+                request.AddFile("media[]",file.Key, file.Value);
+            }
+            return WithHammockImpl<T>(request);
+        }
+
         private T WithHammock<T>(WebMethod method, string path, params object[] segments)
         {
             var url = ResolveUrlSegments(path, segments.ToList());
