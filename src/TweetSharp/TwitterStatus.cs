@@ -35,6 +35,7 @@ namespace TweetSharp
         private TwitterEntities _entities;
         private bool? _isPossiblySensitive;
         private TwitterPlace _place;
+        private int _retweetCount;
 
 #if !Smartphone && !NET20
         [DataMember]
@@ -143,6 +144,28 @@ namespace TweetSharp
 
                 _isFavorited = value;
                 OnPropertyChanged("IsFavorited");
+            }
+        }
+
+        [JsonProperty("retweet_count")]
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual int RetweetCount
+        {
+            get
+            {
+                return _retweetCount;
+            }
+            set
+            {
+                if (_retweetCount == value)
+                {
+                    return;
+                }
+
+                _retweetCount = value;
+                OnPropertyChanged("RetweetCount");
             }
         }
 
