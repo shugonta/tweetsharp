@@ -80,7 +80,7 @@ namespace TweetSharp
             foreach (Match match in _parseHashtags.Matches(input))
             {
                 var hashtag = Uri.EscapeDataString(match.Value);
-                input = input.Replace(match.Value, string.Format(CultureInfo.InvariantCulture, "<a href=\"http://search.twitter.com/search?q={0}\" target=\"_blank\">{1}</a>", hashtag, match.Value));
+                input = input.Replace(match.Value, string.Format(CultureInfo.InvariantCulture, "<a href=\"http://twitter.com/search?q={0}\" target=\"_blank\">{1}</a>", hashtag, match.Value));
             }
 
             return input;

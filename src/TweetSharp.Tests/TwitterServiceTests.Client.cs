@@ -102,6 +102,18 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
+        public void Can_parse_hashtag_search_url()
+        {
+            var service = new TwitterService(_consumerKey, _consumerSecret);
+            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+
+            //https://twitter.com/PurinaONE/status/306126169743450112
+            var tweet = service.GetTweet(new GetTweetOptions() {Id = 306126169743450112});
+
+            Assert.IsTrue(tweet.TextAsHtml.Contains("https://twitter.com/search?q=%23Ingredientsforgood"));
+        }
+
+        [Test]
         public void Can_search_geo_by_ip()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
