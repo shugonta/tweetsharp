@@ -446,6 +446,20 @@ namespace TweetSharp
             return result;
         }
 
+        private IAsyncResult BeginWithHammock<T>(WebMethod method, string path, IDictionary<string, Stream> files,params object[] segments)
+        {
+            var url = ResolveUrlSegments(path, segments.ToList());
+            var request = PrepareHammockQuery(url);
+            request.Method = method;
+            request.QueryHandling = QueryHandling.AppendToParameters;
+            foreach (var file in files)
+            {
+                request.AddFile("media[]", file.Key, file.Value);
+            }
+            var result = _client.BeginRequest<T>(request);
+            return result;
+        }
+
         private T EndWithHammock<T>(IAsyncResult result)
         {
             var response = _client.EndRequest<T>(result);
@@ -479,6 +493,20 @@ namespace TweetSharp
             var request = PrepareHammockQuery(path);
             request.Method = method;
 
+            return WithHammockImpl<T>(request);
+        }
+
+        //hacky
+        private T WithHammock<T>(WebMethod method, string path, IDictionary<string,Stream> files, params object[] segments)
+        {
+            var url = ResolveUrlSegments(path, segments.ToList());
+            var request = PrepareHammockQuery(url);
+            request.Method = method;
+            request.QueryHandling = QueryHandling.AppendToParameters;
+            foreach (var file in files)
+            {
+                request.AddFile("media[]",file.Key, file.Value);
+            }
             return WithHammockImpl<T>(request);
         }
 
@@ -519,6 +547,19 @@ namespace TweetSharp
             request.Method = method;
 
             WithHammockImpl(request, action);
+        }
+
+        private T WithHammock<T>(WebMethod method, string path, Action<T, TwitterResponse> action,IDictionary<string,Stream> files, params object[] segments)
+        {
+            var url = ResolveUrlSegments(path, segments.ToList());
+            var request = PrepareHammockQuery(url);
+            request.Method = method;
+            request.QueryHandling = QueryHandling.AppendToParameters;
+            foreach (var file in files)
+            {
+                request.AddFile("media[]",file.Key, file.Value);
+            }
+            return WithHammockImpl<T>(request, action);
         }
 
         private void WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
