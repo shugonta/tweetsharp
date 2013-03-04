@@ -74,13 +74,13 @@ namespace TweetSharp
                 var screenName = match.Groups[2].Value;
                 var mention = "@" + screenName;
 
-                input = input.Replace(mention, string.Format(CultureInfo.InvariantCulture, "<a href=\"http://twitter.com/{0}\" target=\"_blank\">{1}</a>", screenName, mention));
+                input = input.Replace(mention, string.Format(CultureInfo.InvariantCulture, "<a href=\"https://twitter.com/{0}\" target=\"_blank\">{1}</a>", screenName, mention));
             }
 
             foreach (Match match in _parseHashtags.Matches(input))
             {
                 var hashtag = Uri.EscapeDataString(match.Value);
-                input = input.Replace(match.Value, string.Format(CultureInfo.InvariantCulture, "<a href=\"http://twitter.com/search?q={0}\" target=\"_blank\">{1}</a>", hashtag, match.Value));
+                input = input.Replace(match.Value, string.Format(CultureInfo.InvariantCulture, "<a href=\"https://twitter.com/search?q={0}\" target=\"_blank\">{1}</a>", hashtag, match.Value));
             }
 
             return input;

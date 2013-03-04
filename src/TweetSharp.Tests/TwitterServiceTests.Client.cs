@@ -104,12 +104,13 @@ namespace TweetSharp.Tests.Service
         [Test]
         public void Can_parse_hashtag_search_url()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
+            var service = GetAuthenticatedService();
 
             //https://twitter.com/PurinaONE/status/306126169743450112
             var tweet = service.GetTweet(new GetTweetOptions() {Id = 306126169743450112});
 
+            Assert.IsNotNull(tweet);
+            Assert.IsNotNull(tweet.TextAsHtml);
             Assert.IsTrue(tweet.TextAsHtml.Contains("https://twitter.com/search?q=%23Ingredientsforgood"));
         }
 
