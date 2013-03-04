@@ -4,6 +4,7 @@ using System.Compat.Web;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -309,6 +310,24 @@ namespace TweetSharp.Tests.Service
             }
 
             Assert.IsNotNull(response);
+        }
+
+        [Test]
+        [Ignore("Makes a live status update")]
+        public void Can_tweet_with_image()
+        {
+            var service = GetAuthenticatedService();
+            using (var stream = new FileStream("daniel_8bit.png", FileMode.Open))
+            {
+                var tweet = service.SendTweetWithMedia(new SendTweetWithMediaOptions
+                    {
+                        Status = "Can_tweet_with_image:Tweet",
+                        Images = new Dictionary<string, Stream> {{"test", stream}}
+                    });
+                Assert.IsNotNull(tweet);
+                Assert.AreNotEqual(0, tweet.Id);
+            }
+            
         }
 
         [Test]
