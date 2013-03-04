@@ -364,7 +364,7 @@ namespace TweetSharp
             return string.Concat(segments.ToArray()).ToString(CultureInfo.InvariantCulture);
         }
 
-        private bool IsKeyAlreadySet(IList<object> segments, string key)
+        private static bool IsKeyAlreadySet(IList<object> segments, string key)
         {
             for (var i = 1; i < segments.Count; i++)
             {
@@ -496,8 +496,7 @@ namespace TweetSharp
             return WithHammockImpl<T>(request);
         }
 
-        //hacky
-        private T WithHammock<T>(WebMethod method, string path, IDictionary<string,Stream> files, params object[] segments)
+        private T WithHammock<T>(WebMethod method, string path, IDictionary<string, Stream> files, params object[] segments)
         {
             var url = ResolveUrlSegments(path, segments.ToList());
             var request = PrepareHammockQuery(url);
@@ -547,19 +546,6 @@ namespace TweetSharp
             request.Method = method;
 
             WithHammockImpl(request, action);
-        }
-
-        private T WithHammock<T>(WebMethod method, string path, Action<T, TwitterResponse> action,IDictionary<string,Stream> files, params object[] segments)
-        {
-            var url = ResolveUrlSegments(path, segments.ToList());
-            var request = PrepareHammockQuery(url);
-            request.Method = method;
-            request.QueryHandling = QueryHandling.AppendToParameters;
-            foreach (var file in files)
-            {
-                request.AddFile("media[]",file.Key, file.Value);
-            }
-            return WithHammockImpl<T>(request, action);
         }
 
         private void WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
