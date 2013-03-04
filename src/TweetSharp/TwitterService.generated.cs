@@ -178,7 +178,7 @@ namespace TweetSharp
 	public class ListFriendshipsForOptions
 	{ 
 		public IEnumerable<string> ScreenName { get; set; }  
-		public IEnumerable<string> UserId { get; set; } 			
+		public IEnumerable<long> UserId { get; set; } 			
 	}			
  
     		

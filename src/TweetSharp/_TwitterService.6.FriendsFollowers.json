@@ -8,7 +8,7 @@ TwitterCursorList<long>, "friends/ids", ListFriendIdsOf, long? user_id, string s
 TwitterCursorList<long>, "followers/ids", ListFollowerIdsOf, long? user_id, string screen_name, long? cursor, int? count
 
 // https://dev.twitter.com/docs/api/1.1/get/friendships/lookup
-IEnumerable<TwitterFriendshipLookup>, "friendships/lookup", ListFriendshipsFor, IEnumerable<string> screen_name, IEnumerable<string> user_id
+IEnumerable<TwitterFriendshipLookup>, "friendships/lookup", ListFriendshipsFor, IEnumerable<string> screen_name, IEnumerable<long> user_id
 
 // https://dev.twitter.com/docs/api/1.1/get/friendships/incoming
 TwitterCursorList<long>, "friendships/incoming", GetIncomingFriendRequests, long? cursor
