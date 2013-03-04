@@ -138,7 +138,10 @@ namespace TweetSharp.Tests.Service
             Assert.IsNotNull(mentions);
             Assert.IsTrue(mentions.Count() <= 20);
 
-            Assert.IsNotNull(service.Response.RateLimitStatus);
+            var rate = service.Response.RateLimitStatus;
+            Assert.IsNotNull(rate);
+            Console.WriteLine("You have " + rate.RemainingHits + " left out of " + rate.HourlyLimit);
+
             foreach (var dm in mentions)
             {
                 Console.WriteLine("{0} said '{1}'", dm.User.ScreenName, dm.Text);

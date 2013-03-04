@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text.RegularExpressions;
 using Hammock;
 using Hammock.Authentication.OAuth;
 using Hammock.Web;
 
 #if !SILVERLIGHT
 using System.Compat.Web;
+#endif
+
+#if SILVERLIGHT && !WINDOWS_PHONE
+using HttpUtility = TweetSharp.Silverlight.HttpUtility;
 #endif
 
 #if WINDOWS_PHONE
@@ -254,7 +256,7 @@ namespace TweetSharp
         }
 #endif
 
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE || SILVERLIGHT
         public virtual void GetRequestToken(string callback, Action<OAuthRequestToken, TwitterResponse> action)
         {
             var args = new FunctionArguments
@@ -317,7 +319,7 @@ namespace TweetSharp
                                         Exception exception;
                                         var entity = TryAsyncResponse(() =>
                                         {
-                                            if (resp == null || resp.StatusCode != System.Net.HttpStatusCode.OK)
+                                            if (resp == null || resp.StatusCode != HttpStatusCode.OK)
                                             {
                                                 return null;
                                             }
@@ -362,7 +364,7 @@ namespace TweetSharp
                                    Exception exception;
                                    var entity = TryAsyncResponse(() =>
                                    {
-                                        if (resp == null || resp.StatusCode != System.Net.HttpStatusCode.OK)
+                                        if (resp == null || resp.StatusCode != HttpStatusCode.OK)
                                         {
                                             return null;
                                         }
@@ -411,28 +413,29 @@ namespace TweetSharp
         }
 #endif
 
-        public virtual RestRequest PrepareEchoRequest()
+        public virtual RestRequest PrepareEchoRequest(string realm = "http://api.twitter.com")
         {
             var args = new FunctionArguments
-                           {
-                               ConsumerKey = _consumerKey,
-                               ConsumerSecret = _consumerSecret,
-                               Token = _token,
-                               TokenSecret = _tokenSecret
-                           };
+            {
+                ConsumerKey = _consumerKey,
+                ConsumerSecret = _consumerSecret,
+                Token = _token,
+                TokenSecret = _tokenSecret
+            };
 
             var request = _protectedResourceQuery.Invoke(args);
             request.Method = WebMethod.Get;
             request.Path = string.Concat("account/verify_credentials", FormatAsString);
 
             var credentials = (OAuthCredentials)request.Credentials;
-            var url = request.BuildEndpoint(_client).ToString();
+            var url = request.BuildEndpoint(_client);
             var workflow = new OAuthWorkflow(credentials);
 
-            var info = workflow.BuildProtectedResourceInfo(request.Method.Value, request.GetAllHeaders(), url);
-            var query = credentials.GetQueryFor(url, request, info, request.Method.Value, TraceEnabled);
+            var method = request.Method.HasValue ? request.Method.Value : WebMethod.Get;
+            var info = workflow.BuildProtectedResourceInfo(method, request.GetAllHeaders(), url);
+            var query = credentials.GetQueryFor(url, request, info, method, TraceEnabled);
 
-            ((OAuthWebQuery)query).Realm = "http://api.twitter.com";
+            ((OAuthWebQuery)query).Realm = realm;
             var auth = query.GetAuthorizationContent();
 
             var echo = new RestRequest();

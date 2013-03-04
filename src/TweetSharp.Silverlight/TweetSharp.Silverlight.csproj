@@ -38,7 +38,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\bin\lib\sl4\</OutputPath>
+    <OutputPath>..\..\bin\lib\sl4\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT,NET40</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -46,31 +46,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\TweetSharp\key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hammock.Silverlight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.3.0\lib\sl4\Hammock.Silverlight.dll</HintPath>
+    <Reference Include="Hammock.Silverlight">
+      <HintPath>..\packages\Hammock.1.3.1\lib\sl4\Hammock.Silverlight.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib.Silverlight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.3.0\lib\sl4\ICSharpCode.SharpZipLib.Silverlight.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib.Silverlight">
+      <HintPath>..\packages\Hammock.1.3.1\lib\sl4\ICSharpCode.SharpZipLib.Silverlight.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.3.0\lib\sl4\Microsoft.CSharp.dll</HintPath>
+      <HintPath>..\packages\Hammock.1.3.1\lib\sl4\Microsoft.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.4.5.7\lib\sl4\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\sl4\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Json, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.3.0\lib\sl4\System.Json.dll</HintPath>
+      <HintPath>..\packages\Hammock.1.3.1\lib\sl4\System.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Runtime.Serialization.Json, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.3.0\lib\sl4\System.Runtime.Serialization.Json.dll</HintPath>
+      <HintPath>..\packages\Hammock.1.3.1\lib\sl4\System.Runtime.Serialization.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -79,176 +79,173 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Browser" />
     <Reference Include="System.Xml.Linq, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Hammock.1.3.0\lib\sl4\System.Xml.Linq.dll</HintPath>
+      <HintPath>..\packages\Hammock.1.3.1\lib\sl4\System.Xml.Linq.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\tweetsharp.next\extensions\ObjectExtensions.cs">
-      <Link>Extensions\ObjectExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\tweetsharp.next\extensions\StringExtensions.cs">
-      <Link>Extensions\StringExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\tweetsharp.next\extensions\TimeExtensions.cs">
-      <Link>Extensions\TimeExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\tweetsharp.next\generated\TwitterService.generated.cs">
-      <Link>Generated\TwitterService.generated.cs</Link>
-    </Compile>
-    <Compile Include="..\TweetSharp.Next\Globals.cs">
+    <Compile Include="..\TweetSharp\Globals.cs">
       <Link>Globals.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp.Next\Helpers.cs">
+    <Compile Include="..\TweetSharp\Helpers.cs">
       <Link>Helpers.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\enums\TwitterEnums.cs">
-      <Link>Model\Enums\TwitterEnums.cs</Link>
+    <Compile Include="..\TweetSharp\ICursored.cs">
+      <Link>ICursored.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\ICursored.cs">
-      <Link>Model\ICursored.cs</Link>
+    <Compile Include="..\TweetSharp\ITweetable.cs">
+      <Link>ITweetable.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\ITweetable.cs">
-      <Link>Model\ITweetable.cs</Link>
+    <Compile Include="..\TweetSharp\ITwitterModel.cs">
+      <Link>ITwitterModel.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\ITwitterModel.cs">
-      <Link>Model\ITwitterModel.cs</Link>
+    <Compile Include="..\TweetSharp\JsonConventionResolver.cs">
+      <Link>JsonConventionResolver.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\OAuthAccessToken.cs">
-      <Link>Model\OAuthAccessToken.cs</Link>
+    <Compile Include="..\TweetSharp\JsonSerializer.cs">
+      <Link>JsonSerializer.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\OAuthRequestToken.cs">
-      <Link>Model\OAuthRequestToken.cs</Link>
+    <Compile Include="..\TweetSharp\OAuthAccessToken.cs">
+      <Link>OAuthAccessToken.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp.Next\Model\TwitterAccount.cs">
-      <Link>Model\TwitterAccount.cs</Link>
+    <Compile Include="..\TweetSharp\OAuthRequestToken.cs">
+      <Link>OAuthRequestToken.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterClientInfo.cs">
-      <Link>Model\TwitterClientInfo.cs</Link>
+    <Compile Include="..\TweetSharp\ObjectExtensions.cs">
+      <Link>ObjectExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterCursorList.cs">
-      <Link>Model\TwitterCursorList.cs</Link>
+    <Compile Include="..\TweetSharp\SerializerBase.cs">
+      <Link>SerializerBase.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterDateFormat.cs">
-      <Link>Model\TwitterDateFormat.cs</Link>
+    <Compile Include="..\TweetSharp\StringExtensions.cs">
+      <Link>StringExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterDateTime.cs">
-      <Link>Model\TwitterDateTime.cs</Link>
+    <Compile Include="..\TweetSharp\TimeExtensions.cs">
+      <Link>TimeExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterDeliveryDevice.cs">
-      <Link>Model\TwitterDeliveryDevice.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterAccount.cs">
+      <Link>TwitterAccount.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterDirectMessage.cs">
-      <Link>Model\TwitterDirectMessage.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterClientInfo.cs">
+      <Link>TwitterClientInfo.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterEntities.cs">
-      <Link>Model\TwitterEntities.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterConverterBase.cs">
+      <Link>TwitterConverterBase.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterError.cs">
-      <Link>Model\TwitterError.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterCursorList.cs">
+      <Link>TwitterCursorList.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterFriend.cs">
-      <Link>Model\TwitterFriend.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterDateFormat.cs">
+      <Link>TwitterDateFormat.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterFriendship.cs">
-      <Link>Model\TwitterFriendship.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterDateTime.cs">
+      <Link>TwitterDateTime.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterGeoLocation.cs">
-      <Link>Model\TwitterGeoLocation.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterDateTimeConverter.cs">
+      <Link>TwitterDateTimeConverter.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterList.cs">
-      <Link>Model\TwitterList.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterDeliveryDevice.cs">
+      <Link>TwitterDeliveryDevice.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp.Next\Model\TwitterLocalTrends.cs">
-      <Link>Model\TwitterLocalTrends.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterDirectMessage.cs">
+      <Link>TwitterDirectMessage.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp.Next\Model\TwitterPlace.cs">
-      <Link>Model\TwitterPlace.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterEntities.cs">
+      <Link>TwitterEntities.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterRateLimitStatus.cs">
-      <Link>Model\TwitterRateLimitStatus.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterEnums.cs">
+      <Link>TwitterEnums.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterRelationship.cs">
-      <Link>Model\TwitterRelationship.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterError.cs">
+      <Link>TwitterError.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterResponse.cs">
-      <Link>Model\TwitterResponse.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterFriend.cs">
+      <Link>TwitterFriend.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterSavedSearch.cs">
-      <Link>Model\TwitterSavedSearch.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterFriendship.cs">
+      <Link>TwitterFriendship.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterSearchResult.cs">
-      <Link>Model\TwitterSearchResult.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterGeoConverter.cs">
+      <Link>TwitterGeoConverter.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterSearchStatus.cs">
-      <Link>Model\TwitterSearchStatus.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterGeoLocation.cs">
+      <Link>TwitterGeoLocation.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp.Next\Model\TwitterSleepTime.cs">
-      <Link>Model\TwitterSleepTime.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterList.cs">
+      <Link>TwitterList.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterStatus.cs">
-      <Link>Model\TwitterStatus.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterLocalTrends.cs">
+      <Link>TwitterLocalTrends.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp.Next\Model\TwitterTimeZone.cs">
-      <Link>Model\TwitterTimeZone.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterPlace.cs">
+      <Link>TwitterPlace.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp.Next\Model\TwitterTrend.cs">
-      <Link>Model\TwitterTrend.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterRateLimitStatus.cs">
+      <Link>TwitterRateLimitStatus.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp.Next\Model\TwitterTrends.cs">
-      <Link>Model\TwitterTrends.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterRelationship.cs">
+      <Link>TwitterRelationship.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterUser.cs">
-      <Link>Model\TwitterUser.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterResponse.cs">
+      <Link>TwitterResponse.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp.Next\Model\TwitterUserStreams.cs">
-      <Link>Model\TwitterUserStreams.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterSavedSearch.cs">
+      <Link>TwitterSavedSearch.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\model\TwitterUserSuggestions.cs">
-      <Link>Model\TwitterUserSuggestions.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterSearchResult.cs">
+      <Link>TwitterSearchResult.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp.Next\Model\WhereOnEarthLocation.cs">
-      <Link>Model\WhereOnEarthLocation.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterService.cs">
+      <Link>TwitterService.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp.Next\Model\WhereOnEarthPlaceType.cs">
-      <Link>Model\WhereOnEarthPlaceType.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterService.generated.cs">
+      <Link>TwitterService.generated.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\serialization\converters\TwitterConverterBase.cs">
-      <Link>Serialization\Converters\TwitterConverterBase.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterService.OAuth.cs">
+      <Link>TwitterService.OAuth.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\serialization\converters\TwitterDateTimeConverter.cs">
-      <Link>Serialization\Converters\TwitterDateTimeConverter.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterService.Streaming.cs">
+      <Link>TwitterService.Streaming.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\serialization\converters\TwitterGeoConverter.cs">
-      <Link>Serialization\Converters\TwitterGeoConverter.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterSleepTime.cs">
+      <Link>TwitterSleepTime.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\serialization\converters\TwitterWonkyBooleanConverter.cs">
-      <Link>Serialization\Converters\TwitterWonkyBooleanConverter.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterStatus.cs">
+      <Link>TwitterStatus.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\serialization\JsonConventionResolver.cs">
-      <Link>Serialization\JsonConventionResolver.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterTimeZone.cs">
+      <Link>TwitterTimeZone.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\serialization\JsonSerializer.cs">
-      <Link>Serialization\JsonSerializer.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterTrend.cs">
+      <Link>TwitterTrend.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\serialization\SerializerBase.cs">
-      <Link>Serialization\SerializerBase.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterTrends.cs">
+      <Link>TwitterTrends.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\service\TwitterService.cs">
-      <Link>Service\TwitterService.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterUser.cs">
+      <Link>TwitterUser.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\service\TwitterService.OAuth.cs">
-      <Link>Service\TwitterService.OAuth.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterUserStreams.cs">
+      <Link>TwitterUserStreams.cs</Link>
     </Compile>
-    <Compile Include="..\TweetSharp.Next\Service\TwitterService.Streaming.cs">
-      <Link>Service\TwitterService.Streaming.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterUserSuggestions.cs">
+      <Link>TwitterUserSuggestions.cs</Link>
     </Compile>
-    <Compile Include="..\tweetsharp.next\service\TwitterServiceFormat.cs">
-      <Link>Service\TwitterServiceFormat.cs</Link>
+    <Compile Include="..\TweetSharp\TwitterWonkyBooleanConverter.cs">
+      <Link>TwitterWonkyBooleanConverter.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\WhereOnEarthLocation.cs">
+      <Link>WhereOnEarthLocation.cs</Link>
+    </Compile>
+    <Compile Include="..\TweetSharp\WhereOnEarthPlaceType.cs">
+      <Link>WhereOnEarthPlaceType.cs</Link>
+    </Compile>
+    <Compile Include="HttpUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="key.snk" />
+    <None Include="..\TweetSharp\key.snk">
+      <Link>key.snk</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
