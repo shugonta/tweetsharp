@@ -5,6 +5,33 @@ using Newtonsoft.Json;
 namespace TweetSharp
 {
     // [DC]: All converters must be public for Silverlight to construct them correctly.
+    
+    public class TwitterRateLimitResourceConverter : TwitterConverterBase
+    {
+        public override void WriteJson(JsonWriter writer, object value, Newtonsoft.Json.JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
+        {
+            var result = new TwitterRateLimitStatusSummary();
+            reader.Read();
+            reader.Read();
+            reader.Read();
+            result.AccessToken = reader.ReadAsString(); // access_token
+            return result;
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            var t = (IsNullableType(objectType))
+                        ? Nullable.GetUnderlyingType(objectType)
+                        : objectType;
+
+            return typeof(TwitterRateLimitStatusSummary).IsAssignableFrom(t);
+        }
+    }
 
     /// <summary>
     /// This converter exists to convert geo-spatial coordinates.
@@ -13,12 +40,6 @@ namespace TweetSharp
     {
         private const string GeoTemplate = "\"geo\":{{\"type\":\"Point\",\"coordinates\":[{0}, {1}]}}";
 
-        /// <summary>
-        /// Writes the JSON.
-        /// </summary>
-        /// <param name="writer">The writer.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="serializer">The serializer.</param>
         public override void WriteJson(JsonWriter writer, object value, Newtonsoft.Json.JsonSerializer serializer)
         {
             if (!(value is TwitterGeoLocation.GeoCoordinates))
@@ -33,14 +54,6 @@ namespace TweetSharp
             writer.WriteRawValue(json);
         }
 
-        /// <summary>
-        /// Reads the JSON.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <param name="objectType">Type of the object.</param>
-        /// <param name="existingValue">The existing value.</param>
-        /// <param name="serializer">The serializer.</param>
-        /// <returns></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
         {
             if (reader.TokenType == JsonToken.Null)
@@ -71,13 +84,6 @@ namespace TweetSharp
             return new TwitterGeoLocation.GeoCoordinates { Latitude = latitude, Longitude = longitude };
         }
 
-        /// <summary>
-        /// Determines whether this instance can convert the specified object type.
-        /// </summary>
-        /// <param name="objectType">Type of the object.</param>
-        /// <returns>
-        /// 	<c>true</c> if this instance can convert the specified object type; otherwise, <c>false</c>.
-        /// </returns>
         public override bool CanConvert(Type objectType)
         {
             var t = (IsNullableType(objectType))

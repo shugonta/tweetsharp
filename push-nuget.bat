@@ -1,1 +1,1 @@
-".nuget\NuGet.exe" push TweetSharp.2.3-preview3.nupkg
+".nuget\NuGet.exe" push TweetSharp.2.3.0.nupkg

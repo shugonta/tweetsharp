@@ -653,6 +653,12 @@ namespace TweetSharp
 	}			
  
     		
+	public class GetRateLimitStatusOptions
+	{ 
+		public IEnumerable<string> Resources { get; set; } 			
+	}			
+ 
+    		
 	public class ReportSpamOptions
 	{ 
 		public string ScreenName { get; set; }  
@@ -962,6 +968,10 @@ namespace TweetSharp
 
  
         
+		TwitterRateLimitStatusSummary GetRateLimitStatus(GetRateLimitStatusOptions options);	
+
+ 
+        
 		TwitterUser ReportSpam(ReportSpamOptions options);	
 
 		#endregion
@@ -1190,6 +1200,9 @@ namespace TweetSharp
 
         
 		IAsyncResult ListClosestTrendsLocations(ListClosestTrendsLocationsOptions options, Action<IEnumerable<WhereOnEarthLocation>, TwitterResponse> action);		
+
+        
+		IAsyncResult GetRateLimitStatus(GetRateLimitStatusOptions options, Action<TwitterRateLimitStatusSummary, TwitterResponse> action);		
 
         
 		IAsyncResult ReportSpam(ReportSpamOptions options, Action<TwitterUser, TwitterResponse> action);		
@@ -1718,6 +1731,13 @@ namespace TweetSharp
 		IEnumerable<WhereOnEarthLocation> EndListClosestTrendsLocations(IAsyncResult result, TimeSpan timeout);
 
         
+		IAsyncResult BeginGetRateLimitStatus(GetRateLimitStatusOptions options);
+
+		TwitterRateLimitStatusSummary EndGetRateLimitStatus(IAsyncResult result);		
+
+		TwitterRateLimitStatusSummary EndGetRateLimitStatus(IAsyncResult result, TimeSpan timeout);
+
+        
 		IAsyncResult BeginReportSpam(ReportSpamOptions options);
 
 		TwitterUser EndReportSpam(IAsyncResult result);		
@@ -1950,6 +1970,9 @@ namespace TweetSharp
 
         
 		void ListClosestTrendsLocations(ListClosestTrendsLocationsOptions options, Action<IEnumerable<WhereOnEarthLocation>, TwitterResponse> action);
+
+        
+		void GetRateLimitStatus(GetRateLimitStatusOptions options, Action<TwitterRateLimitStatusSummary, TwitterResponse> action);
 
         
 		void ReportSpam(ReportSpamOptions options, Action<TwitterUser, TwitterResponse> action);
@@ -2846,6 +2869,15 @@ namespace TweetSharp
 		}
 
         
+		public virtual TwitterRateLimitStatusSummary GetRateLimitStatus(GetRateLimitStatusOptions options)
+		{
+			var resources = options.Resources;
+				
+			
+			return WithHammock<TwitterRateLimitStatusSummary>("application/rate_limit_status", FormatAsString, "?resources=", resources);
+		}
+
+        
 		public virtual TwitterUser ReportSpam(ReportSpamOptions options)
 		{
 			var screen_name = options.ScreenName;
@@ -3739,6 +3771,15 @@ namespace TweetSharp
 		}
 
         
+		public virtual IAsyncResult GetRateLimitStatus(GetRateLimitStatusOptions options, Action<TwitterRateLimitStatusSummary, TwitterResponse> action)
+		{
+			var resources = options.Resources;
+				
+
+			return WithHammock(action, "application/rate_limit_status", FormatAsString, "?resources=", resources);
+		}
+
+        
 		public virtual IAsyncResult ReportSpam(ReportSpamOptions options, Action<TwitterUser, TwitterResponse> action)
 		{
 			var screen_name = options.ScreenName;
@@ -4629,6 +4670,15 @@ namespace TweetSharp
 				
 
 			return BeginWithHammock<IEnumerable<WhereOnEarthLocation>>(WebMethod.Get, "trends/closest", FormatAsString, "?lat=", lat, "&long=", @long);
+		}
+
+        
+		public virtual IAsyncResult BeginGetRateLimitStatus(GetRateLimitStatusOptions options)
+		{
+			var resources = options.Resources;
+				
+
+			return BeginWithHammock<TwitterRateLimitStatusSummary>(WebMethod.Get, "application/rate_limit_status", FormatAsString, "?resources=", resources);
 		}
 
         
@@ -5530,6 +5580,18 @@ namespace TweetSharp
 		}
 
         
+		public virtual TwitterRateLimitStatusSummary EndGetRateLimitStatus(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterRateLimitStatusSummary>(result);
+		}
+
+		
+		public virtual TwitterRateLimitStatusSummary EndGetRateLimitStatus(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterRateLimitStatusSummary>(result, timeout);
+		}
+
+        
 		public virtual TwitterUser EndReportSpam(IAsyncResult result) 
 		{
 			return EndWithHammock<TwitterUser>(result);
@@ -6347,6 +6409,14 @@ namespace TweetSharp
 			var @long = options.@Long;
 			
 			WithHammock(action, "trends/closest", FormatAsString, "?lat=", lat, "&long=", @long);
+		}
+
+        
+		public virtual void GetRateLimitStatus(GetRateLimitStatusOptions options, Action<TwitterRateLimitStatusSummary, TwitterResponse> action)
+		{
+			var resources = options.Resources;
+			
+			WithHammock(action, "application/rate_limit_status", FormatAsString, "?resources=", resources);
 		}
 
         

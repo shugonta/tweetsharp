@@ -269,10 +269,6 @@ namespace TweetSharp
         }
 
 #if !Smartphone && !NET20
-        /// <summary>
-        /// The source content used to deserialize the model entity instance.
-        /// Can be XML or JSON, depending on the endpoint used.
-        /// </summary>
         [DataMember]
 #endif
         public virtual string RawSource { get; set; }

@@ -1015,5 +1015,19 @@ namespace TweetSharp.Tests.Service
                 Console.WriteLine(tweet.Id);
             }
         }
+
+        [Test]
+        public void Can_get_rate_limit_status_summary()
+        {
+            var service = GetAuthenticatedService();
+            var summary = service.GetRateLimitStatus(new GetRateLimitStatusOptions());
+            Assert.IsNotNull(summary);
+            Assert.IsNotNullOrEmpty(summary.AccessToken);
+
+
+
+            Console.WriteLine(service.Response.Response);
+
+        }
     }
 }

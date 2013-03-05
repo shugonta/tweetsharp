@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using Hammock.Model;
@@ -8,9 +9,52 @@ using Newtonsoft.Json;
 namespace TweetSharp
 {
 #if !SILVERLIGHT
-    /// <summary>
-    /// Represents the API limiting imposed on a user or unauthenticated IP address.
-    /// </summary>
+    [Serializable]
+#endif
+#if !Smartphone && !NET20
+    [DataContract]
+#endif
+    [JsonObject(MemberSerialization.OptIn)]
+    public class TwitterRateLimitStatusSummary 
+    {
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual string AccessToken { get; set; }
+        
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual List<TwitterRateLimitResource> Resources { get; set; }
+
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual string RawSource { get; set; }
+    }
+
+#if !SILVERLIGHT
+    [Serializable]
+#endif
+#if !Smartphone && !NET20
+    [DataContract]
+#endif
+    [JsonObject(MemberSerialization.OptIn)]
+    public class TwitterRateLimitResource
+    {
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual string Name { get; set; }
+
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual Dictionary<string, TwitterRateLimitStatus> Limits { get; set; }
+    }
+
+    
+#if !SILVERLIGHT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
@@ -231,10 +275,6 @@ namespace TweetSharp
         #endregion
 
 #if !Smartphone && !NET20
-        /// <summary>
-        /// The source content used to deserialize the model entity instance.
-        /// Can be XML or JSON, depending on the endpoint used.
-        /// </summary>
         [DataMember]
 #endif
         public virtual string RawSource { get; set; }

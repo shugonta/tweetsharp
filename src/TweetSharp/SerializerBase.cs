@@ -23,7 +23,8 @@ namespace TweetSharp
                                             {
                                                 new TwitterDateTimeConverter(),
                                                 new TwitterWonkyBooleanConverter(),
-                                                new TwitterGeoConverter()
+                                                new TwitterGeoConverter(),
+                                                new TwitterRateLimitResourceConverter()
                                             }
                        })
         {
