@@ -995,5 +995,25 @@ namespace TweetSharp.Tests.Service
             }     
             Assert.AreEqual(me.FollowersCount, count);
         }
+
+        [Test]
+        public void Can_list_tweets_on_list()
+        {
+            var service = GetAuthenticatedService();
+            var result = service.BeginListTweetsOnList(new ListTweetsOnListOptions
+            {
+                OwnerScreenName = "Joesebok",
+                Slug = "poker",
+                IncludeRts = true,
+                SinceId = 308773934705299458
+            });
+            var tweets = service.EndListTweetsOnList(result);
+            Assert.IsNotNull(tweets);
+            
+            foreach (var tweet in tweets)
+            {
+                Console.WriteLine(tweet.Id);
+            }
+        }
     }
 }
