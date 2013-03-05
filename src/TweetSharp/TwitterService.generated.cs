@@ -261,11 +261,6 @@ namespace TweetSharp
 	}			
  
     		
-	public class GetAccountSettingsOptions
-	{			
-	}			
- 
-    		
 	public class GetUserProfileOptions
 	{ 
 		public bool? IncludeEntities { get; set; }  
@@ -595,11 +590,6 @@ namespace TweetSharp
 	}			
  
     		
-	public class ListSavedSearchesOptions
-	{			
-	}			
- 
-    		
 	public class GetSavedSearchOptions
 	{ 
 		public long Id { get; set; } 			
@@ -653,11 +643,6 @@ namespace TweetSharp
 	{ 
 		public int Id { get; set; }  
 		public string Exclude { get; set; } 			
-	}			
- 
-    		
-	public class ListAvailableTrendsLocationsOptions
-	{			
 	}			
  
     		
@@ -789,7 +774,7 @@ namespace TweetSharp
 
  
         
-		TwitterAccount GetAccountSettings(GetAccountSettingsOptions options);	
+		TwitterAccount GetAccountSettings();	
 
  
         
@@ -937,7 +922,7 @@ namespace TweetSharp
 
  
         
-		IEnumerable<TwitterSavedSearch> ListSavedSearches(ListSavedSearchesOptions options);	
+		IEnumerable<TwitterSavedSearch> ListSavedSearches();	
 
  
         
@@ -969,7 +954,7 @@ namespace TweetSharp
 
  
         
-		IEnumerable<WhereOnEarthLocation> ListAvailableTrendsLocations(ListAvailableTrendsLocationsOptions options);	
+		IEnumerable<WhereOnEarthLocation> ListAvailableTrendsLocations();	
 
  
         
@@ -1066,7 +1051,7 @@ namespace TweetSharp
 		IAsyncResult ListFollowers(ListFollowersOptions options, Action<TwitterCursorList<TwitterUser>, TwitterResponse> action);		
 
         
-		IAsyncResult GetAccountSettings(GetAccountSettingsOptions options, Action<TwitterAccount, TwitterResponse> action);		
+		IAsyncResult GetAccountSettings(Action<TwitterAccount, TwitterResponse> action);		
 
         
 		IAsyncResult GetUserProfile(GetUserProfileOptions options, Action<TwitterUser, TwitterResponse> action);		
@@ -1177,7 +1162,7 @@ namespace TweetSharp
 		IAsyncResult ListSubscriptions(ListSubscriptionsOptions options, Action<TwitterCursorList<TwitterList>, TwitterResponse> action);		
 
         
-		IAsyncResult ListSavedSearches(ListSavedSearchesOptions options, Action<IEnumerable<TwitterSavedSearch>, TwitterResponse> action);		
+		IAsyncResult ListSavedSearches(Action<IEnumerable<TwitterSavedSearch>, TwitterResponse> action);		
 
         
 		IAsyncResult GetSavedSearch(GetSavedSearchOptions options, Action<TwitterSavedSearch, TwitterResponse> action);		
@@ -1201,7 +1186,7 @@ namespace TweetSharp
 		IAsyncResult ListLocalTrendsFor(ListLocalTrendsForOptions options, Action<TwitterTrends, TwitterResponse> action);		
 
         
-		IAsyncResult ListAvailableTrendsLocations(ListAvailableTrendsLocationsOptions options, Action<IEnumerable<WhereOnEarthLocation>, TwitterResponse> action);		
+		IAsyncResult ListAvailableTrendsLocations(Action<IEnumerable<WhereOnEarthLocation>, TwitterResponse> action);		
 
         
 		IAsyncResult ListClosestTrendsLocations(ListClosestTrendsLocationsOptions options, Action<IEnumerable<WhereOnEarthLocation>, TwitterResponse> action);		
@@ -1404,7 +1389,7 @@ namespace TweetSharp
 		TwitterCursorList<TwitterUser> EndListFollowers(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginGetAccountSettings(GetAccountSettingsOptions options);
+		IAsyncResult BeginGetAccountSettings();
 
 		TwitterAccount EndGetAccountSettings(IAsyncResult result);		
 
@@ -1663,7 +1648,7 @@ namespace TweetSharp
 		TwitterCursorList<TwitterList> EndListSubscriptions(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListSavedSearches(ListSavedSearchesOptions options);
+		IAsyncResult BeginListSavedSearches();
 
 		IEnumerable<TwitterSavedSearch> EndListSavedSearches(IAsyncResult result);		
 
@@ -1719,7 +1704,7 @@ namespace TweetSharp
 		TwitterTrends EndListLocalTrendsFor(IAsyncResult result, TimeSpan timeout);
 
         
-		IAsyncResult BeginListAvailableTrendsLocations(ListAvailableTrendsLocationsOptions options);
+		IAsyncResult BeginListAvailableTrendsLocations();
 
 		IEnumerable<WhereOnEarthLocation> EndListAvailableTrendsLocations(IAsyncResult result);		
 
@@ -1826,7 +1811,7 @@ namespace TweetSharp
 		void ListFollowers(ListFollowersOptions options, Action<TwitterCursorList<TwitterUser>, TwitterResponse> action);
 
         
-		void GetAccountSettings(GetAccountSettingsOptions options, Action<TwitterAccount, TwitterResponse> action);
+		void GetAccountSettings(Action<TwitterAccount, TwitterResponse> action);
 
         
 		void GetUserProfile(GetUserProfileOptions options, Action<TwitterUser, TwitterResponse> action);
@@ -1937,7 +1922,7 @@ namespace TweetSharp
 		void ListSubscriptions(ListSubscriptionsOptions options, Action<TwitterCursorList<TwitterList>, TwitterResponse> action);
 
         
-		void ListSavedSearches(ListSavedSearchesOptions options, Action<IEnumerable<TwitterSavedSearch>, TwitterResponse> action);
+		void ListSavedSearches(Action<IEnumerable<TwitterSavedSearch>, TwitterResponse> action);
 
         
 		void GetSavedSearch(GetSavedSearchOptions options, Action<TwitterSavedSearch, TwitterResponse> action);
@@ -1961,7 +1946,7 @@ namespace TweetSharp
 		void ListLocalTrendsFor(ListLocalTrendsForOptions options, Action<TwitterTrends, TwitterResponse> action);
 
         
-		void ListAvailableTrendsLocations(ListAvailableTrendsLocationsOptions options, Action<IEnumerable<WhereOnEarthLocation>, TwitterResponse> action);
+		void ListAvailableTrendsLocations(Action<IEnumerable<WhereOnEarthLocation>, TwitterResponse> action);
 
         
 		void ListClosestTrendsLocations(ListClosestTrendsLocationsOptions options, Action<IEnumerable<WhereOnEarthLocation>, TwitterResponse> action);
@@ -2313,7 +2298,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual TwitterAccount GetAccountSettings(GetAccountSettingsOptions options)
+		public virtual TwitterAccount GetAccountSettings()
 		{
 				
 			
@@ -2758,7 +2743,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual IEnumerable<TwitterSavedSearch> ListSavedSearches(ListSavedSearchesOptions options)
+		public virtual IEnumerable<TwitterSavedSearch> ListSavedSearches()
 		{
 				
 			
@@ -2843,7 +2828,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual IEnumerable<WhereOnEarthLocation> ListAvailableTrendsLocations(ListAvailableTrendsLocationsOptions options)
+		public virtual IEnumerable<WhereOnEarthLocation> ListAvailableTrendsLocations()
 		{
 				
 			
@@ -3206,7 +3191,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual IAsyncResult GetAccountSettings(GetAccountSettingsOptions options, Action<TwitterAccount, TwitterResponse> action)
+		public virtual IAsyncResult GetAccountSettings(Action<TwitterAccount, TwitterResponse> action)
 		{
 				
 
@@ -3651,7 +3636,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual IAsyncResult ListSavedSearches(ListSavedSearchesOptions options, Action<IEnumerable<TwitterSavedSearch>, TwitterResponse> action)
+		public virtual IAsyncResult ListSavedSearches(Action<IEnumerable<TwitterSavedSearch>, TwitterResponse> action)
 		{
 				
 
@@ -3736,7 +3721,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual IAsyncResult ListAvailableTrendsLocations(ListAvailableTrendsLocationsOptions options, Action<IEnumerable<WhereOnEarthLocation>, TwitterResponse> action)
+		public virtual IAsyncResult ListAvailableTrendsLocations(Action<IEnumerable<WhereOnEarthLocation>, TwitterResponse> action)
 		{
 				
 
@@ -4099,7 +4084,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual IAsyncResult BeginGetAccountSettings(GetAccountSettingsOptions options)
+		public virtual IAsyncResult BeginGetAccountSettings()
 		{
 				
 
@@ -4544,7 +4529,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual IAsyncResult BeginListSavedSearches(ListSavedSearchesOptions options)
+		public virtual IAsyncResult BeginListSavedSearches()
 		{
 				
 
@@ -4629,7 +4614,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual IAsyncResult BeginListAvailableTrendsLocations(ListAvailableTrendsLocationsOptions options)
+		public virtual IAsyncResult BeginListAvailableTrendsLocations()
 		{
 				
 
@@ -5864,7 +5849,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual void GetAccountSettings(GetAccountSettingsOptions options, Action<TwitterAccount, TwitterResponse> action)
+		public virtual void GetAccountSettings(Action<TwitterAccount, TwitterResponse> action)
 		{
 			
 			WithHammock(action, "account/settings", FormatAsString);
@@ -6272,7 +6257,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual void ListSavedSearches(ListSavedSearchesOptions options, Action<IEnumerable<TwitterSavedSearch>, TwitterResponse> action)
+		public virtual void ListSavedSearches(Action<IEnumerable<TwitterSavedSearch>, TwitterResponse> action)
 		{
 			
 			WithHammock(action, "saved_searches/list", FormatAsString);
@@ -6349,7 +6334,7 @@ namespace TweetSharp
 		}
 
         
-		public virtual void ListAvailableTrendsLocations(ListAvailableTrendsLocationsOptions options, Action<IEnumerable<WhereOnEarthLocation>, TwitterResponse> action)
+		public virtual void ListAvailableTrendsLocations(Action<IEnumerable<WhereOnEarthLocation>, TwitterResponse> action)
 		{
 			
 			WithHammock(action, "trends/available", FormatAsString);

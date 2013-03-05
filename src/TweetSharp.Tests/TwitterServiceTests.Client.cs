@@ -240,7 +240,7 @@ namespace TweetSharp.Tests.Service
 
             var service = GetAuthenticatedService();
 
-            var account = service.GetAccountSettings(new GetAccountSettingsOptions());
+            var account = service.GetAccountSettings();
             Console.WriteLine(account.RawSource);
 
             Assert.AreEqual(false, account.IsProtected, "IsProtected");
@@ -267,7 +267,7 @@ namespace TweetSharp.Tests.Service
         {
             var service = GetAuthenticatedService();
 
-            TwitterAccount original = service.GetAccountSettings(new GetAccountSettingsOptions());
+            TwitterAccount original = service.GetAccountSettings();
             var state = !original.SleepTime.Enabled.Value;
 
             Trace.WriteLine("Sleep state was " + original.SleepTime.Enabled);

@@ -438,7 +438,7 @@ namespace TweetSharp.Tests.Service
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
             // Twitter 403's on duplicate saved search requests, so delete if found
-            var searches = service.ListSavedSearches(new ListSavedSearchesOptions());
+            var searches = service.ListSavedSearches();
             Assert.IsNotNull(searches);
 
             var existing = searches.SingleOrDefault(s => s.Query.Equals("tweetsharp"));
@@ -828,7 +828,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_available_local_trend_locations()
         {
             var service = GetAuthenticatedService();
-            var locations = service.ListAvailableTrendsLocations(new ListAvailableTrendsLocationsOptions());
+            var locations = service.ListAvailableTrendsLocations();
             Assert.IsNotNull(locations);
 
             foreach(var location in locations)

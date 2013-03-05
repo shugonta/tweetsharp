@@ -52,7 +52,7 @@ using Hammock.Web;
 
 namespace TweetSharp
 {
-#region Options<# foreach(TweetSharpMethod method in methods) { #> 
+#region Options<# foreach(TweetSharpMethod method in methods) { if(method.Parameters.Count == 0) continue; #> 
     <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>		
 	public class <#= method.Name #>Options
 	{<# foreach(var parameter in method.Parameters) { #> 
@@ -68,7 +68,7 @@ namespace TweetSharp
 #if !SILVERLIGHT
 		#region Sequential Methods<# foreach(TweetSharpMethod method in methods) { #> 
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		<#= method.Type #> <#= method.Name #>(<#= method.Name #>Options options);	
+		<#= method.Type #> <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>);	
 
 <# } #>
 		#endregion
@@ -78,7 +78,7 @@ namespace TweetSharp
 		#region Asynchronous Methods (with IAsyncResult)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		IAsyncResult <#= method.Name #>(<#= method.Name #>Options options, Action<<#= method.Type #>, TwitterResponse> action);		
+		IAsyncResult <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options, <# } #>Action<<#= method.Type #>, TwitterResponse> action);		
 
 <# } #>
 		#endregion
@@ -88,7 +88,7 @@ namespace TweetSharp
 		#region Asynchronous Methods (with Begin/End pattern)
 <# foreach(TweetSharpMethod method in methods.GroupBy(p => p.Name).Select(g => g.First())) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		IAsyncResult Begin<#= method.Name #>(<#= method.Name #>Options options);
+		IAsyncResult Begin<#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>);
 
 		<#= method.Type #> End<#= method.Name #>(IAsyncResult result);		
 
@@ -102,7 +102,7 @@ namespace TweetSharp
 		#region Asynchronous Methods (without IAsyncResult)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		void <#= method.Name #>(<#= method.Name #>Options options, Action<<#= method.Type #>, TwitterResponse> action);
+		void <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options, <# } #>Action<<#= method.Type #>, TwitterResponse> action);
 
 <# } #>
 		#endregion
@@ -120,7 +120,7 @@ namespace TweetSharp
 		#region Sequential Methods
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual <#= method.Type #> <#= method.Name #>(<#= method.Name #>Options options)
+		public virtual <#= method.Type #> <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>)
 		{
 			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
 			<# } #><# if(method.MediaParameter!=null) { #> var <#= method.MediaParameter.Name #> = options.<#= method.MediaParameter.PropertyName #>;
@@ -137,7 +137,7 @@ namespace TweetSharp
 		#region Asynchronous Methods (with IAsyncResult)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual IAsyncResult <#= method.Name #>(<#= method.Name #>Options options, Action<<#= method.Type #>, TwitterResponse> action)
+		public virtual IAsyncResult <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options, <# } #>Action<<#= method.Type #>, TwitterResponse> action)
 		{
 			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
 			<# } #><# if(method.MediaParameter!=null) { #> var <#= method.MediaParameter.Name #> = options.<#= method.MediaParameter.PropertyName #>;
@@ -154,7 +154,7 @@ namespace TweetSharp
 		#region Asynchronous Methods (with Begin/End pattern)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual IAsyncResult Begin<#= method.Name #>(<#= method.Name #>Options options)
+		public virtual IAsyncResult Begin<#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>)
 		{
 			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
 			<# } #><# if(method.MediaParameter!=null) { #> var <#= method.MediaParameter.Name #> = options.<#= method.MediaParameter.PropertyName #>;
@@ -185,7 +185,7 @@ namespace TweetSharp
 		#region Asynchronous Methods (without IAsyncResult)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual void <#= method.Name #>(<#= method.Name #>Options options, Action<<#= method.Type #>, TwitterResponse> action)
+		public virtual void <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options, <# } #>Action<<#= method.Type #>, TwitterResponse> action)
 		{
 			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
 			<# } #>
