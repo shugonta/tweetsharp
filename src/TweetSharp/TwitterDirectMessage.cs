@@ -183,16 +183,12 @@ namespace TweetSharp
         {
             get
             {
-                if (string.IsNullOrEmpty(Text))
-                {
-                    return Text;
-                }
-                return _textAsHtml ?? (_textAsHtml = Text.ParseTwitterageToHtml());
+                return (_textAsHtml ?? (_textAsHtml = this.ParseTextWithEntities()));
             }
             set
             {
-                _entities = null;
                 _textAsHtml = value;
+                OnPropertyChanged("TextAsHtml");
             }
         }
 

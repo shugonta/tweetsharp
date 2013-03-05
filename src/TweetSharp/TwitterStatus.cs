@@ -189,6 +189,20 @@ namespace TweetSharp
             }
         }
 
+        private string _textAsHtml;
+        public virtual string TextAsHtml
+        {
+            get
+            {
+                return (_textAsHtml ?? (_textAsHtml = this.ParseTextWithEntities()));
+            }
+            set
+            {
+                _textAsHtml = value;
+                this.OnPropertyChanged("TextAsHtml");
+            }
+        }
+
         private string _textDecoded;
         public virtual string TextDecoded
         {
@@ -210,24 +224,6 @@ namespace TweetSharp
             {
                 _textDecoded = value;
                 OnPropertyChanged("TextDecoded");
-            }
-        }
-
-        private string _textAsHtml;
-        public virtual string TextAsHtml
-        {
-            get
-            {
-                if(string.IsNullOrEmpty(Text))
-                {
-                    return Text;
-                }
-                return _textAsHtml ?? (_textAsHtml = Text.ParseTwitterageToHtml());
-            }
-            set
-            {
-                _textAsHtml = value;
-                OnPropertyChanged("TextAsHtml");
             }
         }
 
