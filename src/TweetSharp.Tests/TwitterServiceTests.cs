@@ -897,8 +897,9 @@ namespace TweetSharp.Tests.Service
         /// Tests that can accept a twitter stream
         /// </summary>
         /// <remarks>
-        /// Tests for up to 5 events to occur. Test this with a twitter account follows several hundred
-        /// accounts, or be prepared to send your account a few DM's while this test is running.
+        /// Tests for up to 5 events to occur. Test this with a twitter account that follows 
+        /// several hundred accounts, or be prepared to send your account a few DM's while
+        /// this test is running.
         /// </remarks>
         [Test]
         [Ignore("See remarks - Can potentially stall for a while")]
