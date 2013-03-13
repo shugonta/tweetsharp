@@ -86,11 +86,11 @@ namespace TweetSharp.Tests.Service
         public void Can_get_direct_messages_begin_end_style()
         {
             var service = GetAuthenticatedService();
-            var result = service.BeginListDirectMessagesReceived(new ListDirectMessagesReceivedOptions());
+            var result = service.BeginListDirectMessagesReceived(new ListDirectMessagesReceivedOptions() { Count = 5 });
             var dms = service.EndListDirectMessagesReceived(result, TimeSpan.FromSeconds(5));
             
             Assert.IsNotNull(dms);
-            Assert.AreEqual(20, dms.Count());
+            Assert.AreEqual(5, dms.Count());
 
             foreach (var dm in dms)
             {
