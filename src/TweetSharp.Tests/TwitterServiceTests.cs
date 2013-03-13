@@ -897,10 +897,11 @@ namespace TweetSharp.Tests.Service
         /// Tests that can accept a twitter stream
         /// </summary>
         /// <remarks>
-        /// Tests for up to 5 events to occur. Test this with a twitter account that has several
-        /// hundred followers, or be prepared to send your account a few DM's while this test is running.
+        /// Tests for up to 5 events to occur. Test this with a twitter account follows several hundred
+        /// accounts, or be prepared to send your account a few DM's while this test is running.
         /// </remarks>
         [Test]
+        [Ignore("See remarks - Can potentially stall for a while")]
         public void Can_stream_from_user_stream()
         {
             const int maxStreamEvents = 5;
@@ -924,7 +925,7 @@ namespace TweetSharp.Tests.Service
                         var friends = (TwitterUserStreamFriends)streamEvent;
                         Assert.IsNotNull(friends);
                         Assert.IsNotNull(friends.RawSource);
-                        Assert.IsTrue(friends.Ids.Count() > 0);
+                        Assert.IsTrue(friends.Ids.Any());
                     }
 
                     if (streamEvent is TwitterUserStreamEvent)
@@ -978,7 +979,7 @@ namespace TweetSharp.Tests.Service
                 }
                 else
                 {
-                    Assert.Ignore(string.Format("Stream responsed with status code: {0}", response.StatusCode));
+                    Assert.Ignore("Stream responsed with status code: {0}", response.StatusCode);
                 }
             });
 
