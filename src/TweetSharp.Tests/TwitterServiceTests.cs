@@ -471,6 +471,34 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
+        public void Can_search_with_geo_and_lang()
+        {
+            var italyGeoCode = new TwitterGeoLocationSearch(41.9, 12.5, 10, TwitterGeoLocationSearch.RadiusType.Mi);
+            var service = GetAuthenticatedService();
+            var results = service.Search(new SearchOptions { Q = "papa", Geocode = italyGeoCode, Lang = "en", Count = 100,  });
+
+            Assert.IsNotNull(results);
+            if (!results.Statuses.Any())
+            {
+                Assert.Inconclusive("No tweets to check the location of to match within search radius");
+            }
+
+            Assert.IsTrue(results.Statuses.Count() <= 100);
+            var geoTaggedTweets = results.Statuses.Where(x => x.Location != null);
+            if (!geoTaggedTweets.Any())
+            {
+                Assert.Inconclusive("Unable to find tweets that were geo tagged for this test");
+            }
+            foreach (var tweet in geoTaggedTweets)
+            {
+                Console.WriteLine("{0} says '{1}' ({2})", tweet.User.ScreenName, tweet.Text, tweet.Id);
+                
+                //Twitter API does not return coordinates in search request
+                Assert.IsTrue(tweet.IsWithinSearchRadius(italyGeoCode));
+            }
+        }
+
+        [Test]
         public void Searches_with_explicit_include_options_still_work()
         {
             var service = GetAuthenticatedService();
