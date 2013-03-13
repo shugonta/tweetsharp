@@ -893,11 +893,21 @@ namespace TweetSharp.Tests.Service
             return service;
         }
 
+        /// <summary>
+        /// Tests that can accept a twitter stream
+        /// </summary>
+        /// <remarks>
+        /// Tests for up to 5 events to occur. Test this with a twitter account that has several
+        /// hundred followers, or be prepared to send your account a few DM's while this test is running.
+        /// </remarks>
         [Test]
         public void Can_stream_from_user_stream()
         {
+            const int maxStreamEvents = 5;
+            
             var block = new AutoResetEvent(false);
-
+            var count = 0;
+            
             var service = GetAuthenticatedService();
 
             service.StreamUser((streamEvent, response) =>
@@ -959,6 +969,11 @@ namespace TweetSharp.Tests.Service
                         Assert.IsNotNull(deleted);
                         Assert.IsTrue(deleted.DirectMessageId > 0);
                         Assert.IsTrue(deleted.UserId > 0);
+                    }
+                    count++;
+                    if (count == maxStreamEvents)
+                    {
+                        block.Set();
                     }
                 }
                 else
