@@ -128,7 +128,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("This is a brittle test because it requires that you be me (and you are probably not me)")]
         public void Can_get_geo_coordinates_from_specific_tweet()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
