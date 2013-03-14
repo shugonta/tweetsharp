@@ -1029,5 +1029,15 @@ namespace TweetSharp.Tests.Service
             Console.WriteLine(service.Response.Response);
 
         }
+
+        [Test]
+        public void Can_Deserialize_Integer_GeoCoordinates()
+        {
+            //coordinates of this tweet are 2 integers  "{\"type\":\"Point\",\"coordinates\":[10, 234]}";
+            TwitterService service = GetAuthenticatedService();
+            TwitterStatus tweet = service.GetTweet(new GetTweetOptions() { Id = 294853375609163776 });
+            Assert.NotNull(tweet);
+
+        }
     }
 }
