@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp.Mono", "mono\TweetSharp.Next.Mono\TweetSharp.Mono.csproj", "{46B07B5B-DEDD-4609-AD5E-CCAF8D8B607E}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp.Mono", "TweetSharp.Mono\TweetSharp.Mono.csproj", "{46B07B5B-DEDD-4609-AD5E-CCAF8D8B607E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +15,6 @@ Global
 		{46B07B5B-DEDD-4609-AD5E-CCAF8D8B607E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = mono\TweetSharp.Next.Mono\TweetSharp.Mono.csproj
+		StartupItem = TweetSharp.Mono\TweetSharp.Mono.csproj
 	EndGlobalSection
 EndGlobal
