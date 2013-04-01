@@ -42,7 +42,7 @@
       <Link>Helpers.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="..\..\..\xamarinweb\tweetsharp\src\TweetSharp\TwitterService.cs">
+    <Compile Include="..\TweetSharp\TwitterService.cs">
       <Link>TwitterService.cs</Link>
     </Compile>
     <Compile Include="..\TweetSharp\TwitterService.generated.cs">
