@@ -91,8 +91,14 @@ namespace TweetSharp
 
             _info = info;
         }
-
+        
         public TwitterService(string consumerKey, string consumerSecret) : this()
+        {
+            _consumerKey = consumerKey;
+            _consumerSecret = consumerSecret;
+        }
+        
+        public TwitterService(string consumerKey, string consumerSecret, string proxy) : this(proxy)
         {
             _consumerKey = consumerKey;
             _consumerSecret = consumerSecret;
@@ -106,8 +112,9 @@ namespace TweetSharp
             _tokenSecret = tokenSecret;
         }
 
-        public TwitterService()
+        public TwitterService(string proxy = null)
         {
+            this.Proxy = proxy;
             _json = new JsonSerializer();
 
             FormatAsString = ".json";
