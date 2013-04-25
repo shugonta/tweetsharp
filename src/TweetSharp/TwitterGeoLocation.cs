@@ -246,6 +246,11 @@ namespace TweetSharp
             }
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0},{1}", Coordinates.Latitude, Coordinates.Longitude);
+        }
+
 #if !Smartphone && !NET20
         [DataMember]
 #endif

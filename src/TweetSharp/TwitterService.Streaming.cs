@@ -113,7 +113,9 @@ namespace TweetSharp
 #if !SILVERLIGHT
                             SetResponse(resp);
 #endif
-                            return resp.ContentEntity;
+                            var deserializer = new JsonSerializer();
+                            
+                            return deserializer.DeserializeJson<T>(resp.Content);
                         },
                         out exception);
                 action(entity, new TwitterResponse(resp, exception));

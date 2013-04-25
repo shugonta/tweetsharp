@@ -128,7 +128,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("This is a brittle test because it requires that you be me (and you are probably not me)")]
         public void Can_get_geo_coordinates_from_specific_tweet()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
@@ -153,33 +152,28 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("This is a brittle test because it requires that you be me (and you are probably not me)")]
         public void Can_get_parameterized_followers_of_lists()
         {
+            const int maxIdsToGet = 100;
+
             var service = GetAuthenticatedService();
 
-            var users = new List<TwitterUser>();
             var ids = service.ListFriendIdsOf(new ListFriendIdsOfOptions { ScreenName = "mtamermahoney" });
-            var pages = Math.Ceiling(Convert.ToDouble(ids.Count()) / 100);
-            for(var i = 0; i < pages; i++)
+            
+            
+            var subList = ids.Count > 100 ? ids.Take(maxIdsToGet) : ids;
+
+            var segment = service.ListUserProfilesFor(new ListUserProfilesForOptions { UserId = subList });
+            if (segment == null)
             {
-                var list = ids.Skip(i * 100).Take(100);
-                var segment = service.ListUserProfilesFor(new ListUserProfilesForOptions { UserId = list });
-                if (segment == null)
+                if(service.Response.StatusCode == HttpStatusCode.OK)
                 {
-                    if(service.Response.StatusCode == HttpStatusCode.OK)
-                    {
-                        throw new Exception("No results, but Twitter returned OK...");
-                    }
-                    Console.WriteLine("Twitter failed legitimately: {0} {1}", service.Response.StatusCode, service.Response.StatusDescription);
+                    throw new Exception("No results, but Twitter returned OK...");
                 }
-                
-                if(segment.Any())
-                {
-                    users.AddRange(segment);
-                }
+                Console.WriteLine("Twitter failed legitimately: {0} {1}", service.Response.StatusCode, service.Response.StatusDescription);
             }
-            Assert.AreEqual(users.Count, ids.Count());
+                
+            Assert.AreEqual(subList.Count(), segment.Count());
         }
 
         [Test]

@@ -119,6 +119,7 @@ namespace TweetSharp
 	public class SearchOptions
 	{ 
 		public string Q { get; set; }  
+		public TwitterGeoLocationSearch Geocode { get; set; }  
 		public string Lang { get; set; }  
 		public string Locale { get; set; }  
 		public TwitterSearchResultType? Resulttype { get; set; }  
@@ -2128,6 +2129,7 @@ namespace TweetSharp
 		public virtual TwitterSearchResult Search(SearchOptions options)
 		{
 			var q = options.Q;
+			var geocode = options.Geocode;
 			var lang = options.Lang;
 			var locale = options.Locale;
 			var resultType = options.Resulttype;
@@ -2138,7 +2140,7 @@ namespace TweetSharp
 			var callback = options.Callback;
 				
 			
-			return WithHammock<TwitterSearchResult>("search/tweets", FormatAsString, "?q=", q, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
+			return WithHammock<TwitterSearchResult>("search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
 		}
 
         
@@ -3030,6 +3032,7 @@ namespace TweetSharp
 		public virtual IAsyncResult Search(SearchOptions options, Action<TwitterSearchResult, TwitterResponse> action)
 		{
 			var q = options.Q;
+			var geocode = options.Geocode;
 			var lang = options.Lang;
 			var locale = options.Locale;
 			var resultType = options.Resulttype;
@@ -3040,7 +3043,7 @@ namespace TweetSharp
 			var callback = options.Callback;
 				
 
-			return WithHammock(action, "search/tweets", FormatAsString, "?q=", q, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
+			return WithHammock(action, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
 		}
 
         
@@ -3932,6 +3935,7 @@ namespace TweetSharp
 		public virtual IAsyncResult BeginSearch(SearchOptions options)
 		{
 			var q = options.Q;
+			var geocode = options.Geocode;
 			var lang = options.Lang;
 			var locale = options.Locale;
 			var resultType = options.Resulttype;
@@ -3942,7 +3946,7 @@ namespace TweetSharp
 			var callback = options.Callback;
 				
 
-			return BeginWithHammock<TwitterSearchResult>(WebMethod.Get, "search/tweets", FormatAsString, "?q=", q, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
+			return BeginWithHammock<TwitterSearchResult>(WebMethod.Get, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
 		}
 
         
@@ -5735,6 +5739,7 @@ namespace TweetSharp
 		public virtual void Search(SearchOptions options, Action<TwitterSearchResult, TwitterResponse> action)
 		{
 			var q = options.Q;
+			var geocode = options.Geocode;
 			var lang = options.Lang;
 			var locale = options.Locale;
 			var resultType = options.Resulttype;
@@ -5744,7 +5749,7 @@ namespace TweetSharp
 			var include_entities = options.IncludeEntities;
 			var callback = options.Callback;
 			
-			WithHammock(action, "search/tweets", FormatAsString, "?q=", q, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
+			WithHammock(action, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
 		}
 
         

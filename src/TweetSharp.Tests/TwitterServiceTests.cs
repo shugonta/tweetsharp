@@ -86,11 +86,11 @@ namespace TweetSharp.Tests.Service
         public void Can_get_direct_messages_begin_end_style()
         {
             var service = GetAuthenticatedService();
-            var result = service.BeginListDirectMessagesReceived(new ListDirectMessagesReceivedOptions());
+            var result = service.BeginListDirectMessagesReceived(new ListDirectMessagesReceivedOptions() { Count = 5 });
             var dms = service.EndListDirectMessagesReceived(result, TimeSpan.FromSeconds(5));
             
             Assert.IsNotNull(dms);
-            Assert.AreEqual(20, dms.Count());
+            Assert.AreEqual(5, dms.Count());
 
             foreach (var dm in dms)
             {
@@ -467,6 +467,34 @@ namespace TweetSharp.Tests.Service
             foreach(var tweet in results.Statuses)
             {
                 Console.WriteLine("{0} says '{1}", tweet.User.ScreenName, tweet.Text);
+            }
+        }
+
+        [Test]
+        public void Can_search_with_geo_and_lang()
+        {
+            var italyGeoCode = new TwitterGeoLocationSearch(41.9, 12.5, 10, TwitterGeoLocationSearch.RadiusType.Mi);
+            var service = GetAuthenticatedService();
+            var results = service.Search(new SearchOptions { Q = "papa", Geocode = italyGeoCode, Lang = "en", Count = 100,  });
+
+            Assert.IsNotNull(results);
+            if (!results.Statuses.Any())
+            {
+                Assert.Inconclusive("No tweets to check the location of to match within search radius");
+            }
+
+            Assert.IsTrue(results.Statuses.Count() <= 100);
+            var geoTaggedTweets = results.Statuses.Where(x => x.Location != null);
+            if (!geoTaggedTweets.Any())
+            {
+                Assert.Inconclusive("Unable to find tweets that were geo tagged for this test");
+            }
+            foreach (var tweet in geoTaggedTweets)
+            {
+                Console.WriteLine("{0} says '{1}' ({2})", tweet.User.ScreenName, tweet.Text, tweet.Id);
+                
+                //Twitter API does not return coordinates in search request
+                Assert.IsTrue(tweet.IsWithinSearchRadius(italyGeoCode));
             }
         }
 
@@ -893,11 +921,23 @@ namespace TweetSharp.Tests.Service
             return service;
         }
 
+        /// <summary>
+        /// Tests that can accept a twitter stream
+        /// </summary>
+        /// <remarks>
+        /// Tests for up to 5 events to occur. Test this with a twitter account that follows 
+        /// several hundred accounts, or be prepared to send your account a few DM's while
+        /// this test is running.
+        /// </remarks>
         [Test]
+        [Ignore("See remarks - Can potentially stall for a while")]
         public void Can_stream_from_user_stream()
         {
+            const int maxStreamEvents = 5;
+            
             var block = new AutoResetEvent(false);
-
+            var count = 0;
+            
             var service = GetAuthenticatedService();
 
             service.StreamUser((streamEvent, response) =>
@@ -914,7 +954,7 @@ namespace TweetSharp.Tests.Service
                         var friends = (TwitterUserStreamFriends)streamEvent;
                         Assert.IsNotNull(friends);
                         Assert.IsNotNull(friends.RawSource);
-                        Assert.IsTrue(friends.Ids.Count() > 0);
+                        Assert.IsTrue(friends.Ids.Any());
                     }
 
                     if (streamEvent is TwitterUserStreamEvent)
@@ -960,10 +1000,15 @@ namespace TweetSharp.Tests.Service
                         Assert.IsTrue(deleted.DirectMessageId > 0);
                         Assert.IsTrue(deleted.UserId > 0);
                     }
+                    count++;
+                    if (count == maxStreamEvents)
+                    {
+                        block.Set();
+                    }
                 }
                 else
                 {
-                    Assert.Ignore(string.Format("Stream responsed with status code: {0}", response.StatusCode));
+                    Assert.Ignore("Stream responsed with status code: {0}", response.StatusCode);
                 }
             });
 

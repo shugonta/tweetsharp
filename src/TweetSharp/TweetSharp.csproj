@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="TimeExtensions.cs" />
+    <Compile Include="TwitterGeoLocationSearch.cs" />
     <Compile Include="TwitterService.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
