@@ -67,15 +67,18 @@ namespace TweetSharp
             }
             reader.Read();
             var coords = new double[2];
-            if (reader.TokenType == JsonToken.Float || reader.TokenType == JsonToken.Integer)
+            for (int i = 0; i < 2; ++i)
             {
-                coords[0] = (double)reader.Value;
-                reader.Read();
-            }
-            if (reader.TokenType == JsonToken.Float || reader.TokenType == JsonToken.Integer)
-            {
-                coords[1] = (double)reader.Value;
-                reader.Read();
+                if (reader.TokenType == JsonToken.Float)
+                {
+                    coords[i] = (double)reader.Value;
+                    reader.Read();
+                }
+                else if (reader.TokenType == JsonToken.Integer)
+                {
+                    coords[i] = (double)((long)reader.Value);
+                    reader.Read();
+                }
             }
 
             var latitude = coords[0];

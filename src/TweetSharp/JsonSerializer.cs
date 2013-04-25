@@ -73,6 +73,11 @@ namespace TweetSharp
                         return (ITwitterModel)result;
                     }
                 }
+                else
+                {
+                    var unknown = new TwitterError() { RawSource = content };
+                    return unknown;
+                }
             }
 
             if(type == typeof(TwitterTrends))
