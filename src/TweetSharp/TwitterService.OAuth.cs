@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net;
 using Hammock;
 using Hammock.Authentication.OAuth;
@@ -116,6 +117,8 @@ namespace TweetSharp
             };
 
         private readonly RestClient _oauth;
+    	private const string AuthorizeUrl = Globals.Authority + "/oauth/authorize";
+    	private const string AuthenticateUrl = Globals.Authority + "/oauth/authenticate";
 
         public virtual void AuthenticateWith(string token, string tokenSecret)
         {
@@ -133,23 +136,47 @@ namespace TweetSharp
 
         public virtual Uri GetAuthorizationUri(OAuthRequestToken oauth)
         {
-            return new Uri("https://api.twitter.com/oauth/authorize?oauth_token=" + oauth.Token);
+			return new Uri(AuthorizeUrl + "?oauth_token=" + oauth.Token);
         }
 
         public virtual Uri GetAuthorizationUri(OAuthRequestToken oauth, string callback)
         {
-            return new Uri("https://api.twitter.com/oauth/authorize?oauth_token=" + oauth.Token + "&oauth_callback=" + callback);
+			return new Uri(AuthorizeUrl + "?oauth_token=" + oauth.Token + "&oauth_callback=" + callback);
         }
+
+		public virtual Uri GetAuthorizationUri(OAuthRequestToken oauth, CultureInfo culture)
+		{
+			var languageCode = culture.TwoLetterISOLanguageName;
+			return new Uri(AuthorizeUrl + "?oauth_token=" + oauth.Token + "&lang=" + languageCode);
+		}
+
+		public virtual Uri GetAuthorizationUri(OAuthRequestToken oauth, string callback, CultureInfo culture)
+		{
+			var languageCode = culture.TwoLetterISOLanguageName;
+			return new Uri(AuthorizeUrl + "?oauth_token=" + oauth.Token + "&oauth_callback=" + callback + "&lang=" + languageCode);
+		}
 
         public virtual Uri GetAuthenticationUrl(OAuthRequestToken oauth)
         {
-            return new Uri("https://api.twitter.com/oauth/authenticate?oauth_token=" + oauth.Token);
+			return new Uri(AuthenticateUrl + "?oauth_token=" + oauth.Token);
         }
 
         public virtual Uri GetAuthenticationUrl(OAuthRequestToken oauth, string callback)
         {
-            return new Uri("https://api.twitter.com/oauth/authenticate?oauth_token=" + oauth.Token + "&oauth_callback=" + callback);
+            return new Uri(AuthenticateUrl +"?oauth_token=" + oauth.Token + "&oauth_callback=" + callback);
         }
+
+		public virtual Uri GetAuthenticationUrl(OAuthRequestToken oauth, CultureInfo culture)
+		{
+			var languageCode = culture.TwoLetterISOLanguageName;
+			return new Uri(AuthenticateUrl +"?oauth_token=" + oauth.Token + "&lang=" + languageCode);
+		}
+
+		public virtual Uri GetAuthenticationUrl(OAuthRequestToken oauth, string callback, CultureInfo culture)
+		{
+			var languageCode = culture.TwoLetterISOLanguageName;
+			return new Uri(AuthenticateUrl +"?oauth_token=" + oauth.Token + "&oauth_callback=" + callback + "&lang=" + languageCode);
+		}
 
 #if !SILVERLIGHT
         public virtual OAuthRequestToken GetRequestToken(string callback)
