@@ -64,12 +64,6 @@
     <Compile Include="TwitterServiceTests.OAuth.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TweetSharp\TweetSharp.csproj">
-      <Project>{10BFAA13-B836-4B37-B2D3-D4FEB3F3C484}</Project>
-      <Name>TweetSharp</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -81,6 +75,12 @@
     <Content Include="daniel_8bit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TweetSharp\TweetSharp.csproj">
+      <Project>{10bfaa13-b836-4b37-b2d3-d4feb3f3c484}</Project>
+      <Name>TweetSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

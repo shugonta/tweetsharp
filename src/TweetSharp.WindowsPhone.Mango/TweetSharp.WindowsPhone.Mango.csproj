@@ -148,6 +148,9 @@
     <Compile Include="..\TweetSharp\TwitterGeoLocation.cs">
       <Link>TwitterGeoLocation.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\TwitterGeoLocationSearch.cs">
+      <Link>TwitterGeoLocationSearch.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\TwitterList.cs">
       <Link>TwitterList.cs</Link>
     </Compile>
