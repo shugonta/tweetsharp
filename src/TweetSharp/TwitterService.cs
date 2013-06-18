@@ -572,7 +572,20 @@ namespace TweetSharp
                     var entity = response.ContentEntity;
                     action.Invoke(entity, new TwitterResponse(response));
                 }));
-        }      
+        }
+
+        private void WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path, IDictionary<string, Stream> files, params object[] segments) where T : class
+        {
+            var url = ResolveUrlSegments(path, segments.ToList());
+            var request = PrepareHammockQuery(url);
+            request.Method = method;
+            request.QueryHandling = QueryHandling.AppendToParameters;
+            foreach (var file in files)
+            {
+                request.AddFile("media[]", file.Key, file.Value);
+            }
+            WithHammockImpl(request, action);
+        }
 #endif
 
         private static T TryAsyncResponse<T>(Func<T> action, out Exception exception)
