@@ -32,6 +32,7 @@ namespace TweetSharp
         private TwitterUser _user;
         private TwitterStatus _retweetedStatus;
         private TwitterGeoLocation _location;
+        private string _language;
         private TwitterEntities _entities;
         private bool? _isPossiblySensitive;
         private TwitterPlace _place;
@@ -321,6 +322,26 @@ namespace TweetSharp
 
                 _location = value;
                 OnPropertyChanged("Location");
+            }
+        }
+
+
+        [JsonProperty("lang")]
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual string Language
+        {
+            get { return _language; }
+            set
+            {
+                if (_language == value)
+                {
+                    return;
+                }
+
+                _language = value;
+                OnPropertyChanged("Language");
             }
         }
 
