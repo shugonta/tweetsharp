@@ -57,26 +57,28 @@ namespace TweetSharp
             {
                 return null;
             }
-            if (type == typeof (TwitterError))
+            if (type == typeof(TwitterError))
             {
                 // {"errors":[{"message":"Bad Authentication data","code":215}]}
                 content = content.Trim('\n');
-                if (content.StartsWith("{\"errors\":["))
+                if (content.StartsWith("{\"errors\":"))
                 {
-                    var errors = (JArray)JObject.Parse(content)["errors"];
+                    var errors = JObject.Parse(content)["errors"];
                     if (errors != null)
                     {
                         var result = new TwitterError { RawSource = content };
-                        var error = errors.First();
-                        result.Message = error["message"].ToString();
-                        result.Code = int.Parse(error["code"].ToString());
-                        return (ITwitterModel)result;
+                        if (errors.Type == JTokenType.Array)
+                        {
+                            var error = errors.First();
+                            result.Message = error["message"].ToString();
+                            result.Code = int.Parse(error["code"].ToString());
+                        }
+                        else
+                        {
+                            result.Message = errors.ToString();
+                        }
+                        return result;
                     }
-                }
-                else
-                {
-                    var unknown = new TwitterError() { RawSource = content };
-                    return unknown;
                 }
             }
 
@@ -103,7 +105,7 @@ namespace TweetSharp
                         var result = new TwitterUserStreamFriends {RawSource = content};
                         var ids = friends.Select(token => token.Value<long>()).ToList();
                         result.Ids = ids;
-                        return (ITwitterModel) result;
+                        return result;
                     }
                 }
                 // {"delete":{"status":{"user_id_str":"14363427","id_str":"45331017418014721","id":45331017418014721,"user_id":14363427}}}
@@ -118,7 +120,7 @@ namespace TweetSharp
                                              StatusId = deleted["id"].Value<long>(),
                                              UserId = deleted["user_id"].Value<int>()
                                          };
-                        return (ITwitterModel) result;
+                        return result;
                     }
                 }
                 else if (content.StartsWith("{\"delete\":{\"direct_message\":"))
@@ -132,7 +134,7 @@ namespace TweetSharp
                             DirectMessageId = deleted["id"].Value<long>(),
                             UserId = deleted["user_id"].Value<int>()
                         };
-                        return (ITwitterModel)result;
+                        return result;
                     }
                 }
                 else
@@ -147,7 +149,7 @@ namespace TweetSharp
                     {
                         var tweet = DeserializeSingle(content, typeof(TwitterStatus)) as TwitterStatus;
                         var @event = new TwitterUserStreamStatus {Status = tweet, RawSource = content};
-                        return (ITwitterModel) @event;
+                        return @event;
                     }
 
                     if (artifact["direct_message"] != null)
@@ -155,11 +157,11 @@ namespace TweetSharp
                         var json = artifact["direct_message"].ToString();
                         var dm = DeserializeSingle(json, typeof(TwitterDirectMessage)) as TwitterDirectMessage;
                         var @event = new TwitterUserStreamDirectMessage {DirectMessage = dm, RawSource = json};
-                        return (ITwitterModel) @event;
+                        return @event;
                     }
 
                     var unknown = new TwitterStreamArtifact {RawSource = content};
-                    return (ITwitterModel) unknown;
+                    return unknown;
                 }
             }
 
@@ -202,7 +204,7 @@ namespace TweetSharp
                 result.TargetObject = DeserializeSingle(json, typeof(TwitterStatus)) as TwitterStatus;
             }
 
-            return (ITwitterModel)result;
+            return result;
         }
 
         private object DeserializeTrends(string content)
