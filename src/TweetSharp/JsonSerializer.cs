@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Hammock;
@@ -331,7 +332,10 @@ namespace TweetSharp
 
         private static JObject ParseInnerContent(string entity, string content, Type outer,  Type cursor, JObject instance, ref JArray array)
         {
-            if (!content.Contains(string.Format("\"{0}\"", entity)))
+            var inner = new Regex(string.Format(" \"{0}\" : ", entity),
+                                  RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase |
+                                  RegexOptions.IgnorePatternWhitespace);
+            if (!inner.IsMatch(content))
             {
                 return instance;
             }
