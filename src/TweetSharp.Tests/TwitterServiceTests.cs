@@ -1082,7 +1082,13 @@ namespace TweetSharp.Tests.Service
             TwitterService service = GetAuthenticatedService();
             TwitterStatus tweet = service.GetTweet(new GetTweetOptions() { Id = 294853375609163776 });
             Assert.NotNull(tweet);
+        }
 
+        [Test]
+        public void Recursive_issues_on_private_accounts()
+        {
+            TwitterService service = GetAuthenticatedService();
+            service.Deserialize<TwitterUser>("<xml>502!</xml>");
         }
     }
 }
