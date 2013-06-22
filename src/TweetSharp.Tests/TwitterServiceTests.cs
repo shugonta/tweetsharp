@@ -1088,7 +1088,7 @@ namespace TweetSharp.Tests.Service
         public void Recursive_issues_on_private_accounts()
         {
             TwitterService service = GetAuthenticatedService();
-            service.Deserialize<TwitterUser>("<xml>502!</xml>");
+            service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions { ScreenName = "@boomboom", Count = 5, SinceId = null, MaxId = null });
         }
     }
 }

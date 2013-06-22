@@ -41,7 +41,6 @@ namespace TweetSharp
         }
 
         private IDeserializer _customDeserializer;
-        private ISerializer _customSerializer;
         public IDeserializer Deserializer
         {
             get
@@ -51,6 +50,7 @@ namespace TweetSharp
             set { _customDeserializer = value; }
         }
 
+        private ISerializer _customSerializer;
         public ISerializer Serializer
         {
             get
