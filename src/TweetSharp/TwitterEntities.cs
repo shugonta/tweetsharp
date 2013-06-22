@@ -144,6 +144,12 @@ namespace TweetSharp
 #endif
         public virtual string ExpandedValue { get; set; }
 
+        [JsonProperty("display_url")]
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+        public virtual string DisplayUrl { get; set; }
+
         public TwitterUrl()
         {
             Initialize();
