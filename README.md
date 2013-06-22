@@ -3,7 +3,8 @@
     PM> Install-Package TweetSharp          
 ```
 
-**_The current V2.3+ releases support Twitter API v1.1, and do not support v1.0_**
+**_This project is no longer actively developed by its creator. You're welcome to fork or send a pull request._**
+**_The final V2.3+ release supports Twitter API v1.1, and not support v1.0_**
 
 #### Introduction
 TweetSharp is a Twitter API library that greatly simplifies the task of adding Twitter to your desktop, web, and mobile applications. You can build simple widgets, or complex application suites using TweetSharp. The second version, a rewrite,  was designed to be lighter, faster, and more intuitive than the original. You write fewer lines of code, make fewer decisions, and get better results. Visual Studio T4 templates are employed to automatically generate new API methods from a simple text-based DSL.
@@ -14,12 +15,8 @@ T4 templates, making it ridiculously easy to extend for any API methods that Twi
 no pull requests are received, so please plan accordingly, engage commercial support, or help out!
 
 #### Commercial support
-Due to popular request, I offer commercial support services; you may inquire about support requests by contacting me through GitHub. 
-For the majority of cases, though, you should be able to get on fine by forking, adding your desired API changes through the DSL, 
-and issuing a pull request.
-
-#### Corporate sponsorships
-Ongoing development on V2 of this project wouldn't have been possible without contributions from these companies.
+I no longer offer commercial support services for TweetSharp. It is now in its final state. 
+TweetSharp V2 in general wouldn't have been possible without the sponsorship of SmartParents.
 
 [![SmartParents](https://raw.github.com/danielcrenna/tweetsharp/master/sponsors/SmartParents_RGB_logo_250px.png)](http://smartparents.com)
 
@@ -237,9 +234,9 @@ foreach (var tweet in tweets)
 }
 ```
 
-#### Using Windows Phone 7
+#### Using Windows Phone
 TweetSharp is designed with Windows Phone 7 in mind. 
-Each sequential method on `TwitterService` also has an asynchronous equivalent for Windows Phone 7. 
+Each sequential method on `TwitterService` also has an asynchronous equivalent for Windows Phone. 
 Rather than expect a response, each method asks for a delegation `Action` to perform, which provides 
 the expected result, as well as a wrapper class to help you handle unexpected results in your application.
 
