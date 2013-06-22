@@ -210,7 +210,7 @@ namespace TweetSharp
 
         public virtual OAuthRequestToken GetRequestToken()
         {
-            return GetRequestToken(null);
+            return GetRequestToken(callback: null);
         }
 
         public virtual OAuthAccessToken GetAccessTokenWithXAuth(string username, string password)
@@ -242,7 +242,7 @@ namespace TweetSharp
 
         public virtual OAuthAccessToken GetAccessToken(OAuthRequestToken requestToken)
         {
-            return GetAccessToken(requestToken, null);
+            return GetAccessToken(requestToken, verifier: null);
         }
 
         public virtual OAuthAccessToken GetAccessToken(OAuthRequestToken requestToken, string verifier)
@@ -281,9 +281,7 @@ namespace TweetSharp
             var response = client.Request(request);
             return response.Content ?? "";
         }
-#endif
 
-#if WINDOWS_PHONE || SILVERLIGHT
         public virtual void GetRequestToken(string callback, Action<OAuthRequestToken, TwitterResponse> action)
         {
             var args = new FunctionArguments
@@ -438,7 +436,6 @@ namespace TweetSharp
                                }
                );
         }
-#endif
 
         public virtual RestRequest PrepareEchoRequest(string realm = "http://api.twitter.com")
         {
@@ -470,5 +467,6 @@ namespace TweetSharp
             echo.AddHeader("X-Verify-Credentials-Authorization", auth);
             return echo;
         }
+#endif
     }
 }

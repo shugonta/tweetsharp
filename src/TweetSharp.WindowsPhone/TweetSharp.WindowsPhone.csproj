@@ -96,6 +96,9 @@
     <Compile Include="..\TweetSharp\ITwitterModel.cs">
       <Link>ITwitterModel.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\ITwitterService.cs">
+      <Link>ITwitterService.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\JsonConventionResolver.cs">
       <Link>JsonConventionResolver.cs</Link>
     </Compile>

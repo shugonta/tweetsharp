@@ -9,7 +9,7 @@ namespace TweetSharp
     /// Sometimes Twitter returns "0" for "true", instead of true, and we've even seen
     /// "13" for true. For those, and possibly future issues, this converter exists.
     /// </summary>
-    internal class TwitterWonkyBooleanConverter : TwitterConverterBase
+    public class TwitterWonkyBooleanConverter : TwitterConverterBase
     {
         /// <summary>
         /// Writes the JSON.
