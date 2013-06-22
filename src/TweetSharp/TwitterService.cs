@@ -23,8 +23,7 @@ namespace TweetSharp
     public partial class TwitterService
     {
         private readonly RestClient _client;
-        private readonly JsonSerializer _json;
-
+        
         public bool TraceEnabled { get; set; }
         public string Proxy { get; set; }
         public bool IncludeEntities { get; set; }
@@ -36,28 +35,29 @@ namespace TweetSharp
             set
             {
                 _client.UserAgent = value;
+                _publicStreamsClient.UserAgent = value;
+                _userStreamsClient.UserAgent = value;
                 _oauth.UserAgent = value;
             }
         }
 
-        private IDeserializer _customDeserializer;
         public IDeserializer Deserializer
         {
-            get
-            {
-                return _customDeserializer ?? _json;
+            get { return _client.Deserializer; }
+            set { 
+                _client.Deserializer = value;
+                _userStreamsClient.Deserializer = value;
+                _publicStreamsClient.Deserializer = value;
             }
-            set { _customDeserializer = value; }
         }
 
-        private ISerializer _customSerializer;
         public ISerializer Serializer
         {
-            get
-            {
-                return _customSerializer ?? _json;
+            get { return _client.Serializer; }
+            set { _client.Serializer = value;
+                _userStreamsClient.Serializer = value;
+                _publicStreamsClient.Serializer = value;
             }
-            set { _customSerializer = value; }
         }
         
         private string _consumerKey;
@@ -97,8 +97,15 @@ namespace TweetSharp
             _consumerKey = consumerKey;
             _consumerSecret = consumerSecret;
         }
+
+        public TwitterService(string consumerKey, string consumerSecret, ISerializer serializer, IDeserializer deserializer)
+            : this(serializer, deserializer)
+        {
+            _consumerKey = consumerKey;
+            _consumerSecret = consumerSecret;
+        }
         
-        public TwitterService(string consumerKey, string consumerSecret, string proxy) : this(proxy)
+        public TwitterService(string consumerKey, string consumerSecret, string proxy) : this(proxy: proxy)
         {
             _consumerKey = consumerKey;
             _consumerSecret = consumerSecret;
@@ -112,18 +119,28 @@ namespace TweetSharp
             _tokenSecret = tokenSecret;
         }
 
-        public TwitterService(string proxy = null)
+        public TwitterService(string consumerKey, string consumerSecret, string token, string tokenSecret, ISerializer serializer, IDeserializer deserializer)
+             : this(serializer, deserializer)
         {
-            this.Proxy = proxy;
-            _json = new JsonSerializer();
+            _consumerKey = consumerKey;
+            _consumerSecret = consumerSecret;
+            _token = token;
+            _tokenSecret = tokenSecret;
+        }
 
+        public TwitterService(ISerializer serializer = null, IDeserializer deserializer = null, string proxy = null)
+        {
+            Proxy = proxy;
             FormatAsString = ".json";
+            
+            var jsonSerializer = new JsonSerializer();
+            const string userAgent = "TweetSharp";
 
             _oauth = new RestClient
             {
                 Authority = Globals.Authority,
                 Proxy = Proxy,
-                UserAgent = "TweetSharp",
+                UserAgent = userAgent,
                 DecompressionMethods = DecompressionMethods.GZip,
                 GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
 #if SILVERLIGHT
@@ -136,11 +153,11 @@ namespace TweetSharp
                 Authority = Globals.Authority,
                 QueryHandling = QueryHandling.AppendToParameters,
                 VersionPath = "1.1",
-                Serializer = _json,
-                Deserializer = _json,
+                Serializer = serializer ?? jsonSerializer,
+                Deserializer = deserializer ?? jsonSerializer,
                 DecompressionMethods = DecompressionMethods.GZip,
                 GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
-                UserAgent = "TweetSharp",
+                UserAgent = userAgent,
                 Proxy = Proxy,
 #if !SILVERLIGHT
                 FollowRedirects = true,
@@ -155,11 +172,11 @@ namespace TweetSharp
                 Authority = Globals.UserStreamsAuthorityt,
                 Proxy = Proxy,
                 VersionPath = "1.1",
-                Serializer = _json,
-                Deserializer = _json,
+                Serializer = serializer ?? jsonSerializer,
+                Deserializer = deserializer ?? jsonSerializer,
                 DecompressionMethods = DecompressionMethods.GZip,
                 GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
-                UserAgent = "TweetSharp",
+                UserAgent = userAgent,
 #if !SILVERLIGHT
                 FollowRedirects = true,
 #endif
@@ -173,10 +190,10 @@ namespace TweetSharp
                 Authority = Globals.PublicStreamsAuthority,
                 Proxy = Proxy,
                 VersionPath = "1.1",
-                Serializer = _json,
-                Deserializer = _json,
+                Serializer = serializer ?? jsonSerializer,
+                Deserializer = deserializer ?? jsonSerializer,
                 DecompressionMethods = DecompressionMethods.GZip,
-                UserAgent = "TweetSharp",
+                UserAgent = userAgent,
 #if !SILVERLIGHT
                 FollowRedirects = true,
 #endif
@@ -275,9 +292,7 @@ namespace TweetSharp
         {
             var response = new RestResponse<T> { StatusCode = HttpStatusCode.OK };
             response.SetContent(content);
-            return _customDeserializer != null
-                       ? _customDeserializer.Deserialize<T>(response)
-                       : (T)_json.DeserializeContent(content, typeof(T));
+            return Deserializer.Deserialize<T>(response);
         }
 
         internal string FormatAsString { get; private set; }

@@ -28,6 +28,7 @@ namespace TweetSharp
         string GetEchoRequest(string url);
         RestRequest PrepareEchoRequest(string realm = "http://api.twitter.com");
         IDeserializer Deserializer { get; set; }
+        ISerializer Serializer { get; set; }
         T Deserialize<T>(ITwitterModel model) where T : ITwitterModel;
         T Deserialize<T>(string content);
         void CancelStreaming();
