@@ -8,7 +8,7 @@
 **_Forks must respect OSS and copyright law with respect to attribution._**
 
 #### Addressing issues with deserialization 
-Daniel: In some cases, and mostly reported when trying to access the timeline of a protected user, the deserializer can get into an
+In some cases, and mostly reported when trying to access the timeline of a protected user, the deserializer can get into an
 infinite recursion state that causes a StackOverflowException. The ability to reproduce this comes and goes, as it's mainly 
 due to some brittleness in the serializer caused by trying to anticipate too many possible branches of code. Currently this
 use case seems to work. Twitter's JSON structures are not typical class-with-properties mappings meaning they need custom 
