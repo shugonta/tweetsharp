@@ -7,6 +7,15 @@
 **_If someone forks this project and proves active and interested ongoing development, I will transfer this repo to them._**
 **_Forks must respect OSS and copyright law with respect to attribution._**
 
+#### Addressing issues with deserialization 
+Daniel: In some cases, and mostly reported when trying to access the timeline of a protected user, the deserializer can get into an
+infinite recursion state that causes a StackOverflowException. The ability to reproduce this comes and goes, as it's mainly 
+due to some brittleness in the serializer caused by trying to anticipate too many possible branches of code. Currently this
+use case seems to work. Twitter's JSON structures are not typical class-with-properties mappings meaning they need custom 
+conversion. After several years, this code looks long in the tooth and probably will run into similar issues now or in the 
+future. You can override the serializer by either setting the TwitterService.Deserialize property instantiation or using the
+constructor overload, if you have the appetite to replace it with something better. - Daniel
+
 #### Introduction
 TweetSharp is a Twitter API library that greatly simplifies the task of adding Twitter to your desktop, web, and mobile applications. You can build simple widgets, or complex application suites using TweetSharp. The second version, a rewrite,  was designed to be lighter, faster, and more intuitive than the original. You write fewer lines of code, make fewer decisions, and get better results. Visual Studio T4 templates are employed to automatically generate new API methods from a simple text-based DSL.
 
