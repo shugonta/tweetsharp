@@ -62,7 +62,7 @@ namespace TweetSharp
             {
                 // {"errors":[{"message":"Bad Authentication data","code":215}]}
                 content = content.Trim('\n');
-                if (content.StartsWith("{\"errors\":"))
+                if (content.StartsWith("{\"errors\"[:"))
                 {
                     var errors = JObject.Parse(content)["errors"];
                     if (errors != null)
@@ -79,6 +79,17 @@ namespace TweetSharp
                             result.Message = errors.ToString();
                         }
                         return result;
+                    }
+                }
+                else if (content.Contains("error"))
+                {
+                    var error = JObject.Parse(content)["error"].ToString();
+                    if (error != null)
+                    {
+                        var result = new TwitterError { RawSource = content };
+                        result.Message = error;
+                        result.Code = 99;
+                        return (ITwitterModel)result;
                     }
                 }
             }
