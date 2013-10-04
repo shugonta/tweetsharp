@@ -60,10 +60,10 @@ namespace TweetSharp
         {
 #if !WINDOWS_PHONE
             var entities = new List<TwitterEntity>(Mentions.Count() + HashTags.Count() + Urls.Count() + Media.Count());
-            entities.AddRange((IEnumerable<TwitterEntity>) Mentions);
-            entities.AddRange((IEnumerable<TwitterEntity>) HashTags);
-            entities.AddRange((IEnumerable<TwitterEntity>) Urls);
-            entities.AddRange((IEnumerable<TwitterEntity>) Media);
+            entities.AddRange(Mentions.Cast<TwitterEntity>());
+            entities.AddRange(HashTags.Cast<TwitterEntity>());
+            entities.AddRange(Urls.Cast<TwitterEntity>());
+            entities.AddRange(Media.Cast<TwitterEntity>());
             entities.Sort();
 #else
             var entities = new List<TwitterEntity>(Mentions.Count() + HashTags.Count() + Urls.Count() + Media.Count());
