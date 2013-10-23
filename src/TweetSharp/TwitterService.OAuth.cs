@@ -233,7 +233,7 @@ namespace TweetSharp
             {
                 Token = query["oauth_token"] ?? "?",
                 TokenSecret = query["oauth_token_secret"] ?? "?",
-                UserId = Convert.ToInt32(query["user_id"] ?? "0"),
+                UserId = Convert.ToInt64(query["user_id"] ?? "0"),
                 ScreenName = query["screen_name"] ?? "?"
             };
 
@@ -266,7 +266,7 @@ namespace TweetSharp
                         {
                             Token = query["oauth_token"] ?? "?",
                             TokenSecret = query["oauth_token_secret"] ?? "?",
-                            UserId = Convert.ToInt32(query["user_id"] ?? "0"),
+                            UserId = Convert.ToInt64(query["user_id"] ?? "0"),
                             ScreenName = query["screen_name"] ?? "?"
                         };
 
@@ -354,7 +354,7 @@ namespace TweetSharp
                                             {
                                                 Token = query["oauth_token"] ?? "?",
                                                 TokenSecret = query["oauth_token_secret"] ?? "?",
-                                                UserId = Convert.ToInt32(query["user_id"] ?? "0"),
+                                                UserId = Convert.ToInt64(query["user_id"] ?? "0"),
                                                 ScreenName = query["screen_name"] ?? "?"
                                             };
                                             return accessToken;
@@ -399,7 +399,7 @@ namespace TweetSharp
                                        {
                                            Token = query["oauth_token"] ?? "?",
                                            TokenSecret = query["oauth_token_secret"] ?? "?",
-                                           UserId = Convert.ToInt32(query["user_id"] ?? "0"),
+                                           UserId = Convert.ToInt64(query["user_id"] ?? "0"),
                                            ScreenName = query["screen_name"] ?? "?"
                                        };
                                        return accessToken;
