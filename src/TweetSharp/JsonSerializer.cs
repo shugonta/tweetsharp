@@ -62,7 +62,7 @@ namespace TweetSharp
             {
                 // {"errors":[{"message":"Bad Authentication data","code":215}]}
                 content = content.Trim('\n');
-                if (content.StartsWith("{\"errors\"[:"))
+                if (content.StartsWith("{\"errors\":["))
                 {
                     var errors = JObject.Parse(content)["errors"];
                     if (errors != null)
