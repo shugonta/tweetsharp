@@ -44,9 +44,8 @@
     <ApplicationIcon>assembly.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -130,14 +129,12 @@
     <Content Include="_TwitterService.14.Help.json" />
     <Content Include="_TwitterService.9.Favorites.json" />
     <Content Include="_TwitterService.8.SuggestedUsers.json" />
+    <None Include="packages.config" />
     <None Include="TwitterService.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TwitterService.generated.cs</LastGenOutput>
     </None>
     <None Include="key.snk" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="assembly.ico" />
@@ -147,9 +144,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\hammock\src\net40\Hammock.ClientProfile\Hammock.csproj">
+    <ProjectReference Include="..\..\hammock\src\net40\Hammock.ClientProfile\Hammock.ClientProfile.csproj">
       <Project>{487b7e3c-9689-47bc-8785-73ccd92a3749}</Project>
-      <Name>Hammock %28Hammock\Hammock%29</Name>
+      <Name>Hammock.ClientProfile</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

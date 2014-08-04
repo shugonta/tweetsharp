@@ -72,7 +72,7 @@ namespace TweetSharp.Tests.Service
             places = places.OrderBy(p => p.Id).ToList();
 
             Assert.AreEqual("Ottawa, Ontario", places[0].FullName);
-            Assert.AreEqual(TwitterPlaceType.City, places[0].PlaceType);
+            Assert.AreEqual(TwitterPlaceType.Admin, places[0].PlaceType);
             Assert.AreEqual("06183ca2a30a18e8", places[0].Id);
             Assert.AreEqual(1, places[0].ContainedWithin.Count());
             Assert.AreEqual("89b2eb8b2b9847f7", places[0].ContainedWithin.ToList()[0].Id);
@@ -81,10 +81,10 @@ namespace TweetSharp.Tests.Service
             Assert.AreEqual("3376992a082d67c7", places[1].Id);
             Assert.AreEqual(TwitterPlaceType.Country, places[1].PlaceType);
 
-            Assert.AreEqual("Ontario, Canada", places[2].FullName);
-            Assert.AreEqual(TwitterPlaceType.Admin, places[2].PlaceType);
+						Assert.AreEqual("Ottawa, Ottawa", places[2].FullName);
+            Assert.AreEqual(TwitterPlaceType.City, places[2].PlaceType);
 
-            Assert.AreEqual("Québec, Canada", places[3].FullName);
+						Assert.AreEqual("Ontario, Canada", places[3].FullName);
             Assert.AreEqual(TwitterPlaceType.Admin, places[3].PlaceType);
         }
 
@@ -98,7 +98,7 @@ namespace TweetSharp.Tests.Service
             Assert.IsNotEmpty(places);
 
             places = places.OrderBy(p => p.Id).ToList();
-            Assert.AreEqual("06183ca2a30a18e8", places[0].Id);
+						Assert.AreEqual("127021a2772dbff7", places[0].Id);
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace TweetSharp.Tests.Service
 
             Assert.IsNotNull(tweet);
             Assert.IsNotNull(tweet.TextAsHtml);
-            Assert.IsTrue(tweet.TextAsHtml.Contains("https://twitter.com/search?q=%23Ingredientsforgood"));
+            Assert.IsTrue(tweet.TextAsHtml.Contains("https://twitter.com/search?q=Ingredientsforgood"));
         }
 
         [Test]
@@ -158,7 +158,7 @@ namespace TweetSharp.Tests.Service
 
             var service = GetAuthenticatedService();
 
-            var ids = service.ListFriendIdsOf(new ListFriendIdsOfOptions { ScreenName = "mtamermahoney" });
+            var ids = service.ListFriendIdsOf(new ListFriendIdsOfOptions { ScreenName = "yortw" });
             
             
             var subList = ids.Count > 100 ? ids.Take(maxIdsToGet) : ids;

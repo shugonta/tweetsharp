@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Compat.Web;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
@@ -8,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Web;
 using NUnit.Framework;
 
 namespace TweetSharp.Tests.Service
@@ -20,6 +20,8 @@ namespace TweetSharp.Tests.Service
         private readonly string _consumerSecret;
         private readonly string _accessToken;
         private readonly string _accessTokenSecret;
+				private readonly string _twitPicKey;
+				private readonly string _twitPicUserName;
 
         public TwitterServiceTests()
         {
@@ -28,6 +30,8 @@ namespace TweetSharp.Tests.Service
             _consumerSecret = ConfigurationManager.AppSettings["ConsumerSecret"];
             _accessToken = ConfigurationManager.AppSettings["AccessToken"];
             _accessTokenSecret = ConfigurationManager.AppSettings["AccessTokenSecret"];
+						_twitPicKey = ConfigurationManager.AppSettings["TwitPicKey"];
+						_twitPicUserName = ConfigurationManager.AppSettings["TwitPicUserName"];
         }
 
         [Test]
@@ -729,13 +733,20 @@ namespace TweetSharp.Tests.Service
             
             foreach(var tweet in tweets)
             {
-                if(tweet.Entities == null)
+							//Appears on retweets that are over 140 chars multiple entities near the end can end up being assigned a start of 139.
+							//Twitter recommends using entities from the original tweet anyway.
+
+							var tweetToTest = tweet;
+							if (tweetToTest.RetweetedStatus != null)
+								tweetToTest = tweetToTest.RetweetedStatus;
+
+								if (tweetToTest.Entities == null)
                 {
                     continue;
                 }
 
-                var entities = tweet.Entities.Coalesce();
-                if(entities.Count() < 2)
+								var entities = tweetToTest.Entities.Coalesce();
+								if (entities.Count() < 2)
                 {
                     continue;
                 }

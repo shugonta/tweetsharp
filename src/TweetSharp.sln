@@ -37,11 +37,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.SharpZipLib.Sil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.SharpZipLib.WindowsPhone", "..\hammock\src\net40\ICSharpCode.SharpZipLib.WindowsPhone\ICSharpCode.SharpZipLib.WindowsPhone.csproj", "{BF04A546-D681-4F5A-AC41-CFC67CAEC66E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hammock", "..\hammock\src\net40\Hammock.ClientProfile\Hammock.csproj", "{487B7E3C-9689-47BC-8785-73CCD92A3749}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hammock.WindowsPhone", "..\hammock\src\net40\Hammock.WindowsPhone\Hammock.WindowsPhone.csproj", "{3059FD1C-4B4B-4460-A0D4-53C84CCE6CAC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hammock.WindowsPhone.Mango", "..\hammock\src\net40\Hammock.WindowsPhone.Mango\Hammock.WindowsPhone.Mango.csproj", "{CD029D13-5037-43A6-8CD9-5F12B00A7DE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hammock.ClientProfile", "..\hammock\src\net40\Hammock.ClientProfile\Hammock.ClientProfile.csproj", "{487B7E3C-9689-47BC-8785-73CCD92A3749}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,14 +147,6 @@ Global
 		{BF04A546-D681-4F5A-AC41-CFC67CAEC66E}.Mono|Any CPU.Build.0 = Release|Any CPU
 		{BF04A546-D681-4F5A-AC41-CFC67CAEC66E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF04A546-D681-4F5A-AC41-CFC67CAEC66E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{487B7E3C-9689-47BC-8785-73CCD92A3749}.ClientProfiles|Any CPU.ActiveCfg = Release|Any CPU
-		{487B7E3C-9689-47BC-8785-73CCD92A3749}.ClientProfiles|Any CPU.Build.0 = Release|Any CPU
-		{487B7E3C-9689-47BC-8785-73CCD92A3749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{487B7E3C-9689-47BC-8785-73CCD92A3749}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{487B7E3C-9689-47BC-8785-73CCD92A3749}.Mono|Any CPU.ActiveCfg = Release|Any CPU
-		{487B7E3C-9689-47BC-8785-73CCD92A3749}.Mono|Any CPU.Build.0 = Release|Any CPU
-		{487B7E3C-9689-47BC-8785-73CCD92A3749}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{487B7E3C-9689-47BC-8785-73CCD92A3749}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3059FD1C-4B4B-4460-A0D4-53C84CCE6CAC}.ClientProfiles|Any CPU.ActiveCfg = ClientProfiles|Any CPU
 		{3059FD1C-4B4B-4460-A0D4-53C84CCE6CAC}.ClientProfiles|Any CPU.Build.0 = ClientProfiles|Any CPU
 		{3059FD1C-4B4B-4460-A0D4-53C84CCE6CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -171,6 +163,14 @@ Global
 		{CD029D13-5037-43A6-8CD9-5F12B00A7DE0}.Mono|Any CPU.Build.0 = Release|Any CPU
 		{CD029D13-5037-43A6-8CD9-5F12B00A7DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD029D13-5037-43A6-8CD9-5F12B00A7DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{487B7E3C-9689-47BC-8785-73CCD92A3749}.ClientProfiles|Any CPU.ActiveCfg = Release|Any CPU
+		{487B7E3C-9689-47BC-8785-73CCD92A3749}.ClientProfiles|Any CPU.Build.0 = Release|Any CPU
+		{487B7E3C-9689-47BC-8785-73CCD92A3749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{487B7E3C-9689-47BC-8785-73CCD92A3749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{487B7E3C-9689-47BC-8785-73CCD92A3749}.Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{487B7E3C-9689-47BC-8785-73CCD92A3749}.Mono|Any CPU.Build.0 = Release|Any CPU
+		{487B7E3C-9689-47BC-8785-73CCD92A3749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{487B7E3C-9689-47BC-8785-73CCD92A3749}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -181,8 +181,8 @@ Global
 		{46AFFE9E-B0DF-4DE9-A1A3-1773E08DCB51} = {0C6ACA0E-F33B-439A-BA09-DB9E2C2A772F}
 		{5953279F-F478-4D5F-9906-03D56CE2DA2D} = {0C6ACA0E-F33B-439A-BA09-DB9E2C2A772F}
 		{BF04A546-D681-4F5A-AC41-CFC67CAEC66E} = {0C6ACA0E-F33B-439A-BA09-DB9E2C2A772F}
-		{487B7E3C-9689-47BC-8785-73CCD92A3749} = {0C6ACA0E-F33B-439A-BA09-DB9E2C2A772F}
 		{3059FD1C-4B4B-4460-A0D4-53C84CCE6CAC} = {0C6ACA0E-F33B-439A-BA09-DB9E2C2A772F}
 		{CD029D13-5037-43A6-8CD9-5F12B00A7DE0} = {0C6ACA0E-F33B-439A-BA09-DB9E2C2A772F}
+		{487B7E3C-9689-47BC-8785-73CCD92A3749} = {0C6ACA0E-F33B-439A-BA09-DB9E2C2A772F}
 	EndGlobalSection
 EndGlobal
