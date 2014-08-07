@@ -99,6 +99,9 @@
     <Compile Include="..\TweetSharp\ObjectExtensions.cs">
       <Link>ObjectExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\Properties\AssemblyInfoVersion.cs">
+      <Link>Properties\AssemblyInfoVersion.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\SerializerBase.cs">
       <Link>SerializerBase.cs</Link>
     </Compile>
