@@ -549,7 +549,7 @@ namespace TweetSharp
         }
 #endif
 
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE 
         private void WithHammock<T>(Action<T, TwitterResponse> action, string path) where T : class
         {
             var request = PrepareHammockQuery(path);

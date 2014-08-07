@@ -179,7 +179,8 @@ namespace TweetSharp
 		}
 
 #if !SILVERLIGHT
-        public virtual OAuthRequestToken GetRequestToken(string callback)
+
+		public virtual OAuthRequestToken GetRequestToken(string callback)
         {
             var args = new FunctionArguments
             {
@@ -213,7 +214,7 @@ namespace TweetSharp
             return GetRequestToken(callback: null);
         }
 
-        public virtual OAuthAccessToken GetAccessTokenWithXAuth(string username, string password)
+				public virtual OAuthAccessToken GetAccessTokenWithXAuth(string username, string password)
         {
             var args = new FunctionArguments
             {
@@ -281,6 +282,8 @@ namespace TweetSharp
             var response = client.Request(request);
             return response.Content ?? "";
         }
+
+#endif
 
         public virtual void GetRequestToken(string callback, Action<OAuthRequestToken, TwitterResponse> action)
         {
@@ -467,6 +470,6 @@ namespace TweetSharp
             echo.AddHeader("X-Verify-Credentials-Authorization", auth);
             return echo;
         }
-#endif
+
     }
 }
