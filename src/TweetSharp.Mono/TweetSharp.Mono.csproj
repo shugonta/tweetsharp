@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
-    <DefineConstants>Mono,NET40</DefineConstants>
+    <DefineConstants>Mono;NET40</DefineConstants>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -40,6 +40,9 @@
     </Compile>
     <Compile Include="..\TweetSharp\Helpers.cs">
       <Link>Helpers.cs</Link>
+    </Compile>
+    <Compile Include="..\TweetSharp\TwitterGeoLocationSearch.cs">
+      <Link>TwitterGeoLocationSearch.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="..\TweetSharp\TwitterService.cs">
@@ -202,9 +205,6 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="Hammock">
-      <HintPath>..\packages\Hammock.1.3.1\lib\4.0\Hammock.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -213,5 +213,11 @@
     <None Include="..\TweetSharp\key.snk">
       <Link>key.snk</Link>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\hammock\src\mono\Hammock.Mono\Hammock.Mono.csproj">
+      <Project>{c8371692-da90-4437-bcb7-a5a2ef37b095}</Project>
+      <Name>Hammock.Mono</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
