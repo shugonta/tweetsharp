@@ -5,7 +5,7 @@ using Hammock;
 using Hammock.Authentication.OAuth;
 using Hammock.Web;
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
 using System.Compat.Web;
 #endif
 
@@ -20,11 +20,11 @@ using HttpUtility = System.Web.HttpUtility;
 namespace TweetSharp
 {
     public partial class TwitterService
-    {
-#if !SILVERLIGHT
+		{
+#if !SILVERLIGHT && !WINRT
         [Serializable]
 #endif
-        private class FunctionArguments
+			private class FunctionArguments
         {
             public string ConsumerKey { get; set; }
             public string ConsumerSecret { get; set; }
@@ -178,7 +178,7 @@ namespace TweetSharp
 			return new Uri(AuthenticateUrl +"?oauth_token=" + oauth.Token + "&oauth_callback=" + callback + "&lang=" + languageCode);
 		}
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
 
 		public virtual OAuthRequestToken GetRequestToken(string callback)
         {
@@ -274,14 +274,14 @@ namespace TweetSharp
             return accessToken;
         }
 
-        public virtual string GetEchoRequest(string url)
-        {
-            var client = new RestClient { Authority = "" };
-            var request = PrepareEchoRequest();
-            request.Path = url;
-            var response = client.Request(request);
-            return response.Content ?? "";
-        }
+				public virtual string GetEchoRequest(string url)
+				{
+					var client = new RestClient { Authority = "" };
+					var request = PrepareEchoRequest();
+					request.Path = url;
+					var response = client.Request(request);
+					return response.Content ?? "";
+				}
 
 #endif
 
@@ -309,6 +309,16 @@ namespace TweetSharp
                         {
                             return null;
                         }
+											
+#if WINRT
+												var query = new Windows.Foundation.WwwFormUrlDecoder(resp.Content);
+												var requestToken = new OAuthRequestToken
+												{
+													Token = query.GetFirstValueByName("oauth_token") ?? "?",
+													TokenSecret = query.GetFirstValueByName("oauth_token_secret") ?? "?",
+													OAuthCallbackConfirmed = Convert.ToBoolean(query.GetFirstValueByName("oauth_callback_confirmed") ?? "false")
+												};
+#else
                         var query = HttpUtility.ParseQueryString(resp.Content);
                         var requestToken = new OAuthRequestToken
                         {
@@ -316,6 +326,7 @@ namespace TweetSharp
                             TokenSecret = query["oauth_token_secret"] ?? "?",
                             OAuthCallbackConfirmed = Convert.ToBoolean(query["oauth_callback_confirmed"] ?? "false")
                         };
+#endif
                         return requestToken;
                     }, 
                     out exception);
@@ -352,7 +363,17 @@ namespace TweetSharp
                                                 return null;
                                             }
 
-                                            var query = HttpUtility.ParseQueryString(resp.Content);
+#if WINRT
+																						var query = new Windows.Foundation.WwwFormUrlDecoder(resp.Content);
+                                            var accessToken = new OAuthAccessToken
+                                            {
+                                                Token = query.GetFirstValueByName("oauth_token") ?? "?",
+                                                TokenSecret = query.GetFirstValueByName("oauth_token_secret") ?? "?",
+                                                UserId = Convert.ToInt64(query.GetFirstValueByName("user_id") ?? "0"),
+                                                ScreenName = query.GetFirstValueByName("screen_name") ?? "?"
+                                            };
+#else
+																					  var query = HttpUtility.ParseQueryString(resp.Content);
                                             var accessToken = new OAuthAccessToken
                                             {
                                                 Token = query["oauth_token"] ?? "?",
@@ -360,7 +381,8 @@ namespace TweetSharp
                                                 UserId = Convert.ToInt64(query["user_id"] ?? "0"),
                                                 ScreenName = query["screen_name"] ?? "?"
                                             };
-                                            return accessToken;
+#endif
+																						return accessToken;
                                         },
                                         out exception);
 
@@ -397,6 +419,16 @@ namespace TweetSharp
                                             return null;
                                         }
 
+#if WINRT
+																				var query = new Windows.Foundation.WwwFormUrlDecoder(resp.Content);
+																				var accessToken = new OAuthAccessToken
+																				{
+																					Token = query.GetFirstValueByName("oauth_token") ?? "?",
+																					TokenSecret = query.GetFirstValueByName("oauth_token_secret") ?? "?",
+																					UserId = Convert.ToInt64(query.GetFirstValueByName("user_id") ?? "0"),
+																					ScreenName = query.GetFirstValueByName("screen_name") ?? "?"
+																				};
+#else
                                        var query = HttpUtility.ParseQueryString(resp.Content);
                                        var accessToken = new OAuthAccessToken
                                        {
@@ -405,6 +437,7 @@ namespace TweetSharp
                                            UserId = Convert.ToInt64(query["user_id"] ?? "0"),
                                            ScreenName = query["screen_name"] ?? "?"
                                        };
+#endif
                                        return accessToken;
                                    },
                                    out exception);

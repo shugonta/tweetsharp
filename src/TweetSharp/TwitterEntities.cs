@@ -8,13 +8,13 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-    // https://dev.twitter.com/docs/tweet-entities
+	// https://dev.twitter.com/docs/tweet-entities
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterEntities : IEnumerable<TwitterEntity>
@@ -87,11 +87,11 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public abstract class TwitterEntity : IComparable<TwitterEntity>, IComparer<TwitterEntity>
@@ -122,11 +122,11 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
     [DebuggerDisplay("@{Value}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
@@ -161,11 +161,11 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
     [DebuggerDisplay("@{ScreenName}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
@@ -195,11 +195,11 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
     [DebuggerDisplay("#{Text}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
@@ -222,11 +222,11 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
     [DebuggerDisplay("{MediaType}:{MediaUrl}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
@@ -297,11 +297,11 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterMediaSizes : IEnumerable<TwitterMediaSize>
@@ -363,11 +363,11 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterMediaSize

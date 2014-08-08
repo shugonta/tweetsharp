@@ -2,7 +2,7 @@ using System;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
     public enum TwitterSearchResultType
@@ -12,7 +12,7 @@ namespace TweetSharp
         Popular
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
     public enum TwitterProfileImageSize
@@ -22,7 +22,7 @@ namespace TweetSharp
         Mini
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
     public enum TwitterEntityType
@@ -33,7 +33,7 @@ namespace TweetSharp
         Media
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
     public enum TwitterPlaceType
@@ -45,7 +45,7 @@ namespace TweetSharp
         POI
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
     public enum TwitterMediaType
@@ -54,7 +54,7 @@ namespace TweetSharp
     }
 
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
     public enum TwitterListMode

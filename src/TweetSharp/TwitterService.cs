@@ -72,7 +72,7 @@ namespace TweetSharp
         }
 #endif
 
- #if !SILVERLIGHT
+ #if !SILVERLIGHT && !WINRT
         static TwitterService()
         {
             ServicePointManager.Expect100Continue = false;
@@ -143,7 +143,7 @@ namespace TweetSharp
                 UserAgent = userAgent,
                 DecompressionMethods = DecompressionMethods.GZip,
                 GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
-#if SILVERLIGHT
+#if SILVERLIGHT 
                 HasElevatedPermissions = true
 #endif
             };
@@ -159,7 +159,7 @@ namespace TweetSharp
                 GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
                 UserAgent = userAgent,
                 Proxy = Proxy,
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
                 FollowRedirects = true,
 #endif
 #if SILVERLIGHT
@@ -177,7 +177,7 @@ namespace TweetSharp
                 DecompressionMethods = DecompressionMethods.GZip,
                 GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
                 UserAgent = userAgent,
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
                 FollowRedirects = true,
 #endif
 #if SILVERLIGHT
@@ -194,13 +194,13 @@ namespace TweetSharp
                 Deserializer = deserializer ?? jsonSerializer,
                 DecompressionMethods = DecompressionMethods.GZip,
                 UserAgent = userAgent,
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
                 FollowRedirects = true,
 #endif
 #if SILVERLIGHT
                 HasElevatedPermissions = true
 #endif
-            };
+						};
 
             InitializeService();
         }
@@ -262,7 +262,14 @@ namespace TweetSharp
             path = path.Replace(string.Format("image_path={0}&", uri), "");
             request.Path = path;
             request.Method = WebMethod.Post;
+#if !WINRT
             request.AddFile("image", Path.GetFileName(Uri.UnescapeDataString(uri)), Path.GetFullPath(Uri.UnescapeDataString(uri)), "multipart/form-data");
+#else
+					var fullPath = Uri.UnescapeDataString(uri);
+					if (!System.IO.Path.IsPathRooted(fullPath)) //Best guess at how to create a 'full' path on WinRT where file access is restricted and all paths should be passed as 'full' versions anyway.
+						fullPath = System.IO.Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, uri);
+					request.AddFile("image", Path.GetFileName(Uri.UnescapeDataString(uri)), fullPath, "multipart/form-data");
+#endif
         }
 
         private void SetTwitterClientInfo(RestBase request)
@@ -382,8 +389,11 @@ namespace TweetSharp
             }
 
             segments.Insert(0, path);
-
+#if !WINRT
             return string.Concat(segments.ToArray()).ToString(CultureInfo.InvariantCulture);
+#else
+						return string.Concat(segments.ToArray());
+#endif
         }
 
         private static bool IsKeyAlreadySet(IList<object> segments, string key)
@@ -496,7 +506,7 @@ namespace TweetSharp
         }
 #endif
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
         private T WithHammock<T>(string path)
         {
             var request = PrepareHammockQuery(path);
@@ -603,7 +613,7 @@ namespace TweetSharp
         }
 #endif
 
-        private static T TryAsyncResponse<T>(Func<T> action, out Exception exception)
+				private static T TryAsyncResponse<T>(Func<T> action, out Exception exception)
         {
             exception = null;
             var entity = default(T);

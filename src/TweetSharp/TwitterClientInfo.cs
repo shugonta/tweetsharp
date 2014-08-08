@@ -3,10 +3,10 @@ using Hammock.Web;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
-    public class TwitterClientInfo : IWebQueryInfo 
+	public class TwitterClientInfo : IWebQueryInfo 
     {
         public virtual string ClientName { get; set; }
         public virtual string ClientVersion { get; set; }

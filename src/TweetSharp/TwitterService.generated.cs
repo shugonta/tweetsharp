@@ -670,7 +670,7 @@ namespace TweetSharp
 #region Interface
 	public partial interface ITwitterService
 	{
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
 		#region Sequential Methods 
         
 		IEnumerable<TwitterStatus> ListTweetsMentioningMe(ListTweetsMentioningMeOptions options);	
@@ -1989,7 +1989,7 @@ namespace TweetSharp
 #region Implementation
 	public partial class TwitterService : ITwitterService
 	{	
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
 		#region Sequential Methods
         
 		public virtual IEnumerable<TwitterStatus> ListTweetsMentioningMe(ListTweetsMentioningMeOptions options)
@@ -5731,9 +5731,8 @@ namespace TweetSharp
 			var @long = options.@Long;
 			var place_id = options.PlaceId;
 			var display_coordinates = options.DisplayCoordinates;
-            var images = options.Images;
-
-            WithHammock(WebMethod.Post, action, "statuses/update_with_media", images, FormatAsString, "?status=", status, "&possibly_sensitive=", possibly_sensitive, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates);
+			
+			WithHammock(WebMethod.Post, action, "statuses/update_with_media", FormatAsString, "?status=", status, "&possibly_sensitive=", possibly_sensitive, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates);
 		}
 
         

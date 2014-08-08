@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using Hammock;
-#if SILVERLIGHT
+#if SILVERLIGHT || WINRT
 using Hammock.Silverlight.Compat;
 #else
 using System.Collections.Specialized;
@@ -12,10 +12,10 @@ using System.Collections.Specialized;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
-    public class TwitterResponse
+	public class TwitterResponse
     {
         private readonly RestResponseBase _response;
         private readonly Exception _exception;

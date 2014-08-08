@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Linq;
 
+#if WINRT
+using System.Reflection;
+using TweetSharp.WinRT.Compat;
+#endif
+
 namespace TweetSharp
 {
     internal static class ObjectExtensions
@@ -12,26 +17,50 @@ namespace TweetSharp
 
         public static bool Implements(this object instance, Type interfaceType)
         {
+#if !WINRT
             return interfaceType.IsGenericTypeDefinition
                        ? instance.ImplementsGeneric(interfaceType)
                        : interfaceType.IsAssignableFrom(instance.GetType());
-        }
+#else
+					var ti = interfaceType.GetTypeInfo();
+					return ti.IsGenericTypeDefinition
+										 ? instance.ImplementsGeneric(interfaceType)
+										 : ti.IsAssignableFrom(instance.GetType().GetTypeInfo());
+#endif
+				}
 
         public static bool Implements<T>(this object instance)
         {
+#if !WINRT
             var type = instance.GetType();
             var interfaceType = typeof (T);
             return interfaceType.IsGenericTypeDefinition
                        ? instance.ImplementsGeneric(interfaceType)
                        : interfaceType.IsAssignableFrom(type);
-        }
+#else
+					var type = instance.GetType();
+					var interfaceType = typeof(T);
+					var ti = type.GetTypeInfo();
+					return ti.IsGenericTypeDefinition
+										 ? instance.ImplementsGeneric(interfaceType)
+										 : ti.IsAssignableFrom(type.GetTypeInfo());
+#endif
+				}
 
         private static bool ImplementsGeneric(this Type type, Type targetType)
         {
+#if !WINRT
             var interfaceTypes = type.GetInterfaces();
+#else
+					var interfaceTypes = type.GetTypeInfo().ImplementedInterfaces;
+#endif
             foreach (var interfaceType in interfaceTypes)
             {
+#if !WINRT
                 if (!interfaceType.IsGenericType)
+#else
+							if (!interfaceType.GetTypeInfo().IsGenericType)
+#endif
                 {
                     continue;
                 }
@@ -42,13 +71,21 @@ namespace TweetSharp
                 }
             }
 
+#if !WINRT
             var baseType = type.BaseType;
+#else
+						var baseType = type.GetTypeInfo().BaseType;
+#endif
             if (baseType == null)
             {
                 return false;
             }
 
+#if !WINRT
             return baseType.IsGenericType
+#else
+						return baseType.GetTypeInfo().IsGenericType
+#endif
                        ? baseType.GetGenericTypeDefinition() == targetType
                        : baseType.ImplementsGeneric(targetType);
         }
@@ -70,9 +107,19 @@ namespace TweetSharp
             if (baseType.ImplementsGeneric(interfaceType))
             {
                 var generic = baseType.GetInterface(interfaceType.FullName, true);
+#if !WINRT
                 if (generic.IsGenericType)
-                {
+#else
+								var ti = generic.GetTypeInfo();
+								if (ti.IsGenericType)
+#endif
+
+								{
+#if !WINRT
                     var args = generic.GetGenericArguments();
+#else
+									var args = ti.GenericTypeArguments;
+#endif
                     if (args.Length == 1)
                     {
                         type = args[0];

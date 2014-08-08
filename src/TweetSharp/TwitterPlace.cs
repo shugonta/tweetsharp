@@ -7,11 +7,11 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
     [DebuggerDisplay("{FullName}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]

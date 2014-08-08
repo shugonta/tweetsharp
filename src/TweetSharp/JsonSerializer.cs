@@ -10,6 +10,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Hammock;
 
+#if WINRT
+using System.Reflection;
+using TweetSharp.WinRT.Compat;
+#endif
+
 namespace TweetSharp
 {
     internal class JsonSerializer : SerializerBase
@@ -273,7 +278,11 @@ namespace TweetSharp
             var collectionType = ConstructCollection(out collection, type);
 
             Type cursor = null;
+#if !WINRT
             var generics = type.GetGenericArguments();
+#else
+						var generics = type.GetTypeInfo().GenericTypeArguments;
+#endif
             if(generics.Length > 0)
             {
                 var inner = generics[0];
@@ -383,7 +392,7 @@ namespace TweetSharp
 
         private static void TraceException(Exception ex, Type type, string content)
         {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
             Trace.TraceError(string.Concat("TweetSharp: Could not parse content into 'IEnumerable<", type.Name, ">' : '", content));
             Trace.TraceError(ex.Message);
             Trace.TraceError(ex.StackTrace);
@@ -433,7 +442,11 @@ namespace TweetSharp
 
         private static Type ConstructCollection(out IList collection, Type type)
         {
+#if !WINRT
             type = type.GetGenericArguments()[0];
+#else
+					type = type.GetTypeInfo().GenericTypeArguments[0].GetType();
+#endif
             var collectionType = typeof(List<>).MakeGenericType(type);
             collection = (IList)Activator.CreateInstance(collectionType);
             return type;

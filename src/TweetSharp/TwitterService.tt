@@ -65,7 +65,7 @@ namespace TweetSharp
 #region Interface
 	public partial interface ITwitterService
 	{
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
 		#region Sequential Methods<# foreach(TweetSharpMethod method in methods) { #> 
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
 		<#= method.Type #> <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>);	
@@ -116,7 +116,7 @@ namespace TweetSharp
 #region Implementation
 	public partial class TwitterService : ITwitterService
 	{	
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
 		#region Sequential Methods
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>

@@ -8,11 +8,11 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterRateLimitStatusSummary 
@@ -33,11 +33,11 @@ namespace TweetSharp
         public virtual string RawSource { get; set; }
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterRateLimitResource
@@ -53,12 +53,12 @@ namespace TweetSharp
         public virtual Dictionary<string, TwitterRateLimitStatus> Limits { get; set; }
     }
 
-    
-#if !SILVERLIGHT
+
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
     [DebuggerDisplay("{RemainingHits} / {HourlyLimit} remaining.")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]

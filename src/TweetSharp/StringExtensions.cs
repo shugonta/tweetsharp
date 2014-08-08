@@ -37,7 +37,7 @@ namespace TweetSharp
         }
 
         private const RegexOptions Options =
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
  RegexOptions.Compiled | RegexOptions.IgnoreCase;
 #else
             RegexOptions.IgnoreCase;
@@ -103,7 +103,11 @@ namespace TweetSharp
                 {
                     uri = new Uri(value);
                 }
+#if !WINRT
                 catch (UriFormatException)
+#else
+								catch (FormatException)
+#endif
                 {
                     continue;
                 }

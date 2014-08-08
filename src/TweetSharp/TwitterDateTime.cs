@@ -5,6 +5,10 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using System.Threading;
 
+#if WINRT
+using System.Reflection;
+#endif
+
 #if Smartphone
 using TweetSharp.Core.Attributes;
 #endif
@@ -15,14 +19,14 @@ using System.Reflection;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     /// <summary>
     /// Represents a normalized date from the Twitter API. 
     /// </summary>
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
 #endif
     public class TwitterDateTime : ITwitterModel
     {
@@ -177,9 +181,14 @@ namespace TweetSharp
                     GetWriteLockOnMap();
                     try
                     {
+#if !WINRT
                         var fi = typeof (TwitterDateFormat).GetField(name);
-                        var attributes = fi.GetCustomAttributes(typeof (DescriptionAttribute), false);
-                        var format = (DescriptionAttribute) attributes[0];
+												var attributes = fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+#else
+											var fi = typeof(TwitterDateFormat).GetTypeInfo().GetDeclaredField(name);
+											var attributes = System.Linq.Enumerable.ToArray(fi.GetCustomAttributes(typeof(DescriptionAttribute), false));
+#endif
+                        var format = (DescriptionAttribute)attributes[0];
 
                         _map.Add(name, format.Description);
                     }

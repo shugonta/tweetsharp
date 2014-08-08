@@ -5,21 +5,21 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-    /*     
-     <list>
-        <id>2029636</id>
-        <name>firemen</name>
-        <full_name>@twitterapidocs/firemen</full_name>
-        <slug>firemen</slug>
-        <subscriber_count>0</subscriber_count>
-        <member_count>0</member_count>
-        <uri>/twitterapidocs/firemen</uri>
-        <mode>public</mode>    
-        <user/>
-     </list>     
-     */
+	/*     
+	 <list>
+			<id>2029636</id>
+			<name>firemen</name>
+			<full_name>@twitterapidocs/firemen</full_name>
+			<slug>firemen</slug>
+			<subscriber_count>0</subscriber_count>
+			<member_count>0</member_count>
+			<uri>/twitterapidocs/firemen</uri>
+			<mode>public</mode>    
+			<user/>
+	 </list>     
+	 */
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     /// <summary>
     /// Represents a user-curated list of Twitter members, 
     /// that other users can subscribe to and see the aggregated 
@@ -28,7 +28,7 @@ namespace TweetSharp
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterList : PropertyChangedBase, ITwitterModel

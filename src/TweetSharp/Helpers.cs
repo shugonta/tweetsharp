@@ -10,7 +10,7 @@ namespace TweetSharp
     {
         public static string ReplaceUriTemplateTokens(List<object> segments, string path)
         {
-#if !SILVERLIGHT || WINDOWS_PHONE
+#if (!SILVERLIGHT || WINDOWS_PHONE) && !WINRT
             var regexObj = new Regex(@"\{\w*\}", RegexOptions.Compiled);
 #else
             var regexObj = new Regex(@"\{\w*\}");
@@ -51,7 +51,7 @@ namespace TweetSharp
         }
 
         private static readonly Regex _escapeSegments = new Regex(@"\A(?:[?|&]\w*=)\Z"
-#if !SILVERLIGHT || WINDOWS_PHONE
+#if (!SILVERLIGHT || WINDOWS_PHONE) && !WINRT
             , RegexOptions.Compiled
 #endif
             );
@@ -93,10 +93,10 @@ namespace TweetSharp
         {
             var underscored = Regex.Replace(camelCase, UnderscoresPattern,
                                             new MatchEvaluator(m => string.Concat("_", m.Value.ToLowerInvariant()))
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
                                             ,RegexOptions.Compiled
 #endif
-                                            );
+);
 
             return underscored;
         }

@@ -5,14 +5,14 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     /// <summary>
     /// Represents the relationship between two users on Twitter
     /// as they related to each <see cref="TwitterFriend" /> representation.
     /// </summary>
     [Serializable]
 #endif
-    [JsonObject(MemberSerialization.OptIn)]
+	[JsonObject(MemberSerialization.OptIn)]
     public class TwitterRelationship : PropertyChangedBase, ITwitterModel
     {
         private TwitterFriend _source;

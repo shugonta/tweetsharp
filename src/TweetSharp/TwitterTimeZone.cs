@@ -10,12 +10,12 @@ namespace TweetSharp
     //    "name": "Pacific Time (US & Canada)",
     //    "tzinfo_name": "America/Los_Angeles",
     //    "utc_offset": -28800
-    //  }
-#if !SILVERLIGHT
+	//  }
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
     [DebuggerDisplay("{Name}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]

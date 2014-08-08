@@ -7,30 +7,30 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-    /* {"relationship": {
-            "source": {
-                "id": 123,
-                "screen_name": "bob",
-                "following": true,
-                "followed_by": false,
-                "notifications_enabled": false
-     *      }
-     *      ,
-            "target": {
-                "id": 456,
-                "screen_name": "jack",
-                "following": false,
-                "followed_by": true,
-                "notifications_enabled": null
-     *      }
-     *   }
-     * }
-     */
+	/* {"relationship": {
+					"source": {
+							"id": 123,
+							"screen_name": "bob",
+							"following": true,
+							"followed_by": false,
+							"notifications_enabled": false
+	 *      }
+	 *      ,
+					"target": {
+							"id": 456,
+							"screen_name": "jack",
+							"following": false,
+							"followed_by": true,
+							"notifications_enabled": null
+	 *      }
+	 *   }
+	 * }
+	 */
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
-    [JsonObject(MemberSerialization.OptIn)]
+	[JsonObject(MemberSerialization.OptIn)]
     public class TwitterFriendship : PropertyChangedBase, ITwitterModel
     {
         private TwitterRelationship _relationship;
@@ -64,22 +64,22 @@ namespace TweetSharp
         public virtual string RawSource { get; set; }
     }
 
-/* 
-{
-    "name": "Twitter",
-    "id_str": "783214",
-    "id": 783214,
-    "connections": [
-        "following",
-        "followed_by"
-    ],  
-    "screen_name": "twitter"
-}
-*/
-#if !SILVERLIGHT
+	/* 
+	{
+			"name": "Twitter",
+			"id_str": "783214",
+			"id": 783214,
+			"connections": [
+					"following",
+					"followed_by"
+			],  
+			"screen_name": "twitter"
+	}
+	*/
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
-    [JsonObject(MemberSerialization.OptIn)]
+	[JsonObject(MemberSerialization.OptIn)]
     [DebuggerDisplay("{Name}:{string.Join(\",\", Connections)}")]
     public class TwitterFriendshipLookup : PropertyChangedBase, ITwitterModel
     {

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     /// <summary>
     /// A generic collection that also contains any cursor data necessary for paging
     /// using Twitter's cursor feature.
@@ -13,7 +13,7 @@ namespace TweetSharp
     /// <typeparam name="T"></typeparam>
     [Serializable]
 #endif
-    public class TwitterCursorList<T> : List<T>, ICursored
+	public class TwitterCursorList<T> : List<T>, ICursored
     {
 #if !Smartphone && !NET20
         [DataMember]

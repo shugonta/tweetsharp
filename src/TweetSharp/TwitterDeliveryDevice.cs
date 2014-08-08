@@ -3,14 +3,14 @@ using System.Runtime.Serialization;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     /// <summary>
     /// Represents a delivery device for receiving updates from Twitter.
     /// </summary>
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
 #endif
     public enum TwitterDeliveryDevice
     {

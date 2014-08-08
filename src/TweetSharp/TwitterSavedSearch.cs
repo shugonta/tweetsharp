@@ -6,14 +6,14 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     /// <summary>
     /// Represents a user's saved search query, for convenient re-querying of the Search API.
     /// </summary>
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
     [DebuggerDisplay("{Name}:'{Query}'")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]

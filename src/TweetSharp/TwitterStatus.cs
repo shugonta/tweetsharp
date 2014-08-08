@@ -6,11 +6,11 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
     [DebuggerDisplay("{User.ScreenName}: {Text}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
@@ -233,7 +233,9 @@ namespace TweetSharp
                 {
                     return Text;
                 }
-#if !SILVERLIGHT && !WINDOWS_PHONE
+#if WINRT
+							return _textDecoded ?? (_textDecoded = System.Net.WebUtility.HtmlDecode(Text));
+#elif !SILVERLIGHT && !WINDOWS_PHONE
                 return _textDecoded ?? (_textDecoded = System.Compat.Web.HttpUtility.HtmlDecode(Text));
 #elif WINDOWS_PHONE
                 return _textDecoded ?? (_textDecoded = System.Net.HttpUtility.HtmlDecode(Text));
