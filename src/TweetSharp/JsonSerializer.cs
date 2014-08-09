@@ -37,28 +37,25 @@ namespace TweetSharp
                 return (T)(ITwitterModel)new TwitterUserStreamEnd();
             }
 
-            return (T)DeserializeContent(content, typeof(T));
-        }
-
-        public override object DeserializeJson(string content, Type type)
-        {
-            if (type == typeof (TwitterError))
-            {
-                return DeserializeContent(content, type);
-            }
-            else
-            {
-                return base.DeserializeJson(content, type);
-            }
+            return (T)DeserializeContent<T>(content);
         }
 
         public override T DeserializeJson<T>(string content)
         {
-            return (T)DeserializeContent(content, typeof(T));
+						Type type = typeof(T);
+            if (type == typeof (TwitterError))
+            {
+                return (T)DeserializeContent<T>(content);
+            }
+            else
+            {
+							return (T)base.DeserializeJson(content, type);
+            }
         }
 
-        internal object DeserializeContent(string content, Type type)
+        internal object DeserializeContent<T>(string content)
         {
+						Type type = typeof(T);
             if (string.IsNullOrEmpty(content) || content.Trim().Length == 0)
             {
                 return null;
@@ -190,7 +187,7 @@ namespace TweetSharp
             var wantsCollection = typeof(IEnumerable).IsAssignableFrom(type);
             
             var deserialized = wantsCollection
-                                   ? DeserializeCollection(content, type)
+																	 ? DeserializeCollection(content, type)
                                    : DeserializeSingle(content, type);
            
             return deserialized;
@@ -235,7 +232,7 @@ namespace TweetSharp
                 var inner = item["trends"];
                 if (inner != null)
                 {
-                    var trends = (DeserializeCollection(inner.ToString(), typeof (IEnumerable<TwitterTrend>)) as IEnumerable<TwitterTrend>).ToList();
+									var trends = (DeserializeCollection(inner.ToString(), typeof(IEnumerable<TwitterTrend>)) as IEnumerable<TwitterTrend>).ToList();
                     result.Trends.AddRange(trends);
                 }    
             }
@@ -275,7 +272,7 @@ namespace TweetSharp
             }
 
             IList collection;
-            var collectionType = ConstructCollection(out collection, type);
+						var collectionType = ConstructCollection(out collection, type);
 
             Type cursor = null;
 #if !WINRT
@@ -443,13 +440,14 @@ namespace TweetSharp
         private static Type ConstructCollection(out IList collection, Type type)
         {
 #if !WINRT
-            type = type.GetGenericArguments()[0];
+						type = type.GetGenericArguments()[0];
 #else
-					type = type.GetTypeInfo().GenericTypeArguments[0].GetType();
+					type = type.GetTypeInfo().GenericTypeArguments[0];
 #endif
-            var collectionType = typeof(List<>).MakeGenericType(type);
-            collection = (IList)Activator.CreateInstance(collectionType);
-            return type;
+						var collectionType = typeof(List<>).MakeGenericType(type);
+						collection = (IList)Activator.CreateInstance(collectionType);
+
+					return type;
         }
 
         public override object Deserialize(RestResponseBase response, Type type)
