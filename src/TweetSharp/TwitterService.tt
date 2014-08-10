@@ -107,6 +107,18 @@ namespace TweetSharp
 <# } #>
 		#endregion
 #endif		
+
+#if PLATFORM_SUPPORTS_ASYNC_AWAIT
+		#region Async/Await Methods 
+<# foreach(TweetSharpMethod method in methods) { #>
+        <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
+		Task<TwitterAsyncResult<<#= method.Type #>>> <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>);
+
+<# } #>
+		#endregion
+#endif		
+
+
 	}
 #endregion
 }

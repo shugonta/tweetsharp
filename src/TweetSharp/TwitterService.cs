@@ -10,6 +10,10 @@ using Hammock;
 using Hammock.Serialization;
 using Hammock.Web;
 
+#if PLATFORM_SUPPORTS_ASYNC_AWAIT
+using System.Threading.Tasks;
+#endif
+
 #if SILVERLIGHT
 using Hammock.Silverlight.Compat;
 #endif
@@ -504,6 +508,39 @@ namespace TweetSharp
             var response = _client.EndRequest<T>(result, timeout);
             return response.ContentEntity;
         }
+#endif
+
+#if PLATFORM_SUPPORTS_ASYNC_AWAIT
+		private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(string path, params object[] segments) where T1 : class
+		{
+			var tcs = new TaskCompletionSource<TwitterAsyncResult<T1>>();
+			WithHammock(
+				(Action<T1, TwitterResponse>)((v, r) =>
+				{
+					tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
+				}),
+				path, 
+				segments
+			);		
+
+			return tcs.Task;
+		}
+
+		private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(WebMethod method, string path, params object[] segments) where T1 : class
+		{
+			var tcs = new TaskCompletionSource<TwitterAsyncResult<T1>>();
+			WithHammock(method, 
+				(Action<T1, TwitterResponse>)((v, r) =>
+				{
+					tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
+				}), 
+				path, 
+				segments
+			);		
+
+			return tcs.Task;
+		}
+
 #endif
 
 #if !SILVERLIGHT && !WINRT

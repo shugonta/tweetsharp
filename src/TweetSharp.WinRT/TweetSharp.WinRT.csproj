@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINRT</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINRT;PLATFORM_SUPPORTS_ASYNC_AWAIT</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -31,7 +31,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\lib\portable-win81+wpa81\</OutputPath>
-    <DefineConstants>TRACE;WINRT</DefineConstants>
+    <DefineConstants>TRACE;WINRT;PLATFORM_SUPPORTS_ASYNC_AWAIT</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -90,6 +90,9 @@
     </Compile>
     <Compile Include="..\TweetSharp\TwitterAccount.cs">
       <Link>TwitterAccount.cs</Link>
+    </Compile>
+    <Compile Include="..\TweetSharp\TwitterAsyncResult.cs">
+      <Link>TwitterAsyncResult.cs</Link>
     </Compile>
     <Compile Include="..\TweetSharp\TwitterClientInfo.cs">
       <Link>TwitterClientInfo.cs</Link>
