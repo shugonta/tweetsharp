@@ -213,8 +213,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Hammock.WinRT">
+      <HintPath>..\..\..\..\..\RTST\Development\OntempoConnect\packages\TweetSharp.2.3.2.0\lib\portable-win81+wpa81\Hammock.WinRT.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.6.0.4\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\RTST\Development\OntempoConnect\packages\TweetSharp.2.3.2.0\lib\portable-win81+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -222,17 +225,6 @@
       <Link>key.snk</Link>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\TweetSharp\TweetSharp.csproj">
-      <Link>TweetSharp.csproj</Link>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\hammock\src\WinRT\Hammock.WinRT.csproj">
-      <Project>{40a91cef-efea-4c9c-86f2-e3856bb82d04}</Project>
-      <Name>Hammock.WinRT</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
