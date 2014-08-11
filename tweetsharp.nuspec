@@ -5,7 +5,7 @@
 		<version>2.3.2.0</version>
         <dependencies>      
 		<group>	
-			<dependency id="Newtonsoft.Json" version="6.0.3" />      
+			<dependency id="Newtonsoft.Json" version="6.0.4" />      
 		</group>
 
 		<group targetFramework="sl4-wp">
@@ -30,6 +30,8 @@
         - Re-instated some oauth methods on the TwitterService class.
         - Rebuilt with bug fixes from other contributers, including fix for 64 bit id's.
 	- Updated to Newtonsoft.Json package version 5.0.8.
+	- Added WinRT Universal App Support, with async/await support.
+	- Added .Net 45 support with async/await support.
         </releaseNotes>
 	</metadata>
 </package>

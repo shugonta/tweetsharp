@@ -50,6 +50,10 @@ using System.Collections.Generic;
 using Hammock;
 using Hammock.Web;
 
+#if PLATFORM_SUPPORTS_ASYNC_AWAIT
+using System.Threading.Tasks;
+#endif
+
 namespace TweetSharp
 {
 #region Options<# foreach(TweetSharpMethod method in methods) { if(method.Parameters.Count == 0) continue; #> 
@@ -112,7 +116,7 @@ namespace TweetSharp
 		#region Async/Await Methods 
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		Task<TwitterAsyncResult<<#= method.Type #>>> <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>);
+		Task<TwitterAsyncResult<<#= method.Type #>>> <#= method.Name #>Async(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<#} #>);
 
 <# } #>
 		#endregion
@@ -208,6 +212,23 @@ namespace TweetSharp
 <# } #>
 		#endregion
 #endif	
+
+#if PLATFORM_SUPPORTS_ASYNC_AWAIT
+		#region Task Based Async/Await Methods 
+<# foreach(TweetSharpMethod method in methods) { #>
+        <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
+		public virtual Task<TwitterAsyncResult<<#= method.Type #>>> <#= method.Name #>Async(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<#}#>)
+		{
+			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
+			<# } #>
+
+			return WithHammockTask<<#= method.Type #>>(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #><#= method.Path #>, FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+		}
+
+<# } #>
+		#endregion
+#endif
+
 	}
 
 	#endregion

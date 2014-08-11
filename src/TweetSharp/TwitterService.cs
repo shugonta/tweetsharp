@@ -510,39 +510,6 @@ namespace TweetSharp
         }
 #endif
 
-#if PLATFORM_SUPPORTS_ASYNC_AWAIT
-		private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(string path, params object[] segments) where T1 : class
-		{
-			var tcs = new TaskCompletionSource<TwitterAsyncResult<T1>>();
-			WithHammock(
-				(Action<T1, TwitterResponse>)((v, r) =>
-				{
-					tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
-				}),
-				path, 
-				segments
-			);		
-
-			return tcs.Task;
-		}
-
-		private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(WebMethod method, string path, params object[] segments) where T1 : class
-		{
-			var tcs = new TaskCompletionSource<TwitterAsyncResult<T1>>();
-			WithHammock(method, 
-				(Action<T1, TwitterResponse>)((v, r) =>
-				{
-					tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
-				}), 
-				path, 
-				segments
-			);		
-
-			return tcs.Task;
-		}
-
-#endif
-
 #if !SILVERLIGHT && !WINRT
         private T WithHammock<T>(string path)
         {
@@ -648,6 +615,39 @@ namespace TweetSharp
             }
             WithHammockImpl(request, action);
         }
+#endif
+
+#if PLATFORM_SUPPORTS_ASYNC_AWAIT
+				private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(string path, params object[] segments) where T1 : class
+				{
+					var tcs = new TaskCompletionSource<TwitterAsyncResult<T1>>();
+					WithHammock(
+						(Action<T1, TwitterResponse>)((v, r) =>
+						{
+							tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
+						}),
+						path,
+						segments
+					);
+
+					return tcs.Task;
+				}
+
+				private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(WebMethod method, string path, params object[] segments) where T1 : class
+				{
+					var tcs = new TaskCompletionSource<TwitterAsyncResult<T1>>();
+					WithHammock(method,
+						(Action<T1, TwitterResponse>)((v, r) =>
+						{
+							tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
+						}),
+						path,
+						segments
+					);
+
+					return tcs.Task;
+				}
+
 #endif
 
 				private static T TryAsyncResponse<T>(Func<T> action, out Exception exception)
