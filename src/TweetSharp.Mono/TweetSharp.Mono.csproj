@@ -44,6 +44,9 @@
     <Compile Include="..\TweetSharp\Properties\AssemblyInfoVersion.cs">
       <Link>AssemblyInfoVersion.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\TwitterErrors.cs">
+      <Link>TwitterErrors.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\TwitterGeoLocationSearch.cs">
       <Link>TwitterGeoLocationSearch.cs</Link>
     </Compile>

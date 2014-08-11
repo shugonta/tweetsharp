@@ -136,6 +136,9 @@
     <Compile Include="..\TweetSharp\TwitterError.cs">
       <Link>TwitterError.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\TwitterErrors.cs">
+      <Link>TwitterErrors.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\TwitterFriend.cs">
       <Link>TwitterFriend.cs</Link>
     </Compile>

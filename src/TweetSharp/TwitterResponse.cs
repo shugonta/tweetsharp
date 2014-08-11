@@ -60,9 +60,23 @@ namespace TweetSharp
         {
             return limit.All(char.IsNumber);
         }
-        public virtual TwitterError Error
+				public virtual TwitterErrors Errors
+				{
+					get
+					{
+						return _response.ErrorContentEntity as TwitterErrors;
+					}
+				}
+				public virtual TwitterError Error
         {
-            get { return _response.ErrorContentEntity as TwitterError; }
+            get 
+						{ 
+							var errors = _response.ErrorContentEntity as TwitterErrors;
+							if (errors != null)
+								return errors.errors.FirstOrDefault();
+							else
+								return _response.ErrorContentEntity as TwitterError; 
+						}
         }
         public virtual NameValueCollection Headers
         {

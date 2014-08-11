@@ -146,7 +146,7 @@ namespace TweetSharp
                 Proxy = Proxy,
                 UserAgent = userAgent,
                 DecompressionMethods = DecompressionMethods.GZip,
-                GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
+                GetErrorResponseEntityType = (request, @base) => typeof(TwitterErrors),
 #if SILVERLIGHT 
                 HasElevatedPermissions = true
 #endif
@@ -160,7 +160,7 @@ namespace TweetSharp
                 Serializer = serializer ?? jsonSerializer,
                 Deserializer = deserializer ?? jsonSerializer,
                 DecompressionMethods = DecompressionMethods.GZip,
-                GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
+                GetErrorResponseEntityType = (request, @base) => typeof(TwitterErrors),
                 UserAgent = userAgent,
                 Proxy = Proxy,
 #if !SILVERLIGHT && !WINRT
@@ -179,7 +179,7 @@ namespace TweetSharp
                 Serializer = serializer ?? jsonSerializer,
                 Deserializer = deserializer ?? jsonSerializer,
                 DecompressionMethods = DecompressionMethods.GZip,
-                GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
+                GetErrorResponseEntityType = (request, @base) => typeof(TwitterErrors),
                 UserAgent = userAgent,
 #if !SILVERLIGHT && !WINRT
                 FollowRedirects = true,

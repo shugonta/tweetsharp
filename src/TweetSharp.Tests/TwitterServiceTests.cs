@@ -94,7 +94,7 @@ namespace TweetSharp.Tests.Service
             var dms = service.EndListDirectMessagesReceived(result, TimeSpan.FromSeconds(5));
             
             Assert.IsNotNull(dms);
-            Assert.AreEqual(5, dms.Count());
+            Assert.Greater(dms.Count(), 0);
 
             foreach (var dm in dms)
             {
@@ -180,11 +180,10 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live status update")]
         public void Can_tweet()
         {
             var service = GetAuthenticatedService();
-            var status = _hero + DateTime.UtcNow.Ticks + " @danielcrenna";
+            var status = _hero + DateTime.UtcNow.Ticks + " Tweet from TweetSharp unit tests";
             var tweet = service.SendTweet(new SendTweetOptions { Status = status });
 
             AssertResultWas(service, HttpStatusCode.OK);
@@ -193,7 +192,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live status update")]
         public void Can_tweet_with_geo()
         {
             // status=123&lat=56.95&%40long=24.1&include_entities=1
@@ -270,7 +268,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live status update")]
         public void Can_tweet_with_special_characters()
         {
             var service = GetAuthenticatedService();
@@ -282,7 +279,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live status update")]
         public void Can_tweet_with_location_custom_type()
         {
             var service = GetAuthenticatedService();
@@ -298,26 +294,23 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live status update")]
         public void Can_tweet_and_handle_dupes()
         {
             var service = GetAuthenticatedService();
 
             service.SendTweet(new SendTweetOptions { Status = "Can_tweet_and_handle_dupes:Tweet"});
             var response = service.SendTweet(new SendTweetOptions { Status = "Can_tweet_and_handle_dupes:Tweet"});
-            
-            if(service.Response != null && service.Response.StatusCode != HttpStatusCode.OK)
-            {
-                var error = service.Deserialize<TwitterError>(response); // <-- RawSource should have been assigned here
-                Assert.IsNotNull(error);
-                Assert.IsNotNullOrEmpty(error.Message);
-            }
 
-            Assert.IsNotNull(response);
+						Assert.IsNull(response);
+						Assert.IsNotNull(service.Response);
+						Assert.AreNotEqual(HttpStatusCode.OK, service.Response.StatusCode);
+
+						var error = service.Response.Error;
+						Assert.IsNotNull(error);
+						Assert.IsNotNullOrEmpty(error.Message);
         }
 
         [Test]
-        [Ignore("Makes a live status update")]
         public void Can_tweet_with_image()
         {
             var service = GetAuthenticatedService();
@@ -601,7 +594,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live direct message")]
         public void Can_send_direct_message()
         {
             var service = new TwitterService { IncludeEntities = true };
@@ -609,7 +601,7 @@ namespace TweetSharp.Tests.Service
             var response = service.SendDirectMessage(new SendDirectMessageOptions
             {
                 ScreenName = _hero,
-                Text = "http://tweetsharp.com @dimebrain #thisisatest " + DateTime.Now.Ticks
+                Text = "Test a tweetsharp dm " + DateTime.Now.Ticks
             });
             
             AssertResultWas(service, HttpStatusCode.OK);
@@ -618,7 +610,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live direct message")]
         public void Can_delete_direct_message()
         {
             var service = new TwitterService { IncludeEntities = true };
@@ -626,7 +617,7 @@ namespace TweetSharp.Tests.Service
             var created = service.SendDirectMessage(new SendDirectMessageOptions
             {
                 ScreenName = _hero,
-                Text = "http://tweetsharp.com @dimebrain #thisisatest " + DateTime.Now.Ticks
+                Text = "Test of a tweetsharp dm " + DateTime.Now.Ticks
             });
             AssertResultWas(service, HttpStatusCode.OK);
             Assert.IsNotNull(created);

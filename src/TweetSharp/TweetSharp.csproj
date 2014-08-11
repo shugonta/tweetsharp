@@ -61,6 +61,7 @@
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="TimeExtensions.cs" />
     <Compile Include="TwitterAsyncResult.cs" />
+    <Compile Include="TwitterErrors.cs" />
     <Compile Include="TwitterGeoLocationSearch.cs" />
     <Compile Include="TwitterService.generated.cs">
       <AutoGen>True</AutoGen>

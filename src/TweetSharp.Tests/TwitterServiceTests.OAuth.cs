@@ -68,7 +68,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live status update")]
         public void Can_tweet_with_protected_resource_info()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
