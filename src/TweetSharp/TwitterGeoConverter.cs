@@ -40,7 +40,7 @@ namespace TweetSharp
     /// <summary>
     /// This converter exists to convert geo-spatial coordinates.
     /// </summary>
-    internal class TwitterGeoConverter : TwitterConverterBase
+    public class TwitterGeoConverter : TwitterConverterBase
     {
         private const string GeoTemplate = "\"geo\":{{\"type\":\"Point\",\"coordinates\":[{0}, {1}]}}";
 

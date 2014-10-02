@@ -17,7 +17,7 @@ using TweetSharp.WinRT.Compat;
 
 namespace TweetSharp
 {
-    internal class JsonSerializer : SerializerBase
+    public class JsonSerializer : SerializerBase
     {
         public override T Deserialize<T>(RestResponseBase response) 
         {
