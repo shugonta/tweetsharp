@@ -3,7 +3,7 @@
 
 This repository includes the latest code from the TweetSharp repository (which is newer than the published TweetSharp nuget package) and includes support for long twitter id's. Addtionally there are WinRT compatible libraries with basic async/await support.
 
-** The following is form the (latest version of the) original TweetSharp readme **
+**_The following is from the (latest version of the) original TweetSharp readme_**
 
 #### Addressing issues with deserialization 
 In some cases, and mostly reported when trying to access the timeline of a protected user, the deserializer can get into an
