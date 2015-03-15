@@ -1,11 +1,9 @@
-## Tweetsharp
-```powershell
-    PM> Install-Package TweetSharp          
-```
 
-**_This project is no longer actively developed by its creator. v2.3.1 is the final release._**
-**_If someone forks this project and proves active and interested ongoing development, I will transfer this repo to them._**
-**_Forks must respect OSS and copyright law with respect to attribution, etc., etc._**
+**_This is a fork of TweetSharp, the fine work of Daniel Crenna. v2.3.1 was the final release of TweetSharp, this builds on that._**
+
+This repository includes the latest code from the TweetSharp repository (which is newer than the published TweetSharp nuget package) and includes support for long twitter id's. Addtionally there are WinRT compatible libraries with basic async/await support.
+
+**_The following is from the (latest version of the) original TweetSharp readme_**
 
 #### Addressing issues with deserialization 
 In some cases, and mostly reported when trying to access the timeline of a protected user, the deserializer can get into an
