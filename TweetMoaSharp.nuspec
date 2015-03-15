@@ -21,7 +21,7 @@
 		<language>en-US</language>
 		<projectUrl>https://github.com/Yortw/tweetmoasharp</projectUrl>
 		<licenseUrl>https://github.com/Yortw/tweetmoasharp/blob/master/LICENSE.md</licenseUrl>
-		<iconUrl>https://github.com/Yortw/tweetmoasharp/blob/master/logo_tweetmoasharp.png</iconUrl>
+		<iconUrl>https://raw.githubusercontent.com/Yortw/tweetmoasharp/master/logo_tweetmoasharp.png</iconUrl>
 		<tags>twitter tweetmoasharp tweetsharp web api http rest wrapper json wp7 mango silverlight</tags>
 		<releaseNotes>
 			New in 3.0.0.0
