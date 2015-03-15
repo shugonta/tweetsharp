@@ -36,6 +36,7 @@ namespace TweetSharp
 		private TwitterGeoLocation _location;
 		private string _language;
 		private TwitterEntities _entities;
+		private TwitterExtendedEntities _extendedEntities;
 		private bool? _isPossiblySensitive;
 		private TwitterPlace _place;
 		private int _retweetCount;
@@ -424,6 +425,25 @@ namespace TweetSharp
 				}
 
 				_entities = value;
+				OnPropertyChanged("Entities");
+			}
+		}
+
+#if !Smartphone && !NET20
+		[DataMember]
+		[JsonProperty("extended_entities")]
+#endif
+		public virtual TwitterExtendedEntities ExtendedEntities
+		{
+			get { return _extendedEntities; }
+			set
+			{
+				if (_extendedEntities == value)
+				{
+					return;
+				}
+
+				_extendedEntities = value;
 				OnPropertyChanged("Entities");
 			}
 		}

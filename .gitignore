@@ -47,3 +47,7 @@ src/TweetSharp.Tests/App.config
 src/TweetSharp.Tests/App.config
 src/TweetSharp.Tests/App.config
 src/TweetSharp.Tests/App.config
+/src/Backup
+/src/TweetSharp/TwitterExtendedEntities.cs
+/src/UpgradeLog.htm
+/src/UpgradeLog2.htm

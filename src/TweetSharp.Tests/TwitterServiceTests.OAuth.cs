@@ -84,23 +84,24 @@ namespace TweetSharp.Tests.Service
             Assert.Ignore("Test account isn't authorized for xAuth");
         }
 
-        [Test]
-        public void Can_make_oauth_echo_request()
-        {
-					if (String.IsNullOrEmpty(_twitPicKey)) Assert.Ignore("This test requires a TwitPic API key.");
-					if (String.IsNullOrEmpty(_twitPicUserName)) Assert.Ignore("This test requires a TwitPic user name.");
+				//Remmoved as TwitPic is now defunct and I haven't figured out another service to use instead.
+				//[Test]
+				//public void Can_make_oauth_echo_request()
+				//{
+				//	if (String.IsNullOrEmpty(_twitPicKey)) Assert.Ignore("This test requires a TwitPic API key.");
+				//	if (String.IsNullOrEmpty(_twitPicUserName)) Assert.Ignore("This test requires a TwitPic user name.");
 					
-          var service = GetAuthenticatedService();
-          var request = service.PrepareEchoRequest("http://api.twitpic.com/2/");
-					request.Path = "users/show.json?username=" + HttpUtility.UrlEncode(_twitPicUserName);
-					request.AddField("key", _twitPicKey);
+				//	var service = GetAuthenticatedService();
+				//	var request = service.PrepareEchoRequest("http://api.twitpic.com/2/");
+				//	request.Path = "users/show.json?username=" + HttpUtility.UrlEncode(_twitPicUserName);
+				//	request.AddField("key", _twitPicKey);
 
-					RestClient client = new RestClient { Authority = "http://api.twitpic.com/", VersionPath = "2" };
-					RestResponse response = client.Request(request);
+				//	RestClient client = new RestClient { Authority = "http://api.twitpic.com/", VersionPath = "2" };
+				//	RestResponse response = client.Request(request);
 
-          Assert.IsNotNull(response);
-          Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
-        }
+				//	Assert.IsNotNull(response);
+				//	Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+				//}
 
         [Test]
         public void Can_verify_credentials()

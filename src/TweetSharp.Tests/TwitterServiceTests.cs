@@ -581,6 +581,67 @@ namespace TweetSharp.Tests.Service
             Assert.AreEqual(HttpStatusCode.OK, service.Response.StatusCode);
         }
 
+			  [Test]
+        public void Can_get_tweet_with_multiple_images()
+        {
+            var service = GetAuthenticatedService();
+						var tweet = service.GetTweet(new GetTweetOptions { Id = 568680219474726912 });
+
+            Assert.IsNotNull(tweet);
+            Assert.IsNotNull(service.Response);
+            Assert.AreEqual(HttpStatusCode.OK, service.Response.StatusCode);
+						Assert.AreEqual(3, tweet.ExtendedEntities.Count());
+						Assert.AreEqual(1, tweet.Entities.Count());
+				}
+
+			  [Test]
+        public void Can_get_tweet_with_animated_gif()
+        {
+            var service = GetAuthenticatedService();
+						var tweet = service.GetTweet(new GetTweetOptions { Id = 480032281591939072 });
+
+            Assert.IsNotNull(tweet);
+            Assert.IsNotNull(service.Response);
+            Assert.AreEqual(HttpStatusCode.OK, service.Response.StatusCode);
+						Assert.AreEqual(1, tweet.ExtendedEntities.Count());
+				}
+
+				[Test]
+				public void Can_get_tweet_with_merged_entities()
+				{
+					var service = GetAuthenticatedService(new JsonSerializer() { MergeMultiplePhotos = true });
+					var tweet = service.GetTweet(new GetTweetOptions { Id = 568680219474726912 });
+
+					Assert.IsNotNull(tweet);
+					Assert.IsNotNull(service.Response);
+					Assert.AreEqual(HttpStatusCode.OK, service.Response.StatusCode);
+					Assert.AreEqual(3, tweet.ExtendedEntities.Count());
+					Assert.AreEqual(3, tweet.Entities.Count());
+				}
+
+				[Test]
+				public void Can_get_tweet_with_video()
+				{
+					var service = GetAuthenticatedService(new JsonSerializer() { MergeMultiplePhotos = true });
+					var tweet = service.GetTweet(new GetTweetOptions { Id = 560049149836808192 });
+
+					Assert.IsNotNull(tweet);
+					Assert.IsNotNull(service.Response);
+					Assert.AreEqual(HttpStatusCode.OK, service.Response.StatusCode);
+					Assert.AreEqual(1, tweet.ExtendedEntities.Count());
+					var ve = tweet.ExtendedEntities.First();
+					Assert.AreEqual(4, ve.Sizes.Count());
+					Assert.IsNotNull(ve.VideoInfo);
+					Assert.AreEqual(30008, ve.VideoInfo.DurationMs);
+					Assert.AreEqual(5, ve.VideoInfo.Variants.Count());
+					Assert.AreEqual(2, ve.VideoInfo.AspectRatio.Count);
+					Assert.AreEqual(1, ve.VideoInfo.AspectRatio[0]);
+					Assert.AreEqual(1, ve.VideoInfo.AspectRatio[1]);
+					Assert.AreEqual("video/webm", ve.VideoInfo.Variants.First().ContentType);
+					Assert.AreEqual(832000, ve.VideoInfo.Variants.First().BitRate);
+					Assert.AreEqual("https://video.twimg.com/ext_tw_video/560049056895209473/pu/vid/480x480/gj_fzyk29R9dMPBY.webm", ve.VideoInfo.Variants.First().Url.ToString());
+				}
+
         [Test]
         public void Can_get_tweet_async()
         {
@@ -915,13 +976,24 @@ namespace TweetSharp.Tests.Service
             Console.WriteLine("{0} / {1} API calls remaining", rate.RemainingHits, rate.HourlyLimit);
         }
 
+				private TwitterService GetAuthenticatedService(JsonSerializer serializer)
+				{
+					var service = new TwitterService(_consumerKey, _consumerSecret);
+					if (serializer != null)
+					{
+						service.Serializer = serializer;
+						service.Deserializer = serializer;
+					}
+
+					service.TraceEnabled = true;
+					service.AuthenticateWith(_accessToken, _accessTokenSecret);
+					return service;
+				}
+		
         private TwitterService GetAuthenticatedService()
         {
-            var service = new TwitterService(_consumerKey, _consumerSecret);
-            service.TraceEnabled = true;
-            service.AuthenticateWith(_accessToken, _accessTokenSecret);
-            return service;
-        }
+					return GetAuthenticatedService(null);
+				}
 
         /// <summary>
         /// Tests that can accept a twitter stream

@@ -81,7 +81,7 @@ namespace TweetSharp.Tests.Service
             Assert.AreEqual("3376992a082d67c7", places[1].Id);
             Assert.AreEqual(TwitterPlaceType.Country, places[1].PlaceType);
 
-						Assert.AreEqual("Ottawa, Ottawa", places[2].FullName);
+						Assert.AreEqual("Ottawa, Ontario", places[2].FullName);
             Assert.AreEqual(TwitterPlaceType.City, places[2].PlaceType);
 
 						Assert.AreEqual("Ontario, Canada", places[3].FullName);
@@ -98,7 +98,7 @@ namespace TweetSharp.Tests.Service
             Assert.IsNotEmpty(places);
 
             places = places.OrderBy(p => p.Id).ToList();
-						Assert.AreEqual("127021a2772dbff7", places[0].Id);
+						Assert.AreEqual("05ebfafd8a5c1f5a", places[0].Id);
         }
 
         [Test]
@@ -120,7 +120,9 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-            var places = service.GeoSearch(new GeoSearchOptions { Ip = "24.246.1.165" }).ToList();
+						var result = service.GeoSearch(new GeoSearchOptions { Ip = "24.246.1.165" });
+						Assert.IsNotNull(result);
+						var places = result.ToList();
             Assert.IsNotEmpty(places);
 
             places = places.OrderBy(p => p.Id).ToList();

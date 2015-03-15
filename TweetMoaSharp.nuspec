@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata>
+		<id>TweetMoaSharp</id>
+		<version>3.0.0.0</version>
+		<dependencies>
+			<group>
+				<dependency id="Newtonsoft.Json" version="6.0.4" />
+			</group>
+			<group targetFramework="sl4-wp">
+				<dependency id="Newtonsoft.Json" version="5.0.8" />
+			</group>
+			<group targetFramework="sl4-wp71">
+				<dependency id="Newtonsoft.Json" version="5.0.8" />
+			</group>
+		</dependencies>
+		<authors>Daniel Crenna, Jason Diller and Troy Willmot</authors>
+		<owners>Troy Willmot</owners>
+		<description>TweetMoaSharp is a fast, clean wrapper around the Twitter API. Based on the original TweetSharp.</description>
+		<summary>Based on the original TweetSharp by Daniel Crenna and Jason Diller. TweetMoaSharp is a fast, clean wrapper around the Twitter API.</summary>
+		<language>en-US</language>
+		<projectUrl>https://github.com/Yortw/tweetmoasharp</projectUrl>
+		<licenseUrl>https://github.com/Yortw/tweetmoasharp/blob/master/LICENSE.md</licenseUrl>
+		<iconUrl>https://github.com/Yortw/tweetmoasharp/blob/master/logo_tweetmoasharp.png</iconUrl>
+		<tags>twitter tweetmoasharp tweetsharp web api http rest wrapper json wp7 mango silverlight</tags>
+		<releaseNotes>
+			New in 3.0.0.0
+			----------
+			- Based on latest (unpublished) TweetSharp code base, including fixes for long id's etc.
+			- Updated to Newtonsoft.Json package version 5.0.8.
+			- WinRT and Async &amp; Await support
+			- Added WinRT Universal App Support, with async/await support.
+			- Added .Net 45 support with async/await support.
+			- TwitterStatus support for Extended Entities (multiple photos, videos, animated gifs).
+		</releaseNotes>
+	</metadata>
+</package>

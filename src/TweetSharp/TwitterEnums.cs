@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json;
 
 namespace TweetSharp
 {
@@ -50,7 +51,9 @@ namespace TweetSharp
 #endif
     public enum TwitterMediaType
     {
-        Photo
+        Photo,
+				Video,
+				AnimatedGif
     }
 
 
