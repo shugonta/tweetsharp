@@ -542,6 +542,7 @@ namespace TweetSharp
 		public string Slug { get; set; }  
 		public string OwnerScreenName { get; set; }  
 		public long? OwnerId { get; set; }  
+		public int? Count { get; set; }  
 		public long? Cursor { get; set; }  
 		public bool? IncludeEntities { get; set; }  
 		public bool? SkipStatus { get; set; } 			
@@ -2936,12 +2937,13 @@ namespace TweetSharp
 			var slug = options.Slug;
 			var owner_screen_name = options.OwnerScreenName;
 			var owner_id = options.OwnerId;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
 				
 			
-			return WithHammock<TwitterCursorList<TwitterUser>>("lists/members", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&cursor=", cursor, "&include_entities=", include_entities, "&skip_status=", skip_status);
+			return WithHammock<TwitterCursorList<TwitterUser>>("lists/members", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&count=", count, "&cursor=", cursor, "&include_entities=", include_entities, "&skip_status=", skip_status);
 		}
 
         
@@ -3839,12 +3841,13 @@ namespace TweetSharp
 			var slug = options.Slug;
 			var owner_screen_name = options.OwnerScreenName;
 			var owner_id = options.OwnerId;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
 				
 
-			return WithHammock(action, "lists/members", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&cursor=", cursor, "&include_entities=", include_entities, "&skip_status=", skip_status);
+			return WithHammock(action, "lists/members", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&count=", count, "&cursor=", cursor, "&include_entities=", include_entities, "&skip_status=", skip_status);
 		}
 
         
@@ -4742,12 +4745,13 @@ namespace TweetSharp
 			var slug = options.Slug;
 			var owner_screen_name = options.OwnerScreenName;
 			var owner_id = options.OwnerId;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
 				
 
-			return BeginWithHammock<TwitterCursorList<TwitterUser>>(WebMethod.Get, "lists/members", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&cursor=", cursor, "&include_entities=", include_entities, "&skip_status=", skip_status);
+			return BeginWithHammock<TwitterCursorList<TwitterUser>>(WebMethod.Get, "lists/members", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&count=", count, "&cursor=", cursor, "&include_entities=", include_entities, "&skip_status=", skip_status);
 		}
 
         
@@ -6498,11 +6502,12 @@ namespace TweetSharp
 			var slug = options.Slug;
 			var owner_screen_name = options.OwnerScreenName;
 			var owner_id = options.OwnerId;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
 			
-			WithHammock(action, "lists/members", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&cursor=", cursor, "&include_entities=", include_entities, "&skip_status=", skip_status);
+			WithHammock(action, "lists/members", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&count=", count, "&cursor=", cursor, "&include_entities=", include_entities, "&skip_status=", skip_status);
 		}
 
         
@@ -7324,11 +7329,12 @@ namespace TweetSharp
 			var slug = options.Slug;
 			var owner_screen_name = options.OwnerScreenName;
 			var owner_id = options.OwnerId;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
 			
-			return WithHammockTask<TwitterCursorList<TwitterUser>>("lists/members", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&cursor=", cursor, "&include_entities=", include_entities, "&skip_status=", skip_status);
+			return WithHammockTask<TwitterCursorList<TwitterUser>>("lists/members", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&count=", count, "&cursor=", cursor, "&include_entities=", include_entities, "&skip_status=", skip_status);
 		}
 
         

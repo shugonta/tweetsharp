@@ -875,6 +875,26 @@ namespace TweetSharp.Tests.Service
             }
         }
 
+
+				[Test]
+				public void Can_limit_list_members()
+				{
+					var service = GetAuthenticatedService();
+					var lists = service.ListListsFor(new ListListsForOptions() { ScreenName = "yortw" });
+
+					Assert.IsNotNull(lists);
+					if (!lists.Any())
+					{
+						Assert.Ignore("This test account has no lists");
+					}
+					
+					var list = (from l in lists where l.MemberCount > 1 select l).FirstOrDefault();
+					Assert.IsNotNull(list, "No lists with more than one member.");
+
+					var membersCursor = service.ListListMembers(new ListListMembersOptions() { ListId = list.Id, Count = 1 });
+					Assert.AreEqual(1, membersCursor.Count);
+				}
+
         [Test]
         public void Can_create_and_delete_list()
         {
