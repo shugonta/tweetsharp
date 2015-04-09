@@ -2321,7 +2321,7 @@ namespace TweetSharp
 			var trim_user = options.TrimUser;
 				
 			
-			return WithHammock<TwitterStatus>(WebMethod.Delete, "statuses/destroy/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
+			return WithHammock<TwitterStatus>(WebMethod.Post, "statuses/destroy/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
 		}
 
         
@@ -3225,7 +3225,7 @@ namespace TweetSharp
 			var trim_user = options.TrimUser;
 				
 
-			return WithHammock(WebMethod.Delete, action, "statuses/destroy/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
+			return WithHammock(WebMethod.Post, action, "statuses/destroy/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
 		}
 
         
@@ -4129,7 +4129,7 @@ namespace TweetSharp
 			var trim_user = options.TrimUser;
 				
 
-			return BeginWithHammock<TwitterStatus>(WebMethod.Delete, "statuses/destroy/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
+			return BeginWithHammock<TwitterStatus>(WebMethod.Post, "statuses/destroy/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
 		}
 
         
@@ -5938,7 +5938,7 @@ namespace TweetSharp
 			var id = options.Id;
 			var trim_user = options.TrimUser;
 			
-			WithHammock(WebMethod.Delete, action, "statuses/destroy/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
+			WithHammock(WebMethod.Post, action, "statuses/destroy/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
 		}
 
         
@@ -6765,7 +6765,7 @@ namespace TweetSharp
 			var id = options.Id;
 			var trim_user = options.TrimUser;
 			
-			return WithHammockTask<TwitterStatus>(WebMethod.Delete, "statuses/destroy/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
+			return WithHammockTask<TwitterStatus>(WebMethod.Post, "statuses/destroy/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
 		}
 
         
