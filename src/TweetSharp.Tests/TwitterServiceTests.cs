@@ -179,6 +179,29 @@ namespace TweetSharp.Tests.Service
             Assert.IsNotNullOrEmpty(profile.ScreenName);
         }
 
+				[Test]
+				public void Can_destroy_tweet()
+				{
+					var service = GetAuthenticatedService();
+					var status = "This tweet should self-destruct in 5 seconds.";
+					var tweet = service.SendTweet(new SendTweetOptions { Status = status });
+
+					AssertResultWas(service, HttpStatusCode.OK);
+					Assert.IsNotNull(tweet);
+					Assert.AreNotEqual(0, tweet.Id);
+
+					System.Threading.Thread.Sleep(TimeSpan.FromSeconds(5));
+
+					var deletedStatus = service.DeleteTweet(new DeleteTweetOptions() { Id = tweet.Id });
+					AssertResultWas(service, HttpStatusCode.OK);
+					Assert.IsNotNull(deletedStatus);
+					Assert.AreEqual(deletedStatus.Id, tweet.Id);
+
+					var foundStatus = service.GetTweet(new GetTweetOptions() { Id = deletedStatus.Id });
+					AssertResultWas(service, HttpStatusCode.NotFound);
+					Assert.IsNull(foundStatus);
+				}
+
         [Test]
         public void Can_tweet()
         {

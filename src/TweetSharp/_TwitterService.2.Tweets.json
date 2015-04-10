@@ -5,7 +5,7 @@ IEnumerable<TwitterStatus>, "statuses/retweets/{id}", Retweets, long id, int? co
 TwitterStatus, "statuses/show/{id}", GetTweet, long id, bool? trim_user, bool? include_my_retweet, bool? include_entities
 
 // https://dev.twitter.com/docs/api/1.1/post/statuses/destroy/%3Aid
-TwitterStatus, "statuses/destroy/{id}":DELETE, DeleteTweet, long id, bool trim_user
+TwitterStatus, "statuses/destroy/{id}":POST, DeleteTweet, long id, bool trim_user
 
 // https://dev.twitter.com/docs/api/1.1/post/statuses/update
 TwitterStatus, "statuses/update":POST, SendTweet, string status, long? in_reply_to_status_id, double? lat, double? @long, long? place_id, bool? display_coordinates, bool? trim_user
