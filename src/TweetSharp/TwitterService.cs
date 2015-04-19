@@ -516,6 +516,17 @@ namespace TweetSharp
             return result;
         }
 
+				private IAsyncResult BeginWithHammock<T>(RestClient client, WebMethod method, string path, MediaFile media, params object[] segments)
+				{
+					var url = ResolveUrlSegments(path, segments.ToList());
+					var request = PrepareHammockQuery(url);
+					request.Method = method;
+					request.QueryHandling = QueryHandling.AppendToParameters;
+					request.AddFile("media", media.FileName, media.Content);
+					var result = _client.BeginRequest<T>(request);
+					return result;
+				}
+
         private T EndWithHammock<T>(IAsyncResult result)
         {
             var response = _client.EndRequest<T>(result);
@@ -564,6 +575,17 @@ namespace TweetSharp
             }
             return WithHammockImpl<T>(client, request);
         }
+
+				private T WithHammock<T>(RestClient client, WebMethod method, string path, MediaFile media, params object[] segments)
+				{
+					var url = ResolveUrlSegments(path, segments.ToList());
+					var request = PrepareHammockQuery(url);
+					request.Method = method;
+					request.QueryHandling = QueryHandling.AppendToParameters;
+
+					request.AddFile("media", media.FileName, media.Content);
+					return WithHammockImpl<T>(client, request);
+				}
 
 				private T WithHammock<T>(RestClient client, WebMethod method, string path, params object[] segments)
         {

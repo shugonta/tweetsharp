@@ -96,7 +96,8 @@ namespace TweetSharp
 		public double? @Long { get; set; }  
 		public long? PlaceId { get; set; }  
 		public bool? DisplayCoordinates { get; set; }  
-		public bool? TrimUser { get; set; } 			
+		public bool? TrimUser { get; set; }  
+		public IEnumerable<String> MediaIds { get; set; } 			
 	}			
  
     		
@@ -106,7 +107,7 @@ namespace TweetSharp
 		public bool? TrimUser { get; set; } 			
 	}			
  
-    		
+    [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]		
 	public class SendTweetWithMediaOptions
 	{ 
 		public string Status { get; set; }  
@@ -122,7 +123,7 @@ namespace TweetSharp
     		
 	public class UploadMediaOptions
 	{ 
-		public IDictionary<string,Stream> Images { get; set; } 			
+		public MediaFile Media { get; set; } 			
 	}			
  
     		
@@ -719,7 +720,7 @@ namespace TweetSharp
 		TwitterStatus Retweet(RetweetOptions options);	
 
  
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		TwitterStatus SendTweetWithMedia(SendTweetWithMediaOptions options);	
 
  
@@ -1022,7 +1023,7 @@ namespace TweetSharp
         
 		IAsyncResult Retweet(RetweetOptions options, Action<TwitterStatus, TwitterResponse> action);		
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		IAsyncResult SendTweetWithMedia(SendTweetWithMediaOptions options, Action<TwitterStatus, TwitterResponse> action);		
 
         
@@ -1294,7 +1295,7 @@ namespace TweetSharp
 
 		TwitterStatus EndRetweet(IAsyncResult result, TimeSpan timeout);
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		IAsyncResult BeginSendTweetWithMedia(SendTweetWithMediaOptions options);
 
 		TwitterStatus EndSendTweetWithMedia(IAsyncResult result);		
@@ -1802,7 +1803,7 @@ namespace TweetSharp
         
 		void Retweet(RetweetOptions options, Action<TwitterStatus, TwitterResponse> action);
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		void SendTweetWithMedia(SendTweetWithMediaOptions options, Action<TwitterStatus, TwitterResponse> action);
 
         
@@ -2038,7 +2039,7 @@ namespace TweetSharp
         
 		Task<TwitterAsyncResult<TwitterStatus>> RetweetAsync(RetweetOptions options);
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		Task<TwitterAsyncResult<TwitterStatus>> SendTweetWithMediaAsync(SendTweetWithMediaOptions options);
 
         
@@ -2360,9 +2361,10 @@ namespace TweetSharp
 			var place_id = options.PlaceId;
 			var display_coordinates = options.DisplayCoordinates;
 			var trim_user = options.TrimUser;
+			var media_ids = options.MediaIds;
 				
 			
-			return WithHammock<TwitterStatus>(_client, WebMethod.Post, "statuses/update", FormatAsString, "?status=", status, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates, "&trim_user=", trim_user);
+			return WithHammock<TwitterStatus>(_client, WebMethod.Post, "statuses/update", FormatAsString, "?status=", status, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates, "&trim_user=", trim_user, "&media_ids=", media_ids);
 		}
 
         
@@ -2375,7 +2377,7 @@ namespace TweetSharp
 			return WithHammock<TwitterStatus>(_client, WebMethod.Post, "statuses/retweet/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
 		}
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual TwitterStatus SendTweetWithMedia(SendTweetWithMediaOptions options)
 		{
 			var status = options.Status;
@@ -2394,10 +2396,10 @@ namespace TweetSharp
         
 		public virtual TwitterUploadedMedia UploadMedia(UploadMediaOptions options)
 		{
-			 var images = options.Images;
+			 var media = options.Media;
 				
 			
-			return WithHammock<TwitterUploadedMedia>(_uploadMediaClient, WebMethod.Post, "media/upload", images, FormatAsString);
+			return WithHammock<TwitterUploadedMedia>(_uploadMediaClient, WebMethod.Post, "media/upload", media, FormatAsString);
 		}
 
         
@@ -3273,9 +3275,10 @@ namespace TweetSharp
 			var place_id = options.PlaceId;
 			var display_coordinates = options.DisplayCoordinates;
 			var trim_user = options.TrimUser;
+			var media_ids = options.MediaIds;
 				
 
-			return WithHammock(_client, WebMethod.Post, action, "statuses/update", FormatAsString, "?status=", status, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates, "&trim_user=", trim_user);
+			return WithHammock(_client, WebMethod.Post, action, "statuses/update", FormatAsString, "?status=", status, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates, "&trim_user=", trim_user, "&media_ids=", media_ids);
 		}
 
         
@@ -3288,7 +3291,7 @@ namespace TweetSharp
 			return WithHammock(_client, WebMethod.Post, action, "statuses/retweet/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
 		}
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual IAsyncResult SendTweetWithMedia(SendTweetWithMediaOptions options, Action<TwitterStatus, TwitterResponse> action)
 		{
 			var status = options.Status;
@@ -3307,10 +3310,10 @@ namespace TweetSharp
         
 		public virtual IAsyncResult UploadMedia(UploadMediaOptions options, Action<TwitterUploadedMedia, TwitterResponse> action)
 		{
-			 var images = options.Images;
+			 var media = options.Media;
 				
 
-			return WithHammock(_client, WebMethod.Post, action, "media/upload", images, FormatAsString);
+			return WithHammock(_client, WebMethod.Post, action, "media/upload", media, FormatAsString);
 		}
 
         
@@ -4186,9 +4189,10 @@ namespace TweetSharp
 			var place_id = options.PlaceId;
 			var display_coordinates = options.DisplayCoordinates;
 			var trim_user = options.TrimUser;
+			var media_ids = options.MediaIds;
 				
 
-			return BeginWithHammock<TwitterStatus>(_client, WebMethod.Post, "statuses/update", FormatAsString, "?status=", status, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates, "&trim_user=", trim_user);
+			return BeginWithHammock<TwitterStatus>(_client, WebMethod.Post, "statuses/update", FormatAsString, "?status=", status, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates, "&trim_user=", trim_user, "&media_ids=", media_ids);
 		}
 
         
@@ -4201,7 +4205,7 @@ namespace TweetSharp
 			return BeginWithHammock<TwitterStatus>(_client, WebMethod.Post, "statuses/retweet/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
 		}
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual IAsyncResult BeginSendTweetWithMedia(SendTweetWithMediaOptions options)
 		{
 			var status = options.Status;
@@ -4220,10 +4224,10 @@ namespace TweetSharp
         
 		public virtual IAsyncResult BeginUploadMedia(UploadMediaOptions options)
 		{
-			 var images = options.Images;
+			 var media = options.Media;
 				
 
-			return BeginWithHammock<TwitterUploadedMedia>(_client, WebMethod.Post, "media/upload", images, FormatAsString);
+			return BeginWithHammock<TwitterUploadedMedia>(_client, WebMethod.Post, "media/upload", media, FormatAsString);
 		}
 
         
@@ -5099,13 +5103,13 @@ namespace TweetSharp
 			return EndWithHammock<TwitterStatus>(result, timeout);
 		}
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual TwitterStatus EndSendTweetWithMedia(IAsyncResult result) 
 		{
 			return EndWithHammock<TwitterStatus>(result);
 		}
 
-		
+		[Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual TwitterStatus EndSendTweetWithMedia(IAsyncResult result, TimeSpan timeout) 
 		{
 			return EndWithHammock<TwitterStatus>(result, timeout);
@@ -6016,8 +6020,9 @@ namespace TweetSharp
 			var place_id = options.PlaceId;
 			var display_coordinates = options.DisplayCoordinates;
 			var trim_user = options.TrimUser;
+			var media_ids = options.MediaIds;
 			
-			WithHammock(_client, WebMethod.Post, action, "statuses/update", FormatAsString, "?status=", status, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates, "&trim_user=", trim_user);
+			WithHammock(_client, WebMethod.Post, action, "statuses/update", FormatAsString, "?status=", status, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates, "&trim_user=", trim_user, "&media_ids=", media_ids);
 		}
 
         
@@ -6029,7 +6034,7 @@ namespace TweetSharp
 			WithHammock(_client, WebMethod.Post, action, "statuses/retweet/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
 		}
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual void SendTweetWithMedia(SendTweetWithMediaOptions options, Action<TwitterStatus, TwitterResponse> action)
 		{
 			var status = options.Status;
@@ -6850,8 +6855,9 @@ namespace TweetSharp
 			var place_id = options.PlaceId;
 			var display_coordinates = options.DisplayCoordinates;
 			var trim_user = options.TrimUser;
+			var media_ids = options.MediaIds;
 			
-			return WithHammockTask<TwitterStatus>(_client, WebMethod.Post, "statuses/update", FormatAsString, "?status=", status, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates, "&trim_user=", trim_user);
+			return WithHammockTask<TwitterStatus>(_client, WebMethod.Post, "statuses/update", FormatAsString, "?status=", status, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates, "&trim_user=", trim_user, "&media_ids=", media_ids);
 		}
 
         
@@ -6863,7 +6869,7 @@ namespace TweetSharp
 			return WithHammockTask<TwitterStatus>(_client, WebMethod.Post, "statuses/retweet/{id}", FormatAsString, "?id=", id, "&trim_user=", trim_user);
 		}
 
-        
+        [Obsolete("Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.")]
 		public virtual Task<TwitterAsyncResult<TwitterStatus>> SendTweetWithMediaAsync(SendTweetWithMediaOptions options)
 		{
 			var status = options.Status;

@@ -196,7 +196,7 @@ namespace TweetSharp.Tests.Service
 				{
 					var service = GetAuthenticatedService();
 					//var status = "Hello à....";
-					var status = "Can_tweet_with_image:Tweet and accented char à....";
+					var status = "Can_tweet_with_image:Tweet an accented char à....";
 					var tweet = service.SendTweet(new SendTweetOptions { Status = status });
 					
 					AssertResultWas(service, HttpStatusCode.OK);
@@ -342,13 +342,22 @@ namespace TweetSharp.Tests.Service
 				[Test]
 				public void Can_tweet_with_image_and_accented_char()
 				{
+					//This test currently fails. Don't know why. Response is an error
+					//to do with authorisation failing, but everything looks correct.
+					//Tweeting with image an no accented character works, using
+					//alternate endpoint to tweet status with accented character and
+					//no media also works, but this one fails if both conditions are true.
+					//This method is deprecated anywasy and using uploadmedia + the normal
+					//status update with mediaids works even when an accented char is present
+					//so not critical long term, but it would be great to understand why
+					//this is an issue and possibly fix it.
 					var service = GetAuthenticatedService();
 					service.TraceEnabled = true;
 					using (var stream = new FileStream("daniel_8bit.png", FileMode.Open, FileAccess.Read, FileShare.Read))
 					{
 						var tweet = service.SendTweetWithMedia(new SendTweetWithMediaOptions
 						{
-							Status = "Can_tweet_with_image:Tweet and accented char ", // à", 
+							Status = "Can_tweet_with_image:Tweet and accented char à", 
 							Images = new Dictionary<string, Stream> { { "test", stream } }
 						});
 
@@ -367,13 +376,49 @@ namespace TweetSharp.Tests.Service
 					{
 						var uploadedMedia = service.UploadMedia(new UploadMediaOptions
 						{
-							Images = new Dictionary<string, Stream> { { "test", stream } }
+							Media = new MediaFile() { FileName = "test", Content = stream }
 						});
 
 						AssertResultWas(service, HttpStatusCode.OK);
 						Assert.IsNotNull(uploadedMedia);
 						Assert.AreNotEqual(0, uploadedMedia.Media_Id);
 					}
+				}
+
+				[Test]
+				public void Can_tweet_uploaded_media_and_accented_char()
+				{
+					List<string> mediaIds = new List<string>(2);
+
+					var service = GetAuthenticatedService();
+					service.TraceEnabled = true;
+					using (var stream = new FileStream("daniel_8bit.png", FileMode.Open, FileAccess.Read, FileShare.Read))
+					{
+						var uploadedMedia = service.UploadMedia(new UploadMediaOptions
+						{
+							Media = new MediaFile { FileName = "test", Content = stream } 
+						});
+
+						AssertResultWas(service, HttpStatusCode.OK);
+						Assert.IsNotNull(uploadedMedia);
+						Assert.AreNotEqual(0, uploadedMedia.Media_Id);
+						mediaIds.Add(uploadedMedia.Media_Id);
+					}
+
+					using (var stream = new FileStream("Sparrow.jpg", FileMode.Open, FileAccess.Read, FileShare.Read))
+					{
+						var uploadedMedia = service.UploadMedia(new UploadMediaOptions
+						{
+							Media = new MediaFile { FileName = "test2", Content = stream } 
+						});
+
+						AssertResultWas(service, HttpStatusCode.OK);
+						Assert.IsNotNull(uploadedMedia);
+						Assert.AreNotEqual(0, uploadedMedia.Media_Id);
+						mediaIds.Add(uploadedMedia.Media_Id);
+					}
+
+					service.SendTweet(new SendTweetOptions() { Status = "TweetMoaSharp:Can_tweet_with_image:Tweet and accented char à....", MediaIds = mediaIds });
 				}
 
         [Test]

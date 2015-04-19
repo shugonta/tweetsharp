@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using Hammock.Model;
+using Newtonsoft.Json;
 
 namespace TweetSharp
 {
@@ -18,6 +19,7 @@ namespace TweetSharp
 		private UploadedImage _Image;
 
 
+		[JsonProperty("media_id")]
 #if !Smartphone && !NET20
 		[DataMember]
 #endif
@@ -131,6 +133,7 @@ namespace TweetSharp
 
 	public class UploadedImage
 	{
+		[JsonProperty("w")]
 #if !Smartphone && !NET20
 		[DataMember]
 #endif
@@ -138,10 +141,19 @@ namespace TweetSharp
 #if !Smartphone && !NET20
 		[DataMember]
 #endif
+
+		[JsonProperty("h")]
 		public int Height { get; set; }
 #if !Smartphone && !NET20
 		[DataMember]
 #endif
+
 		public string ImageType { get; set; }
+	}
+
+	public class MediaFile
+	{
+		public string FileName { get; set; }
+		public System.IO.Stream Content { get; set; }
 	}
 }
