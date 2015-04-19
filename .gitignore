@@ -51,3 +51,6 @@ src/TweetSharp.Tests/App.config
 /src/TweetSharp/TwitterExtendedEntities.cs
 /src/UpgradeLog.htm
 /src/UpgradeLog2.htm
+/src/packages
+/TweetMoaSharp.3.0.0.1.nupkg
+/TweetMoaSharp.3.0.0.1.symbols.nupkg
