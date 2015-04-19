@@ -85,6 +85,7 @@
     <Compile Include="TwitterTimeZone.cs" />
     <Compile Include="TwitterTrend.cs" />
     <Compile Include="TwitterTrends.cs" />
+    <Compile Include="TwitterUploadedMedia.cs" />
     <Compile Include="TwitterUserStreams.cs" />
     <Compile Include="TwitterUserSuggestions.cs" />
     <Compile Include="WhereOnEarthLocation.cs" />

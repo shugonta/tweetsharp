@@ -221,6 +221,9 @@
     <Compile Include="..\TweetSharp\TwitterTrends.cs">
       <Link>TwitterTrends.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\TwitterUploadedMedia.cs">
+      <Link>TwitterUploadedMedia.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\TwitterUser.cs">
       <Link>TwitterUser.cs</Link>
     </Compile>

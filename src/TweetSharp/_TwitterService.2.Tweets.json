@@ -16,5 +16,8 @@ TwitterStatus, "statuses/retweet/{id}":POST, Retweet, long id, bool? trim_user
 // https://dev.twitter.com/docs/api/1.1/post/statuses/update_with_media
 MEDIA, IDictionary<string,Stream> images, TwitterStatus, "statuses/update_with_media":POST, SendTweetWithMedia, string status, bool? possibly_sensitive, long? in_reply_to_status_id, double? lat, double? @long, bool? place_id, bool? display_coordinates
 
+// https://dev.twitter.com/rest/reference/post/media/upload
+AUTHORITY, upload, MEDIA, IDictionary<string,Stream> images, TwitterUploadedMedia, "media/upload":POST, UploadMedia
+
 // https://dev.twitter.com/docs/api/1.1/get/statuses/oembed
 // TODO

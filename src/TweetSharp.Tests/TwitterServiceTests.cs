@@ -191,6 +191,19 @@ namespace TweetSharp.Tests.Service
             Assert.AreNotEqual(0, tweet.Id);
         }
 
+				[Test]
+				public void Can_tweet_accented_chars()
+				{
+					var service = GetAuthenticatedService();
+					//var status = "Hello à....";
+					var status = "Can_tweet_with_image:Tweet and accented char à....";
+					var tweet = service.SendTweet(new SendTweetOptions { Status = status });
+					
+					AssertResultWas(service, HttpStatusCode.OK);
+					Assert.IsNotNull(tweet);
+					Assert.AreNotEqual(0, tweet.Id);
+				}
+
         [Test]
         public void Can_tweet_with_geo()
         {
@@ -323,9 +336,45 @@ namespace TweetSharp.Tests.Service
                     });
                 Assert.IsNotNull(tweet);
                 Assert.AreNotEqual(0, tweet.Id);
-            }
-            
+            }            
         }
+
+				[Test]
+				public void Can_tweet_with_image_and_accented_char()
+				{
+					var service = GetAuthenticatedService();
+					service.TraceEnabled = true;
+					using (var stream = new FileStream("daniel_8bit.png", FileMode.Open, FileAccess.Read, FileShare.Read))
+					{
+						var tweet = service.SendTweetWithMedia(new SendTweetWithMediaOptions
+						{
+							Status = "Can_tweet_with_image:Tweet and accented char ", // à", 
+							Images = new Dictionary<string, Stream> { { "test", stream } }
+						});
+
+						AssertResultWas(service, HttpStatusCode.OK);
+						Assert.IsNotNull(tweet);
+						Assert.AreNotEqual(0, tweet.Id);
+					}
+				}
+
+				[Test]
+				public void Can_upload_media()
+				{
+					var service = GetAuthenticatedService();
+					service.TraceEnabled = true;
+					using (var stream = new FileStream("daniel_8bit.png", FileMode.Open, FileAccess.Read, FileShare.Read))
+					{
+						var uploadedMedia = service.UploadMedia(new UploadMediaOptions
+						{
+							Images = new Dictionary<string, Stream> { { "test", stream } }
+						});
+
+						AssertResultWas(service, HttpStatusCode.OK);
+						Assert.IsNotNull(uploadedMedia);
+						Assert.AreNotEqual(0, uploadedMedia.Media_Id);
+					}
+				}
 
         [Test]
         public void Can_get_followers_on_first_page()
