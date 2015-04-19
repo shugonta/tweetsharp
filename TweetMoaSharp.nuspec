@@ -2,10 +2,10 @@
 <package>
 	<metadata>
 		<id>TweetMoaSharp</id>
-		<version>3.0.0.0</version>
+		<version>3.0.0.1</version>
 		<dependencies>
 			<group>
-				<dependency id="Newtonsoft.Json" version="6.0.4" />
+				<dependency id="Newtonsoft.Json" version="6.0.8" />
 			</group>
 			<group targetFramework="sl4-wp">
 				<dependency id="Newtonsoft.Json" version="5.0.8" />
@@ -24,14 +24,11 @@
 		<iconUrl>https://raw.githubusercontent.com/Yortw/tweetmoasharp/master/logo_tweetmoasharp.png</iconUrl>
 		<tags>twitter tweetmoasharp tweetsharp web api http rest wrapper json wp7 mango silverlight</tags>
 		<releaseNotes>
-			New in 3.0.0.0
+			New in 3.0.0.1
 			----------
-			- Based on latest (unpublished) TweetSharp code base, including fixes for long id's etc.
-			- Updated to Newtonsoft.Json package version 5.0.8.
-			- WinRT and Async &amp; Await support
-			- Added WinRT Universal App Support, with async/await support.
-			- Added .Net 45 support with async/await support.
-			- TwitterStatus support for Extended Entities (multiple photos, videos, animated gifs).
+			- Delete tweet now uses POST verb instead of DELETE.
+			- ListListMembers now supports Count option for paging results.
+			- Updated dependencies.
 		</releaseNotes>
 	</metadata>
 </package>
