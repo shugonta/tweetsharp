@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>TweetMoaSharp</id>
-		<version>3.0.0.1</version>
+		<version>3.0.0.2</version>
 		<dependencies>
 			<group>
 				<dependency id="Newtonsoft.Json" version="6.0.8" />
@@ -24,11 +24,9 @@
 		<iconUrl>https://raw.githubusercontent.com/Yortw/tweetmoasharp/master/logo_tweetmoasharp.png</iconUrl>
 		<tags>twitter tweetmoasharp tweetsharp web api http rest wrapper json wp7 mango silverlight</tags>
 		<releaseNotes>
-			New in 3.0.0.1
+			New in 3.0.0.2
 			----------
-			- Delete tweet now uses POST verb instead of DELETE.
-			- ListListMembers now supports Count option for paging results.
-			- Updated dependencies.
+			- Includes updated release build assemblies for WinRT.
 		</releaseNotes>
 	</metadata>
 </package>
