@@ -418,7 +418,7 @@ namespace TweetSharp.Tests.Service
 						mediaIds.Add(uploadedMedia.Media_Id);
 					}
 
-					service.SendTweet(new SendTweetOptions() { Status = "TweetMoaSharp:Can_tweet_with_image:Tweet and accented char à....", MediaIds = mediaIds });
+					service.SendTweet(new SendTweetOptions() { Status = "TweetMoaSharp:Can_tweet_uploaded_media_and_accented_char:Tweet and accented char à....", MediaIds = mediaIds });
 				}
 
         [Test]

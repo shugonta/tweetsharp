@@ -54,3 +54,5 @@ src/TweetSharp.Tests/App.config
 /src/packages
 /TweetMoaSharp.3.0.0.1.nupkg
 /TweetMoaSharp.3.0.0.1.symbols.nupkg
+/TweetMoaSharp.3.0.0.2.nupkg
+/TweetMoaSharp.3.0.0.2.symbols.nupkg
