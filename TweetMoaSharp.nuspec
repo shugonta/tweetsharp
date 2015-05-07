@@ -2,9 +2,12 @@
 <package>
 	<metadata>
 		<id>TweetMoaSharp</id>
-		<version>3.0.0.2</version>
+		<version>3.0.0.3</version>
 		<dependencies>
 			<group>
+				<dependency id="Newtonsoft.Json" version="6.0.1" />
+			</group>
+			<group targetFramework="portable-win81+wpa81">
 				<dependency id="Newtonsoft.Json" version="6.0.8" />
 			</group>
 			<group targetFramework="sl4-wp">
@@ -24,9 +27,11 @@
 		<iconUrl>https://raw.githubusercontent.com/Yortw/tweetmoasharp/master/logo_tweetmoasharp.png</iconUrl>
 		<tags>twitter tweetmoasharp tweetsharp web api http rest wrapper json wp7 mango silverlight</tags>
 		<releaseNotes>
-			New in 3.0.0.2
+			New in 3.0.0.3
 			----------
-			- Includes updated release build assemblies for WinRT.
+			- Supports upload media and tweets with media ids.
+			- Tweets using media id's will work with both media and accented chars (send tweet with media doesn't)
+			- Reduced Json.NET package depdendency to v6.01 for non WinRT platforms to make package useful to some users who can't upgrade.
 		</releaseNotes>
 	</metadata>
 </package>

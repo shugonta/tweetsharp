@@ -117,6 +117,9 @@ namespace TweetSharp.Tests.Service
         [Test]
         public void Can_search_geo_by_ip()
         {
+					//This test is currently failing. No matter what IP is provided, no result is returned
+					//as Twitter says it has no location associated. Still trying to figure out if this
+					//is a Twitter problem, data problem, or problem on our end.
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
