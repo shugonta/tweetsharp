@@ -685,6 +685,10 @@ namespace TweetSharp
 #if !SILVERLIGHT && !WINRT
 		#region Sequential Methods 
         
+		TwitterConfiguration GetConfiguration();	
+
+ 
+        
 		IEnumerable<TwitterStatus> ListTweetsMentioningMe(ListTweetsMentioningMeOptions options);	
 
  
@@ -997,6 +1001,9 @@ namespace TweetSharp
 #if !WINDOWS_PHONE
 		#region Asynchronous Methods (with IAsyncResult)
         
+		IAsyncResult GetConfiguration(Action<TwitterConfiguration, TwitterResponse> action);		
+
+        
 		IAsyncResult ListTweetsMentioningMe(ListTweetsMentioningMeOptions options, Action<IEnumerable<TwitterStatus>, TwitterResponse> action);		
 
         
@@ -1232,6 +1239,13 @@ namespace TweetSharp
 
 #if !WINDOWS_PHONE
 		#region Asynchronous Methods (with Begin/End pattern)
+        
+		IAsyncResult BeginGetConfiguration();
+
+		TwitterConfiguration EndGetConfiguration(IAsyncResult result);		
+
+		TwitterConfiguration EndGetConfiguration(IAsyncResult result, TimeSpan timeout);
+
         
 		IAsyncResult BeginListTweetsMentioningMe(ListTweetsMentioningMeOptions options);
 
@@ -1777,6 +1791,9 @@ namespace TweetSharp
 #if WINDOWS_PHONE
 		#region Asynchronous Methods (without IAsyncResult)
         
+		void GetConfiguration(Action<TwitterConfiguration, TwitterResponse> action);
+
+        
 		void ListTweetsMentioningMe(ListTweetsMentioningMeOptions options, Action<IEnumerable<TwitterStatus>, TwitterResponse> action);
 
         
@@ -2012,6 +2029,9 @@ namespace TweetSharp
 
 #if PLATFORM_SUPPORTS_ASYNC_AWAIT
 		#region Async/Await Methods 
+        
+		Task<TwitterAsyncResult<TwitterConfiguration>> GetConfigurationAsync();
+
         
 		Task<TwitterAsyncResult<IEnumerable<TwitterStatus>>> ListTweetsMentioningMeAsync(ListTweetsMentioningMeOptions options);
 
@@ -2258,6 +2278,14 @@ namespace TweetSharp
 	{	
 #if !SILVERLIGHT && !WINRT
 		#region Sequential Methods
+        
+		public virtual TwitterConfiguration GetConfiguration()
+		{
+				
+			
+			return WithHammock<TwitterConfiguration>(_client, "help/configuration", FormatAsString);
+		}
+
         
 		public virtual IEnumerable<TwitterStatus> ListTweetsMentioningMe(ListTweetsMentioningMeOptions options)
 		{
@@ -3173,6 +3201,14 @@ namespace TweetSharp
 #if !WINDOWS_PHONE
 		#region Asynchronous Methods (with IAsyncResult)
         
+		public virtual IAsyncResult GetConfiguration(Action<TwitterConfiguration, TwitterResponse> action)
+		{
+				
+
+			return WithHammock(_client, action, "help/configuration", FormatAsString);
+		}
+
+        
 		public virtual IAsyncResult ListTweetsMentioningMe(ListTweetsMentioningMeOptions options, Action<IEnumerable<TwitterStatus>, TwitterResponse> action)
 		{
 			var count = options.Count;
@@ -4087,6 +4123,14 @@ namespace TweetSharp
 #if !WINDOWS_PHONE
 		#region Asynchronous Methods (with Begin/End pattern)
         
+		public virtual IAsyncResult BeginGetConfiguration()
+		{
+				
+
+			return BeginWithHammock<TwitterConfiguration>(_client, WebMethod.Get, "help/configuration", FormatAsString);
+		}
+
+        
 		public virtual IAsyncResult BeginListTweetsMentioningMe(ListTweetsMentioningMeOptions options)
 		{
 			var count = options.Count;
@@ -4993,6 +5037,18 @@ namespace TweetSharp
 				
 
 			return BeginWithHammock<TwitterUser>(_client, WebMethod.Post, "users/report_spam", FormatAsString, "?screen_name=", screen_name, "&user_id=", user_id);
+		}
+
+        
+		public virtual TwitterConfiguration EndGetConfiguration(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterConfiguration>(result);
+		}
+
+		
+		public virtual TwitterConfiguration EndGetConfiguration(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterConfiguration>(result, timeout);
 		}
 
         
@@ -5925,6 +5981,13 @@ namespace TweetSharp
 #if WINDOWS_PHONE
 		#region Asynchronous Methods (without IAsyncResult)
         
+		public virtual void GetConfiguration(Action<TwitterConfiguration, TwitterResponse> action)
+		{
+			
+			WithHammock(_client, action, "help/configuration", FormatAsString);
+		}
+
+        
 		public virtual void ListTweetsMentioningMe(ListTweetsMentioningMeOptions options, Action<IEnumerable<TwitterStatus>, TwitterResponse> action)
 		{
 			var count = options.Count;
@@ -6759,6 +6822,13 @@ namespace TweetSharp
 
 #if PLATFORM_SUPPORTS_ASYNC_AWAIT
 		#region Task Based Async/Await Methods 
+        
+		public virtual Task<TwitterAsyncResult<TwitterConfiguration>> GetConfigurationAsync()
+		{
+			
+			return WithHammockTask<TwitterConfiguration>(_client, "help/configuration", FormatAsString);
+		}
+
         
 		public virtual Task<TwitterAsyncResult<IEnumerable<TwitterStatus>>> ListTweetsMentioningMeAsync(ListTweetsMentioningMeOptions options)
 		{

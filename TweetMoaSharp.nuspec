@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>TweetMoaSharp</id>
-		<version>3.0.0.3</version>
+		<version>3.0.0.4</version>
 		<dependencies>
 			<group>
 				<dependency id="Newtonsoft.Json" version="6.0.1" />
@@ -27,11 +27,9 @@
 		<iconUrl>https://raw.githubusercontent.com/Yortw/tweetmoasharp/master/logo_tweetmoasharp.png</iconUrl>
 		<tags>twitter tweetmoasharp tweetsharp web api http rest wrapper json wp7 mango silverlight</tags>
 		<releaseNotes>
-			New in 3.0.0.3
+			New in 3.0.0.4
 			----------
-			- Supports upload media and tweets with media ids.
-			- Tweets using media id's will work with both media and accented chars (send tweet with media doesn't)
-			- Reduced Json.NET package depdendency to v6.01 for non WinRT platforms to make package useful to some users who can't upgrade.
+			- Added support for help/configuration API end point. Allows retrieving shortened url lengths, photo sizes and other global Twitter metadata.
 		</releaseNotes>
 	</metadata>
 </package>

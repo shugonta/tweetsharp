@@ -62,6 +62,7 @@
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="TimeExtensions.cs" />
     <Compile Include="TwitterAsyncResult.cs" />
+    <Compile Include="TwitterConfiguration.cs" />
     <Compile Include="TwitterErrors.cs" />
     <Compile Include="TwitterGeoLocationSearch.cs" />
     <Compile Include="TwitterService.generated.cs">
@@ -140,6 +141,7 @@
       <LastGenOutput>TwitterService.generated.cs</LastGenOutput>
     </None>
     <None Include="key.snk" />
+    <Content Include="_TwitterService.1.Help.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assembly.ico" />

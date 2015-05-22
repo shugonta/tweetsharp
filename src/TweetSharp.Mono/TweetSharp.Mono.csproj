@@ -44,6 +44,9 @@
     <Compile Include="..\TweetSharp\Properties\AssemblyInfoVersion.cs">
       <Link>AssemblyInfoVersion.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\TwitterConfiguration.cs">
+      <Link>TwitterConfiguration.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\TwitterErrors.cs">
       <Link>TwitterErrors.cs</Link>
     </Compile>

@@ -12,7 +12,7 @@ using NUnit.Framework;
 
 namespace TweetSharp.Tests.Service
 {
-    [TestFixture]
+		[TestFixture, System.Runtime.InteropServices.GuidAttribute("DD654DE5-566A-4DAB-A675-7AD6C998F4B9")]
     public partial class TwitterServiceTests
     {
         private readonly string _hero;
@@ -33,6 +33,39 @@ namespace TweetSharp.Tests.Service
 						_twitPicKey = ConfigurationManager.AppSettings["TwitPicKey"];
 						_twitPicUserName = ConfigurationManager.AppSettings["TwitPicUserName"];
         }
+
+				[Test]
+				public void Can_get_twitter_configuration()
+				{
+					var service = GetAuthenticatedService();
+					var configuration = service.GetConfiguration();
+
+					Assert.IsNotNull(configuration);
+					Assert.Greater(configuration.CharactersReservedPerMedia, 0);
+					Assert.Greater(configuration.MaxMediaPerUpload, 0);
+					Assert.Greater(configuration.ShortUrlLength, 0);
+					Assert.Greater(configuration.ShortUrlLengthHttps, 0);
+					Assert.Greater(configuration.PhotoSizeLimit, 0);
+					Assert.IsNotNull(configuration.NonUserNamePaths);
+					Assert.Greater(configuration.NonUserNamePaths.Count(), 0);
+					Assert.IsNotNull(configuration.PhotoSizes);
+					Assert.IsNotNull(configuration.PhotoSizes.Thumb);
+					Assert.IsNotNull(configuration.PhotoSizes.Small);
+					Assert.IsNotNull(configuration.PhotoSizes.Medium);
+					Assert.IsNotNull(configuration.PhotoSizes.Large);
+					Assert.Greater(configuration.PhotoSizes.Thumb.Height, 0);
+					Assert.Greater(configuration.PhotoSizes.Thumb.Width, 0);
+					Assert.IsNotNullOrEmpty(configuration.PhotoSizes.Thumb.Resize);
+					Assert.Greater(configuration.PhotoSizes.Small.Height, 0);
+					Assert.Greater(configuration.PhotoSizes.Small.Width, 0);
+					Assert.IsNotNullOrEmpty(configuration.PhotoSizes.Small.Resize);
+					Assert.Greater(configuration.PhotoSizes.Medium.Height, 0);
+					Assert.Greater(configuration.PhotoSizes.Medium.Width, 0);
+					Assert.IsNotNullOrEmpty(configuration.PhotoSizes.Medium.Resize);
+					Assert.Greater(configuration.PhotoSizes.Large.Height, 0);
+					Assert.Greater(configuration.PhotoSizes.Large.Width, 0);
+					Assert.IsNotNullOrEmpty(configuration.PhotoSizes.Large.Resize);
+				}
 
         [Test]
         public void Can_parse_ids_greater_than_53_bits()

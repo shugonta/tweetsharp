@@ -100,6 +100,9 @@
     <Compile Include="..\TweetSharp\TwitterClientInfo.cs">
       <Link>TwitterClientInfo.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\TwitterConfiguration.cs">
+      <Link>TwitterConfiguration.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\TwitterConverterBase.cs">
       <Link>TwitterConverterBase.cs</Link>
     </Compile>
