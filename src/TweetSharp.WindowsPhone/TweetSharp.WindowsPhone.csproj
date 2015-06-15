@@ -11,10 +11,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TweetSharp</RootNamespace>
     <AssemblyName>TweetSharp.WindowsPhone</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
-    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <SilverlightVersion>
+    </SilverlightVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
     <SilverlightApplication>false</SilverlightApplication>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
@@ -38,6 +40,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,18 +63,36 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget />
+    <OutputPath>Bin\x86\Debug</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget />
+    <OutputPath>Bin\x86\Release</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget />
+    <OutputPath>Bin\ARM\Debug</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget />
+    <OutputPath>Bin\ARM\Release</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Windows" />
-    <Reference Include="system" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\TweetSharp\Globals.cs">
@@ -106,6 +127,9 @@
     </Compile>
     <Compile Include="..\TweetSharp\ObjectExtensions.cs">
       <Link>ObjectExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\TweetSharp\Properties\AssemblyInfoVersion.cs">
+      <Link>Properties\AssemblyInfoVersion.cs</Link>
     </Compile>
     <Compile Include="..\TweetSharp\SerializerBase.cs">
       <Link>SerializerBase.cs</Link>
@@ -151,6 +175,9 @@
     </Compile>
     <Compile Include="..\TweetSharp\TwitterError.cs">
       <Link>TwitterError.cs</Link>
+    </Compile>
+    <Compile Include="..\TweetSharp\TwitterErrors.cs">
+      <Link>TwitterErrors.cs</Link>
     </Compile>
     <Compile Include="..\TweetSharp\TwitterFriend.cs">
       <Link>TwitterFriend.cs</Link>
@@ -218,6 +245,9 @@
     <Compile Include="..\TweetSharp\TwitterTrends.cs">
       <Link>TwitterTrends.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\TwitterUploadedMedia.cs">
+      <Link>TwitterUploadedMedia.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\TwitterUser.cs">
       <Link>TwitterUser.cs</Link>
     </Compile>
@@ -239,9 +269,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -259,8 +286,11 @@
       <Name>Hammock.WindowsPhone</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <ProjectExtensions />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

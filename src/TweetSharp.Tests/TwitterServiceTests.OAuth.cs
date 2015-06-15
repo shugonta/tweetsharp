@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Web;
+using Hammock;
 using NUnit.Framework;
 
 namespace TweetSharp.Tests.Service
@@ -66,7 +68,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live status update")]
         public void Can_tweet_with_protected_resource_info()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
@@ -83,15 +84,24 @@ namespace TweetSharp.Tests.Service
             Assert.Ignore("Test account isn't authorized for xAuth");
         }
 
-        [Test]
-        [Ignore("This test requires a TwitPic API key")]
-        public void Can_make_oauth_echo_request()
-        {
-            var service = GetAuthenticatedService();
-            var response = service.GetEchoRequest("http://api.twitpic.com/2/users/show.json?username=danielcrenna");
-            Assert.IsNotNull(response);
-            AssertResultWas(service, HttpStatusCode.OK);
-        }
+				//Remmoved as TwitPic is now defunct and I haven't figured out another service to use instead.
+				//[Test]
+				//public void Can_make_oauth_echo_request()
+				//{
+				//	if (String.IsNullOrEmpty(_twitPicKey)) Assert.Ignore("This test requires a TwitPic API key.");
+				//	if (String.IsNullOrEmpty(_twitPicUserName)) Assert.Ignore("This test requires a TwitPic user name.");
+					
+				//	var service = GetAuthenticatedService();
+				//	var request = service.PrepareEchoRequest("http://api.twitpic.com/2/");
+				//	request.Path = "users/show.json?username=" + HttpUtility.UrlEncode(_twitPicUserName);
+				//	request.AddField("key", _twitPicKey);
+
+				//	RestClient client = new RestClient { Authority = "http://api.twitpic.com/", VersionPath = "2" };
+				//	RestResponse response = client.Request(request);
+
+				//	Assert.IsNotNull(response);
+				//	Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+				//}
 
         [Test]
         public void Can_verify_credentials()

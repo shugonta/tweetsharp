@@ -12,11 +12,18 @@
     <RootNamespace>TweetSharp.Silverlight</RootNamespace>
     <AssemblyName>TweetSharp.Silverlight</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>false</SilverlightApplication>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <!-- This property group is only here to support building this project using the 
        MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
@@ -53,9 +60,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\portable-net40+sl5+wp80+win8+monotouch+monoandroid\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows" />
@@ -99,6 +106,9 @@
     <Compile Include="..\TweetSharp\ObjectExtensions.cs">
       <Link>ObjectExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\Properties\AssemblyInfoVersion.cs">
+      <Link>Properties\AssemblyInfoVersion.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\SerializerBase.cs">
       <Link>SerializerBase.cs</Link>
     </Compile>
@@ -113,6 +123,9 @@
     </Compile>
     <Compile Include="..\TweetSharp\TwitterClientInfo.cs">
       <Link>TwitterClientInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\TweetSharp\TwitterConfiguration.cs">
+      <Link>TwitterConfiguration.cs</Link>
     </Compile>
     <Compile Include="..\TweetSharp\TwitterConverterBase.cs">
       <Link>TwitterConverterBase.cs</Link>
@@ -143,6 +156,9 @@
     </Compile>
     <Compile Include="..\TweetSharp\TwitterError.cs">
       <Link>TwitterError.cs</Link>
+    </Compile>
+    <Compile Include="..\TweetSharp\TwitterErrors.cs">
+      <Link>TwitterErrors.cs</Link>
     </Compile>
     <Compile Include="..\TweetSharp\TwitterFriend.cs">
       <Link>TwitterFriend.cs</Link>
@@ -210,6 +226,9 @@
     <Compile Include="..\TweetSharp\TwitterTrends.cs">
       <Link>TwitterTrends.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\TwitterUploadedMedia.cs">
+      <Link>TwitterUploadedMedia.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\TwitterUser.cs">
       <Link>TwitterUser.cs</Link>
     </Compile>
@@ -251,6 +270,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

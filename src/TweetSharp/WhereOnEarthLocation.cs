@@ -13,9 +13,9 @@ namespace TweetSharp
     //     "placeType":{"code":12,"name":"Country"},
     //     "countryCode":"MX",
     //     "name":"Mexico",
-    //     "country":"Mexico" }
+	//     "country":"Mexico" }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     /// <summary>
     /// Represents a location in the Yahoo! WOE specification.
     /// </summary>
@@ -23,7 +23,7 @@ namespace TweetSharp
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
 #endif
 #if !Smartphone
     [DebuggerDisplay("{WoeId}: {Name}")]

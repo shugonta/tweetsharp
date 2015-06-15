@@ -8,12 +8,12 @@ namespace TweetSharp
 {
     /// <summary>
     /// Denotes a list of user friends in a user stream.
-    /// </summary>
-#if !SILVERLIGHT
+	/// </summary>
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
 #endif
     public class TwitterUserStreamFriends : TwitterStreamArtifact
     {
@@ -38,12 +38,12 @@ namespace TweetSharp
 
     /// <summary>
     /// Denotes a <see cref="TwitterStatus" /> in a user stream.
-    /// </summary>
-#if !SILVERLIGHT
+		/// </summary>
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
 #endif
     public class TwitterUserStreamStatus : TwitterStreamArtifact, ITweetable
     {
@@ -95,11 +95,11 @@ namespace TweetSharp
         }
     }
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
 #endif
     public class TwitterUserStreamDirectMessage: TwitterStreamArtifact, ITweetable
     {
@@ -154,12 +154,12 @@ namespace TweetSharp
     /// <summary>
     /// Denotes a stream event, resulting from a user action.
     /// The source is always the initiating user, the target is always the affected user.
-    /// </summary>
-#if !SILVERLIGHT
+		/// </summary>
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
 #endif
     public class TwitterUserStreamEventBase : TwitterStreamArtifact
     {
@@ -176,12 +176,12 @@ namespace TweetSharp
         public virtual DateTime CreatedDate { get; set; }
     }
 
-    // Denotes a status deleted on a timeline in a user stream.
-#if !SILVERLIGHT
+		// Denotes a status deleted on a timeline in a user stream.
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
 #endif
     public class TwitterUserStreamDeleteStatus : TwitterStreamArtifact
     {
@@ -189,12 +189,12 @@ namespace TweetSharp
         public virtual long StatusId { get; set; }
     }
 
-    // Denotes a status deleted on a timeline in a user stream.
-#if !SILVERLIGHT
+		// Denotes a status deleted on a timeline in a user stream.
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
 #endif
     public class TwitterUserStreamDeleteDirectMessage : TwitterStreamArtifact
     {
@@ -223,12 +223,12 @@ namespace TweetSharp
 
     /// <summary>
     /// Denotes the end of a user stream
-    /// </summary>
-#if !SILVERLIGHT
+		/// </summary>
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
 #endif
     public class TwitterUserStreamEnd : TwitterStreamArtifact
     {
@@ -237,12 +237,12 @@ namespace TweetSharp
     
     /// <summary>
     /// Denotes content surfaced in a stream
-    /// </summary>
-#if !SILVERLIGHT
+		/// </summary>
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+		[DataContract]
 #endif
     public class TwitterStreamArtifact : PropertyChangedBase, ITwitterModel 
     {

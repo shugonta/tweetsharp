@@ -10,6 +10,10 @@ using Hammock;
 using Hammock.Serialization;
 using Hammock.Web;
 
+#if PLATFORM_SUPPORTS_ASYNC_AWAIT
+using System.Threading.Tasks;
+#endif
+
 #if SILVERLIGHT
 using Hammock.Silverlight.Compat;
 #endif
@@ -23,7 +27,8 @@ namespace TweetSharp
     public partial class TwitterService
     {
         private readonly RestClient _client;
-        
+				private readonly RestClient _uploadMediaClient;
+
         public bool TraceEnabled { get; set; }
         public string Proxy { get; set; }
         public bool IncludeEntities { get; set; }
@@ -72,7 +77,7 @@ namespace TweetSharp
         }
 #endif
 
- #if !SILVERLIGHT
+ #if !SILVERLIGHT && !WINRT
         static TwitterService()
         {
             ServicePointManager.Expect100Continue = false;
@@ -142,8 +147,8 @@ namespace TweetSharp
                 Proxy = Proxy,
                 UserAgent = userAgent,
                 DecompressionMethods = DecompressionMethods.GZip,
-                GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
-#if SILVERLIGHT
+                GetErrorResponseEntityType = (request, @base) => typeof(TwitterErrors),
+#if SILVERLIGHT 
                 HasElevatedPermissions = true
 #endif
             };
@@ -156,10 +161,10 @@ namespace TweetSharp
                 Serializer = serializer ?? jsonSerializer,
                 Deserializer = deserializer ?? jsonSerializer,
                 DecompressionMethods = DecompressionMethods.GZip,
-                GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
+                GetErrorResponseEntityType = (request, @base) => typeof(TwitterErrors),
                 UserAgent = userAgent,
                 Proxy = Proxy,
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
                 FollowRedirects = true,
 #endif
 #if SILVERLIGHT
@@ -167,17 +172,36 @@ namespace TweetSharp
 #endif
             };
 
+						_uploadMediaClient = new RestClient
+						{
+							Authority = Globals.MediaUploadAuthority,
+							QueryHandling = QueryHandling.AppendToParameters,
+							VersionPath = "1.1",
+							Serializer = serializer ?? jsonSerializer,
+							Deserializer = deserializer ?? jsonSerializer,
+							DecompressionMethods = DecompressionMethods.GZip,
+							GetErrorResponseEntityType = (request, @base) => typeof(TwitterErrors),
+							UserAgent = userAgent,
+							Proxy = Proxy,
+#if !SILVERLIGHT && !WINRT
+							FollowRedirects = true,
+#endif
+#if SILVERLIGHT
+                HasElevatedPermissions = true
+#endif
+						};
+
             _userStreamsClient = new RestClient
             {
-                Authority = Globals.UserStreamsAuthorityt,
+                Authority = Globals.UserStreamsAuthority,
                 Proxy = Proxy,
                 VersionPath = "1.1",
                 Serializer = serializer ?? jsonSerializer,
                 Deserializer = deserializer ?? jsonSerializer,
                 DecompressionMethods = DecompressionMethods.GZip,
-                GetErrorResponseEntityType = (request, @base) => typeof(TwitterError),
+                GetErrorResponseEntityType = (request, @base) => typeof(TwitterErrors),
                 UserAgent = userAgent,
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
                 FollowRedirects = true,
 #endif
 #if SILVERLIGHT
@@ -194,13 +218,13 @@ namespace TweetSharp
                 Deserializer = deserializer ?? jsonSerializer,
                 DecompressionMethods = DecompressionMethods.GZip,
                 UserAgent = userAgent,
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
                 FollowRedirects = true,
 #endif
 #if SILVERLIGHT
                 HasElevatedPermissions = true
 #endif
-            };
+						};
 
             InitializeService();
         }
@@ -262,7 +286,14 @@ namespace TweetSharp
             path = path.Replace(string.Format("image_path={0}&", uri), "");
             request.Path = path;
             request.Method = WebMethod.Post;
+#if !WINRT
             request.AddFile("image", Path.GetFileName(Uri.UnescapeDataString(uri)), Path.GetFullPath(Uri.UnescapeDataString(uri)), "multipart/form-data");
+#else
+					var fullPath = Uri.UnescapeDataString(uri);
+					if (!System.IO.Path.IsPathRooted(fullPath)) //Best guess at how to create a 'full' path on WinRT where file access is restricted and all paths should be passed as 'full' versions anyway.
+						fullPath = System.IO.Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, uri);
+					request.AddFile("image", Path.GetFileName(Uri.UnescapeDataString(uri)), fullPath, "multipart/form-data");
+#endif
         }
 
         private void SetTwitterClientInfo(RestBase request)
@@ -382,8 +413,11 @@ namespace TweetSharp
             }
 
             segments.Insert(0, path);
-
+#if !WINRT
             return string.Concat(segments.ToArray()).ToString(CultureInfo.InvariantCulture);
+#else
+						return string.Concat(segments.ToArray());
+#endif
         }
 
         private static bool IsKeyAlreadySet(IList<object> segments, string key)
@@ -419,34 +453,34 @@ namespace TweetSharp
         }
 
 #if !WINDOWS_PHONE
-        private IAsyncResult WithHammock<T>(Action<T, TwitterResponse> action, string path) where T : class
+        private IAsyncResult WithHammock<T>(RestClient client, Action<T, TwitterResponse> action, string path) where T : class
         {
             var request = PrepareHammockQuery(path);
 
-            return WithHammockImpl(request, action);
+            return WithHammockImpl(client, request, action);
         }
 
-        private IAsyncResult WithHammock<T>(Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
+				private IAsyncResult WithHammock<T>(RestClient client, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
         {
-            return WithHammock(action, ResolveUrlSegments(path, segments.ToList()));
+            return WithHammock(client, action, ResolveUrlSegments(path, segments.ToList()));
         }
 
-        private IAsyncResult WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path) where T : class
+        private IAsyncResult WithHammock<T>(RestClient client, WebMethod method, Action<T, TwitterResponse> action, string path) where T : class
         {
             var request = PrepareHammockQuery(path);
             request.Method = method;
 
-            return WithHammockImpl(request, action);
+            return WithHammockImpl(client, request, action);
         }
 
-        private IAsyncResult WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
+				private IAsyncResult WithHammock<T>(RestClient client, WebMethod method, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
         {
-            return WithHammock(method, action, ResolveUrlSegments(path, segments.ToList()));
+            return WithHammock(client, method, action, ResolveUrlSegments(path, segments.ToList()));
         }
 
-        private IAsyncResult WithHammockImpl<T>(RestRequest request, Action<T, TwitterResponse> action) where T : class
+        private IAsyncResult WithHammockImpl<T>(RestClient client, RestRequest request, Action<T, TwitterResponse> action) where T : class
         {
-            return _client.BeginRequest(
+            return client.BeginRequest(
                 request, new RestCallback<T>((req, response, state) =>
                 {
                     if (response == null)
@@ -458,8 +492,8 @@ namespace TweetSharp
                     action.Invoke(entity, new TwitterResponse(response));
                 }));
         }
-        
-        private IAsyncResult BeginWithHammock<T>(WebMethod method, string path, params object[] segments)
+
+				private IAsyncResult BeginWithHammock<T>(RestClient client, WebMethod method, string path, params object[] segments)
         {
             path = ResolveUrlSegments(path, segments.ToList());
             var request = PrepareHammockQuery(path);
@@ -468,7 +502,7 @@ namespace TweetSharp
             return result;
         }
 
-        private IAsyncResult BeginWithHammock<T>(WebMethod method, string path, IDictionary<string, Stream> files,params object[] segments)
+        private IAsyncResult BeginWithHammock<T>(RestClient client, WebMethod method, string path, IDictionary<string, Stream> files,params object[] segments)
         {
             var url = ResolveUrlSegments(path, segments.ToList());
             var request = PrepareHammockQuery(url);
@@ -476,11 +510,22 @@ namespace TweetSharp
             request.QueryHandling = QueryHandling.AppendToParameters;
             foreach (var file in files)
             {
-                request.AddFile("media[]", file.Key, file.Value);
+                request.AddFile("media", file.Key, file.Value);
             }
             var result = _client.BeginRequest<T>(request);
             return result;
         }
+
+				private IAsyncResult BeginWithHammock<T>(RestClient client, WebMethod method, string path, MediaFile media, params object[] segments)
+				{
+					var url = ResolveUrlSegments(path, segments.ToList());
+					var request = PrepareHammockQuery(url);
+					request.Method = method;
+					request.QueryHandling = QueryHandling.AppendToParameters;
+					request.AddFile("media", media.FileName, media.Content);
+					var result = _client.BeginRequest<T>(request);
+					return result;
+				}
 
         private T EndWithHammock<T>(IAsyncResult result)
         {
@@ -496,29 +541,29 @@ namespace TweetSharp
         }
 #endif
 
-#if !SILVERLIGHT
-        private T WithHammock<T>(string path)
+#if !SILVERLIGHT && !WINRT
+				private T WithHammock<T>(RestClient client, string path)
         {
             var request = PrepareHammockQuery(path);
 
-            return WithHammockImpl<T>(request);
+            return WithHammockImpl<T>(client, request);
         }
 
-        private T WithHammock<T>(string path, params object[] segments)
+				private T WithHammock<T>(RestClient client, string path, params object[] segments)
         {
             var url = ResolveUrlSegments(path, segments.ToList());
-            return WithHammock<T>(url);
+            return WithHammock<T>(client, url);
         }
 
-        private T WithHammock<T>(WebMethod method, string path)
+				private T WithHammock<T>(RestClient client, WebMethod method, string path)
         {
             var request = PrepareHammockQuery(path);
             request.Method = method;
 
-            return WithHammockImpl<T>(request);
+            return WithHammockImpl<T>(client, request);
         }
 
-        private T WithHammock<T>(WebMethod method, string path, IDictionary<string, Stream> files, params object[] segments)
+				private T WithHammock<T>(RestClient client, WebMethod method, string path, IDictionary<string, Stream> files, params object[] segments)
         {
             var url = ResolveUrlSegments(path, segments.ToList());
             var request = PrepareHammockQuery(url);
@@ -526,21 +571,37 @@ namespace TweetSharp
             request.QueryHandling = QueryHandling.AppendToParameters;
             foreach (var file in files)
             {
-                request.AddFile("media[]",file.Key, file.Value);
+                request.AddFile("media",file.Key, file.Value);
             }
-            return WithHammockImpl<T>(request);
+            return WithHammockImpl<T>(client, request);
         }
 
-        private T WithHammock<T>(WebMethod method, string path, params object[] segments)
+				private T WithHammock<T>(RestClient client, WebMethod method, string path, MediaFile media, params object[] segments)
+				{
+					var url = ResolveUrlSegments(path, segments.ToList());
+					var request = PrepareHammockQuery(url);
+					request.Method = method;
+					request.QueryHandling = QueryHandling.AppendToParameters;
+
+					request.AddFile("media", media.FileName, media.Content);
+					return WithHammockImpl<T>(client, request);
+				}
+
+				private T WithHammock<T>(RestClient client, WebMethod method, string path, params object[] segments)
         {
             var url = ResolveUrlSegments(path, segments.ToList());
 
-            return WithHammock<T>(method, url);
+            return WithHammock<T>(client, method, url);
         }
 
-        private T WithHammockImpl<T>(RestRequest request)
+				private T WithHammockImpl<T>(RestRequest request)
+				{
+					return WithHammockImpl<T>(_client, request);
+				}
+
+        private T WithHammockImpl<T>(RestClient client, RestRequest request)
         {
-            var response = _client.Request<T>(request);
+					var response = client.Request<T>(request);
             
             SetResponse(response);
 
@@ -549,7 +610,7 @@ namespace TweetSharp
         }
 #endif
 
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE 
         private void WithHammock<T>(Action<T, TwitterResponse> action, string path) where T : class
         {
             var request = PrepareHammockQuery(path);
@@ -597,13 +658,46 @@ namespace TweetSharp
             request.QueryHandling = QueryHandling.AppendToParameters;
             foreach (var file in files)
             {
-                request.AddFile("media[]", file.Key, file.Value);
+                request.AddFile("media", file.Key, file.Value);
             }
             WithHammockImpl(request, action);
         }
 #endif
 
-        private static T TryAsyncResponse<T>(Func<T> action, out Exception exception)
+#if PLATFORM_SUPPORTS_ASYNC_AWAIT
+				private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(RestClient client, string path, params object[] segments) where T1 : class
+				{
+					var tcs = new TaskCompletionSource<TwitterAsyncResult<T1>>();
+					WithHammock(client,
+						(Action<T1, TwitterResponse>)((v, r) =>
+						{
+							tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
+						}),
+						path,
+						segments
+					);
+
+					return tcs.Task;
+				}
+
+				private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(RestClient client, WebMethod method, string path, params object[] segments) where T1 : class
+				{
+					var tcs = new TaskCompletionSource<TwitterAsyncResult<T1>>();
+					WithHammock(client, method,
+						(Action<T1, TwitterResponse>)((v, r) =>
+						{
+							tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
+						}),
+						path,
+						segments
+					);
+
+					return tcs.Task;
+				}
+
+#endif
+
+				private static T TryAsyncResponse<T>(Func<T> action, out Exception exception)
         {
             exception = null;
             var entity = default(T);

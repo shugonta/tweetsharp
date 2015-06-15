@@ -24,7 +24,7 @@
     <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -44,9 +44,9 @@
     <ApplicationIcon>assembly.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -57,9 +57,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\AssemblyInfoVersion.cs" />
     <Compile Include="ITwitterService.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="TimeExtensions.cs" />
+    <Compile Include="TwitterAsyncResult.cs" />
+    <Compile Include="TwitterConfiguration.cs" />
+    <Compile Include="TwitterErrors.cs" />
     <Compile Include="TwitterGeoLocationSearch.cs" />
     <Compile Include="TwitterService.generated.cs">
       <AutoGen>True</AutoGen>
@@ -83,6 +87,7 @@
     <Compile Include="TwitterTimeZone.cs" />
     <Compile Include="TwitterTrend.cs" />
     <Compile Include="TwitterTrends.cs" />
+    <Compile Include="TwitterUploadedMedia.cs" />
     <Compile Include="TwitterUserStreams.cs" />
     <Compile Include="TwitterUserSuggestions.cs" />
     <Compile Include="WhereOnEarthLocation.cs" />
@@ -130,14 +135,13 @@
     <Content Include="_TwitterService.14.Help.json" />
     <Content Include="_TwitterService.9.Favorites.json" />
     <Content Include="_TwitterService.8.SuggestedUsers.json" />
+    <None Include="packages.config" />
     <None Include="TwitterService.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TwitterService.generated.cs</LastGenOutput>
     </None>
     <None Include="key.snk" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <Content Include="_TwitterService.1.Help.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assembly.ico" />
@@ -147,12 +151,19 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\hammock\src\net40\Hammock.ClientProfile\Hammock.csproj">
+    <ProjectReference Include="..\..\hammock\src\net40\Hammock.ClientProfile\Hammock.ClientProfile.csproj">
       <Project>{487b7e3c-9689-47bc-8785-73ccd92a3749}</Project>
-      <Name>Hammock %28Hammock\Hammock%29</Name>
+      <Name>Hammock.ClientProfile</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -6,13 +6,13 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-    // Documentation: https://dev.twitter.com/docs/api/1/get/account/settings
+	// Documentation: https://dev.twitter.com/docs/api/1/get/account/settings
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterAccount : PropertyChangedBase,

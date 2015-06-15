@@ -6,14 +6,14 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     /// <summary>
     /// Represents a private <see cref="TwitterStatus" /> between two users.
     /// </summary>
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
     [DebuggerDisplay("{SenderScreenName} to {RecipientScreenName}:{Text}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]

@@ -59,7 +59,13 @@ namespace TweetSharp
             {
                 using (var jsonTextReader = new JsonTextReader(stringReader))
                 {
-                    return _serializer.Deserialize(jsonTextReader, type);
+                    var retVal = _serializer.Deserialize(jsonTextReader, type);
+
+										var model = retVal as ITwitterModel;
+										if (model != null)
+											model.RawSource = content;
+
+										return retVal;
                 }
             }
         }
@@ -70,7 +76,13 @@ namespace TweetSharp
             {
                 using (var jsonTextReader = new JsonTextReader(stringReader))
                 {
-                    return _serializer.Deserialize<T>(jsonTextReader);
+                    var retVal = _serializer.Deserialize<T>(jsonTextReader);
+										
+										var model = retVal as ITwitterModel;
+										if (model != null)
+											model.RawSource = content;
+
+										return retVal;
                 }
             }
         }

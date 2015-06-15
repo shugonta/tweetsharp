@@ -6,14 +6,14 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     /// <summary>
     /// Represents a suggested user category from the Twitter API. 
     /// </summary>
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterUserSuggestions : PropertyChangedBase,

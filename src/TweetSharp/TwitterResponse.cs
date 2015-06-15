@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using Hammock;
-#if SILVERLIGHT
+#if SILVERLIGHT || WINRT
 using Hammock.Silverlight.Compat;
 #else
 using System.Collections.Specialized;
@@ -12,10 +12,10 @@ using System.Collections.Specialized;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
-    public class TwitterResponse
+	public class TwitterResponse
     {
         private readonly RestResponseBase _response;
         private readonly Exception _exception;
@@ -60,9 +60,23 @@ namespace TweetSharp
         {
             return limit.All(char.IsNumber);
         }
-        public virtual TwitterError Error
+				public virtual TwitterErrors Errors
+				{
+					get
+					{
+						return _response.ErrorContentEntity as TwitterErrors;
+					}
+				}
+				public virtual TwitterError Error
         {
-            get { return _response.ErrorContentEntity as TwitterError; }
+            get 
+						{ 
+							var errors = _response.ErrorContentEntity as TwitterErrors;
+							if (errors != null)
+								return errors.errors.FirstOrDefault();
+							else
+								return _response.ErrorContentEntity as TwitterError; 
+						}
         }
         public virtual NameValueCollection Headers
         {

@@ -2,6 +2,10 @@
 using System.Globalization;
 using Newtonsoft.Json;
 
+#if WINRT
+using TweetSharp.WinRT.Compat;
+#endif
+
 namespace TweetSharp
 {
     // [DC]: All converters must be public for Silverlight to construct them correctly.
@@ -36,7 +40,7 @@ namespace TweetSharp
     /// <summary>
     /// This converter exists to convert geo-spatial coordinates.
     /// </summary>
-    internal class TwitterGeoConverter : TwitterConverterBase
+    public class TwitterGeoConverter : TwitterConverterBase
     {
         private const string GeoTemplate = "\"geo\":{{\"type\":\"Point\",\"coordinates\":[{0}, {1}]}}";
 

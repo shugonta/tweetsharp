@@ -8,25 +8,25 @@ using Newtonsoft.Json;
 
 namespace TweetSharp
 {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
     [Serializable]
 #endif
 #if !Smartphone && !NET20
-    [DataContract]
+	[DataContract]
     [DebuggerDisplay("{Type}:{Coordinates.Latitude},{Coordinates.Longitude}")]
 #endif
     [JsonObject(MemberSerialization.OptIn)]
     public class TwitterGeoLocation : PropertyChangedBase,  
                                       IEquatable<TwitterGeoLocation>,
                                       ITwitterModel
-    {
-#if !SILVERLIGHT
+		{
+#if !SILVERLIGHT && !WINRT
         /// <summary>
         /// The inner spatial coordinates for this location.
         /// </summary>
         [Serializable]
 #endif
-        public class GeoCoordinates
+			public class GeoCoordinates
         {
             /// <summary>
             /// Gets or sets the latitude.

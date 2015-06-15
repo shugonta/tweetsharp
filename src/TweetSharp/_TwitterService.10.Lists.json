@@ -29,7 +29,7 @@ TwitterUser, "lists/subscribers/destroy":POST, UnfollowList, long? list_id, stri
 TwitterUser, "lists/members/show", VerifyListMembership, long? list_id, string slug, long? user_id, string screen_name, string owner_screen_name, long? owner_id, bool? include_entities, bool? skip_status
 
 // https://dev.twitter.com/docs/api/1.1/get/lists/members
-TwitterCursorList<TwitterUser>, "lists/members", ListListMembers, long? list_id, string slug, string owner_screen_name, long? owner_id, long? cursor, bool? include_entities, bool? skip_status
+TwitterCursorList<TwitterUser>, "lists/members", ListListMembers, long? list_id, string slug, string owner_screen_name, long? owner_id, int? count, long? cursor, bool? include_entities, bool? skip_status
 
 // https://dev.twitter.com/docs/api/1.1/post/lists/members/create
 TwitterUser, "lists/members/create":POST, AddListMember, long? list_id, string slug, long? user_id, string screen_name, string owner_screen_name, long? owner_id

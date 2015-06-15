@@ -9,6 +9,7 @@
 	var methods = new List<TweetSharpMethod>(10);
 	
 	var manifests = new string[] { 
+		"_TwitterService.1.Help.json",  
 		"_TwitterService.1.Timelines.json",  
 		"_TwitterService.2.Tweets.json",
 		// 4 is Streaming, handled elsewhere
@@ -50,9 +51,13 @@ using System.Collections.Generic;
 using Hammock;
 using Hammock.Web;
 
+#if PLATFORM_SUPPORTS_ASYNC_AWAIT
+using System.Threading.Tasks;
+#endif
+
 namespace TweetSharp
 {
-#region Options<# foreach(TweetSharpMethod method in methods) { if(method.Parameters.Count == 0) continue; #> 
+#region Options<# foreach(TweetSharpMethod method in methods) { if(method.Parameters.Count == 0 && method.MediaParameter == null) continue; #> 
     <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>		
 	public class <#= method.Name #>Options
 	{<# foreach(var parameter in method.Parameters) { #> 
@@ -65,10 +70,10 @@ namespace TweetSharp
 #region Interface
 	public partial interface ITwitterService
 	{
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
 		#region Sequential Methods<# foreach(TweetSharpMethod method in methods) { #> 
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		<#= method.Type #> <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>);	
+		<#= method.Type #> <#= method.Name #>(<# if(method.Parameters.Count > 0 || method.MediaParameter != null) { #><#= method.Name #>Options options<# } #>);	
 
 <# } #>
 		#endregion
@@ -78,7 +83,7 @@ namespace TweetSharp
 		#region Asynchronous Methods (with IAsyncResult)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		IAsyncResult <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options, <# } #>Action<<#= method.Type #>, TwitterResponse> action);		
+		IAsyncResult <#= method.Name #>(<# if(method.Parameters.Count > 0 || method.MediaParameter != null) { #><#= method.Name #>Options options, <# } #>Action<<#= method.Type #>, TwitterResponse> action);		
 
 <# } #>
 		#endregion
@@ -88,7 +93,7 @@ namespace TweetSharp
 		#region Asynchronous Methods (with Begin/End pattern)
 <# foreach(TweetSharpMethod method in methods.GroupBy(p => p.Name).Select(g => g.First())) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		IAsyncResult Begin<#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>);
+		IAsyncResult Begin<#= method.Name #>(<# if(method.Parameters.Count > 0 || method.MediaParameter != null) { #><#= method.Name #>Options options<# } #>);
 
 		<#= method.Type #> End<#= method.Name #>(IAsyncResult result);		
 
@@ -102,11 +107,23 @@ namespace TweetSharp
 		#region Asynchronous Methods (without IAsyncResult)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		void <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options, <# } #>Action<<#= method.Type #>, TwitterResponse> action);
+		void <#= method.Name #>(<# if(method.Parameters.Count > 0 || method.MediaParameter != null) { #><#= method.Name #>Options options, <# } #>Action<<#= method.Type #>, TwitterResponse> action);
 
 <# } #>
 		#endregion
 #endif		
+
+#if PLATFORM_SUPPORTS_ASYNC_AWAIT
+		#region Async/Await Methods 
+<# foreach(TweetSharpMethod method in methods) { #>
+        <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
+		Task<TwitterAsyncResult<<#= method.Type #>>> <#= method.Name #>Async(<# if(method.Parameters.Count > 0 || method.MediaParameter != null) { #><#= method.Name #>Options options<#} #>);
+
+<# } #>
+		#endregion
+#endif		
+
+
 	}
 #endregion
 }
@@ -116,17 +133,17 @@ namespace TweetSharp
 #region Implementation
 	public partial class TwitterService : ITwitterService
 	{	
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
 		#region Sequential Methods
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual <#= method.Type #> <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>)
+		public virtual <#= method.Type #> <#= method.Name #>(<# if(method.Parameters.Count > 0 || method.MediaParameter != null) { #><#= method.Name #>Options options<# } #>)
 		{
 			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
 			<# } #><# if(method.MediaParameter!=null) { #> var <#= method.MediaParameter.Name #> = options.<#= method.MediaParameter.PropertyName #>;
 			<# } #>	
 			
-			return WithHammock<<#= method.Type #>>(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #><#= method.Path #>,<# if(method.MediaParameter!=null) { #> <#= method.MediaParameter.Name #>,<# } #> FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+			return WithHammock<<#= method.Type #>>(<# switch((method.AuthorityName ?? "").ToUpper()){case "UPLOAD": #>_uploadMediaClient<# break; default: #>_client<#break; } #>, <# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #><#= method.Path #>,<# if(method.MediaParameter!=null) { #> <#= method.MediaParameter.Name #>,<# } #> FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
 		}
 
 <# } #>
@@ -137,13 +154,13 @@ namespace TweetSharp
 		#region Asynchronous Methods (with IAsyncResult)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual IAsyncResult <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options, <# } #>Action<<#= method.Type #>, TwitterResponse> action)
+		public virtual IAsyncResult <#= method.Name #>(<# if(method.Parameters.Count > 0 || method.MediaParameter != null) { #><#= method.Name #>Options options, <# } #>Action<<#= method.Type #>, TwitterResponse> action)
 		{
 			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
 			<# } #><# if(method.MediaParameter!=null) { #> var <#= method.MediaParameter.Name #> = options.<#= method.MediaParameter.PropertyName #>;
 			<# } #>	
 
-			return WithHammock(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #>action, <#= method.Path #>,<# if(method.MediaParameter!=null) { #> <#= method.MediaParameter.Name #>,<# } #> FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+			return WithHammock(<# switch(method.AuthorityName){case "UPLOAD": #>_uploadMediaClient<# break; default: #>_client<#break; } #>, <# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #>action, <#= method.Path #>,<# if(method.MediaParameter!=null) { #> <#= method.MediaParameter.Name #>,<# } #> FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
 		}
 
 <# } #>
@@ -154,13 +171,13 @@ namespace TweetSharp
 		#region Asynchronous Methods (with Begin/End pattern)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual IAsyncResult Begin<#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options<# } #>)
+		public virtual IAsyncResult Begin<#= method.Name #>(<# if(method.Parameters.Count > 0 || method.MediaParameter != null) { #><#= method.Name #>Options options<# } #>)
 		{
 			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
 			<# } #><# if(method.MediaParameter!=null) { #> var <#= method.MediaParameter.Name #> = options.<#= method.MediaParameter.PropertyName #>;
 			<# } #>	
 
-			return BeginWithHammock<<#= method.Type #>>(WebMethod.<#= Helpers.Capitalize(method.Method) #>, <#= method.Path #>,<# if(method.MediaParameter!=null) { #> <#= method.MediaParameter.Name #>,<# } #> FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+			return BeginWithHammock<<#= method.Type #>>(<# switch(method.AuthorityName){case "UPLOAD": #>_uploadMediaClient<# break; default: #>_client<#break; } #>, WebMethod.<#= Helpers.Capitalize(method.Method) #>, <#= method.Path #>,<# if(method.MediaParameter!=null) { #> <#= method.MediaParameter.Name #>,<# } #> FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
 		}
 
 <# } #>
@@ -185,17 +202,34 @@ namespace TweetSharp
 		#region Asynchronous Methods (without IAsyncResult)
 <# foreach(TweetSharpMethod method in methods) { #>
         <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
-		public virtual void <#= method.Name #>(<# if(method.Parameters.Count > 0) { #><#= method.Name #>Options options, <# } #>Action<<#= method.Type #>, TwitterResponse> action)
+		public virtual void <#= method.Name #>(<# if(method.Parameters.Count > 0 || method.MediaParameter != null) { #><#= method.Name #>Options options, <# } #>Action<<#= method.Type #>, TwitterResponse> action)
 		{
 			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
 			<# } #>
 
-			WithHammock(<# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #>action, <#= method.Path #>, FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+			WithHammock(<# switch(method.AuthorityName){case "UPLOAD": #>_uploadMediaClient<# break; default: #>_client<#break; } #>, <# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #>action, <#= method.Path #>, FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
 		}
 
 <# } #>
 		#endregion
 #endif	
+
+#if PLATFORM_SUPPORTS_ASYNC_AWAIT
+		#region Task Based Async/Await Methods 
+<# foreach(TweetSharpMethod method in methods) { #>
+        <#= method.IsDeprecated ? "[Obsolete(\"Twitter has declared this method obsolete; it may cease to function at any time. Check https://dev.twitter.com/docs/api#deprecated for alternatives.\")]" : "" #>
+		public virtual Task<TwitterAsyncResult<<#= method.Type #>>> <#= method.Name #>Async(<# if(method.Parameters.Count > 0 || method.MediaParameter != null) { #><#= method.Name #>Options options<#}#>)
+		{
+			<# foreach(var parameter in method.Parameters) { #>var <#= parameter.Name #> = options.<#= parameter.PropertyName #>;
+			<# } #>
+
+			return WithHammockTask<<#= method.Type #>>(<# switch(method.AuthorityName){case "UPLOAD": #>_uploadMediaClient<# break; default: #>_client<#break; } #>, <# switch(method.Method){case "POST": #>WebMethod.Post, <# break; case "PUT": #>WebMethod.Put, <#break; case "DELETE": #>WebMethod.Delete, <# break; case "HEAD":#>WebMethod.Head, <# break; case "OPTIONS": #>WebMethod.Options, <# break; default: break; } #><#= method.Path #>, FormatAsString<# var count = method.Parameters.Count(); if(count > 0) { #>, <# } #><# for(var i = 0; i < count; i++) { var parameter = method.Parameters[i]; #>"<# if(i == 0) { #>?<# } else { #>&<# } #><#= Helpers.Underscore(parameter.Name) #>=", <#= parameter.Name #><# if(i < count - 1) { #>, <# } #><# } #>);
+		}
+
+<# } #>
+		#endregion
+#endif
+
 	}
 
 	#endregion
@@ -258,6 +292,11 @@ namespace TweetSharp
 		{
 			get; private set;
 		}
+		public string AuthorityName
+		{
+			get; private set;
+		}
+
 		public TweetSharpMethodParameter MediaParameter{get;private set;}
 
 		private string[] SplitLine(string line){
@@ -277,14 +316,21 @@ namespace TweetSharp
 
 		public TweetSharpMethod(string line)
 		{
-		     var parts = SplitLine(line);
+	     var parts = SplitLine(line);
 			 if(parts.Length > 0 && parts[0].Equals("DEPRECATED"))
 			 {
 				IsDeprecated = true;
 				parts = parts.Skip(1).ToArray();
 			 }
 
-			 if(parts.Length > 0 && parts[0].Equals("MEDIA"))
+			 if(parts.Length > 0 && parts[0].Equals("AUTHORITY"))
+			 {
+				parts = parts.Skip(1).ToArray();
+				AuthorityName = parts[0].Trim();
+				parts = parts.Skip(1).ToArray();
+			 }
+
+			 if(parts.Length > 0 && parts[0].Trim().Equals("MEDIA"))
 			 {
 				parts = parts.Skip(1).ToArray();
 				var data = parts[0].Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
