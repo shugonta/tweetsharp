@@ -148,7 +148,8 @@ namespace TweetSharp
 		public long? MaxId { get; set; }  
 		public int? Count { get; set; }  
 		public bool? IncludeEntities { get; set; }  
-		public bool? SkipStatus { get; set; } 			
+		public bool? SkipStatus { get; set; }  
+		public bool? FullText { get; set; } 			
 	}			
  
     		
@@ -158,13 +159,15 @@ namespace TweetSharp
 		public long? MaxId { get; set; }  
 		public int? Count { get; set; }  
 		public int? Page { get; set; }  
-		public bool? IncludeEntities { get; set; } 			
+		public bool? IncludeEntities { get; set; }  
+		public bool? FullText { get; set; } 			
 	}			
  
     		
 	public class GetDirectMessageOptions
 	{ 
-		public long Id { get; set; } 			
+		public long Id { get; set; }  
+		public bool? FullText { get; set; } 			
 	}			
  
     		
@@ -2456,9 +2459,10 @@ namespace TweetSharp
 			var count = options.Count;
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var full_text = options.FullText;
 				
 			
-			return WithHammock<IEnumerable<TwitterDirectMessage>>(_client, "direct_messages", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&include_entities=", include_entities, "&skip_status=", skip_status);
+			return WithHammock<IEnumerable<TwitterDirectMessage>>(_client, "direct_messages", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&include_entities=", include_entities, "&skip_status=", skip_status, "&full_text=", full_text);
 		}
 
         
@@ -2469,18 +2473,20 @@ namespace TweetSharp
 			var count = options.Count;
 			var page = options.Page;
 			var include_entities = options.IncludeEntities;
+			var full_text = options.FullText;
 				
 			
-			return WithHammock<IEnumerable<TwitterDirectMessage>>(_client, "direct_messages/sent", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&page=", page, "&include_entities=", include_entities);
+			return WithHammock<IEnumerable<TwitterDirectMessage>>(_client, "direct_messages/sent", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&page=", page, "&include_entities=", include_entities, "&full_text=", full_text);
 		}
 
         
 		public virtual TwitterDirectMessage GetDirectMessage(GetDirectMessageOptions options)
 		{
 			var id = options.Id;
+			var full_text = options.FullText;
 				
 			
-			return WithHammock<TwitterDirectMessage>(_client, "direct_messages/show", FormatAsString, "?id=", id);
+			return WithHammock<TwitterDirectMessage>(_client, "direct_messages/show", FormatAsString, "?id=", id, "&full_text=", full_text);
 		}
 
         
@@ -3378,9 +3384,10 @@ namespace TweetSharp
 			var count = options.Count;
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var full_text = options.FullText;
 				
 
-			return WithHammock(_client, action, "direct_messages", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&include_entities=", include_entities, "&skip_status=", skip_status);
+			return WithHammock(_client, action, "direct_messages", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&include_entities=", include_entities, "&skip_status=", skip_status, "&full_text=", full_text);
 		}
 
         
@@ -3391,18 +3398,20 @@ namespace TweetSharp
 			var count = options.Count;
 			var page = options.Page;
 			var include_entities = options.IncludeEntities;
+			var full_text = options.FullText;
 				
 
-			return WithHammock(_client, action, "direct_messages/sent", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&page=", page, "&include_entities=", include_entities);
+			return WithHammock(_client, action, "direct_messages/sent", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&page=", page, "&include_entities=", include_entities, "&full_text=", full_text);
 		}
 
         
 		public virtual IAsyncResult GetDirectMessage(GetDirectMessageOptions options, Action<TwitterDirectMessage, TwitterResponse> action)
 		{
 			var id = options.Id;
+			var full_text = options.FullText;
 				
 
-			return WithHammock(_client, action, "direct_messages/show", FormatAsString, "?id=", id);
+			return WithHammock(_client, action, "direct_messages/show", FormatAsString, "?id=", id, "&full_text=", full_text);
 		}
 
         
@@ -4300,9 +4309,10 @@ namespace TweetSharp
 			var count = options.Count;
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var full_text = options.FullText;
 				
 
-			return BeginWithHammock<IEnumerable<TwitterDirectMessage>>(_client, WebMethod.Get, "direct_messages", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&include_entities=", include_entities, "&skip_status=", skip_status);
+			return BeginWithHammock<IEnumerable<TwitterDirectMessage>>(_client, WebMethod.Get, "direct_messages", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&include_entities=", include_entities, "&skip_status=", skip_status, "&full_text=", full_text);
 		}
 
         
@@ -4313,18 +4323,20 @@ namespace TweetSharp
 			var count = options.Count;
 			var page = options.Page;
 			var include_entities = options.IncludeEntities;
+			var full_text = options.FullText;
 				
 
-			return BeginWithHammock<IEnumerable<TwitterDirectMessage>>(_client, WebMethod.Get, "direct_messages/sent", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&page=", page, "&include_entities=", include_entities);
+			return BeginWithHammock<IEnumerable<TwitterDirectMessage>>(_client, WebMethod.Get, "direct_messages/sent", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&page=", page, "&include_entities=", include_entities, "&full_text=", full_text);
 		}
 
         
 		public virtual IAsyncResult BeginGetDirectMessage(GetDirectMessageOptions options)
 		{
 			var id = options.Id;
+			var full_text = options.FullText;
 				
 
-			return BeginWithHammock<TwitterDirectMessage>(_client, WebMethod.Get, "direct_messages/show", FormatAsString, "?id=", id);
+			return BeginWithHammock<TwitterDirectMessage>(_client, WebMethod.Get, "direct_messages/show", FormatAsString, "?id=", id, "&full_text=", full_text);
 		}
 
         
@@ -6143,8 +6155,9 @@ namespace TweetSharp
 			var count = options.Count;
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var full_text = options.FullText;
 			
-			WithHammock(_client, action, "direct_messages", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&include_entities=", include_entities, "&skip_status=", skip_status);
+			WithHammock(_client, action, "direct_messages", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&include_entities=", include_entities, "&skip_status=", skip_status, "&full_text=", full_text);
 		}
 
         
@@ -6155,16 +6168,18 @@ namespace TweetSharp
 			var count = options.Count;
 			var page = options.Page;
 			var include_entities = options.IncludeEntities;
+			var full_text = options.FullText;
 			
-			WithHammock(_client, action, "direct_messages/sent", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&page=", page, "&include_entities=", include_entities);
+			WithHammock(_client, action, "direct_messages/sent", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&page=", page, "&include_entities=", include_entities, "&full_text=", full_text);
 		}
 
         
 		public virtual void GetDirectMessage(GetDirectMessageOptions options, Action<TwitterDirectMessage, TwitterResponse> action)
 		{
 			var id = options.Id;
+			var full_text = options.FullText;
 			
-			WithHammock(_client, action, "direct_messages/show", FormatAsString, "?id=", id);
+			WithHammock(_client, action, "direct_messages/show", FormatAsString, "?id=", id, "&full_text=", full_text);
 		}
 
         
@@ -6985,8 +7000,9 @@ namespace TweetSharp
 			var count = options.Count;
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var full_text = options.FullText;
 			
-			return WithHammockTask<IEnumerable<TwitterDirectMessage>>(_client, "direct_messages", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&include_entities=", include_entities, "&skip_status=", skip_status);
+			return WithHammockTask<IEnumerable<TwitterDirectMessage>>(_client, "direct_messages", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&include_entities=", include_entities, "&skip_status=", skip_status, "&full_text=", full_text);
 		}
 
         
@@ -6997,16 +7013,18 @@ namespace TweetSharp
 			var count = options.Count;
 			var page = options.Page;
 			var include_entities = options.IncludeEntities;
+			var full_text = options.FullText;
 			
-			return WithHammockTask<IEnumerable<TwitterDirectMessage>>(_client, "direct_messages/sent", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&page=", page, "&include_entities=", include_entities);
+			return WithHammockTask<IEnumerable<TwitterDirectMessage>>(_client, "direct_messages/sent", FormatAsString, "?since_id=", since_id, "&max_id=", max_id, "&count=", count, "&page=", page, "&include_entities=", include_entities, "&full_text=", full_text);
 		}
 
         
 		public virtual Task<TwitterAsyncResult<TwitterDirectMessage>> GetDirectMessageAsync(GetDirectMessageOptions options)
 		{
 			var id = options.Id;
+			var full_text = options.FullText;
 			
-			return WithHammockTask<TwitterDirectMessage>(_client, "direct_messages/show", FormatAsString, "?id=", id);
+			return WithHammockTask<TwitterDirectMessage>(_client, "direct_messages/show", FormatAsString, "?id=", id, "&full_text=", full_text);
 		}
 
         
