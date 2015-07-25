@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>TweetMoaSharp</id>
-		<version>3.0.0.4</version>
+		<version>3.0.0.5</version>
 		<dependencies>
 			<group>
 				<dependency id="Newtonsoft.Json" version="6.0.1" />
@@ -27,9 +27,9 @@
 		<iconUrl>https://raw.githubusercontent.com/Yortw/tweetmoasharp/master/logo_tweetmoasharp.png</iconUrl>
 		<tags>twitter tweetmoasharp tweetsharp web api http rest wrapper json wp7 mango silverlight</tags>
 		<releaseNotes>
-			New in 3.0.0.4
+			New in 3.0.0.5
 			----------
-			- Added support for help/configuration API end point. Allows retrieving shortened url lengths, photo sizes and other global Twitter metadata.
+			- Added support retrieving user profile banners.
 		</releaseNotes>
 	</metadata>
 </package>
