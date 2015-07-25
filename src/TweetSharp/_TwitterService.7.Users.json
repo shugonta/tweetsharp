@@ -56,7 +56,5 @@ IEnumerable<TwitterUser>, "users/search", SearchForUser, string q, int? page, in
 // https://dev.twitter.com/docs/api/1.1/post/account/update_profile_banner
 // TODO
 
-// https://dev.twitter.com/docs/api/1.1/get/users/profile_ban
-// TODO
-
-
+// https://dev.twitter.com/docs/api/1.1/get/users/profile_banner
+ProfileBanners, "users/profile_banner", GetProfileBannerFor, string screen_name, long? user_id

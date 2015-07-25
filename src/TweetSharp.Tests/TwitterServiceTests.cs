@@ -213,6 +213,20 @@ namespace TweetSharp.Tests.Service
         }
 
 				[Test]
+				public void Can_get_banner_sizes_for()
+				{
+					var service = GetAuthenticatedService();
+					var bannerSizes = service.GetProfileBannerFor(new GetProfileBannerForOptions() { ScreenName = "yortw" });
+
+					Trace.WriteLine(service.Response.Response);
+
+					AssertResultWas(service, HttpStatusCode.OK);
+					Assert.IsNotNull(bannerSizes);
+					Assert.IsNotNull(bannerSizes.Sizes);
+					Assert.IsTrue(bannerSizes.Sizes.Any());
+				}
+
+				[Test]
 				public void Can_destroy_tweet()
 				{
 					var service = GetAuthenticatedService();

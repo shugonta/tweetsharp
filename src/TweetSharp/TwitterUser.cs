@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using Hammock.Model;
@@ -52,7 +53,8 @@ namespace TweetSharp
         private bool? _defaultProfile;
         private string _profileBackgroundImageUrlHttps;
         private string _profileImageUrlHttps;
-        
+				private string _profileBannerUrl;
+
 #if !Smartphone && !NET20
         [DataMember]
 #endif
@@ -303,6 +305,25 @@ namespace TweetSharp
 
                 _profileTextColor = value;
                 OnPropertyChanged("ProfileTextColor");
+            }
+        }
+
+#if !Smartphone && !NET20
+        [DataMember]
+#endif
+				[JsonProperty("profile_banner_url")]
+				public virtual string ProfileBannerUrl
+        {
+					get { return _profileBannerUrl; }
+            set
+            {
+							if (_profileBannerUrl == value)
+                {
+                    return;
+                }
+
+							_profileBannerUrl = value;
+							OnPropertyChanged("ProfileBannerUrl");
             }
         }
 
@@ -756,4 +777,128 @@ namespace TweetSharp
             return !Equals(left, right);
         }
     }
+
+		#if !SILVERLIGHT && !WINRT
+		[Serializable]
+#endif
+#if !Smartphone && !NET20
+		[DataContract]
+#endif
+		public class ProfileBanners : PropertyChangedBase, ITwitterModel
+		{
+
+			private IDictionary<string, ProfileBannerSize> _Sizes;
+
+#if !Smartphone && !NET20
+			[DataMember]
+#endif
+			[JsonProperty("sizes")]
+			public virtual IDictionary<string, ProfileBannerSize> Sizes 
+			{
+				get { return _Sizes; }
+				set
+				{
+					if (_Sizes == value)
+					{
+						return;
+					}
+
+					_Sizes = value;
+					OnPropertyChanged("Sizes");
+				}
+			}
+
+			#region ITwitterModel Members
+
+			public string RawSource
+			{
+				get;
+				set;
+			}
+
+			#endregion
+		}
+
+#if !SILVERLIGHT && !WINRT
+		[Serializable]
+#endif
+#if !Smartphone && !NET20
+		[DataContract]
+		[DebuggerDisplay("{Url}")]
+#endif
+		public class ProfileBannerSize : PropertyChangedBase, ITwitterModel
+		{
+
+			private int _width;
+			private int _height;
+			private string _url;
+
+#if !Smartphone && !NET20
+			[DataMember]
+#endif			
+			[JsonProperty("h")]
+			public virtual int Height
+			{
+				get { return _height; }
+				set
+				{
+					if (_height == value)
+					{
+						return;
+					}
+
+					_height = value;
+					OnPropertyChanged("Height");
+				}
+			}
+
+#if !Smartphone && !NET20
+			[DataMember]
+#endif
+			[JsonProperty("w")]
+			public virtual int Width
+			{
+				get { return _width; }
+				set
+				{
+					if (_width == value)
+					{
+						return;
+					}
+
+					_width = value;
+					OnPropertyChanged("Width");
+				}
+			}
+
+#if !Smartphone && !NET20
+			[DataMember]
+#endif
+			[JsonProperty("url")]
+			public virtual string Url
+			{
+				get { return _url; }
+				set
+				{
+					if (_url == value)
+					{
+						return;
+					}
+
+					_url = value;
+					OnPropertyChanged("url");
+				}
+			}
+
+
+			#region ITwitterModel Members
+
+			public string RawSource
+			{
+				get;
+				set;
+			}
+
+			#endregion
+		}
 }

@@ -403,6 +403,13 @@ namespace TweetSharp
 	}			
  
     		
+	public class GetProfileBannerForOptions
+	{ 
+		public string ScreenName { get; set; }  
+		public long? UserId { get; set; } 			
+	}			
+ 
+    		
 	public class ListSuggestedUsersOptions
 	{ 
 		public string Slug { get; set; }  
@@ -865,6 +872,10 @@ namespace TweetSharp
 
  
         
+		ProfileBanners GetProfileBannerFor(GetProfileBannerForOptions options);	
+
+ 
+        
 		TwitterUserSuggestions ListSuggestedUsers(ListSuggestedUsersOptions options);	
 
  
@@ -1134,6 +1145,9 @@ namespace TweetSharp
 
         
 		IAsyncResult SearchForUser(SearchForUserOptions options, Action<IEnumerable<TwitterUser>, TwitterResponse> action);		
+
+        
+		IAsyncResult GetProfileBannerFor(GetProfileBannerForOptions options, Action<ProfileBanners, TwitterResponse> action);		
 
         
 		IAsyncResult ListSuggestedUsers(ListSuggestedUsersOptions options, Action<TwitterUserSuggestions, TwitterResponse> action);		
@@ -1555,6 +1569,13 @@ namespace TweetSharp
 		IEnumerable<TwitterUser> EndSearchForUser(IAsyncResult result, TimeSpan timeout);
 
         
+		IAsyncResult BeginGetProfileBannerFor(GetProfileBannerForOptions options);
+
+		ProfileBanners EndGetProfileBannerFor(IAsyncResult result);		
+
+		ProfileBanners EndGetProfileBannerFor(IAsyncResult result, TimeSpan timeout);
+
+        
 		IAsyncResult BeginListSuggestedUsers(ListSuggestedUsersOptions options);
 
 		TwitterUserSuggestions EndListSuggestedUsers(IAsyncResult result);		
@@ -1926,6 +1947,9 @@ namespace TweetSharp
 		void SearchForUser(SearchForUserOptions options, Action<IEnumerable<TwitterUser>, TwitterResponse> action);
 
         
+		void GetProfileBannerFor(GetProfileBannerForOptions options, Action<ProfileBanners, TwitterResponse> action);
+
+        
 		void ListSuggestedUsers(ListSuggestedUsersOptions options, Action<TwitterUserSuggestions, TwitterResponse> action);
 
         
@@ -2163,6 +2187,9 @@ namespace TweetSharp
 
         
 		Task<TwitterAsyncResult<IEnumerable<TwitterUser>>> SearchForUserAsync(SearchForUserOptions options);
+
+        
+		Task<TwitterAsyncResult<ProfileBanners>> GetProfileBannerForAsync(GetProfileBannerForOptions options);
 
         
 		Task<TwitterAsyncResult<TwitterUserSuggestions>> ListSuggestedUsersAsync(ListSuggestedUsersOptions options);
@@ -2808,6 +2835,16 @@ namespace TweetSharp
 				
 			
 			return WithHammock<IEnumerable<TwitterUser>>(_client, "users/search", FormatAsString, "?q=", q, "&page=", page, "&count=", count, "&include_entities=", include_entities);
+		}
+
+        
+		public virtual ProfileBanners GetProfileBannerFor(GetProfileBannerForOptions options)
+		{
+			var screen_name = options.ScreenName;
+			var user_id = options.UserId;
+				
+			
+			return WithHammock<ProfileBanners>(_client, "users/profile_banner", FormatAsString, "?screen_name=", screen_name, "&user_id=", user_id);
 		}
 
         
@@ -3733,6 +3770,16 @@ namespace TweetSharp
 		}
 
         
+		public virtual IAsyncResult GetProfileBannerFor(GetProfileBannerForOptions options, Action<ProfileBanners, TwitterResponse> action)
+		{
+			var screen_name = options.ScreenName;
+			var user_id = options.UserId;
+				
+
+			return WithHammock(_client, action, "users/profile_banner", FormatAsString, "?screen_name=", screen_name, "&user_id=", user_id);
+		}
+
+        
 		public virtual IAsyncResult ListSuggestedUsers(ListSuggestedUsersOptions options, Action<TwitterUserSuggestions, TwitterResponse> action)
 		{
 			var slug = options.Slug;
@@ -4652,6 +4699,16 @@ namespace TweetSharp
 				
 
 			return BeginWithHammock<IEnumerable<TwitterUser>>(_client, WebMethod.Get, "users/search", FormatAsString, "?q=", q, "&page=", page, "&count=", count, "&include_entities=", include_entities);
+		}
+
+        
+		public virtual IAsyncResult BeginGetProfileBannerFor(GetProfileBannerForOptions options)
+		{
+			var screen_name = options.ScreenName;
+			var user_id = options.UserId;
+				
+
+			return BeginWithHammock<ProfileBanners>(_client, WebMethod.Get, "users/profile_banner", FormatAsString, "?screen_name=", screen_name, "&user_id=", user_id);
 		}
 
         
@@ -5580,6 +5637,18 @@ namespace TweetSharp
 		}
 
         
+		public virtual ProfileBanners EndGetProfileBannerFor(IAsyncResult result) 
+		{
+			return EndWithHammock<ProfileBanners>(result);
+		}
+
+		
+		public virtual ProfileBanners EndGetProfileBannerFor(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<ProfileBanners>(result, timeout);
+		}
+
+        
 		public virtual TwitterUserSuggestions EndListSuggestedUsers(IAsyncResult result) 
 		{
 			return EndWithHammock<TwitterUserSuggestions>(result);
@@ -6466,6 +6535,15 @@ namespace TweetSharp
 		}
 
         
+		public virtual void GetProfileBannerFor(GetProfileBannerForOptions options, Action<ProfileBanners, TwitterResponse> action)
+		{
+			var screen_name = options.ScreenName;
+			var user_id = options.UserId;
+			
+			WithHammock(_client, action, "users/profile_banner", FormatAsString, "?screen_name=", screen_name, "&user_id=", user_id);
+		}
+
+        
 		public virtual void ListSuggestedUsers(ListSuggestedUsersOptions options, Action<TwitterUserSuggestions, TwitterResponse> action)
 		{
 			var slug = options.Slug;
@@ -7305,6 +7383,15 @@ namespace TweetSharp
 			var include_entities = options.IncludeEntities;
 			
 			return WithHammockTask<IEnumerable<TwitterUser>>(_client, "users/search", FormatAsString, "?q=", q, "&page=", page, "&count=", count, "&include_entities=", include_entities);
+		}
+
+        
+		public virtual Task<TwitterAsyncResult<ProfileBanners>> GetProfileBannerForAsync(GetProfileBannerForOptions options)
+		{
+			var screen_name = options.ScreenName;
+			var user_id = options.UserId;
+			
+			return WithHammockTask<ProfileBanners>(_client, "users/profile_banner", FormatAsString, "?screen_name=", screen_name, "&user_id=", user_id);
 		}
 
         
