@@ -103,7 +103,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_direct_messages_async_callback_style()
         {
             var service = GetAuthenticatedService();
-            var result = service.ListDirectMessagesReceived(new ListDirectMessagesReceivedOptions(),
+            var result = service.ListDirectMessagesReceived(new ListDirectMessagesReceivedOptions { FullText = true },
                 (dms, response) =>
                     {
                         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
@@ -123,7 +123,7 @@ namespace TweetSharp.Tests.Service
         public void Can_get_direct_messages_begin_end_style()
         {
             var service = GetAuthenticatedService();
-            var result = service.BeginListDirectMessagesReceived(new ListDirectMessagesReceivedOptions() { Count = 5 });
+            var result = service.BeginListDirectMessagesReceived(new ListDirectMessagesReceivedOptions { FullText = true, Count = 5 });
             var dms = service.EndListDirectMessagesReceived(result, TimeSpan.FromSeconds(5));
             
             Assert.IsNotNull(dms);
@@ -859,7 +859,7 @@ namespace TweetSharp.Tests.Service
             var service = new TwitterService { IncludeEntities = true };            
             service.AuthenticateWith(_consumerKey, _consumerSecret, _accessToken, _accessTokenSecret);
             
-            var tweets = service.ListDirectMessagesSent(new ListDirectMessagesSentOptions());
+            var tweets = service.ListDirectMessagesSent(new ListDirectMessagesSentOptions { FullText = true });
             if(!tweets.Any())
             {
                 Assert.Ignore("No direct messages available to verify entities");
