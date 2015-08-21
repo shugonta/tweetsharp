@@ -504,5 +504,73 @@ namespace TweetSharp
             return echo;
         }
 
-    }
+#if PLATFORM_SUPPORTS_ASYNC_AWAIT
+
+		public virtual System.Threading.Tasks.Task<TwitterAsyncResult<OAuthRequestToken>> GetRequestTokenAsync(string callback)
+		{
+			var tcs = new System.Threading.Tasks.TaskCompletionSource<TwitterAsyncResult<OAuthRequestToken>>();
+
+			GetRequestToken(callback, (token, response) =>
+			{
+				tcs.SetResult(new TwitterAsyncResult<OAuthRequestToken>(token, response));
+			});
+
+			return tcs.Task;
+		}
+
+		public virtual System.Threading.Tasks.Task<TwitterAsyncResult<OAuthRequestToken>> GetRequestTokenAsync()
+		{
+			var tcs = new System.Threading.Tasks.TaskCompletionSource<TwitterAsyncResult<OAuthRequestToken>>();
+
+			GetRequestToken((token, response) =>
+			{
+				tcs.SetResult(new TwitterAsyncResult<OAuthRequestToken>(token, response));
+			});
+
+			return tcs.Task;
+		}
+
+		public virtual System.Threading.Tasks.Task<TwitterAsyncResult<OAuthAccessToken>> GetAccessTokenWithXAuthAsync(string username, string password)
+		{
+			var tcs = new System.Threading.Tasks.TaskCompletionSource<TwitterAsyncResult<OAuthAccessToken>>();
+
+			GetAccessTokenWithXAuth(username, password, (token, response) =>
+			{
+				tcs.SetResult(new TwitterAsyncResult<OAuthAccessToken>(token, response));
+			});
+
+			return tcs.Task;
+		}
+
+		public virtual System.Threading.Tasks.Task<TwitterAsyncResult<OAuthAccessToken>> GetAccessTokenAsync(OAuthRequestToken requestToken)
+		{
+			var tcs = new System.Threading.Tasks.TaskCompletionSource<TwitterAsyncResult<OAuthAccessToken>>();
+
+			GetAccessToken(requestToken, null, 
+				(token, response) =>
+				{
+					tcs.SetResult(new TwitterAsyncResult<OAuthAccessToken>(token, response));
+				}
+			);
+
+			return tcs.Task;
+		}
+
+		public virtual System.Threading.Tasks.Task<TwitterAsyncResult<OAuthAccessToken>> GetAccessTokenAsync(OAuthRequestToken requestToken, string verifier)
+		{
+			var tcs = new System.Threading.Tasks.TaskCompletionSource<TwitterAsyncResult<OAuthAccessToken>>();
+
+			GetAccessToken(requestToken, verifier,
+				(token, response) =>
+				{
+					tcs.SetResult(new TwitterAsyncResult<OAuthAccessToken>(token, response));
+				}
+			);
+
+			return tcs.Task;
+		}
+
+#endif
+
+	}
 }
