@@ -58,3 +58,5 @@ src/TweetSharp.Tests/App.config
 /TweetMoaSharp.3.0.0.2.symbols.nupkg
 /TweetMoaSharp.3.0.0.3.nupkg
 /TweetMoaSharp.3.0.0.3.symbols.nupkg
+*.nupkg
+src/.vs/config/applicationhost.config

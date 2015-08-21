@@ -797,7 +797,7 @@ namespace TweetSharp.Tests.Service
 					Assert.AreEqual(4, ve.Sizes.Count());
 					Assert.IsNotNull(ve.VideoInfo);
 					Assert.AreEqual(30008, ve.VideoInfo.DurationMs);
-					Assert.AreEqual(5, ve.VideoInfo.Variants.Count());
+					Assert.GreaterOrEqual(ve.VideoInfo.Variants.Count(), 5);
 					Assert.AreEqual(2, ve.VideoInfo.AspectRatio.Count);
 					Assert.AreEqual(1, ve.VideoInfo.AspectRatio[0]);
 					Assert.AreEqual(1, ve.VideoInfo.AspectRatio[1]);

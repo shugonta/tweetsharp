@@ -53,6 +53,9 @@
     <Compile Include="..\TweetSharp\TwitterGeoLocationSearch.cs">
       <Link>TwitterGeoLocationSearch.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\TwitterUploadedMedia.cs">
+      <Link>TwitterUploadedMedia.cs</Link>
+    </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="..\TweetSharp\TwitterService.cs">
       <Link>TwitterService.cs</Link>

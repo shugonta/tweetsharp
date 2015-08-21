@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using Hammock;
 using NUnit.Framework;
@@ -20,7 +21,17 @@ namespace TweetSharp.Tests.Service
             Assert.NotNull(requestToken);
         }
 
-        [Test]
+				[Test]
+				public async Task Can_get_request_token_async()
+				{
+					var service = new TwitterService(_consumerKey, _consumerSecret);
+					var result = await service.GetRequestTokenAsync();
+			
+					Assert.AreEqual(result.Response.StatusCode, HttpStatusCode.OK);
+					Assert.NotNull(result.Value);
+				}
+
+				[Test]
         [Ignore("Not a sequential test.")]
         public void Can_exchange_for_access_token()
         {
@@ -41,7 +52,29 @@ namespace TweetSharp.Tests.Service
             Assert.IsNotNull(accessToken);
         }
 
-        [Test]
+				[Test]
+				[Ignore("Not a sequential test.")]
+				public async Task Can_exchange_for_access_token_async()
+				{
+					var service = new TwitterService(_consumerKey, _consumerSecret);
+					var requestTokenResponse = await service.GetRequestTokenAsync();
+
+					Assert.AreEqual(requestTokenResponse.Response.StatusCode, HttpStatusCode.OK);
+					Assert.NotNull(requestTokenResponse.Value);
+
+					var uri = service.GetAuthorizationUri(requestTokenResponse.Value);
+					Process.Start(uri.ToString());
+
+					Console.WriteLine("Press the any key when you have confirmation of your code transmission.");
+					var verifier = "1234567"; // <-- Debugger breakpoint and edit with the actual verifier
+
+					var accessTokenResult = await service.GetAccessTokenAsync(requestTokenResponse.Value, verifier);
+					var accessToken = accessTokenResult.Value;
+					AssertResultWas(service, HttpStatusCode.OK);
+					Assert.IsNotNull(accessToken);
+				}
+
+				[Test]
         [Ignore("Not a sequential test.")]
         public void Can_make_protected_resource_request_with_access_token()
         {
@@ -67,7 +100,35 @@ namespace TweetSharp.Tests.Service
             Assert.AreEqual(20, mentions.Count());
         }
 
-        [Test]
+				[Test]
+				[Ignore("Not a sequential test.")]
+				public async Task Can_make_protected_resource_request_with_access_token_async()
+				{
+					var service = new TwitterService(_consumerKey, _consumerSecret);
+					var requestTokenResponse = await service.GetRequestTokenAsync();
+					var request = requestTokenResponse.Value;
+
+					Assert.AreEqual(requestTokenResponse.Response.StatusCode, HttpStatusCode.OK);
+					Assert.NotNull(request);
+
+					var uri = service.GetAuthorizationUri(request);
+					Process.Start(uri.ToString());
+
+					Console.WriteLine("Press the any key when you have confirmation of your code transmission.");
+					var verifier = "1234567"; // <-- Debugger breakpoint and edit with the actual verifier
+
+					var accessResult = await service.GetAccessTokenAsync(request, verifier);
+					var access = accessResult.Value;
+					Assert.AreEqual(accessResult.Response.StatusCode, HttpStatusCode.OK);
+					Assert.IsNotNull(access);
+
+					service.AuthenticateWith(access.Token, access.TokenSecret);
+					var mentions = service.ListTweetsMentioningMe(new ListTweetsMentioningMeOptions());
+					Assert.IsNotNull(mentions);
+					Assert.AreEqual(20, mentions.Count());
+				}
+
+				[Test]
         public void Can_tweet_with_protected_resource_info()
         {
             var service = new TwitterService(_consumerKey, _consumerSecret);
@@ -84,26 +145,35 @@ namespace TweetSharp.Tests.Service
             Assert.Ignore("Test account isn't authorized for xAuth");
         }
 
-				//Remmoved as TwitPic is now defunct and I haven't figured out another service to use instead.
-				//[Test]
-				//public void Can_make_oauth_echo_request()
-				//{
-				//	if (String.IsNullOrEmpty(_twitPicKey)) Assert.Ignore("This test requires a TwitPic API key.");
-				//	if (String.IsNullOrEmpty(_twitPicUserName)) Assert.Ignore("This test requires a TwitPic user name.");
-					
-				//	var service = GetAuthenticatedService();
-				//	var request = service.PrepareEchoRequest("http://api.twitpic.com/2/");
-				//	request.Path = "users/show.json?username=" + HttpUtility.UrlEncode(_twitPicUserName);
-				//	request.AddField("key", _twitPicKey);
+				[Test]
+				public async Task Can_make_xauth_request_async()
+				{
+					TwitterService service = new TwitterService(_consumerKey, _consumerSecret);
+					var accessResponse = await service.GetAccessTokenWithXAuthAsync("username", "password");
+					var access = accessResponse.Value;
+          Assert.Ignore("Test account isn't authorized for xAuth");
+				}
 
-				//	RestClient client = new RestClient { Authority = "http://api.twitpic.com/", VersionPath = "2" };
-				//	RestResponse response = client.Request(request);
+		//Remmoved as TwitPic is now defunct and I haven't figured out another service to use instead.
+		//[Test]
+		//public void Can_make_oauth_echo_request()
+		//{
+		//	if (String.IsNullOrEmpty(_twitPicKey)) Assert.Ignore("This test requires a TwitPic API key.");
+		//	if (String.IsNullOrEmpty(_twitPicUserName)) Assert.Ignore("This test requires a TwitPic user name.");
 
-				//	Assert.IsNotNull(response);
-				//	Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-				//}
+		//	var service = GetAuthenticatedService();
+		//	var request = service.PrepareEchoRequest("http://api.twitpic.com/2/");
+		//	request.Path = "users/show.json?username=" + HttpUtility.UrlEncode(_twitPicUserName);
+		//	request.AddField("key", _twitPicKey);
 
-        [Test]
+		//	RestClient client = new RestClient { Authority = "http://api.twitpic.com/", VersionPath = "2" };
+		//	RestResponse response = client.Request(request);
+
+		//	Assert.IsNotNull(response);
+		//	Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+		//}
+
+				[Test]
         public void Can_verify_credentials()
         {
             var service = GetAuthenticatedService();
