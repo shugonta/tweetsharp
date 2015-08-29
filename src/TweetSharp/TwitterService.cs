@@ -77,7 +77,7 @@ namespace TweetSharp
         }
 #endif
 
- #if !SILVERLIGHT && !WINRT
+ #if !SILVERLIGHT && !WINRT && !WINDOWS_PHONE
         static TwitterService()
         {
             ServicePointManager.Expect100Continue = false;
@@ -611,34 +611,34 @@ namespace TweetSharp
 #endif
 
 #if WINDOWS_PHONE 
-        private void WithHammock<T>(Action<T, TwitterResponse> action, string path) where T : class
+        private void WithHammock<T>(IRestClient restClient, Action<T, TwitterResponse> action, string path) where T : class
         {
             var request = PrepareHammockQuery(path);
             
-            WithHammockImpl(request, action);
-        }
-        
-        private void WithHammock<T>(Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
-        {
-            WithHammock(action, ResolveUrlSegments(path, segments.ToList()));
+            WithHammockImpl(restClient, request, action);
         }
 
-        private void WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path) where T : class
+				private void WithHammock<T>(IRestClient restClient, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
+        {
+            WithHammock(restClient, action, ResolveUrlSegments(path, segments.ToList()));
+        }
+
+				private void WithHammock<T>(IRestClient restClient, WebMethod method, Action<T, TwitterResponse> action, string path) where T : class
         {
             var request = PrepareHammockQuery(path);
             request.Method = method;
 
-            WithHammockImpl(request, action);
+            WithHammockImpl(restClient, request, action);
         }
 
-        private void WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
+				private void WithHammock<T>(IRestClient restClient, WebMethod method, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
         {
-            WithHammock(method, action, ResolveUrlSegments(path, segments.ToList()));
+            WithHammock(restClient, method, action, ResolveUrlSegments(path, segments.ToList()));
         }
 
-        private void WithHammockImpl<T>(RestRequest request, Action<T, TwitterResponse> action) where T : class
+				private void WithHammockImpl<T>(IRestClient restClient, RestRequest request, Action<T, TwitterResponse> action) where T : class
         {
-            _client.BeginRequest(
+            restClient.BeginRequest(
                 request, new RestCallback<T>((req, response, state) =>
                 {
                     if (response == null)
@@ -650,7 +650,7 @@ namespace TweetSharp
                 }));
         }
 
-        private void WithHammock<T>(WebMethod method, Action<T, TwitterResponse> action, string path, IDictionary<string, Stream> files, params object[] segments) where T : class
+				private void WithHammock<T>(IRestClient restClient, WebMethod method, Action<T, TwitterResponse> action, string path, IDictionary<string, Stream> files, params object[] segments) where T : class
         {
             var url = ResolveUrlSegments(path, segments.ToList());
             var request = PrepareHammockQuery(url);
@@ -660,7 +660,7 @@ namespace TweetSharp
             {
                 request.AddFile("media", file.Key, file.Value);
             }
-            WithHammockImpl(request, action);
+            WithHammockImpl(restClient, request, action);
         }
 #endif
 
@@ -668,14 +668,28 @@ namespace TweetSharp
 				private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(RestClient client, string path, params object[] segments) where T1 : class
 				{
 					var tcs = new TaskCompletionSource<TwitterAsyncResult<T1>>();
-					WithHammock(client,
-						(Action<T1, TwitterResponse>)((v, r) =>
-						{
-							tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
-						}),
-						path,
-						segments
-					);
+					try
+					{
+						WithHammock(client,
+							(Action<T1, TwitterResponse>)((v, r) =>
+							{
+								try
+								{
+									tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
+								}
+								catch (Exception ex)
+								{
+									tcs.SetException(ex);
+								}
+							}),
+							path,
+							segments
+						);
+					}
+					catch (Exception ex)
+					{
+						tcs.SetException(ex);
+					}
 
 					return tcs.Task;
 				}
@@ -683,14 +697,28 @@ namespace TweetSharp
 				private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(RestClient client, WebMethod method, string path, params object[] segments) where T1 : class
 				{
 					var tcs = new TaskCompletionSource<TwitterAsyncResult<T1>>();
+					try
+					{
 					WithHammock(client, method,
 						(Action<T1, TwitterResponse>)((v, r) =>
 						{
-							tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
+							try
+							{
+								tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
+							}
+							catch (Exception ex)
+							{
+								tcs.SetException(ex);
+							}
 						}),
 						path,
 						segments
 					);
+					}
+					catch (Exception ex)
+					{
+						tcs.SetException(ex);
+					}
 
 					return tcs.Task;
 				}
