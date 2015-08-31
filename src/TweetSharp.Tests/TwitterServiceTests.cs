@@ -939,7 +939,18 @@ namespace TweetSharp.Tests.Service
             }
         }
 
-        [Test]
+				[Test]
+				public void Can_parse_multibyte_entities()
+				{
+					var service = GetAuthenticatedService();
+					var tweet = service.GetTweet(new GetTweetOptions() { Id = 637228279825608706 });
+
+					Assert.IsNotNull(tweet.Entities);
+					Assert.AreEqual(3, tweet.Entities.Count());
+					Assert.AreEqual("Heerlijk! 😋 Wij kijken er naar uit 😋 Thnx voor dit supermooie initiatief 👍🏻 <a href=\"https://twitter.com/degoudenaar\" target=\"_blank\">@degoudenaar</a> <a href=\"https://twitter.com/search?q=SlagerijvanHoof\" target=\"_blank\">#SlagerijvanHoof</a> <a href=\"https://twitter.com/brabantsedag/status/637195781049581568\" target=\"_blank\">https://t.co/W2TeREt0Hd</a>", tweet.TextAsHtml);			
+        }
+
+				[Test]
         public void Can_coalesce_entities_on_timeline()
         {
             var service = GetAuthenticatedService();

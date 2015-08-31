@@ -177,59 +177,69 @@ namespace TweetSharp
             return !string.IsNullOrEmpty(tweetable.Text) ? tweetable.Text.ParseTwitterageToHtml() : tweetable.Text;
         }
 
-        public static string ParseTextWithEntities(this ITweetable tweetable)
-        {
-            if ((tweetable.Entities == null) || !tweetable.Entities.Any())
-            {
-                return tweetable.LegacyTextAsHtml();
-            }
-            var builder = new StringBuilder(tweetable.Text);
-            var list = new List<TextChange>();
-            foreach (var entity in tweetable.Entities)
-            {
-                var startIndex = entity.StartIndex;
-                var num2 = entity.EndIndex - startIndex;
-                var mention = entity as TwitterMention;
-                string value;
-                if (mention != null)
-                {
-                   value = string.Format(CultureInfo.InvariantCulture, "<a href=\"https://twitter.com/{0}\" target=\"_blank\">@{0}</a>", new object[] { mention.ScreenName });
-                   list.Add(new TextChange { Start = startIndex, Length = num2, Value = value });
-                }
-                var tag = entity as TwitterHashTag;
-                if (tag != null)
-                {
-                    value = string.Format(CultureInfo.InvariantCulture, "<a href=\"https://twitter.com/search?q={0}\" target=\"_blank\">#{1}</a>", new object[] { Uri.EscapeDataString(tag.Text), tag.Text });
-                    list.Add(new TextChange { Start = startIndex, Length = num2, Value = value });
-                }
-                var url = entity as TwitterUrl;
-                if (url != null)
-                {
-                    value = string.Format(CultureInfo.InvariantCulture, "<a href=\"{0}\" target=\"_blank\">{1}</a>", new object[] { url.ExpandedValue, url.Value });
-                    list.Add(new TextChange { Start = startIndex, Length = num2, Value = value });
-                }
-                var media = entity as TwitterMedia;
-                if (media == null) continue;
-                value = string.Format(CultureInfo.InvariantCulture, "<a href=\"{0}\" target=\"_blank\">{1}</a>", new object[] { media.ExpandedUrl, media.DisplayUrl });
-                list.Add(new TextChange { Start = startIndex, Length = num2, Value = value });
-            }
-            for (var i = 0; i < list.Count; i++)
-            {
-                var change5 = list[i];
-                builder.Remove(change5.Start, change5.Length);
-                builder.Insert(change5.Start, change5.Value);
-                var num4 = change5.Value.Length - change5.Length;
-                if ((num4 <= change5.Length) || ((i + 1) >= list.Count)) continue;
-                for (var j = i + 1; j < list.Count; j++)
-                {
-                    var change6 = list[j];
-                    change6.Start += num4;
-                }
-            }
-            return builder.ToString();
-        }
+				public static string ParseTextWithEntities(this ITweetable tweetable)
+				{
+					if ((tweetable.Entities == null) || !tweetable.Entities.Any())
+					{
+						return tweetable.LegacyTextAsHtml();
+					}
 
-        internal class TextChange
+					//Twitter entity indices are *character* based, but .Net string functions seem to be 
+					//*byte* based, regardless of what any particular doc says. This function returns an array mapping character
+					//positions to their first byte, so we'll use it to map the character positions to byte positions.
+					var characterMap = System.Globalization.StringInfo.ParseCombiningCharacters(tweetable.Text);
+
+					var builder = new StringBuilder(tweetable.Text);
+					var list = new List<TextChange>();
+					foreach (var entity in tweetable.Entities)
+					{
+
+						//Convert the character based indicies to byte positions and calculate length of item in bytes.
+						var startByteIndex = characterMap[entity.StartIndex];
+						var endByteIndex = entity.EndIndex >= characterMap.Length ? tweetable.Text.Length : characterMap[entity.EndIndex];
+						var lengthInBytes = endByteIndex - startByteIndex;
+
+						var mention = entity as TwitterMention;
+						string value;
+						if (mention != null)
+						{
+							value = string.Format(CultureInfo.InvariantCulture, "<a href=\"https://twitter.com/{0}\" target=\"_blank\">@{0}</a>", new object[] { mention.ScreenName });
+							list.Add(new TextChange { Start = startByteIndex, Length = lengthInBytes, Value = value });
+						}
+						var tag = entity as TwitterHashTag;
+						if (tag != null)
+						{
+							value = string.Format(CultureInfo.InvariantCulture, "<a href=\"https://twitter.com/search?q={0}\" target=\"_blank\">#{1}</a>", new object[] { Uri.EscapeDataString(tag.Text), tag.Text });
+							list.Add(new TextChange { Start = startByteIndex, Length = lengthInBytes, Value = value });
+						}
+						var url = entity as TwitterUrl;
+						if (url != null)
+						{
+							value = string.Format(CultureInfo.InvariantCulture, "<a href=\"{0}\" target=\"_blank\">{1}</a>", new object[] { url.ExpandedValue, url.Value });
+							list.Add(new TextChange { Start = startByteIndex, Length = lengthInBytes, Value = value });
+						}
+						var media = entity as TwitterMedia;
+						if (media == null) continue;
+						value = string.Format(CultureInfo.InvariantCulture, "<a href=\"{0}\" target=\"_blank\">{1}</a>", new object[] { media.ExpandedUrl, media.DisplayUrl });
+						list.Add(new TextChange { Start = startByteIndex, Length = lengthInBytes, Value = value });
+					}
+					for (var i = 0; i < list.Count; i++)
+					{
+						var change5 = list[i];
+						builder.Remove(change5.Start, change5.Length);
+						builder.Insert(change5.Start, change5.Value);
+						var num4 = change5.Value.Length - change5.Length;
+						if ((num4 <= change5.Length) || ((i + 1) >= list.Count)) continue;
+						for (var j = i + 1; j < list.Count; j++)
+						{
+							var change6 = list[j];
+							change6.Start += num4;
+						}
+					}
+					return builder.ToString();
+				}
+
+				internal class TextChange
         {
             public int Length { get; set; }
             public int Start { get; set; }
