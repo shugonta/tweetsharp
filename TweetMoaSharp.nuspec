@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>TweetMoaSharp</id>
-		<version>3.0.0.9</version>
+		<version>3.0.0.10</version>
 		<dependencies>
 			<group>
 				<dependency id="Newtonsoft.Json" version="6.0.1" />
@@ -27,8 +27,10 @@
 		<iconUrl>https://raw.githubusercontent.com/Yortw/tweetmoasharp/master/logo_tweetmoasharp.png</iconUrl>
 		<tags>twitter tweetmoasharp tweetsharp web api http rest wrapper json wp7 mango silverlight winrt uwp</tags>
 		<releaseNotes>
-			New in 3.0.0.9			----------
-			- Fix for TextAsHtml/ParseTextWithEntities so they respect Twitter's entity indices being character positions, not byte positions.
+			New in 3.0.0.10			
+			----------
+			- WinRT and UWP should now support gzipped response streams. This should not only improve performance
+			  but also fix some issues with UWP failing sometimes.
 		</releaseNotes>
 	</metadata>
 	<files>

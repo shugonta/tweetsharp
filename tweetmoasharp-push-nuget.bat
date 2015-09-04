@@ -1,1 +1,1 @@
-".nuget\NuGet.exe" push TweetMoaSharp.3.0.0.9.nupkg
+".nuget\NuGet.exe" push TweetMoaSharp.3.0.0.10.nupkg
