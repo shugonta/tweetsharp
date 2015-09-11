@@ -818,7 +818,23 @@ namespace TweetSharp.Tests.Service
             Assert.AreEqual(HttpStatusCode.OK, service.Response.StatusCode);
         }
 
-        [Test]
+				[Test]
+				public void Can_get_quoted_tweet_async()
+				{
+					var service = GetAuthenticatedService();
+					var result = service.BeginGetTweet(new GetTweetOptions { Id = 642272776582230016 });
+					var tweet = service.EndGetTweet(result);
+
+					Assert.IsNotNull(tweet);
+					Assert.IsNotNull(service.Response);
+					Assert.AreEqual(HttpStatusCode.OK, service.Response.StatusCode);
+					Assert.IsTrue(tweet.IsQuoteStatus);
+					Assert.IsNotNull(tweet.QuotedStatus);
+					Assert.IsNotNullOrEmpty(tweet.QuotedStatusIdStr);
+					Assert.IsNotNull(tweet.QuotedStatusId);
+				}
+
+				[Test]
         public void Can_send_direct_message()
         {
             var service = new TwitterService { IncludeEntities = true };

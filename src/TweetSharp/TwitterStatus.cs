@@ -41,6 +41,10 @@ namespace TweetSharp
 		private TwitterPlace _place;
 		private int _retweetCount;
 		private int _favoriteCount;
+		private bool _isQuoteStatus;
+		private long? _quotedStatusId;
+		private string _quotedStatusIdStr;
+		private TwitterStatus _quotedStatus;
 
 #if !Smartphone && !NET20
 		[DataMember]
@@ -112,6 +116,78 @@ namespace TweetSharp
 
 				_inReplyToStatusId = value;
 				OnPropertyChanged("InReplyToStatusId");
+			}
+		}
+
+#if !Smartphone && !NET20
+		[DataMember]
+#endif
+		public virtual long? QuotedStatusId
+		{
+			get { return _quotedStatusId; }
+			set
+			{
+				if (_quotedStatusId == value)
+				{
+					return;
+				}
+
+				_quotedStatusId = value;
+				OnPropertyChanged("QuotedStatusId");
+			}
+		}
+
+#if !Smartphone && !NET20
+		[DataMember]
+#endif
+		public virtual string QuotedStatusIdStr
+		{
+			get { return _quotedStatusIdStr; }
+			set
+			{
+				if (_quotedStatusIdStr == value)
+				{
+					return;
+				}
+
+				_quotedStatusIdStr = value;
+				OnPropertyChanged("QuotedStatusIdStr");
+			}
+		}
+
+#if !Smartphone && !NET20
+		[DataMember]
+#endif
+		public virtual bool IsQuoteStatus
+		{
+			get { return _isQuoteStatus; }
+			set
+			{
+				if (_isQuoteStatus == value)
+				{
+					return;
+				}
+
+				_isQuoteStatus = value;
+				OnPropertyChanged("IsQuoteStatus");
+			}
+		}
+
+#if !Smartphone && !NET20
+		[DataMember]
+#endif
+		public virtual TwitterStatus QuotedStatus
+		{
+			get { return _quotedStatus; }
+			set
+			{
+				if (_quotedStatus == value)
+				{
+					return;
+				}
+
+				_quotedStatus = value;
+				OnPropertyChanged("QuotedStatus");
 			}
 		}
 
