@@ -631,7 +631,39 @@ namespace TweetSharp.Tests.Service
             }
         }
 
-        [Test]
+				[Test]
+				public void Can_search_until()
+				{
+					var service = GetAuthenticatedService();
+					var results = service.Search(new SearchOptions { Q = "microsoft", Count = 10, Until=DateTime.Today.AddDays(-1) });
+
+					Assert.IsNotNull(results);
+					Assert.IsTrue(results.Statuses.Count() <= 10);
+
+					Assert.IsFalse(results.Statuses.Any((s) => s.CreatedDate >= DateTime.Today));
+
+					foreach (var tweet in results.Statuses)
+					{
+						Console.WriteLine("{0} says '{1}", tweet.User.ScreenName, tweet.Text);
+					}
+				}
+
+		[Test]
+		public void Can_ListSuggestedUsers()
+		{
+			var service = GetAuthenticatedService();
+			var results = service.ListSuggestedUsers(new ListSuggestedUsersOptions() { Lang = "en", Slug="television" });
+			
+			Assert.IsNotNull(results);
+			Assert.IsTrue(results.Users.Any());
+
+			foreach (var user in results.Users)
+			{
+				Console.WriteLine("Suggested; {0}", user.ScreenName);
+			}
+		}
+
+		[Test]
         public void Can_search_with_geo_and_lang()
         {
             var italyGeoCode = new TwitterGeoLocationSearch(41.9, 12.5, 10, TwitterGeoLocationSearch.RadiusType.Mi);

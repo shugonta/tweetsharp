@@ -138,7 +138,8 @@ namespace TweetSharp
 		public long? SinceId { get; set; }  
 		public long? MaxId { get; set; }  
 		public bool? IncludeEntities { get; set; }  
-		public string Callback { get; set; } 			
+		public string Callback { get; set; }  
+		public DateTime? Until { get; set; } 			
 	}			
  
     		
@@ -260,6 +261,7 @@ namespace TweetSharp
 	{ 
 		public long? UserId { get; set; }  
 		public string ScreenName { get; set; }  
+		public int? Count { get; set; }  
 		public long? Cursor { get; set; }  
 		public bool? SkipStatus { get; set; }  
 		public bool? IncludeUserEntities { get; set; } 			
@@ -2474,9 +2476,10 @@ namespace TweetSharp
 			var max_id = options.MaxId;
 			var include_entities = options.IncludeEntities;
 			var callback = options.Callback;
+			var until = options.Until;
 				
 			
-			return WithHammock<TwitterSearchResult>(_client, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
+			return WithHammock<TwitterSearchResult>(_client, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback, "&until=", until);
 		}
 
         
@@ -2640,12 +2643,13 @@ namespace TweetSharp
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var skip_status = options.SkipStatus;
 			var include_user_entities = options.IncludeUserEntities;
 				
 			
-			return WithHammock<TwitterCursorList<TwitterUser>>(_client, "friends/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
+			return WithHammock<TwitterCursorList<TwitterUser>>(_client, "friends/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
 		}
 
         
@@ -3410,9 +3414,10 @@ namespace TweetSharp
 			var max_id = options.MaxId;
 			var include_entities = options.IncludeEntities;
 			var callback = options.Callback;
+			var until = options.Until;
 				
 
-			return WithHammock(_client, action, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
+			return WithHammock(_client, action, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback, "&until=", until);
 		}
 
         
@@ -3576,12 +3581,13 @@ namespace TweetSharp
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var skip_status = options.SkipStatus;
 			var include_user_entities = options.IncludeUserEntities;
 				
 
-			return WithHammock(_client, action, "friends/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
+			return WithHammock(_client, action, "friends/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
 		}
 
         
@@ -4346,9 +4352,10 @@ namespace TweetSharp
 			var max_id = options.MaxId;
 			var include_entities = options.IncludeEntities;
 			var callback = options.Callback;
+			var until = options.Until;
 				
 
-			return BeginWithHammock<TwitterSearchResult>(_client, WebMethod.Get, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
+			return BeginWithHammock<TwitterSearchResult>(_client, WebMethod.Get, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback, "&until=", until);
 		}
 
         
@@ -4512,12 +4519,13 @@ namespace TweetSharp
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var skip_status = options.SkipStatus;
 			var include_user_entities = options.IncludeUserEntities;
 				
 
-			return BeginWithHammock<TwitterCursorList<TwitterUser>>(_client, WebMethod.Get, "friends/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
+			return BeginWithHammock<TwitterCursorList<TwitterUser>>(_client, WebMethod.Get, "friends/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
 		}
 
         
@@ -6216,8 +6224,9 @@ namespace TweetSharp
 			var max_id = options.MaxId;
 			var include_entities = options.IncludeEntities;
 			var callback = options.Callback;
+			var until = options.Until;
 			
-			WithHammock(_client, action, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
+			WithHammock(_client, action, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback, "&until=", until);
 		}
 
         
@@ -6367,11 +6376,12 @@ namespace TweetSharp
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var skip_status = options.SkipStatus;
 			var include_user_entities = options.IncludeUserEntities;
 			
-			WithHammock(_client, action, "friends/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
+			WithHammock(_client, action, "friends/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
 		}
 
         
@@ -7071,8 +7081,9 @@ namespace TweetSharp
 			var max_id = options.MaxId;
 			var include_entities = options.IncludeEntities;
 			var callback = options.Callback;
+			var until = options.Until;
 			
-			return WithHammockTask<TwitterSearchResult>(_client, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback);
+			return WithHammockTask<TwitterSearchResult>(_client, "search/tweets", FormatAsString, "?q=", q, "&geocode=", geocode, "&lang=", lang, "&locale=", locale, "&result_type=", resultType, "&count=", count, "&since_id=", since_id, "&max_id=", max_id, "&include_entities=", include_entities, "&callback=", callback, "&until=", until);
 		}
 
         
@@ -7222,11 +7233,12 @@ namespace TweetSharp
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var skip_status = options.SkipStatus;
 			var include_user_entities = options.IncludeUserEntities;
 			
-			return WithHammockTask<TwitterCursorList<TwitterUser>>(_client, "friends/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
+			return WithHammockTask<TwitterCursorList<TwitterUser>>(_client, "friends/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
 		}
 
         
