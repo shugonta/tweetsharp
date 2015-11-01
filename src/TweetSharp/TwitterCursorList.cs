@@ -15,8 +15,9 @@ namespace TweetSharp
 #endif
 	public class TwitterCursorList<T> : List<T>, ICursored
     {
+
 #if !Smartphone && !NET20
-        [DataMember]
+				[DataMember]
 #endif
         public virtual long? NextCursor { get; set; }
 
@@ -25,7 +26,7 @@ namespace TweetSharp
 #endif
         public virtual long? PreviousCursor { get; set; }
 
-        public TwitterCursorList(IEnumerable<T> collection) : base(collection)
+		public TwitterCursorList(IEnumerable<T> collection) : base(collection)
         {
 
         }

@@ -136,11 +136,11 @@ namespace TweetSharp
 					if (deleted != null)
 					{
 						var result = new TwitterUserStreamDeleteStatus
-														 {
-															 RawSource = content,
-															 StatusId = deleted["id"].Value<long>(),
-															 UserId = deleted["user_id"].Value<int>()
-														 };
+						{
+							RawSource = content,
+							StatusId = deleted["id"].Value<long>(),
+							UserId = deleted["user_id"].Value<long>()
+						};
 						return result;
 					}
 				}
@@ -153,7 +153,7 @@ namespace TweetSharp
 						{
 							RawSource = content,
 							DirectMessageId = deleted["id"].Value<long>(),
-							UserId = deleted["user_id"].Value<int>()
+							UserId = deleted["user_id"].Value<long>()
 						};
 						return result;
 					}
@@ -173,12 +173,17 @@ namespace TweetSharp
 						return @event;
 					}
 
-					if (artifact["direct_message"] != null)
+          if (artifact["direct_message"] != null)
 					{
 						var json = artifact["direct_message"].ToString();
 						var dm = DeserializeSingle(json, typeof(TwitterDirectMessage)) as TwitterDirectMessage;
 						var @event = new TwitterUserStreamDirectMessage { DirectMessage = dm, RawSource = json };
 						return @event;
+					}
+
+					if (!String.IsNullOrEmpty(artifact.Value<string>("event")))
+					{
+						return DeserializeUserStreamEvent(content);
 					}
 
 					var unknown = new TwitterStreamArtifact { RawSource = content };
@@ -209,20 +214,22 @@ namespace TweetSharp
 			var result = new TwitterUserStreamEvent(@event);
 
 			var targetObject = target["target_object"];
+			if (targetObject != null)
+			{
+				var json = targetObject.ToString();
 
-			var json = targetObject.ToString();
-
-			if (targetObject["recipient_screen_name"] != null)
-			{
-				result.TargetObject = DeserializeSingle(json, typeof(TwitterDirectMessage)) as TwitterDirectMessage;
-			}
-			else if (targetObject["slug"] != null)
-			{
-				result.TargetObject = DeserializeSingle(json, typeof(TwitterList)) as TwitterList;
-			}
-			else
-			{
-				result.TargetObject = DeserializeSingle(json, typeof(TwitterStatus)) as TwitterStatus;
+				if (targetObject["recipient_screen_name"] != null)
+				{
+					result.TargetObject = DeserializeSingle(json, typeof(TwitterDirectMessage)) as TwitterDirectMessage;
+				}
+				else if (targetObject["slug"] != null)
+				{
+					result.TargetObject = DeserializeSingle(json, typeof(TwitterList)) as TwitterList;
+				}
+				else
+				{
+					result.TargetObject = DeserializeSingle(json, typeof(TwitterStatus)) as TwitterStatus;
+				}
 			}
 
 			return result;
@@ -248,6 +255,8 @@ namespace TweetSharp
 
 		private object DeserializeSingle(string content, Type type)
 		{
+			var now = DateTime.UtcNow;
+
 			var deserialized = DeserializeJson(content, type);
 			if (typeof(ITwitterModel).IsAssignableFrom(type))
 			{
@@ -264,13 +273,22 @@ namespace TweetSharp
 				{
 					var status = collection.Skip(i).Take(1).Single();
 					status.RawSource = array[i].ToString();
+					if (status.RetrievedAt == DateTime.MinValue)
+						status.RetrievedAt = now;
 					if (MergeMultiplePhotos)
 						UnionMultiplePhotos(status);
 				}
 			}
-			else if (MergeMultiplePhotos && type == typeof(TwitterStatus))
+			else if (type == typeof(TwitterStatus))
 			{
-				UnionMultiplePhotos((TwitterStatus)deserialized);
+				if (MergeMultiplePhotos)
+					UnionMultiplePhotos((TwitterStatus)deserialized);
+				else
+				{
+					var ts = deserialized as TwitterStatus;
+					if (ts.RetrievedAt == DateTime.MinValue)
+						ts.RetrievedAt = now;
+        }
 			}
 
 			return deserialized;
@@ -439,7 +457,7 @@ namespace TweetSharp
 
 		private static object BindDeserializedItemsIntoCursorCollection(IEnumerable collection, Type cursor, JObject instance)
 		{
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WINRT
 			var list = Activator.CreateInstance(
 							cursor, 0, null, new object[] { collection }, CultureInfo.InvariantCulture
 							);

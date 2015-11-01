@@ -93,7 +93,7 @@ namespace TweetSharp
 #if !WINDOWS_PHONE
         private IAsyncResult WithHammockStreamingImpl<T>(RestClient client, RestRequest request, StreamOptions options, Action<T, TwitterResponse> action)
 #else
-        private static void WithHammockStreamingImpl<T>(RestClient client, RestRequest request, StreamOptions options, Action<T, TwitterResponse> action)
+        private void WithHammockStreamingImpl<T>(RestClient client, RestRequest request, StreamOptions options, Action<T, TwitterResponse> action)
 #endif
         {
             request.StreamOptions = options;
@@ -101,10 +101,15 @@ namespace TweetSharp
 #if SILVERLIGHT
             request.AddHeader("X-User-Agent", client.UserAgent); 
 #endif
-            
+
+						var deserialiser = this.Serializer as JsonSerializer;
+						if (deserialiser == null)
+							deserialiser = new JsonSerializer();
+  
 #if !WINDOWS_PHONE
-            return
+						return
 #endif
+
             client.BeginRequest(request, new RestCallback<T>((req, resp, state) =>
             {
                 Exception exception;
@@ -113,9 +118,8 @@ namespace TweetSharp
 #if !SILVERLIGHT
                             SetResponse(resp);
 #endif
-                            var deserializer = new JsonSerializer();
-                            
-                            return deserializer.DeserializeJson<T>(resp.Content);
+
+														return (T)deserialiser.DeserializeContent<T>(resp.Content);
                         },
                         out exception);
                 action(entity, new TwitterResponse(resp, exception));

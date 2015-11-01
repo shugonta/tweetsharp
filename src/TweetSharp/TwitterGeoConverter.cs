@@ -55,7 +55,7 @@ namespace TweetSharp
             var latitude = location.Latitude.ToString(CultureInfo.InvariantCulture);
             var longitude = location.Longitude.ToString(CultureInfo.InvariantCulture);
             var json = string.Format(GeoTemplate, latitude, longitude);
-            writer.WriteRawValue(json);
+						writer.WriteRawValue(json);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)

@@ -29,7 +29,7 @@ TwitterFriendship, "friendships/update":POST, UpdateFriendship, string screen_na
 TwitterFriendship, "friendships/show", GetFriendshipInfo, string source_id, string source_screen_name, string target_id, string target_screen_name
 
 // https://dev.twitter.com/docs/api/1.1/get/friends/list
-TwitterCursorList<TwitterUser>, "friends/list", ListFriends, long? user_id, string screen_name, long? cursor, bool? skip_status, bool? include_user_entities
+TwitterCursorList<TwitterUser>, "friends/list", ListFriends, long? user_id, string screen_name, int? count, long? cursor, bool? skip_status, bool? include_user_entities
 
 // https://dev.twitter.com/docs/api/1.1/get/followers/list
-TwitterCursorList<TwitterUser>, "followers/list", ListFollowers, long? user_id, string screen_name, long? cursor, bool? skip_status, bool? include_user_entities
+TwitterCursorList<TwitterUser>, "followers/list", ListFollowers, long? user_id, string screen_name, int? count, long? cursor, bool? skip_status, bool? include_user_entities

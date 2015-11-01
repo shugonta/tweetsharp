@@ -191,6 +191,12 @@ namespace TweetSharp
 	[JsonObject(MemberSerialization.OptIn)]
 	public class TwitterExtendedEntity : TwitterEntity
 	{
+
+		public TwitterExtendedEntity()
+		{
+			base.EntityType = TwitterEntityType.Media;
+		}
+
 		[JsonProperty("id")]
 		public long Id { get; set; }
 
@@ -214,7 +220,10 @@ namespace TweetSharp
 
 		[JsonProperty("type")]
 		[JsonConverter(typeof(TwitterMediaTypeJsonConverter))]
-		public TwitterMediaType ExtendedEntityType { get; set; }
+		public TwitterMediaType ExtendedEntityType
+		{
+			get; set;
+		}
 
 		[JsonProperty("video_info")]
 		public TwitterVideoInfo VideoInfo { get; set; }

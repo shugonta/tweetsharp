@@ -270,6 +270,7 @@ namespace TweetSharp
 	{ 
 		public long? UserId { get; set; }  
 		public string ScreenName { get; set; }  
+		public int? Count { get; set; }  
 		public long? Cursor { get; set; }  
 		public bool? SkipStatus { get; set; }  
 		public bool? IncludeUserEntities { get; set; } 			
@@ -2652,12 +2653,13 @@ namespace TweetSharp
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var skip_status = options.SkipStatus;
 			var include_user_entities = options.IncludeUserEntities;
 				
 			
-			return WithHammock<TwitterCursorList<TwitterUser>>(_client, "followers/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
+			return WithHammock<TwitterCursorList<TwitterUser>>(_client, "followers/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
 		}
 
         
@@ -3587,12 +3589,13 @@ namespace TweetSharp
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var skip_status = options.SkipStatus;
 			var include_user_entities = options.IncludeUserEntities;
 				
 
-			return WithHammock(_client, action, "followers/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
+			return WithHammock(_client, action, "followers/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
 		}
 
         
@@ -4522,12 +4525,13 @@ namespace TweetSharp
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var skip_status = options.SkipStatus;
 			var include_user_entities = options.IncludeUserEntities;
 				
 
-			return BeginWithHammock<TwitterCursorList<TwitterUser>>(_client, WebMethod.Get, "followers/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
+			return BeginWithHammock<TwitterCursorList<TwitterUser>>(_client, WebMethod.Get, "followers/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
 		}
 
         
@@ -6375,11 +6379,12 @@ namespace TweetSharp
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var skip_status = options.SkipStatus;
 			var include_user_entities = options.IncludeUserEntities;
 			
-			WithHammock(_client, action, "followers/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
+			WithHammock(_client, action, "followers/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
 		}
 
         
@@ -7229,11 +7234,12 @@ namespace TweetSharp
 		{
 			var user_id = options.UserId;
 			var screen_name = options.ScreenName;
+			var count = options.Count;
 			var cursor = options.Cursor;
 			var skip_status = options.SkipStatus;
 			var include_user_entities = options.IncludeUserEntities;
 			
-			return WithHammockTask<TwitterCursorList<TwitterUser>>(_client, "followers/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
+			return WithHammockTask<TwitterCursorList<TwitterUser>>(_client, "followers/list", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor, "&skip_status=", skip_status, "&include_user_entities=", include_user_entities);
 		}
 
         

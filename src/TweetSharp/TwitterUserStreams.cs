@@ -185,7 +185,7 @@ namespace TweetSharp
 #endif
     public class TwitterUserStreamDeleteStatus : TwitterStreamArtifact
     {
-        public virtual int UserId { get; set; }
+        public virtual long UserId { get; set; }
         public virtual long StatusId { get; set; }
     }
 
@@ -198,16 +198,16 @@ namespace TweetSharp
 #endif
     public class TwitterUserStreamDeleteDirectMessage : TwitterStreamArtifact
     {
-        public virtual int UserId { get; set; }
+        public virtual long UserId { get; set; }
         public virtual long DirectMessageId { get; set; }
     }
-    
-    /// <summary>
-    /// Denotes a stream event, resulting from a user action;
-    /// the source is always the initiating user, the target is always the affected user, and
-    /// the target object depends on the initiating action: statuses, direct messages, and lists.
-    /// </summary>
-    public class TwitterUserStreamEvent : TwitterUserStreamEventBase
+
+		/// <summary>
+		/// Denotes a stream event, resulting from a user action;
+		/// the source is always the initiating user, the target is always the affected user, and
+		/// the target object depends on the initiating action: statuses, direct messages, and lists.
+		/// </summary>
+	public class TwitterUserStreamEvent : TwitterUserStreamEventBase
     {
         public virtual ITwitterModel TargetObject { get; set; }
 

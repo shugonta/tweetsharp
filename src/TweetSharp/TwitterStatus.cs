@@ -21,6 +21,7 @@ namespace TweetSharp
 															 ITweetable
 	{
 		private DateTime _createdDate;
+		private DateTime _retrievedAt;
 		private long _id;
 		private string _idStr;
 		private string _inReplyToScreenName;
@@ -445,6 +446,27 @@ namespace TweetSharp
 
 				_createdDate = value;
 				OnPropertyChanged("CreatedDate");
+			}
+		}
+
+		/// <summary>
+		/// Returns the UTC date and time (from the local system clock) at which this item was deserialised, usually equivalent to the time it was retrieved from Twitter. 
+		/// </summary>
+#if !Smartphone && !NET20
+		[DataMember]
+#endif
+		public virtual DateTime RetrievedAt
+		{
+			get { return _retrievedAt; }
+			set
+			{
+				if (_retrievedAt == value)
+				{
+					return;
+				}
+
+				_retrievedAt = value;
+				OnPropertyChanged("RetrievedAt");
 			}
 		}
 
