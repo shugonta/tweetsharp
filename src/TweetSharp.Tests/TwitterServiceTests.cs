@@ -399,11 +399,15 @@ namespace TweetSharp.Tests.Service
             var service = GetAuthenticatedService();
             using (var stream = new FileStream("daniel_8bit.png", FileMode.Open))
             {
+#pragma warning disable CS0618 // Type or member is obsolete
                 var tweet = service.SendTweetWithMedia(new SendTweetWithMediaOptions
+#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning restore CS0618 // Type or member is obsolete
                     {
                         Status = "Can_tweet_with_image:Tweet",
                         Images = new Dictionary<string, Stream> {{"test", stream}}
                     });
+#pragma warning restore CS0618 // Type or member is obsolete
                 Assert.IsNotNull(tweet);
                 Assert.AreNotEqual(0, tweet.Id);
             }            
@@ -425,11 +429,15 @@ namespace TweetSharp.Tests.Service
 					service.TraceEnabled = true;
 					using (var stream = new FileStream("daniel_8bit.png", FileMode.Open, FileAccess.Read, FileShare.Read))
 					{
+#pragma warning disable CS0618 // Type or member is obsolete
 						var tweet = service.SendTweetWithMedia(new SendTweetWithMediaOptions
+#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning restore CS0618 // Type or member is obsolete
 						{
 							Status = "Can_tweet_with_image:Tweet and accented char à", 
 							Images = new Dictionary<string, Stream> { { "test", stream } }
 						});
+#pragma warning restore CS0618 // Type or member is obsolete
 
 						AssertResultWas(service, HttpStatusCode.OK);
 						Assert.IsNotNull(tweet);

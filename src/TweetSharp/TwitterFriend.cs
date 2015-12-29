@@ -21,6 +21,7 @@ namespace TweetSharp
         private bool? _notificationsEnabled;
         private bool? _canDm;
         private bool? _blocking;
+				private bool? _muting;
 
 #if !Smartphone && !NET20
         [DataMember]
@@ -151,7 +152,26 @@ namespace TweetSharp
         }
 
 #if !Smartphone && !NET20
-        [DataMember]
+		[DataMember]
+#endif
+		[JsonProperty("muting")]
+		public virtual bool? IsMuting
+		{
+			get { return _muting; }
+			set
+			{
+				if (_muting == value)
+				{
+					return;
+				}
+
+				_muting = value;
+				OnPropertyChanged("IsMuting");
+			}
+		}
+
+#if !Smartphone && !NET20
+		[DataMember]
 #endif
         public virtual string RawSource { get; set; }
     }

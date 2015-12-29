@@ -1,5 +1,5 @@
 ﻿// https://dev.twitter.com/docs/api/1.1/get/trends/place
-TwitterTrends, "trends/place", ListLocalTrendsFor, int id, string exclude
+TwitterTrends, "trends/place", ListLocalTrendsFor, long id, string exclude
 
 // https://dev.twitter.com/docs/api/1.1/get/trends/available
 IEnumerable<WhereOnEarthLocation>, "trends/available", ListAvailableTrendsLocations
