@@ -641,5 +641,12 @@ namespace TweetSharp
 		{
 			return !Equals(left, right);
 		}
+
+		public Uri ToTwitterUrl()
+		{
+			var builder = new UriBuilder("https", "twitter.com");
+			builder.Path = String.Format("{0}/status/{1}", this.Author.ScreenName, this.Id);
+			return builder.Uri;
+    }
 	}
 }

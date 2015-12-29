@@ -473,25 +473,39 @@ namespace TweetSharp
             return WithHammockImpl(client, request, action);
         }
 
+				private IAsyncResult WithHammock<T>(RestClient client, WebMethod method, Action<T, TwitterResponse> action, MediaFile media, string path) where T : class
+				{
+					var request = PrepareHammockQuery(path);
+					request.Method = method;
+					request.AddFile("media", media.FileName, media.Content);
+
+					return WithHammockImpl(client, request, action);
+				}
+
 				private IAsyncResult WithHammock<T>(RestClient client, WebMethod method, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
         {
             return WithHammock(client, method, action, ResolveUrlSegments(path, segments.ToList()));
         }
 
-        private IAsyncResult WithHammockImpl<T>(RestClient client, RestRequest request, Action<T, TwitterResponse> action) where T : class
-        {
-            return client.BeginRequest(
-                request, new RestCallback<T>((req, response, state) =>
-                {
-                    if (response == null)
-                    {
-                        return;
-                    }
-                    SetResponse(response);
-                    var entity = response.ContentEntity;
-                    action.Invoke(entity, new TwitterResponse(response));
-                }));
-        }
+				private IAsyncResult WithHammock<T>(RestClient client, WebMethod method, Action<T, TwitterResponse> action, string path, MediaFile media, params object[] segments) where T : class
+				{
+					return WithHammock(client, method, action, media, ResolveUrlSegments(path, segments.ToList()));
+				}
+
+				private IAsyncResult WithHammockImpl<T>(RestClient client, RestRequest request, Action<T, TwitterResponse> action) where T : class
+								{
+										return client.BeginRequest(
+												request, new RestCallback<T>((req, response, state) =>
+												{
+														if (response == null)
+														{
+																return;
+														}
+														SetResponse(response);
+														var entity = response.ContentEntity;
+														action.Invoke(entity, new TwitterResponse(response));
+												}));
+								}
 
 				private IAsyncResult BeginWithHammock<T>(RestClient client, WebMethod method, string path, params object[] segments)
         {
@@ -631,6 +645,15 @@ namespace TweetSharp
             WithHammockImpl(restClient, request, action);
         }
 
+				private void WithHammock<T>(IRestClient restClient, WebMethod method, Action<T, TwitterResponse> action, MediaFile media, string path) where T : class
+				{
+					var request = PrepareHammockQuery(path);
+					request.Method = method;
+					request.AddFile("media", media.FileName, media.Content);
+
+					WithHammockImpl(restClient, request, action);
+				}
+
 				private void WithHammock<T>(IRestClient restClient, WebMethod method, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
         {
             WithHammock(restClient, method, action, ResolveUrlSegments(path, segments.ToList()));
@@ -723,9 +746,37 @@ namespace TweetSharp
 					return tcs.Task;
 				}
 
+				private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(RestClient client, WebMethod method, string path, MediaFile media, params object[] segments) where T1 : class
+				{
+					var tcs = new TaskCompletionSource<TwitterAsyncResult<T1>>();
+					try
+					{
+						WithHammock<T1>(client, method,  
+							(Action<T1, TwitterResponse>)((v, r) =>
+							{
+								try
+								{
+									tcs.SetResult(new TwitterAsyncResult<T1>(v, r));
+								}
+								catch (Exception ex)
+								{
+									tcs.SetException(ex);
+								}
+							}),
+							media,
+							ResolveUrlSegments(path, segments.ToList())
+						);
+					}
+					catch (Exception ex)
+					{
+						tcs.SetException(ex);
+					}
+
+					return tcs.Task;
+				}
 #endif
 
-				private static T TryAsyncResponse<T>(Func<T> action, out Exception exception)
+		private static T TryAsyncResponse<T>(Func<T> action, out Exception exception)
         {
             exception = null;
             var entity = default(T);

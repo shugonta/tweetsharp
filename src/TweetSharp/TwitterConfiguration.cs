@@ -18,7 +18,8 @@ namespace TweetSharp
 	public class TwitterConfiguration : PropertyChangedBase
 	{
 		private int _CharactersReservedPerMedia;
-		private int _MaxMediaPerUpload;
+		private int _DirectMessageCharacterLimit;
+    private int _MaxMediaPerUpload;
 		private int _ShortUrlLength;
 		private int _ShortUrlLengthHttps;
 		private int _PhotoSizeLimit;
@@ -41,6 +42,25 @@ namespace TweetSharp
 
 				_CharactersReservedPerMedia = value;
 				OnPropertyChanged("CharactersReservedPerMedia");
+			}
+		}
+
+		[JsonProperty("dm_text_character_limit")]
+#if !Smartphone && !NET20
+		[DataMember]
+#endif
+		public virtual int DirectMessageCharacterLimit
+		{
+			get { return _DirectMessageCharacterLimit; }
+			set
+			{
+				if (_DirectMessageCharacterLimit == value)
+				{
+					return;
+				}
+
+				_DirectMessageCharacterLimit = value;
+				OnPropertyChanged("DirectMessageCharacterLimit");
 			}
 		}
 

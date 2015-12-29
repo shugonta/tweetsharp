@@ -35,6 +35,20 @@ TwitterUser, "blocks/create":POST, BlockUser, long? user_id, string screen_name,
 // https://dev.twitter.com/docs/api/1.1/post/blocks/destroy
 TwitterUser, "blocks/destroy":POST, UnblockUser, string screen_name, long? user_id, bool? include_entities, bool? skip_status
 
+
+// https://dev.twitter.com/docs/api/1.1/post/mutes/users/create
+TwitterUser, "mutes/users/create":POST, MuteUser, long? user_id, string screen_name 
+
+// https://dev.twitter.com/docs/api/1.1/post/mutes/users/destroy
+TwitterUser, "mutes/users/destroy":POST, UnmuteUser, long? user_id, string screen_name 
+
+// https://dev.twitter.com/docs/api/1.1/get/mutes/users/ids
+TwitterCursorList<long>, "mutes/users/ids", ListMutedUserIds, long? cursor
+
+// https://dev.twitter.com/docs/api/1.1/get/mutes/users/list
+TwitterCursorList<long>, "mutes/users/list", ListMutedUsers, long? cursor
+
+
 // https://dev.twitter.com/docs/api/1.1/get/users/lookup
 IEnumerable<TwitterUser>, "users/lookup", ListUserProfilesFor, IEnumerable<string> screen_name, IEnumerable<long> user_id, bool? include_entities
 

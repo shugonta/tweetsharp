@@ -94,7 +94,7 @@ namespace TweetSharp
 		public long? InReplyToStatusId { get; set; }  
 		public double? Lat { get; set; }  
 		public double? @Long { get; set; }  
-		public long? PlaceId { get; set; }  
+		public string PlaceId { get; set; }  
 		public bool? DisplayCoordinates { get; set; }  
 		public bool? TrimUser { get; set; }  
 		public IEnumerable<String> MediaIds { get; set; } 			
@@ -115,7 +115,7 @@ namespace TweetSharp
 		public long? InReplyToStatusId { get; set; }  
 		public double? Lat { get; set; }  
 		public double? @Long { get; set; }  
-		public bool? PlaceId { get; set; }  
+		public string PlaceId { get; set; }  
 		public bool? DisplayCoordinates { get; set; }  
 		public IDictionary<string,Stream> Images { get; set; } 			
 	}			
@@ -381,6 +381,32 @@ namespace TweetSharp
 		public long? UserId { get; set; }  
 		public bool? IncludeEntities { get; set; }  
 		public bool? SkipStatus { get; set; } 			
+	}			
+ 
+    		
+	public class MuteUserOptions
+	{ 
+		public long? UserId { get; set; }  
+		public string ScreenName { get; set; } 			
+	}			
+ 
+    		
+	public class UnmuteUserOptions
+	{ 
+		public long? UserId { get; set; }  
+		public string ScreenName { get; set; } 			
+	}			
+ 
+    		
+	public class ListMutedUserIdsOptions
+	{ 
+		public long? Cursor { get; set; } 			
+	}			
+ 
+    		
+	public class ListMutedUsersOptions
+	{ 
+		public long? Cursor { get; set; } 			
 	}			
  
     		
@@ -667,7 +693,7 @@ namespace TweetSharp
     		
 	public class ListLocalTrendsForOptions
 	{ 
-		public int Id { get; set; }  
+		public long Id { get; set; }  
 		public string Exclude { get; set; } 			
 	}			
  
@@ -863,6 +889,22 @@ namespace TweetSharp
  
         
 		TwitterUser UnblockUser(UnblockUserOptions options);	
+
+ 
+        
+		TwitterUser MuteUser(MuteUserOptions options);	
+
+ 
+        
+		TwitterUser UnmuteUser(UnmuteUserOptions options);	
+
+ 
+        
+		TwitterCursorList<long> ListMutedUserIds(ListMutedUserIdsOptions options);	
+
+ 
+        
+		TwitterCursorList<long> ListMutedUsers(ListMutedUsersOptions options);	
 
  
         
@@ -1142,6 +1184,18 @@ namespace TweetSharp
 
         
 		IAsyncResult UnblockUser(UnblockUserOptions options, Action<TwitterUser, TwitterResponse> action);		
+
+        
+		IAsyncResult MuteUser(MuteUserOptions options, Action<TwitterUser, TwitterResponse> action);		
+
+        
+		IAsyncResult UnmuteUser(UnmuteUserOptions options, Action<TwitterUser, TwitterResponse> action);		
+
+        
+		IAsyncResult ListMutedUserIds(ListMutedUserIdsOptions options, Action<TwitterCursorList<long>, TwitterResponse> action);		
+
+        
+		IAsyncResult ListMutedUsers(ListMutedUsersOptions options, Action<TwitterCursorList<long>, TwitterResponse> action);		
 
         
 		IAsyncResult ListUserProfilesFor(ListUserProfilesForOptions options, Action<IEnumerable<TwitterUser>, TwitterResponse> action);		
@@ -1554,6 +1608,34 @@ namespace TweetSharp
 		TwitterUser EndUnblockUser(IAsyncResult result, TimeSpan timeout);
 
         
+		IAsyncResult BeginMuteUser(MuteUserOptions options);
+
+		TwitterUser EndMuteUser(IAsyncResult result);		
+
+		TwitterUser EndMuteUser(IAsyncResult result, TimeSpan timeout);
+
+        
+		IAsyncResult BeginUnmuteUser(UnmuteUserOptions options);
+
+		TwitterUser EndUnmuteUser(IAsyncResult result);		
+
+		TwitterUser EndUnmuteUser(IAsyncResult result, TimeSpan timeout);
+
+        
+		IAsyncResult BeginListMutedUserIds(ListMutedUserIdsOptions options);
+
+		TwitterCursorList<long> EndListMutedUserIds(IAsyncResult result);		
+
+		TwitterCursorList<long> EndListMutedUserIds(IAsyncResult result, TimeSpan timeout);
+
+        
+		IAsyncResult BeginListMutedUsers(ListMutedUsersOptions options);
+
+		TwitterCursorList<long> EndListMutedUsers(IAsyncResult result);		
+
+		TwitterCursorList<long> EndListMutedUsers(IAsyncResult result, TimeSpan timeout);
+
+        
 		IAsyncResult BeginListUserProfilesFor(ListUserProfilesForOptions options);
 
 		IEnumerable<TwitterUser> EndListUserProfilesFor(IAsyncResult result);		
@@ -1944,6 +2026,18 @@ namespace TweetSharp
 		void UnblockUser(UnblockUserOptions options, Action<TwitterUser, TwitterResponse> action);
 
         
+		void MuteUser(MuteUserOptions options, Action<TwitterUser, TwitterResponse> action);
+
+        
+		void UnmuteUser(UnmuteUserOptions options, Action<TwitterUser, TwitterResponse> action);
+
+        
+		void ListMutedUserIds(ListMutedUserIdsOptions options, Action<TwitterCursorList<long>, TwitterResponse> action);
+
+        
+		void ListMutedUsers(ListMutedUsersOptions options, Action<TwitterCursorList<long>, TwitterResponse> action);
+
+        
 		void ListUserProfilesFor(ListUserProfilesForOptions options, Action<IEnumerable<TwitterUser>, TwitterResponse> action);
 
         
@@ -2184,6 +2278,18 @@ namespace TweetSharp
 
         
 		Task<TwitterAsyncResult<TwitterUser>> UnblockUserAsync(UnblockUserOptions options);
+
+        
+		Task<TwitterAsyncResult<TwitterUser>> MuteUserAsync(MuteUserOptions options);
+
+        
+		Task<TwitterAsyncResult<TwitterUser>> UnmuteUserAsync(UnmuteUserOptions options);
+
+        
+		Task<TwitterAsyncResult<TwitterCursorList<long>>> ListMutedUserIdsAsync(ListMutedUserIdsOptions options);
+
+        
+		Task<TwitterAsyncResult<TwitterCursorList<long>>> ListMutedUsersAsync(ListMutedUsersOptions options);
 
         
 		Task<TwitterAsyncResult<IEnumerable<TwitterUser>>> ListUserProfilesForAsync(ListUserProfilesForOptions options);
@@ -2816,6 +2922,44 @@ namespace TweetSharp
 		}
 
         
+		public virtual TwitterUser MuteUser(MuteUserOptions options)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+				
+			
+			return WithHammock<TwitterUser>(_client, WebMethod.Post, "mutes/users/create", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+		}
+
+        
+		public virtual TwitterUser UnmuteUser(UnmuteUserOptions options)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+				
+			
+			return WithHammock<TwitterUser>(_client, WebMethod.Post, "mutes/users/destroy", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+		}
+
+        
+		public virtual TwitterCursorList<long> ListMutedUserIds(ListMutedUserIdsOptions options)
+		{
+			var cursor = options.Cursor;
+				
+			
+			return WithHammock<TwitterCursorList<long>>(_client, "mutes/users/ids", FormatAsString, "?cursor=", cursor);
+		}
+
+        
+		public virtual TwitterCursorList<long> ListMutedUsers(ListMutedUsersOptions options)
+		{
+			var cursor = options.Cursor;
+				
+			
+			return WithHammock<TwitterCursorList<long>>(_client, "mutes/users/list", FormatAsString, "?cursor=", cursor);
+		}
+
+        
 		public virtual IEnumerable<TwitterUser> ListUserProfilesFor(ListUserProfilesForOptions options)
 		{
 			var screen_name = options.ScreenName;
@@ -3398,7 +3542,7 @@ namespace TweetSharp
 			 var media = options.Media;
 				
 
-			return WithHammock(_client, WebMethod.Post, action, "media/upload", media, FormatAsString);
+			return WithHammock(_uploadMediaClient, WebMethod.Post, action, "media/upload", media, FormatAsString);
 		}
 
         
@@ -3751,6 +3895,44 @@ namespace TweetSharp
 				
 
 			return WithHammock(_client, WebMethod.Post, action, "blocks/destroy", FormatAsString, "?screen_name=", screen_name, "&user_id=", user_id, "&include_entities=", include_entities, "&skip_status=", skip_status);
+		}
+
+        
+		public virtual IAsyncResult MuteUser(MuteUserOptions options, Action<TwitterUser, TwitterResponse> action)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+				
+
+			return WithHammock(_client, WebMethod.Post, action, "mutes/users/create", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+		}
+
+        
+		public virtual IAsyncResult UnmuteUser(UnmuteUserOptions options, Action<TwitterUser, TwitterResponse> action)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+				
+
+			return WithHammock(_client, WebMethod.Post, action, "mutes/users/destroy", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+		}
+
+        
+		public virtual IAsyncResult ListMutedUserIds(ListMutedUserIdsOptions options, Action<TwitterCursorList<long>, TwitterResponse> action)
+		{
+			var cursor = options.Cursor;
+				
+
+			return WithHammock(_client, action, "mutes/users/ids", FormatAsString, "?cursor=", cursor);
+		}
+
+        
+		public virtual IAsyncResult ListMutedUsers(ListMutedUsersOptions options, Action<TwitterCursorList<long>, TwitterResponse> action)
+		{
+			var cursor = options.Cursor;
+				
+
+			return WithHammock(_client, action, "mutes/users/list", FormatAsString, "?cursor=", cursor);
 		}
 
         
@@ -4336,7 +4518,7 @@ namespace TweetSharp
 			 var media = options.Media;
 				
 
-			return BeginWithHammock<TwitterUploadedMedia>(_client, WebMethod.Post, "media/upload", media, FormatAsString);
+			return BeginWithHammock<TwitterUploadedMedia>(_uploadMediaClient, WebMethod.Post, "media/upload", media, FormatAsString);
 		}
 
         
@@ -4689,6 +4871,44 @@ namespace TweetSharp
 				
 
 			return BeginWithHammock<TwitterUser>(_client, WebMethod.Post, "blocks/destroy", FormatAsString, "?screen_name=", screen_name, "&user_id=", user_id, "&include_entities=", include_entities, "&skip_status=", skip_status);
+		}
+
+        
+		public virtual IAsyncResult BeginMuteUser(MuteUserOptions options)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+				
+
+			return BeginWithHammock<TwitterUser>(_client, WebMethod.Post, "mutes/users/create", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+		}
+
+        
+		public virtual IAsyncResult BeginUnmuteUser(UnmuteUserOptions options)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+				
+
+			return BeginWithHammock<TwitterUser>(_client, WebMethod.Post, "mutes/users/destroy", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+		}
+
+        
+		public virtual IAsyncResult BeginListMutedUserIds(ListMutedUserIdsOptions options)
+		{
+			var cursor = options.Cursor;
+				
+
+			return BeginWithHammock<TwitterCursorList<long>>(_client, WebMethod.Get, "mutes/users/ids", FormatAsString, "?cursor=", cursor);
+		}
+
+        
+		public virtual IAsyncResult BeginListMutedUsers(ListMutedUsersOptions options)
+		{
+			var cursor = options.Cursor;
+				
+
+			return BeginWithHammock<TwitterCursorList<long>>(_client, WebMethod.Get, "mutes/users/list", FormatAsString, "?cursor=", cursor);
 		}
 
         
@@ -5625,6 +5845,54 @@ namespace TweetSharp
 		}
 
         
+		public virtual TwitterUser EndMuteUser(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterUser>(result);
+		}
+
+		
+		public virtual TwitterUser EndMuteUser(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterUser>(result, timeout);
+		}
+
+        
+		public virtual TwitterUser EndUnmuteUser(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterUser>(result);
+		}
+
+		
+		public virtual TwitterUser EndUnmuteUser(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterUser>(result, timeout);
+		}
+
+        
+		public virtual TwitterCursorList<long> EndListMutedUserIds(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterCursorList<long>>(result);
+		}
+
+		
+		public virtual TwitterCursorList<long> EndListMutedUserIds(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterCursorList<long>>(result, timeout);
+		}
+
+        
+		public virtual TwitterCursorList<long> EndListMutedUsers(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterCursorList<long>>(result);
+		}
+
+		
+		public virtual TwitterCursorList<long> EndListMutedUsers(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterCursorList<long>>(result, timeout);
+		}
+
+        
 		public virtual IEnumerable<TwitterUser> EndListUserProfilesFor(IAsyncResult result) 
 		{
 			return EndWithHammock<IEnumerable<TwitterUser>>(result);
@@ -6200,15 +6468,17 @@ namespace TweetSharp
 			var @long = options.@Long;
 			var place_id = options.PlaceId;
 			var display_coordinates = options.DisplayCoordinates;
+			 var images = options.Images;
 			
-			WithHammock(_client, WebMethod.Post, action, "statuses/update_with_media", FormatAsString, "?status=", status, "&possibly_sensitive=", possibly_sensitive, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates);
+			WithHammock(_client, WebMethod.Post, action, "statuses/update_with_media", images, FormatAsString, "?status=", status, "&possibly_sensitive=", possibly_sensitive, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates);
 		}
 
         
 		public virtual void UploadMedia(UploadMediaOptions options, Action<TwitterUploadedMedia, TwitterResponse> action)
 		{
+			 var media = options.Media;
 			
-			WithHammock(_client, WebMethod.Post, action, "media/upload", FormatAsString);
+			WithHammock(_uploadMediaClient, WebMethod.Post, action, "media/upload", media, FormatAsString);
 		}
 
         
@@ -6531,6 +6801,40 @@ namespace TweetSharp
 			var skip_status = options.SkipStatus;
 			
 			WithHammock(_client, WebMethod.Post, action, "blocks/destroy", FormatAsString, "?screen_name=", screen_name, "&user_id=", user_id, "&include_entities=", include_entities, "&skip_status=", skip_status);
+		}
+
+        
+		public virtual void MuteUser(MuteUserOptions options, Action<TwitterUser, TwitterResponse> action)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			
+			WithHammock(_client, WebMethod.Post, action, "mutes/users/create", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+		}
+
+        
+		public virtual void UnmuteUser(UnmuteUserOptions options, Action<TwitterUser, TwitterResponse> action)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			
+			WithHammock(_client, WebMethod.Post, action, "mutes/users/destroy", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+		}
+
+        
+		public virtual void ListMutedUserIds(ListMutedUserIdsOptions options, Action<TwitterCursorList<long>, TwitterResponse> action)
+		{
+			var cursor = options.Cursor;
+			
+			WithHammock(_client, action, "mutes/users/ids", FormatAsString, "?cursor=", cursor);
+		}
+
+        
+		public virtual void ListMutedUsers(ListMutedUsersOptions options, Action<TwitterCursorList<long>, TwitterResponse> action)
+		{
+			var cursor = options.Cursor;
+			
+			WithHammock(_client, action, "mutes/users/list", FormatAsString, "?cursor=", cursor);
 		}
 
         
@@ -7057,15 +7361,17 @@ namespace TweetSharp
 			var @long = options.@Long;
 			var place_id = options.PlaceId;
 			var display_coordinates = options.DisplayCoordinates;
+			 var images = options.Images;
 			
-			return WithHammockTask<TwitterStatus>(_client, WebMethod.Post, "statuses/update_with_media", FormatAsString, "?status=", status, "&possibly_sensitive=", possibly_sensitive, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates);
+			return WithHammockTask<TwitterStatus>(_client, WebMethod.Post, "statuses/update_with_media", images, FormatAsString, "?status=", status, "&possibly_sensitive=", possibly_sensitive, "&in_reply_to_status_id=", in_reply_to_status_id, "&lat=", lat, "&long=", @long, "&place_id=", place_id, "&display_coordinates=", display_coordinates);
 		}
 
         
 		public virtual Task<TwitterAsyncResult<TwitterUploadedMedia>> UploadMediaAsync(UploadMediaOptions options)
 		{
+			 var media = options.Media;
 			
-			return WithHammockTask<TwitterUploadedMedia>(_client, WebMethod.Post, "media/upload", FormatAsString);
+			return WithHammockTask<TwitterUploadedMedia>(_uploadMediaClient, WebMethod.Post, "media/upload", media, FormatAsString);
 		}
 
         
@@ -7388,6 +7694,40 @@ namespace TweetSharp
 			var skip_status = options.SkipStatus;
 			
 			return WithHammockTask<TwitterUser>(_client, WebMethod.Post, "blocks/destroy", FormatAsString, "?screen_name=", screen_name, "&user_id=", user_id, "&include_entities=", include_entities, "&skip_status=", skip_status);
+		}
+
+        
+		public virtual Task<TwitterAsyncResult<TwitterUser>> MuteUserAsync(MuteUserOptions options)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			
+			return WithHammockTask<TwitterUser>(_client, WebMethod.Post, "mutes/users/create", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+		}
+
+        
+		public virtual Task<TwitterAsyncResult<TwitterUser>> UnmuteUserAsync(UnmuteUserOptions options)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			
+			return WithHammockTask<TwitterUser>(_client, WebMethod.Post, "mutes/users/destroy", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name);
+		}
+
+        
+		public virtual Task<TwitterAsyncResult<TwitterCursorList<long>>> ListMutedUserIdsAsync(ListMutedUserIdsOptions options)
+		{
+			var cursor = options.Cursor;
+			
+			return WithHammockTask<TwitterCursorList<long>>(_client, "mutes/users/ids", FormatAsString, "?cursor=", cursor);
+		}
+
+        
+		public virtual Task<TwitterAsyncResult<TwitterCursorList<long>>> ListMutedUsersAsync(ListMutedUsersOptions options)
+		{
+			var cursor = options.Cursor;
+			
+			return WithHammockTask<TwitterCursorList<long>>(_client, "mutes/users/list", FormatAsString, "?cursor=", cursor);
 		}
 
         
