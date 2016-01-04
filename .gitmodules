@@ -1,0 +1,3 @@
+[submodule "hammock"]
+	path = hammock
+	url = https://github.com/Yortw/hammock
