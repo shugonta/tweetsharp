@@ -60,3 +60,4 @@ src/TweetSharp.Tests/App.config
 /TweetMoaSharp.3.0.0.3.symbols.nupkg
 *.nupkg
 src/.vs/config/applicationhost.config
+!LinqBridge.dll
