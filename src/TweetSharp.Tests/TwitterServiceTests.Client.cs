@@ -114,12 +114,14 @@ namespace TweetSharp.Tests.Service
             Assert.IsTrue(tweet.TextAsHtml.Contains("https://twitter.com/search?q=Ingredientsforgood"));
         }
 
-        [Test]
+				[Explicit("No matter what IP is provided, no result is returned. Still trying to figure out if this is a Twitter problem, data problem, or problem on our end.")]
+				[Test]
         public void Can_search_geo_by_ip()
         {
 					//This test is currently failing. No matter what IP is provided, no result is returned
 					//as Twitter says it has no location associated. Still trying to figure out if this
-					//is a Twitter problem, data problem, or problem on our end.
+					//is a Twitter problem, data problem, or problem on our end. This is true even using the
+					//IP provided by Twitter in their sample/help page, so seems like it might be a Twitter issue.
             var service = new TwitterService(_consumerKey, _consumerSecret);
             service.AuthenticateWith(_accessToken, _accessTokenSecret);
 
