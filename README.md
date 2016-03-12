@@ -3,6 +3,8 @@
 
 This repository includes the latest code from the TweetSharp repository (which is newer than the published TweetSharp nuget package) and includes support for long twitter id's. Addtionally there are WinRT compatible libraries with basic async/await support.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/209drvklf46hp069?svg=true)](https://ci.appveyor.com/project/Yortw/tweetmoasharp)
+
 [![NuGet Badge](https://buildstats.info/nuget/TweetMoaSharp)](https://www.nuget.org/packages/TweetMoaSharp/)
 
 #### Async Auth Examples
