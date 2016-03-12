@@ -1131,7 +1131,7 @@ namespace TweetSharp.Tests.Service
 				public void Can_add_multiplelistusers()
 				{
 					var service = GetAuthenticatedService();
-					var list = service.CreateList(new CreateListOptions() { Name = "TestList" });
+					var list = service.CreateList(new CreateListOptions() { Name = "SecondTestList" });
 					try
 					{
 						Assert.IsNotNull(list);
@@ -1182,6 +1182,8 @@ namespace TweetSharp.Tests.Service
             Assert.IsNotNull(list);
             Assert.IsNotEmpty(list.Name);
             Assert.AreEqual(list.Name, "test-list");
+
+						System.Threading.Thread.Sleep(1000);
 
             list = service.DeleteList(new DeleteListOptions { ListId = list.Id});
             Assert.IsNotNull(list);
