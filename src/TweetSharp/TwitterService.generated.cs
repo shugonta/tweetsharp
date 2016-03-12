@@ -492,6 +492,15 @@ namespace TweetSharp
 	}			
  
     		
+	public class ListOwnedListsForOptions
+	{ 
+		public long? UserId { get; set; }  
+		public string ScreenName { get; set; }  
+		public int? Count { get; set; }  
+		public long? Cursor { get; set; } 			
+	}			
+ 
+    		
 	public class ListTweetsOnListOptions
 	{ 
 		public long? ListId { get; set; }  
@@ -564,6 +573,17 @@ namespace TweetSharp
 	{ 
 		public long? ListId { get; set; }  
 		public string Slug { get; set; }  
+		public string OwnerScreenName { get; set; }  
+		public long? OwnerId { get; set; } 			
+	}			
+ 
+    		
+	public class AddListMembersOptions
+	{ 
+		public long? ListId { get; set; }  
+		public string Slug { get; set; }  
+		public IEnumerable<long> UserId { get; set; }  
+		public IEnumerable<string> ScreenName { get; set; }  
 		public string OwnerScreenName { get; set; }  
 		public long? OwnerId { get; set; } 			
 	}			
@@ -952,6 +972,10 @@ namespace TweetSharp
 
  
         
+		TwitterCursorList<TwitterList> ListOwnedListsFor(ListOwnedListsForOptions options);	
+
+ 
+        
 		IEnumerable<TwitterStatus> ListTweetsOnList(ListTweetsOnListOptions options);	
 
  
@@ -977,6 +1001,10 @@ namespace TweetSharp
  
         
 		TwitterUser UnfollowList(UnfollowListOptions options);	
+
+ 
+        
+		TwitterUser AddListMembers(AddListMembersOptions options);	
 
  
         
@@ -1231,6 +1259,9 @@ namespace TweetSharp
 		IAsyncResult ListListsFor(ListListsForOptions options, Action<IEnumerable<TwitterList>, TwitterResponse> action);		
 
         
+		IAsyncResult ListOwnedListsFor(ListOwnedListsForOptions options, Action<TwitterCursorList<TwitterList>, TwitterResponse> action);		
+
+        
 		IAsyncResult ListTweetsOnList(ListTweetsOnListOptions options, Action<IEnumerable<TwitterStatus>, TwitterResponse> action);		
 
         
@@ -1250,6 +1281,9 @@ namespace TweetSharp
 
         
 		IAsyncResult UnfollowList(UnfollowListOptions options, Action<TwitterUser, TwitterResponse> action);		
+
+        
+		IAsyncResult AddListMembers(AddListMembersOptions options, Action<TwitterUser, TwitterResponse> action);		
 
         
 		IAsyncResult VerifyListMembership(VerifyListMembershipOptions options, Action<TwitterUser, TwitterResponse> action);		
@@ -1713,6 +1747,13 @@ namespace TweetSharp
 		IEnumerable<TwitterList> EndListListsFor(IAsyncResult result, TimeSpan timeout);
 
         
+		IAsyncResult BeginListOwnedListsFor(ListOwnedListsForOptions options);
+
+		TwitterCursorList<TwitterList> EndListOwnedListsFor(IAsyncResult result);		
+
+		TwitterCursorList<TwitterList> EndListOwnedListsFor(IAsyncResult result, TimeSpan timeout);
+
+        
 		IAsyncResult BeginListTweetsOnList(ListTweetsOnListOptions options);
 
 		IEnumerable<TwitterStatus> EndListTweetsOnList(IAsyncResult result);		
@@ -1760,6 +1801,13 @@ namespace TweetSharp
 		TwitterUser EndUnfollowList(IAsyncResult result);		
 
 		TwitterUser EndUnfollowList(IAsyncResult result, TimeSpan timeout);
+
+        
+		IAsyncResult BeginAddListMembers(AddListMembersOptions options);
+
+		TwitterUser EndAddListMembers(IAsyncResult result);		
+
+		TwitterUser EndAddListMembers(IAsyncResult result, TimeSpan timeout);
 
         
 		IAsyncResult BeginVerifyListMembership(VerifyListMembershipOptions options);
@@ -2071,6 +2119,9 @@ namespace TweetSharp
 		void ListListsFor(ListListsForOptions options, Action<IEnumerable<TwitterList>, TwitterResponse> action);
 
         
+		void ListOwnedListsFor(ListOwnedListsForOptions options, Action<TwitterCursorList<TwitterList>, TwitterResponse> action);
+
+        
 		void ListTweetsOnList(ListTweetsOnListOptions options, Action<IEnumerable<TwitterStatus>, TwitterResponse> action);
 
         
@@ -2090,6 +2141,9 @@ namespace TweetSharp
 
         
 		void UnfollowList(UnfollowListOptions options, Action<TwitterUser, TwitterResponse> action);
+
+        
+		void AddListMembers(AddListMembersOptions options, Action<TwitterUser, TwitterResponse> action);
 
         
 		void VerifyListMembership(VerifyListMembershipOptions options, Action<TwitterUser, TwitterResponse> action);
@@ -2325,6 +2379,9 @@ namespace TweetSharp
 		Task<TwitterAsyncResult<IEnumerable<TwitterList>>> ListListsForAsync(ListListsForOptions options);
 
         
+		Task<TwitterAsyncResult<TwitterCursorList<TwitterList>>> ListOwnedListsForAsync(ListOwnedListsForOptions options);
+
+        
 		Task<TwitterAsyncResult<IEnumerable<TwitterStatus>>> ListTweetsOnListAsync(ListTweetsOnListOptions options);
 
         
@@ -2344,6 +2401,9 @@ namespace TweetSharp
 
         
 		Task<TwitterAsyncResult<TwitterUser>> UnfollowListAsync(UnfollowListOptions options);
+
+        
+		Task<TwitterAsyncResult<TwitterUser>> AddListMembersAsync(AddListMembersOptions options);
 
         
 		Task<TwitterAsyncResult<TwitterUser>> VerifyListMembershipAsync(VerifyListMembershipOptions options);
@@ -3075,6 +3135,18 @@ namespace TweetSharp
 		}
 
         
+		public virtual TwitterCursorList<TwitterList> ListOwnedListsFor(ListOwnedListsForOptions options)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			var count = options.Count;
+			var cursor = options.Cursor;
+				
+			
+			return WithHammock<TwitterCursorList<TwitterList>>(_client, "lists/ownerships", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor);
+		}
+
+        
 		public virtual IEnumerable<TwitterStatus> ListTweetsOnList(ListTweetsOnListOptions options)
 		{
 			var list_id = options.ListId;
@@ -3170,6 +3242,20 @@ namespace TweetSharp
 				
 			
 			return WithHammock<TwitterUser>(_client, WebMethod.Post, "lists/subscribers/destroy", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id);
+		}
+
+        
+		public virtual TwitterUser AddListMembers(AddListMembersOptions options)
+		{
+			var list_id = options.ListId;
+			var slug = options.Slug;
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			var owner_screen_name = options.OwnerScreenName;
+			var owner_id = options.OwnerId;
+				
+			
+			return WithHammock<TwitterUser>(_client, WebMethod.Post, "lists/members/create_all", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&user_id=", user_id, "&screen_name=", screen_name, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id);
 		}
 
         
@@ -4051,6 +4137,18 @@ namespace TweetSharp
 		}
 
         
+		public virtual IAsyncResult ListOwnedListsFor(ListOwnedListsForOptions options, Action<TwitterCursorList<TwitterList>, TwitterResponse> action)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			var count = options.Count;
+			var cursor = options.Cursor;
+				
+
+			return WithHammock(_client, action, "lists/ownerships", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor);
+		}
+
+        
 		public virtual IAsyncResult ListTweetsOnList(ListTweetsOnListOptions options, Action<IEnumerable<TwitterStatus>, TwitterResponse> action)
 		{
 			var list_id = options.ListId;
@@ -4146,6 +4244,20 @@ namespace TweetSharp
 				
 
 			return WithHammock(_client, WebMethod.Post, action, "lists/subscribers/destroy", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id);
+		}
+
+        
+		public virtual IAsyncResult AddListMembers(AddListMembersOptions options, Action<TwitterUser, TwitterResponse> action)
+		{
+			var list_id = options.ListId;
+			var slug = options.Slug;
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			var owner_screen_name = options.OwnerScreenName;
+			var owner_id = options.OwnerId;
+				
+
+			return WithHammock(_client, WebMethod.Post, action, "lists/members/create_all", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&user_id=", user_id, "&screen_name=", screen_name, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id);
 		}
 
         
@@ -5027,6 +5139,18 @@ namespace TweetSharp
 		}
 
         
+		public virtual IAsyncResult BeginListOwnedListsFor(ListOwnedListsForOptions options)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			var count = options.Count;
+			var cursor = options.Cursor;
+				
+
+			return BeginWithHammock<TwitterCursorList<TwitterList>>(_client, WebMethod.Get, "lists/ownerships", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor);
+		}
+
+        
 		public virtual IAsyncResult BeginListTweetsOnList(ListTweetsOnListOptions options)
 		{
 			var list_id = options.ListId;
@@ -5122,6 +5246,20 @@ namespace TweetSharp
 				
 
 			return BeginWithHammock<TwitterUser>(_client, WebMethod.Post, "lists/subscribers/destroy", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id);
+		}
+
+        
+		public virtual IAsyncResult BeginAddListMembers(AddListMembersOptions options)
+		{
+			var list_id = options.ListId;
+			var slug = options.Slug;
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			var owner_screen_name = options.OwnerScreenName;
+			var owner_id = options.OwnerId;
+				
+
+			return BeginWithHammock<TwitterUser>(_client, WebMethod.Post, "lists/members/create_all", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&user_id=", user_id, "&screen_name=", screen_name, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id);
 		}
 
         
@@ -6025,6 +6163,18 @@ namespace TweetSharp
 		}
 
         
+		public virtual TwitterCursorList<TwitterList> EndListOwnedListsFor(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterCursorList<TwitterList>>(result);
+		}
+
+		
+		public virtual TwitterCursorList<TwitterList> EndListOwnedListsFor(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterCursorList<TwitterList>>(result, timeout);
+		}
+
+        
 		public virtual IEnumerable<TwitterStatus> EndListTweetsOnList(IAsyncResult result) 
 		{
 			return EndWithHammock<IEnumerable<TwitterStatus>>(result);
@@ -6104,6 +6254,18 @@ namespace TweetSharp
 
 		
 		public virtual TwitterUser EndUnfollowList(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterUser>(result, timeout);
+		}
+
+        
+		public virtual TwitterUser EndAddListMembers(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterUser>(result);
+		}
+
+		
+		public virtual TwitterUser EndAddListMembers(IAsyncResult result, TimeSpan timeout) 
 		{
 			return EndWithHammock<TwitterUser>(result, timeout);
 		}
@@ -6942,6 +7104,17 @@ namespace TweetSharp
 		}
 
         
+		public virtual void ListOwnedListsFor(ListOwnedListsForOptions options, Action<TwitterCursorList<TwitterList>, TwitterResponse> action)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			var count = options.Count;
+			var cursor = options.Cursor;
+			
+			WithHammock(_client, action, "lists/ownerships", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor);
+		}
+
+        
 		public virtual void ListTweetsOnList(ListTweetsOnListOptions options, Action<IEnumerable<TwitterStatus>, TwitterResponse> action)
 		{
 			var list_id = options.ListId;
@@ -7030,6 +7203,19 @@ namespace TweetSharp
 			var owner_id = options.OwnerId;
 			
 			WithHammock(_client, WebMethod.Post, action, "lists/subscribers/destroy", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id);
+		}
+
+        
+		public virtual void AddListMembers(AddListMembersOptions options, Action<TwitterUser, TwitterResponse> action)
+		{
+			var list_id = options.ListId;
+			var slug = options.Slug;
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			var owner_screen_name = options.OwnerScreenName;
+			var owner_id = options.OwnerId;
+			
+			WithHammock(_client, WebMethod.Post, action, "lists/members/create_all", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&user_id=", user_id, "&screen_name=", screen_name, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id);
 		}
 
         
@@ -7835,6 +8021,17 @@ namespace TweetSharp
 		}
 
         
+		public virtual Task<TwitterAsyncResult<TwitterCursorList<TwitterList>>> ListOwnedListsForAsync(ListOwnedListsForOptions options)
+		{
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			var count = options.Count;
+			var cursor = options.Cursor;
+			
+			return WithHammockTask<TwitterCursorList<TwitterList>>(_client, "lists/ownerships", FormatAsString, "?user_id=", user_id, "&screen_name=", screen_name, "&count=", count, "&cursor=", cursor);
+		}
+
+        
 		public virtual Task<TwitterAsyncResult<IEnumerable<TwitterStatus>>> ListTweetsOnListAsync(ListTweetsOnListOptions options)
 		{
 			var list_id = options.ListId;
@@ -7923,6 +8120,19 @@ namespace TweetSharp
 			var owner_id = options.OwnerId;
 			
 			return WithHammockTask<TwitterUser>(_client, WebMethod.Post, "lists/subscribers/destroy", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id);
+		}
+
+        
+		public virtual Task<TwitterAsyncResult<TwitterUser>> AddListMembersAsync(AddListMembersOptions options)
+		{
+			var list_id = options.ListId;
+			var slug = options.Slug;
+			var user_id = options.UserId;
+			var screen_name = options.ScreenName;
+			var owner_screen_name = options.OwnerScreenName;
+			var owner_id = options.OwnerId;
+			
+			return WithHammockTask<TwitterUser>(_client, WebMethod.Post, "lists/members/create_all", FormatAsString, "?list_id=", list_id, "&slug=", slug, "&user_id=", user_id, "&screen_name=", screen_name, "&owner_screen_name=", owner_screen_name, "&owner_id=", owner_id);
 		}
 
         

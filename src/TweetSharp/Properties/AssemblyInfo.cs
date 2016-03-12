@@ -7,11 +7,11 @@ using System.Security;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("TweetSharp")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Based on the original TweetSharp (https://github.com/danielcrenna/tweetsharp) - now abandoned.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Apitize")]
-[assembly: AssemblyProduct("TweetSharp")]
-[assembly: AssemblyCopyright("Copyright © 2011 Apitize")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("TweetMoaSharp")]
+[assembly: AssemblyCopyright("Copyright © 2016 Yortw")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AllowPartiallyTrustedCallers]

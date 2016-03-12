@@ -55,16 +55,16 @@ namespace TweetSharp.Tests.Service
 					Assert.IsNotNull(configuration.PhotoSizes.Large);
 					Assert.Greater(configuration.PhotoSizes.Thumb.Height, 0);
 					Assert.Greater(configuration.PhotoSizes.Thumb.Width, 0);
-					Assert.IsNotNullOrEmpty(configuration.PhotoSizes.Thumb.Resize);
+					Assert.IsNotEmpty(configuration.PhotoSizes.Thumb.Resize);
 					Assert.Greater(configuration.PhotoSizes.Small.Height, 0);
 					Assert.Greater(configuration.PhotoSizes.Small.Width, 0);
-					Assert.IsNotNullOrEmpty(configuration.PhotoSizes.Small.Resize);
+					Assert.IsNotEmpty(configuration.PhotoSizes.Small.Resize);
 					Assert.Greater(configuration.PhotoSizes.Medium.Height, 0);
 					Assert.Greater(configuration.PhotoSizes.Medium.Width, 0);
-					Assert.IsNotNullOrEmpty(configuration.PhotoSizes.Medium.Resize);
+					Assert.IsNotEmpty(configuration.PhotoSizes.Medium.Resize);
 					Assert.Greater(configuration.PhotoSizes.Large.Height, 0);
 					Assert.Greater(configuration.PhotoSizes.Large.Width, 0);
-					Assert.IsNotNullOrEmpty(configuration.PhotoSizes.Large.Resize);
+					Assert.IsNotEmpty(configuration.PhotoSizes.Large.Resize);
 				}
 
         [Test]
@@ -162,7 +162,7 @@ namespace TweetSharp.Tests.Service
 
             var error = service.Response.Error;
             Assert.IsNotNull(error);
-            Assert.IsNotNullOrEmpty(error.Message);
+						Assert.IsNotEmpty(error.Message);
             Trace.WriteLine(error.ToString());
         }
 
@@ -196,7 +196,7 @@ namespace TweetSharp.Tests.Service
 
             AssertResultWas(service, HttpStatusCode.OK);
             Assert.IsNotNull(profile);
-            Assert.IsNotNullOrEmpty(profile.ScreenName);
+            Assert.IsNotEmpty(profile.ScreenName);
         }
 
         [Test]
@@ -209,7 +209,7 @@ namespace TweetSharp.Tests.Service
 
             AssertResultWas(service, HttpStatusCode.OK);
             Assert.IsNotNull(profile);
-            Assert.IsNotNullOrEmpty(profile.ScreenName);
+            Assert.IsNotEmpty(profile.ScreenName);
         }
 
 				[Test]
@@ -390,7 +390,7 @@ namespace TweetSharp.Tests.Service
 
 						var error = service.Response.Error;
 						Assert.IsNotNull(error);
-						Assert.IsNotNullOrEmpty(error.Message);
+						Assert.IsNotEmpty(error.Message);
         }
 
         [Test]
@@ -615,7 +615,7 @@ namespace TweetSharp.Tests.Service
             {
                 var deleted = service.DeleteSavedSearch(new DeleteSavedSearchOptions { Id = existing.Id });
                 Assert.IsNotNull(deleted);
-                Assert.IsNotNullOrEmpty(deleted.Query);
+                Assert.IsNotEmpty(deleted.Query);
                 Assert.AreEqual(deleted.Query, existing.Query);
             }
 
@@ -656,22 +656,22 @@ namespace TweetSharp.Tests.Service
 					}
 				}
 
-		[Test]
-		public void Can_ListSuggestedUsers()
-		{
-			var service = GetAuthenticatedService();
-			var results = service.ListSuggestedUsers(new ListSuggestedUsersOptions() { Lang = "en", Slug="television" });
+				[Test]
+				public void Can_ListSuggestedUsers()
+				{
+					var service = GetAuthenticatedService();
+					var results = service.ListSuggestedUsers(new ListSuggestedUsersOptions() { Lang = "en", Slug="television" });
 			
-			Assert.IsNotNull(results);
-			Assert.IsTrue(results.Users.Any());
+					Assert.IsNotNull(results);
+					Assert.IsTrue(results.Users.Any());
 
-			foreach (var user in results.Users)
-			{
-				Console.WriteLine("Suggested; {0}", user.ScreenName);
-			}
-		}
+					foreach (var user in results.Users)
+					{
+						Console.WriteLine("Suggested; {0}", user.ScreenName);
+					}
+				}
 
-		[Test]
+				[Test]
         public void Can_search_with_geo_and_lang()
         {
             var italyGeoCode = new TwitterGeoLocationSearch(41.9, 12.5, 10, TwitterGeoLocationSearch.RadiusType.Mi);
@@ -732,7 +732,7 @@ namespace TweetSharp.Tests.Service
 
             foreach (var tweet in results.Statuses)
             {
-                Assert.IsNotNullOrEmpty(tweet.RawSource);
+                Assert.IsNotEmpty(tweet.RawSource);
                 Console.WriteLine("{0} says '{1}", tweet.User.ScreenName, tweet.Text);
             }
         }
@@ -841,9 +841,9 @@ namespace TweetSharp.Tests.Service
 					Assert.AreEqual(2, ve.VideoInfo.AspectRatio.Count);
 					Assert.AreEqual(1, ve.VideoInfo.AspectRatio[0]);
 					Assert.AreEqual(1, ve.VideoInfo.AspectRatio[1]);
-					Assert.AreEqual("video/webm", ve.VideoInfo.Variants.First().ContentType);
+					Assert.AreEqual("video/mp4", ve.VideoInfo.Variants.First().ContentType);
 					Assert.AreEqual(832000, ve.VideoInfo.Variants.First().BitRate);
-					Assert.AreEqual("https://video.twimg.com/ext_tw_video/560049056895209473/pu/vid/480x480/gj_fzyk29R9dMPBY.webm", ve.VideoInfo.Variants.First().Url.ToString());
+					Assert.AreEqual("https://video.twimg.com/ext_tw_video/560049056895209473/pu/vid/480x480/gj_fzyk29R9dMPBY.mp4", ve.VideoInfo.Variants.First().Url.ToString());
 				}
 
         [Test]
@@ -870,7 +870,7 @@ namespace TweetSharp.Tests.Service
 					Assert.AreEqual(HttpStatusCode.OK, service.Response.StatusCode);
 					Assert.IsTrue(tweet.IsQuoteStatus);
 					Assert.IsNotNull(tweet.QuotedStatus);
-					Assert.IsNotNullOrEmpty(tweet.QuotedStatusIdStr);
+					Assert.IsNotEmpty(tweet.QuotedStatusIdStr);
 					Assert.IsNotNull(tweet.QuotedStatusId);
 				}
 
@@ -975,21 +975,21 @@ namespace TweetSharp.Tests.Service
                 {
                     foreach (var hashtag in tweet.Entities.HashTags)
                     {
-                        Assert.IsNotNullOrEmpty(hashtag.Text);
+                        Assert.IsNotEmpty(hashtag.Text);
                     }
                 }
                 if (tweet.Entities.Urls.Count() > 0)
                 {
                     foreach (var url in tweet.Entities.Urls)
                     {
-                        Assert.IsNotNullOrEmpty(url.Value);
+                        Assert.IsNotEmpty(url.Value);
                     }
                 }
                 if (tweet.Entities.Mentions.Count() > 0)
                 {
                     foreach (var mention in tweet.Entities.Mentions)
                     {
-                        Assert.IsNotNullOrEmpty(mention.ScreenName);
+                        Assert.IsNotEmpty(mention.ScreenName);
                     }
                 }
             }
@@ -1101,11 +1101,50 @@ namespace TweetSharp.Tests.Service
 
             foreach(var list in lists)
             {
-                Assert.IsNotNullOrEmpty(list.Name);
+                Assert.IsNotEmpty(list.Name);
                 Trace.WriteLine(list.Name);
             }
         }
 
+				[Test]
+				public void Can_get_user_owned_lists()
+				{
+					var service = GetAuthenticatedService();
+					var lists = service.ListOwnedListsFor(new ListOwnedListsForOptions() { ScreenName = _hero });
+
+					Assert.IsNotNull(lists);
+					if (!lists.Any())
+					{
+						Assert.Ignore("This test account has no lists");
+					}
+
+					foreach (var list in lists)
+					{
+						Assert.IsNotEmpty(list.Name);
+						Trace.WriteLine(list.Name);
+					}
+				}
+
+				[Test]
+				public void Can_add_multiplelistusers()
+				{
+					var service = GetAuthenticatedService();
+					var list = service.CreateList(new CreateListOptions() { Name = "TestList" });
+					try
+					{
+						Assert.IsNotNull(list);
+
+						var result = service.AddListMembers(new AddListMembersOptions() { ListId = list.Id, ScreenName = new string[] { "yortw", _hero } });
+						Assert.IsNotNull(result);
+						var members = service.ListListMembers(new ListListMembersOptions() { ListId = result.Id });
+						Assert.IsNotNull(members);
+						Assert.AreEqual(2, members.Count);
+					}
+					finally
+					{
+						service.DeleteList(new DeleteListOptions() { ListId = list.Id });
+					}
+				}
 
 				[Test]
 				public void Can_limit_list_members()
@@ -1125,7 +1164,7 @@ namespace TweetSharp.Tests.Service
 					var membersCursor = service.ListListMembers(new ListListMembersOptions() { ListId = list.Id, Count = 1 });
 					Assert.AreEqual(1, membersCursor.Count);
 				}
-
+		
         [Test]
         public void Can_create_and_delete_list()
         {
@@ -1139,12 +1178,12 @@ namespace TweetSharp.Tests.Service
                                        });
 
             Assert.IsNotNull(list);
-            Assert.IsNotNullOrEmpty(list.Name);
+            Assert.IsNotEmpty(list.Name);
             Assert.AreEqual(list.Name, "test-list");
 
             list = service.DeleteList(new DeleteListOptions { ListId = list.Id});
             Assert.IsNotNull(list);
-            Assert.IsNotNullOrEmpty(list.Name);
+            Assert.IsNotEmpty(list.Name);
             Assert.AreEqual(list.Name, "test-list");
         }
 
@@ -1392,7 +1431,7 @@ namespace TweetSharp.Tests.Service
             var service = GetAuthenticatedService();
             var summary = service.GetRateLimitStatus(new GetRateLimitStatusOptions());
             Assert.IsNotNull(summary);
-            Assert.IsNotNullOrEmpty(summary.AccessToken);
+            Assert.IsNotEmpty(summary.AccessToken);
 
 
 
