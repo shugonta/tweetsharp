@@ -1,6 +1,9 @@
 ﻿// https://dev.twitter.com/docs/api/1.1/get/lists/list
 IEnumerable<TwitterList>, "lists/list", ListListsFor, long? user_id, string screen_name
 
+// https://api.twitter.com/1.1/lists/ownerships.json
+TwitterCursorList<TwitterList>, "lists/ownerships", ListOwnedListsFor, long? user_id, string screen_name, int? count, long? cursor 
+
 // https://dev.twitter.com/docs/api/1.1/get/lists/statuses
 IEnumerable<TwitterStatus>, "lists/statuses", ListTweetsOnList, long? list_id, string slug, string owner_screen_name, long? owner_id, long? since_id, long? max_id, int? count, bool? include_entities, bool? include_rts
 
@@ -23,7 +26,7 @@ TwitterUser, "lists/subscribers/show", VerifyListSubscription, string owner_scre
 TwitterUser, "lists/subscribers/destroy":POST, UnfollowList, long? list_id, string slug, string owner_screen_name, long? owner_id
 
 // https://dev.twitter.com/docs/api/1.1/post/lists/members/create_all
-// TODO
+TwitterUser, "lists/members/create_all":POST, AddListMembers, long? list_id, string slug, IEnumerable<long> user_id, IEnumerable<string> screen_name, string owner_screen_name, long? owner_id
 
 // https://dev.twitter.com/docs/api/1.1/get/lists/members/show
 TwitterUser, "lists/members/show", VerifyListMembership, long? list_id, string slug, long? user_id, string screen_name, string owner_screen_name, long? owner_id, bool? include_entities, bool? skip_status
