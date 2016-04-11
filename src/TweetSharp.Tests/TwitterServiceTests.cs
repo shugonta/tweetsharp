@@ -1136,8 +1136,9 @@ namespace TweetSharp.Tests.Service
 					{
 						Assert.IsNotNull(list);
 
-						var result = service.AddListMembers(new AddListMembersOptions() { ListId = list.Id, ScreenName = new string[] { "yortw", _hero } });
+						var result = service.AddListMembers(new AddListMembersOptions() { ListId = list.Id, ScreenName = new string[] { "yortw", "elonmusk" } });
 						Assert.IsNotNull(result);
+					    Thread.Sleep(50); // Twitter needs a little time to update the list
 						var members = service.ListListMembers(new ListListMembersOptions() { ListId = result.Id });
 						Assert.IsNotNull(members);
 						Assert.AreEqual(2, members.Count);

@@ -26,7 +26,7 @@ TwitterUser, "lists/subscribers/show", VerifyListSubscription, string owner_scre
 TwitterUser, "lists/subscribers/destroy":POST, UnfollowList, long? list_id, string slug, string owner_screen_name, long? owner_id
 
 // https://dev.twitter.com/docs/api/1.1/post/lists/members/create_all
-TwitterUser, "lists/members/create_all":POST, AddListMembers, long? list_id, string slug, IEnumerable<long> user_id, IEnumerable<string> screen_name, string owner_screen_name, long? owner_id
+TwitterList, "lists/members/create_all":POST, AddListMembers, long? list_id, string slug, IEnumerable<long> user_id, IEnumerable<string> screen_name, string owner_screen_name, long? owner_id
 
 // https://dev.twitter.com/docs/api/1.1/get/lists/members/show
 TwitterUser, "lists/members/show", VerifyListMembership, long? list_id, string slug, long? user_id, string screen_name, string owner_screen_name, long? owner_id, bool? include_entities, bool? skip_status
