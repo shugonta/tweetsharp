@@ -41,7 +41,7 @@ TwitterUser, "lists/members/create":POST, AddListMember, long? list_id, string s
 TwitterList, "lists/destroy":POST, DeleteList, string owner_screen_name, long? owner_id, long? list_id, string slug
 
 // https://dev.twitter.com/docs/api/1.1/post/lists/update
-// TODO
+TwitterList, "lists/update":POST, UpdateList, string owner_screen_name, long? owner_id, long? list_id, string slug, TwitterListMode? mode, string name, string description
 
 // https://dev.twitter.com/docs/api/1.1/post/lists/create
 TwitterList, "lists/create":POST, CreateList, string list_owner, string name, TwitterListMode mode, string description

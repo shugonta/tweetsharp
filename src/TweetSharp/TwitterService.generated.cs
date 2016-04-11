@@ -635,6 +635,18 @@ namespace TweetSharp
 	}			
  
     		
+	public class UpdateListOptions
+	{ 
+		public string OwnerScreenName { get; set; }  
+		public long? OwnerId { get; set; }  
+		public long? ListId { get; set; }  
+		public string Slug { get; set; }  
+		public TwitterListMode? Mode { get; set; }  
+		public string Name { get; set; }  
+		public string Description { get; set; } 			
+	}			
+ 
+    		
 	public class CreateListOptions
 	{ 
 		public string ListOwner { get; set; }  
@@ -1024,6 +1036,10 @@ namespace TweetSharp
 
  
         
+		TwitterList UpdateList(UpdateListOptions options);	
+
+ 
+        
 		TwitterList CreateList(CreateListOptions options);	
 
  
@@ -1296,6 +1312,9 @@ namespace TweetSharp
 
         
 		IAsyncResult DeleteList(DeleteListOptions options, Action<TwitterList, TwitterResponse> action);		
+
+        
+		IAsyncResult UpdateList(UpdateListOptions options, Action<TwitterList, TwitterResponse> action);		
 
         
 		IAsyncResult CreateList(CreateListOptions options, Action<TwitterList, TwitterResponse> action);		
@@ -1838,6 +1857,13 @@ namespace TweetSharp
 		TwitterList EndDeleteList(IAsyncResult result, TimeSpan timeout);
 
         
+		IAsyncResult BeginUpdateList(UpdateListOptions options);
+
+		TwitterList EndUpdateList(IAsyncResult result);		
+
+		TwitterList EndUpdateList(IAsyncResult result, TimeSpan timeout);
+
+        
 		IAsyncResult BeginCreateList(CreateListOptions options);
 
 		TwitterList EndCreateList(IAsyncResult result);		
@@ -2158,6 +2184,9 @@ namespace TweetSharp
 		void DeleteList(DeleteListOptions options, Action<TwitterList, TwitterResponse> action);
 
         
+		void UpdateList(UpdateListOptions options, Action<TwitterList, TwitterResponse> action);
+
+        
 		void CreateList(CreateListOptions options, Action<TwitterList, TwitterResponse> action);
 
         
@@ -2416,6 +2445,9 @@ namespace TweetSharp
 
         
 		Task<TwitterAsyncResult<TwitterList>> DeleteListAsync(DeleteListOptions options);
+
+        
+		Task<TwitterAsyncResult<TwitterList>> UpdateListAsync(UpdateListOptions options);
 
         
 		Task<TwitterAsyncResult<TwitterList>> CreateListAsync(CreateListOptions options);
@@ -3314,6 +3346,21 @@ namespace TweetSharp
 				
 			
 			return WithHammock<TwitterList>(_client, WebMethod.Post, "lists/destroy", FormatAsString, "?owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&list_id=", list_id, "&slug=", slug);
+		}
+
+        
+		public virtual TwitterList UpdateList(UpdateListOptions options)
+		{
+			var owner_screen_name = options.OwnerScreenName;
+			var owner_id = options.OwnerId;
+			var list_id = options.ListId;
+			var slug = options.Slug;
+			var mode = options.Mode;
+			var name = options.Name;
+			var description = options.Description;
+				
+			
+			return WithHammock<TwitterList>(_client, WebMethod.Post, "lists/update", FormatAsString, "?owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&list_id=", list_id, "&slug=", slug, "&mode=", mode, "&name=", name, "&description=", description);
 		}
 
         
@@ -4319,6 +4366,21 @@ namespace TweetSharp
 		}
 
         
+		public virtual IAsyncResult UpdateList(UpdateListOptions options, Action<TwitterList, TwitterResponse> action)
+		{
+			var owner_screen_name = options.OwnerScreenName;
+			var owner_id = options.OwnerId;
+			var list_id = options.ListId;
+			var slug = options.Slug;
+			var mode = options.Mode;
+			var name = options.Name;
+			var description = options.Description;
+				
+
+			return WithHammock(_client, WebMethod.Post, action, "lists/update", FormatAsString, "?owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&list_id=", list_id, "&slug=", slug, "&mode=", mode, "&name=", name, "&description=", description);
+		}
+
+        
 		public virtual IAsyncResult CreateList(CreateListOptions options, Action<TwitterList, TwitterResponse> action)
 		{
 			var list_owner = options.ListOwner;
@@ -5321,6 +5383,21 @@ namespace TweetSharp
 		}
 
         
+		public virtual IAsyncResult BeginUpdateList(UpdateListOptions options)
+		{
+			var owner_screen_name = options.OwnerScreenName;
+			var owner_id = options.OwnerId;
+			var list_id = options.ListId;
+			var slug = options.Slug;
+			var mode = options.Mode;
+			var name = options.Name;
+			var description = options.Description;
+				
+
+			return BeginWithHammock<TwitterList>(_client, WebMethod.Post, "lists/update", FormatAsString, "?owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&list_id=", list_id, "&slug=", slug, "&mode=", mode, "&name=", name, "&description=", description);
+		}
+
+        
 		public virtual IAsyncResult BeginCreateList(CreateListOptions options)
 		{
 			var list_owner = options.ListOwner;
@@ -6319,6 +6396,18 @@ namespace TweetSharp
 		}
 
         
+		public virtual TwitterList EndUpdateList(IAsyncResult result) 
+		{
+			return EndWithHammock<TwitterList>(result);
+		}
+
+		
+		public virtual TwitterList EndUpdateList(IAsyncResult result, TimeSpan timeout) 
+		{
+			return EndWithHammock<TwitterList>(result, timeout);
+		}
+
+        
 		public virtual TwitterList EndCreateList(IAsyncResult result) 
 		{
 			return EndWithHammock<TwitterList>(result);
@@ -7273,6 +7362,20 @@ namespace TweetSharp
 		}
 
         
+		public virtual void UpdateList(UpdateListOptions options, Action<TwitterList, TwitterResponse> action)
+		{
+			var owner_screen_name = options.OwnerScreenName;
+			var owner_id = options.OwnerId;
+			var list_id = options.ListId;
+			var slug = options.Slug;
+			var mode = options.Mode;
+			var name = options.Name;
+			var description = options.Description;
+			
+			WithHammock(_client, WebMethod.Post, action, "lists/update", FormatAsString, "?owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&list_id=", list_id, "&slug=", slug, "&mode=", mode, "&name=", name, "&description=", description);
+		}
+
+        
 		public virtual void CreateList(CreateListOptions options, Action<TwitterList, TwitterResponse> action)
 		{
 			var list_owner = options.ListOwner;
@@ -8187,6 +8290,20 @@ namespace TweetSharp
 			var slug = options.Slug;
 			
 			return WithHammockTask<TwitterList>(_client, WebMethod.Post, "lists/destroy", FormatAsString, "?owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&list_id=", list_id, "&slug=", slug);
+		}
+
+        
+		public virtual Task<TwitterAsyncResult<TwitterList>> UpdateListAsync(UpdateListOptions options)
+		{
+			var owner_screen_name = options.OwnerScreenName;
+			var owner_id = options.OwnerId;
+			var list_id = options.ListId;
+			var slug = options.Slug;
+			var mode = options.Mode;
+			var name = options.Name;
+			var description = options.Description;
+			
+			return WithHammockTask<TwitterList>(_client, WebMethod.Post, "lists/update", FormatAsString, "?owner_screen_name=", owner_screen_name, "&owner_id=", owner_id, "&list_id=", list_id, "&slug=", slug, "&mode=", mode, "&name=", name, "&description=", description);
 		}
 
         

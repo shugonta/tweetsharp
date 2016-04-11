@@ -388,6 +388,11 @@ namespace TweetSharp
                     segments[i] = ((float)segments[i]).ToString(CultureInfo.InvariantCulture);
                 }
 
+                if (segments[i] is TwitterListMode)
+                {
+                    segments[i] = segments[i].ToString().ToLowerInvariant();
+                }
+
                 if (segments[i] is IEnumerable && !(segments[i] is string))
                 {
                     ResolveEnumerableUrlSegments(segments, i);
