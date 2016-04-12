@@ -1136,8 +1136,9 @@ namespace TweetSharp.Tests.Service
 					{
 						Assert.IsNotNull(list);
 
-						var result = service.AddListMembers(new AddListMembersOptions() { ListId = list.Id, ScreenName = new string[] { "yortw", _hero } });
+						var result = service.AddListMembers(new AddListMembersOptions() { ListId = list.Id, ScreenName = new string[] { "yortw", "elonmusk" } });
 						Assert.IsNotNull(result);
+					    Thread.Sleep(50); // Twitter needs a little time to update the list
 						var members = service.ListListMembers(new ListListMembersOptions() { ListId = result.Id });
 						Assert.IsNotNull(members);
 						Assert.AreEqual(2, members.Count);
@@ -1148,7 +1149,41 @@ namespace TweetSharp.Tests.Service
 					}
 				}
 
-				[Test]
+        [Test]
+        public void Can_update_list()
+        {
+            var service = GetAuthenticatedService();
+            var list =
+                service.CreateList(new CreateListOptions()
+                {
+                    Name = "Name",
+                    Description = "Description",
+                    Mode = TwitterListMode.Private
+                });
+
+            try
+            {
+                Assert.IsNotNull(list);
+                var list2 = service.UpdateList(new UpdateListOptions { ListId = list.Id, Name = "Name 2", Description = "Description 2" });
+                Assert.AreEqual("Name 2", list2.Name);
+                Assert.AreEqual("Description 2", list2.Description);
+                Assert.AreEqual("private", list2.Mode);
+
+                var list3 = service.UpdateList(new UpdateListOptions { ListId = list.Id, Name = "Name 3", Description = "Description 3", Mode = TwitterListMode.Public });
+                Assert.AreEqual("Name 3", list3.Name);
+                Assert.AreEqual("Description 3", list3.Description);
+                Assert.AreEqual("public", list3.Mode);
+
+            }
+            finally
+            {
+                service.DeleteList(new DeleteListOptions() { ListId = list.Id });
+
+            }
+
+        }
+
+        [Test]
 				public void Can_limit_list_members()
 				{
 					var service = GetAuthenticatedService();
