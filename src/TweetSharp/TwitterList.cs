@@ -38,6 +38,7 @@ namespace TweetSharp
         private string _fullName;
         private string _slug;
         private string _description;
+        private DateTime _createdAt;
         private int _subscriberCount;
         private int _memberCount;
         private string _uri;
@@ -153,6 +154,27 @@ namespace TweetSharp
                 OnPropertyChanged("Slug");
             }
         }
+
+#if !Smartphone && !NET20
+        /// <summary>
+        /// Gets or sets the date the list was created.
+        /// </summary>
+        [DataMember]
+#endif
+        public virtual DateTime CreatedAt
+        {
+            get { return _createdAt; }
+            set
+            {
+                if (_createdAt == value)
+                {
+                    return;
+                }
+                _createdAt = value;
+                OnPropertyChanged("CreatedAt");
+            }
+        }
+
 
 #if !Smartphone && !NET20
         /// <summary>
