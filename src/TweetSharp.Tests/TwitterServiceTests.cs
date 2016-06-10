@@ -288,7 +288,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live status update")]
         public void Can_direct_message()
         {
             var service = GetAuthenticatedService();
@@ -300,7 +299,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live status update")]
         public void Can_direct_message_with_url_without_double_entities()
         {
             var service = GetAuthenticatedService();
@@ -321,7 +319,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live status update")]
         public void Can_direct_message_with_screen_name()
         {
             var service = GetAuthenticatedService();
@@ -339,7 +336,6 @@ namespace TweetSharp.Tests.Service
         }
 
         [Test]
-        [Ignore("Makes a live status update")]
         public void Can_direct_message_with_a_url()
         {
             var service = GetAuthenticatedService();
