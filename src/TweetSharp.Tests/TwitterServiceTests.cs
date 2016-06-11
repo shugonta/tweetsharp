@@ -1160,13 +1160,17 @@ namespace TweetSharp.Tests.Service
             try
             {
                 Assert.IsNotNull(list);
+								System.Threading.Thread.Sleep(1000); //Needed because sometimes the newly created list isn't available immediately.
                 var list2 = service.UpdateList(new UpdateListOptions { ListId = list.Id, Name = "Name 2", Description = "Description 2" });
-                Assert.AreEqual("Name 2", list2.Name);
+								Assert.IsNotNull(list2);
+								Assert.AreEqual("Name 2", list2.Name);
                 Assert.AreEqual("Description 2", list2.Description);
                 Assert.AreEqual("private", list2.Mode);
 
-                var list3 = service.UpdateList(new UpdateListOptions { ListId = list.Id, Name = "Name 3", Description = "Description 3", Mode = TwitterListMode.Public });
-                Assert.AreEqual("Name 3", list3.Name);
+								System.Threading.Thread.Sleep(1000); //Needed because sometimes the newly created list isn't available immediately.
+								var list3 = service.UpdateList(new UpdateListOptions { ListId = list.Id, Name = "Name 3", Description = "Description 3", Mode = TwitterListMode.Public });
+								Assert.IsNotNull(list3);
+								Assert.AreEqual("Name 3", list3.Name);
                 Assert.AreEqual("Description 3", list3.Description);
                 Assert.AreEqual("public", list3.Mode);
 
@@ -1174,9 +1178,7 @@ namespace TweetSharp.Tests.Service
             finally
             {
                 service.DeleteList(new DeleteListOptions() { ListId = list.Id });
-
             }
-
         }
 
         [Test]

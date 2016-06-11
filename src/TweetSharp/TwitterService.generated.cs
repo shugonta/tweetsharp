@@ -282,14 +282,16 @@ namespace TweetSharp
 	public class GetUserProfileOptions
 	{ 
 		public bool? IncludeEntities { get; set; }  
-		public bool? SkipStatus { get; set; } 			
+		public bool? SkipStatus { get; set; }  
+		public bool? IncludeEmail { get; set; } 			
 	}			
  
     		
 	public class VerifyCredentialsOptions
 	{ 
 		public bool? IncludeEntities { get; set; }  
-		public bool? SkipStatus { get; set; } 			
+		public bool? SkipStatus { get; set; }  
+		public bool? IncludeEmail { get; set; } 			
 	}			
  
     		
@@ -2877,9 +2879,10 @@ namespace TweetSharp
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var include_email = options.IncludeEmail;
 				
 			
-			return WithHammock<TwitterUser>(_client, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status);
+			return WithHammock<TwitterUser>(_client, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status, "&include_email=", include_email);
 		}
 
         
@@ -2887,9 +2890,10 @@ namespace TweetSharp
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var include_email = options.IncludeEmail;
 				
 			
-			return WithHammock<TwitterUser>(_client, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status);
+			return WithHammock<TwitterUser>(_client, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status, "&include_email=", include_email);
 		}
 
         
@@ -3894,9 +3898,10 @@ namespace TweetSharp
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var include_email = options.IncludeEmail;
 				
 
-			return WithHammock(_client, action, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status);
+			return WithHammock(_client, action, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status, "&include_email=", include_email);
 		}
 
         
@@ -3904,9 +3909,10 @@ namespace TweetSharp
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var include_email = options.IncludeEmail;
 				
 
-			return WithHammock(_client, action, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status);
+			return WithHammock(_client, action, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status, "&include_email=", include_email);
 		}
 
         
@@ -4911,9 +4917,10 @@ namespace TweetSharp
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var include_email = options.IncludeEmail;
 				
 
-			return BeginWithHammock<TwitterUser>(_client, WebMethod.Get, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status);
+			return BeginWithHammock<TwitterUser>(_client, WebMethod.Get, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status, "&include_email=", include_email);
 		}
 
         
@@ -4921,9 +4928,10 @@ namespace TweetSharp
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var include_email = options.IncludeEmail;
 				
 
-			return BeginWithHammock<TwitterUser>(_client, WebMethod.Get, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status);
+			return BeginWithHammock<TwitterUser>(_client, WebMethod.Get, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status, "&include_email=", include_email);
 		}
 
         
@@ -6930,8 +6938,9 @@ namespace TweetSharp
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var include_email = options.IncludeEmail;
 			
-			WithHammock(_client, action, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status);
+			WithHammock(_client, action, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status, "&include_email=", include_email);
 		}
 
         
@@ -6939,8 +6948,9 @@ namespace TweetSharp
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var include_email = options.IncludeEmail;
 			
-			WithHammock(_client, action, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status);
+			WithHammock(_client, action, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status, "&include_email=", include_email);
 		}
 
         
@@ -7861,8 +7871,9 @@ namespace TweetSharp
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var include_email = options.IncludeEmail;
 			
-			return WithHammockTask<TwitterUser>(_client, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status);
+			return WithHammockTask<TwitterUser>(_client, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status, "&include_email=", include_email);
 		}
 
         
@@ -7870,8 +7881,9 @@ namespace TweetSharp
 		{
 			var include_entities = options.IncludeEntities;
 			var skip_status = options.SkipStatus;
+			var include_email = options.IncludeEmail;
 			
-			return WithHammockTask<TwitterUser>(_client, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status);
+			return WithHammockTask<TwitterUser>(_client, "account/verify_credentials", FormatAsString, "?include_entities=", include_entities, "&skip_status=", skip_status, "&include_email=", include_email);
 		}
 
         

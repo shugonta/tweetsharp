@@ -2,8 +2,8 @@
 TwitterAccount, "account/settings":GET, GetAccountSettings
 
 // https://dev.twitter.com/docs/api/1.1/get/account/verify_credentials
-TwitterUser, "account/verify_credentials", GetUserProfile, bool? include_entities, bool? skip_status
-TwitterUser, "account/verify_credentials", VerifyCredentials, bool? include_entities, bool? skip_status
+TwitterUser, "account/verify_credentials", GetUserProfile, bool? include_entities, bool? skip_status, bool? include_email
+TwitterUser, "account/verify_credentials", VerifyCredentials, bool? include_entities, bool? skip_status, bool? include_email
 
 // https://dev.twitter.com/docs/api/1.1/post/account/settings
 TwitterAccount, "account/settings":POST, UpdateAccountSettings, int? trend_location_woeid, bool? sleep_time_enabled, int? start_sleep_time, int? end_sleep_time, string time_zone, string lang
