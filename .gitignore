@@ -61,3 +61,5 @@ src/TweetSharp.Tests/App.config
 *.nupkg
 src/.vs/config/applicationhost.config
 !LinqBridge.dll
+src/TweetSharp.Mono/Hammock.Mono.dll
+src/TweetSharp.Mono/TweetSharp.Mono.dll
