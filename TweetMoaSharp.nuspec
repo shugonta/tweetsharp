@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>TweetMoaSharp</id>
-		<version>3.0.0.17</version>
+		<version>3.0.0.18</version>
 		<dependencies>
 			<group>
 				<dependency id="Newtonsoft.Json" version="6.0.8" />
@@ -36,9 +36,9 @@
 		<iconUrl>https://raw.githubusercontent.com/Yortw/tweetmoasharp/master/logo_tweetmoasharp.png</iconUrl>
 		<tags>twitter tweetmoasharp tweetsharp web api http rest wrapper json wp7 mango silverlight winrt uwp</tags>
 		<releaseNotes>
-			New in 3.0.0.16
+			New in 3.0.0.18
 			----------
-			- Fix for retrieving direct messages containing animated gifs.
+			- Fix for int vs long id's in friendships.
 		</releaseNotes>
 	</metadata>
 	<files>
