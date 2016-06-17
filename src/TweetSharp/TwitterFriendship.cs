@@ -84,7 +84,7 @@ namespace TweetSharp
     public class TwitterFriendshipLookup : PropertyChangedBase, ITwitterModel
     {
         private string _name;
-        private int _id;
+        private long _id;
         private ICollection<string> _connections;
         private string _screenName;
     
@@ -154,7 +154,7 @@ namespace TweetSharp
 #if !Smartphone && !NET20
         [DataMember]
 #endif
-        public virtual int Id
+        public virtual long Id
         {
             get { return _id; }
             set
