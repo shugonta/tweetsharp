@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F0C51C5C-F9A7-4108-93C2-6C60CC4356F7}"
 	ProjectSection(SolutionItems) = preProject
@@ -61,6 +61,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DCC1FF
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetSharp.NetCore", "TweetSharp.NetCore\TweetSharp.NetCore.csproj", "{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -582,6 +584,38 @@ Global
 		{6957E510-E0DE-4B11-8F0F-9B09F40B69CF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6957E510-E0DE-4B11-8F0F-9B09F40B69CF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6957E510-E0DE-4B11-8F0F-9B09F40B69CF}.Release|x86.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.ClientProfiles|Any CPU.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.ClientProfiles|Any CPU.Build.0 = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.ClientProfiles|ARM.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.ClientProfiles|ARM.Build.0 = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.ClientProfiles|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.ClientProfiles|Mixed Platforms.Build.0 = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.ClientProfiles|x86.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.ClientProfiles|x86.Build.0 = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Debug|ARM.Build.0 = Debug|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Debug|x86.Build.0 = Debug|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Mono|Any CPU.Build.0 = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Mono|ARM.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Mono|ARM.Build.0 = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Mono|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Mono|Mixed Platforms.Build.0 = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Mono|x86.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Mono|x86.Build.0 = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Release|ARM.Build.0 = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Release|x86.ActiveCfg = Release|Any CPU
+		{B6239E8D-2833-4AAE-A59B-77AA3B5C8335}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

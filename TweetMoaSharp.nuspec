@@ -22,6 +22,9 @@
 			<group targetFramework="sl4-wp71">
 				<dependency id="Newtonsoft.Json" version="5.0.8" />
 			</group>
+      <group targetFramework=".NETStandard1.0">
+        <dependency id="Newtonsoft.Json" version="8.0.1" />
+      </group>
 		</dependencies>
 		<authors>Daniel Crenna, Jason Diller and Troy Willmot</authors>
 		<owners>Troy Willmot</owners>
