@@ -35,7 +35,7 @@ namespace TweetSharp
         private TwitterEntities _entities;
 
 #if !Smartphone && !NET20
-        [DataMember]
+		[DataMember]
 #endif
         public virtual long Id
         {
@@ -221,7 +221,7 @@ namespace TweetSharp
 #endif
         public virtual TwitterEntities Entities
         {
-            get { return _entities ?? (Entities = Text.ParseTwitterageToEntities()); }
+            get { return _entities ?? (Text.ParseTwitterageToEntities()); }
             set
             {
                 if (_entities != null)
@@ -234,16 +234,16 @@ namespace TweetSharp
             }
         }
 
-        #region IComparable<TwitterDirectMessage> Members
+		#region IComparable<TwitterDirectMessage> Members
 
-        /// <summary>
-        /// Compares the current object with another object of the same type.
-        /// </summary>
-        /// <returns>
-        /// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
-        /// </returns>
-        /// <param name="other">An object to compare with this object.</param>
-        public int CompareTo(TwitterDirectMessage other)
+		/// <summary>
+		/// Compares the current object with another object of the same type.
+		/// </summary>
+		/// <returns>
+		/// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+		/// </returns>
+		/// <param name="other">An object to compare with this object.</param>
+		public int CompareTo(TwitterDirectMessage other)
         {
             return other.Id == Id ? 0 : other.Id > Id ? -1 : 1;
         }

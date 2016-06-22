@@ -417,6 +417,7 @@ namespace TweetSharp
 		public virtual string ExpandedUrl { get; set; }
 
 		[JsonProperty("type")]
+		[JsonConverter(typeof(TwitterMediaTypeJsonConverter))]
 #if !Smartphone && !NET20
 				[DataMember]
 #endif

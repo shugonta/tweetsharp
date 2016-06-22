@@ -56,6 +56,7 @@ namespace TweetSharp
 				private string _profileBannerUrl;
 				private bool? _following;
 				private TwitterUserProfileEntities _Entities;
+				private string _email;
 
 #if !Smartphone && !NET20
         [DataMember]
@@ -566,7 +567,28 @@ namespace TweetSharp
             }
         }
 
-        [JsonProperty("created_at")]
+		/// <summary>
+		/// This property is only returned if it was specifically enabled in the options when the profile was requested AND your app has been white listed for access to email by Twitter (https://dev.twitter.com/rest/reference/get/account/verify_credentials).
+		/// </summary>
+		[JsonProperty("email")]
+		#if !Smartphone && !NET20
+						[DataMember]
+		#endif
+				public virtual string Email
+				{
+					get { return _email; }
+					set
+					{
+						if (_email == value)
+						{
+							return;
+						}
+						_email = value;
+						OnPropertyChanged("Email");
+					}
+				}	
+
+				[JsonProperty("created_at")]
 #if !Smartphone && !NET20
         [DataMember]
 #endif
