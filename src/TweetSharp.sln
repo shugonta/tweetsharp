@@ -482,7 +482,8 @@ Global
 		{46B07B5B-DEDD-4609-AD5E-CCAF8D8B607E}.Mono|Mixed Platforms.Build.0 = Release|x86
 		{46B07B5B-DEDD-4609-AD5E-CCAF8D8B607E}.Mono|x86.ActiveCfg = Release|x86
 		{46B07B5B-DEDD-4609-AD5E-CCAF8D8B607E}.Mono|x86.Build.0 = Release|x86
-		{46B07B5B-DEDD-4609-AD5E-CCAF8D8B607E}.Release|Any CPU.ActiveCfg = Release|x86
+		{46B07B5B-DEDD-4609-AD5E-CCAF8D8B607E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46B07B5B-DEDD-4609-AD5E-CCAF8D8B607E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{46B07B5B-DEDD-4609-AD5E-CCAF8D8B607E}.Release|ARM.ActiveCfg = Release|x86
 		{46B07B5B-DEDD-4609-AD5E-CCAF8D8B607E}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{46B07B5B-DEDD-4609-AD5E-CCAF8D8B607E}.Release|Mixed Platforms.Build.0 = Release|x86
