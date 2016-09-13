@@ -19,5 +19,17 @@ DEPRECATED, MEDIA, IDictionary<string,Stream> images, TwitterStatus, "statuses/u
 // https://dev.twitter.com/rest/reference/post/media/upload
 AUTHORITY, UPLOAD, MEDIA, MediaFile media, TwitterUploadedMedia, "media/upload":POST, UploadMedia
 
+// Media upload INIT https://dev.twitter.com/rest/reference/post/media/upload
+AUTHORITY, UPLOAD, TwitterChunkedMedia, "media/upload":POST, UploadMediaInit, string command=INIT, string media_type, string media_category, long total_bytes
+
+// Media upload APPEND https://dev.twitter.com/rest/reference/post/media/upload
+AUTHORITY, UPLOAD, MEDIA, MediaFile media, void, "media/upload":POST, UploadMediaAppend, string command=APPEND, long media_id, long segment_index
+
+// Media upload FINALIZE https://dev.twitter.com/rest/reference/post/media/upload
+AUTHORITY, UPLOAD, UploadMediaResult, "media/upload":POST, UploadMediaFinalize, string command=FINALIZE, long media_id
+
+// Media upload STATUS https://dev.twitter.com/rest/reference/post/media/upload
+AUTHORITY, UPLOAD, UploadMediaResult, "media/upload":GET, UploadMediaCheckStatus, string command=STATUS, long media_id
+
 // https://dev.twitter.com/docs/api/1.1/get/statuses/oembed
 // TODO

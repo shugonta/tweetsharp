@@ -121,6 +121,9 @@
     <Compile Include="..\TweetSharp\TwitterAccount.cs">
       <Link>TwitterAccount.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\TwitterChunkedMedia.cs">
+      <Link>TwitterChunkedMedia.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\TwitterClientInfo.cs">
       <Link>TwitterClientInfo.cs</Link>
     </Compile>
@@ -240,6 +243,9 @@
     </Compile>
     <Compile Include="..\TweetSharp\TwitterWonkyBooleanConverter.cs">
       <Link>TwitterWonkyBooleanConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\TweetSharp\UploadMediaResult.cs">
+      <Link>UploadMediaResult.cs</Link>
     </Compile>
     <Compile Include="..\TweetSharp\WhereOnEarthLocation.cs">
       <Link>WhereOnEarthLocation.cs</Link>

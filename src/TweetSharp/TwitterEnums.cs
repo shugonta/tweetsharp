@@ -1,5 +1,6 @@
 using System;
 using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace TweetSharp
 {
@@ -56,13 +57,19 @@ namespace TweetSharp
 				AnimatedGif
     }
 
-
 #if !SILVERLIGHT && !WINRT
-    [Serializable]
+	[Serializable]
 #endif
     public enum TwitterListMode
     {
         Public,
         Private
     }
+
+	public class TwitterMediaCategory
+	{
+		public const string Image = "tweet_image";
+		public const string AnimatedGif = "tweet_gif";
+		public const string Video = "tweet_video";
+	}
 }

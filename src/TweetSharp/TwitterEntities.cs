@@ -162,7 +162,7 @@ namespace TweetSharp
 		public virtual IList<int> Indices { get; set; }
 
 #if !Smartphone && !NET20
-				[DataMember]
+		[DataMember]
 #endif
 		[JsonConverter(typeof(TwitterMediaTypeJsonConverter))]
 		public virtual TwitterEntityType EntityType { get; protected set; }

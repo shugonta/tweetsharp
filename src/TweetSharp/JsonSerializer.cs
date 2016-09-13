@@ -558,4 +558,36 @@ namespace TweetSharp
 			serializer.Serialize(writer, value);
 		}
 	}
+
+	public class TwitterMediaProcessingStateJsonConverter : Newtonsoft.Json.JsonConverter
+	{
+
+		public override bool CanConvert(Type objectType)
+		{
+			return objectType == typeof(TwitterMediaProcessingState);
+		}
+
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
+		{
+			TwitterMediaProcessingState retVal = TwitterMediaProcessingState.Pending;
+
+			var enumStringValue = serializer.Deserialize(reader).ToString();
+
+			if (enumStringValue == "in_progress")
+				retVal = TwitterMediaProcessingState.InProgress;
+			else
+				retVal = (TwitterMediaProcessingState)System.Enum.Parse(typeof(TwitterMediaProcessingState), enumStringValue, true);
+
+			return retVal;
+		}
+
+		public override void WriteJson(JsonWriter writer, object value, Newtonsoft.Json.JsonSerializer serializer)
+		{
+			var enumValue = (TwitterMediaProcessingState)value;
+			if (enumValue == TwitterMediaProcessingState.InProgress)
+				serializer.Serialize(writer, "in_progress");
+			else
+				serializer.Serialize(writer, value);
+		}
+	}
 }

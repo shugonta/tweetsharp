@@ -487,17 +487,39 @@ namespace TweetSharp
 					return WithHammockImpl(client, request, action);
 				}
 
+				private IAsyncResult WithHammockNoResponse(RestClient client, WebMethod method, Action<TwitterResponse> action, MediaFile media, string path) 
+				{
+					var request = PrepareHammockQuery(path);
+					request.Method = method;
+					request.AddFile("media", media.FileName, media.Content);
+
+					return WithHammockNoResponseImpl(client, request, action);
+				}
+
 				private IAsyncResult WithHammock<T>(RestClient client, WebMethod method, Action<T, TwitterResponse> action, string path, params object[] segments) where T : class
         {
             return WithHammock(client, method, action, ResolveUrlSegments(path, segments.ToList()));
         }
+
+				private IAsyncResult WithHammockNoResponse(RestClient client, WebMethod method, Action<TwitterResponse> action, string path, params object[] segments) 
+				{
+					var request = PrepareHammockQuery(ResolveUrlSegments(path, segments.ToList()));
+					request.Method = method;
+
+					return WithHammockNoResponseImpl(client, request, action);
+				}
 
 				private IAsyncResult WithHammock<T>(RestClient client, WebMethod method, Action<T, TwitterResponse> action, string path, MediaFile media, params object[] segments) where T : class
 				{
 					return WithHammock(client, method, action, media, ResolveUrlSegments(path, segments.ToList()));
 				}
 
-				private IAsyncResult WithHammockImpl<T>(RestClient client, RestRequest request, Action<T, TwitterResponse> action) where T : class
+		private IAsyncResult WithHammockNoResponse(RestClient client, WebMethod method, Action<TwitterResponse> action, string path, MediaFile media, params object[] segments)
+				{
+					return WithHammockNoResponse(client, method, action, media, ResolveUrlSegments(path, segments.ToList()));
+				}
+
+		private IAsyncResult WithHammockImpl<T>(RestClient client, RestRequest request, Action<T, TwitterResponse> action) where T : class
 								{
 										return client.BeginRequest(
 												request, new RestCallback<T>((req, response, state) =>
@@ -512,6 +534,20 @@ namespace TweetSharp
 												}));
 								}
 
+		private IAsyncResult WithHammockNoResponseImpl(RestClient client, RestRequest request, Action<TwitterResponse> action) 
+		{
+			return client.BeginRequest(
+					request, new RestCallback((req, response, state) =>
+					{
+						if (response == null)
+						{
+							return;
+						}
+						SetResponse(response);
+						action.Invoke(new TwitterResponse(response));
+					}));
+		}
+
 				private IAsyncResult BeginWithHammock<T>(RestClient client, WebMethod method, string path, params object[] segments)
         {
             path = ResolveUrlSegments(path, segments.ToList());
@@ -521,7 +557,16 @@ namespace TweetSharp
             return result;
         }
 
-        private IAsyncResult BeginWithHammock<T>(RestClient client, WebMethod method, string path, IDictionary<string, Stream> files,params object[] segments)
+				private IAsyncResult BeginWithHammockNoResponse(RestClient client, WebMethod method, string path, params object[] segments)
+        {
+            path = ResolveUrlSegments(path, segments.ToList());
+            var request = PrepareHammockQuery(path);
+            request.Method = method;
+            var result = _client.BeginRequest(request);
+            return result;
+        }
+
+				private IAsyncResult BeginWithHammock<T>(RestClient client, WebMethod method, string path, IDictionary<string, Stream> files,params object[] segments)
         {
             var url = ResolveUrlSegments(path, segments.ToList());
             var request = PrepareHammockQuery(url);
@@ -546,7 +591,25 @@ namespace TweetSharp
 					return result;
 				}
 
-        private T EndWithHammock<T>(IAsyncResult result)
+				private IAsyncResult BeginWithHammockNoResponse(RestClient client, WebMethod method, string path, MediaFile media, params object[] segments)
+				{
+					var url = ResolveUrlSegments(path, segments.ToList());
+					var request = PrepareHammockQuery(url);
+					request.Method = method;
+					request.QueryHandling = QueryHandling.AppendToParameters;
+					request.AddFile("media", media.FileName, media.Content);
+					return _client.BeginRequest(request);
+				}
+
+				private void EndWithHammockNoResponse(IAsyncResult result)
+				{
+					var response = _client.EndRequest(result);
+					SetResponse(response);
+					if (response.InnerException != null)
+						throw response.InnerException;
+				}
+
+				private T EndWithHammock<T>(IAsyncResult result)
         {
             var response = _client.EndRequest<T>(result);
             SetResponse(response);
@@ -558,10 +621,19 @@ namespace TweetSharp
             var response = _client.EndRequest<T>(result, timeout);
             return response.ContentEntity;
         }
+
+				private void EndWithHammockNoResponse(IAsyncResult result, TimeSpan timeout)
+				{
+					var response = _client.EndRequest(result, timeout);
+					SetResponse(response);
+					if (response.InnerException != null)
+						throw response.InnerException;
+				}
+
 #endif
 
 #if !SILVERLIGHT && !WINRT
-				private T WithHammock<T>(RestClient client, string path)
+		private T WithHammock<T>(RestClient client, string path)
         {
             var request = PrepareHammockQuery(path);
 
@@ -582,7 +654,7 @@ namespace TweetSharp
             return WithHammockImpl<T>(client, request);
         }
 
-				private T WithHammock<T>(RestClient client, WebMethod method, string path, IDictionary<string, Stream> files, params object[] segments)
+		private T WithHammock<T>(RestClient client, WebMethod method, string path, IDictionary<string, Stream> files, params object[] segments)
         {
             var url = ResolveUrlSegments(path, segments.ToList());
             var request = PrepareHammockQuery(url);
@@ -595,7 +667,26 @@ namespace TweetSharp
             return WithHammockImpl<T>(client, request);
         }
 
-				private T WithHammock<T>(RestClient client, WebMethod method, string path, MediaFile media, params object[] segments)
+				private void WithHammockNoResponse(RestClient client, WebMethod method, string path, MediaFile media, params object[] segments)
+				{
+					var url = ResolveUrlSegments(path, segments.ToList());
+					var request = PrepareHammockQuery(url);
+					request.Method = method;
+					request.QueryHandling = QueryHandling.AppendToParameters;
+
+					request.AddFile("media", media.FileName, media.Content);
+					WithHammockNoResponseImpl(client, request);
+				}
+
+		private void WithHammockNoResponse(RestClient client, WebMethod method, string path)
+		{
+			var request = PrepareHammockQuery(path);
+			request.Method = method;
+
+			WithHammockNoResponseImpl(client, request);
+		}
+
+		private T WithHammock<T>(RestClient client, WebMethod method, string path, MediaFile media, params object[] segments)
 				{
 					var url = ResolveUrlSegments(path, segments.ToList());
 					var request = PrepareHammockQuery(url);
@@ -613,23 +704,35 @@ namespace TweetSharp
             return WithHammock<T>(client, method, url);
         }
 
-				private T WithHammockImpl<T>(RestRequest request)
+		private void WithHammockNoResponse(RestClient client, WebMethod method, string path, params object[] segments)
+		{
+			BeginWithHammockNoResponse(client, method, path, segments);
+		}
+
+		private T WithHammockImpl<T>(RestRequest request)
 				{
 					return WithHammockImpl<T>(_client, request);
 				}
 
-        private T WithHammockImpl<T>(RestClient client, RestRequest request)
+				private void WithHammockNoResponseImpl(RestClient client, RestRequest request)
+				{
+					var response = client.Request(request);
+
+					SetResponse(response);
+				}
+
+				private T WithHammockImpl<T>(RestClient client, RestRequest request)
         {
 					var response = client.Request<T>(request);
             
-            SetResponse(response);
+          SetResponse(response);
 
-            var entity = response.ContentEntity;
-            return entity;
+          var entity = response.ContentEntity;
+          return entity;
         }
 #endif
 
-#if WINDOWS_PHONE 
+#if WINDOWS_PHONE
         private void WithHammock<T>(IRestClient restClient, Action<T, TwitterResponse> action, string path) where T : class
         {
             var request = PrepareHammockQuery(path);
@@ -751,7 +854,39 @@ namespace TweetSharp
 					return tcs.Task;
 				}
 
-				private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(RestClient client, WebMethod method, string path, MediaFile media, params object[] segments) where T1 : class
+		private Task WithHammockNoResponseTask(RestClient client, WebMethod method, string path, params object[] segments) 
+		{
+			var tcs = new TaskCompletionSource<object>();
+			try
+			{
+				WithHammockNoResponse(client, method,
+					(Action<TwitterResponse>)((r) =>
+					{
+						try
+						{
+							if (r.InnerException == null)
+								tcs.SetResult(r);
+							else
+								tcs.SetException(r.InnerException);
+						}
+						catch (Exception ex)
+						{
+							tcs.SetException(ex);
+						}
+					}),
+					path,
+					segments
+				);
+			}
+			catch (Exception ex)
+			{
+				tcs.SetException(ex);
+			}
+
+			return tcs.Task;
+		}
+
+		private Task<TwitterAsyncResult<T1>> WithHammockTask<T1>(RestClient client, WebMethod method, string path, MediaFile media, params object[] segments) where T1 : class
 				{
 					var tcs = new TaskCompletionSource<TwitterAsyncResult<T1>>();
 					try
@@ -779,6 +914,38 @@ namespace TweetSharp
 
 					return tcs.Task;
 				}
+
+		private Task WithHammockNoResponseTask(RestClient client, WebMethod method, string path, MediaFile media, params object[] segments) 
+		{
+			var tcs = new TaskCompletionSource<object>();
+			try
+			{
+				WithHammockNoResponse(client, method,
+					(Action<TwitterResponse>)((r) =>
+					{
+						try
+						{
+							if (r.InnerException == null)
+								tcs.SetResult(r);
+							else
+								tcs.SetException(r.InnerException);
+						}
+						catch (Exception ex)
+						{
+							tcs.SetException(ex);
+						}
+					}),
+					media,
+					ResolveUrlSegments(path, segments.ToList())
+				);
+			}
+			catch (Exception ex)
+			{
+				tcs.SetException(ex);
+			}
+
+			return tcs.Task;
+		}
 #endif
 
 		private static T TryAsyncResponse<T>(Func<T> action, out Exception exception)

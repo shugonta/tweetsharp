@@ -60,6 +60,9 @@
     <Compile Include="..\TweetSharp\Properties\AssemblyInfoVersion.cs">
       <Link>AssemblyInfoVersion.cs</Link>
     </Compile>
+    <Compile Include="..\TweetSharp\TwitterChunkedMedia.cs">
+      <Link>TwitterChunkedMedia.cs</Link>
+    </Compile>
     <Compile Include="..\TweetSharp\TwitterConfiguration.cs">
       <Link>TwitterConfiguration.cs</Link>
     </Compile>
@@ -71,6 +74,9 @@
     </Compile>
     <Compile Include="..\TweetSharp\TwitterUploadedMedia.cs">
       <Link>TwitterUploadedMedia.cs</Link>
+    </Compile>
+    <Compile Include="..\TweetSharp\UploadMediaResult.cs">
+      <Link>UploadMediaResult.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="..\TweetSharp\TwitterService.cs">
