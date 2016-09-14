@@ -767,6 +767,27 @@ namespace TweetSharp
             WithHammock(restClient, method, action, ResolveUrlSegments(path, segments.ToList()));
         }
 
+				private void WithHammockNoResponse(IRestClient restClient, WebMethod method, Action<TwitterResponse> action, string path, params object[] segments) 
+				{
+						var request = PrepareHammockQuery(ResolveUrlSegments(path, segments.ToList()));
+						request.Method = method;
+
+						WithHammockImpl(restClient, request, action);
+				}
+
+				private void WithHammockImpl(IRestClient restClient, RestRequest request, Action<TwitterResponse> action)
+				{
+					restClient.BeginRequest(
+							request, new Action<RestRequest, TwitterResponse, object>((req, response, state) =>
+							{
+								if (response == null)
+								{
+									return;
+								}
+								action.Invoke(response);
+							}));
+				}
+
 				private void WithHammockImpl<T>(IRestClient restClient, RestRequest request, Action<T, TwitterResponse> action) where T : class
         {
             restClient.BeginRequest(

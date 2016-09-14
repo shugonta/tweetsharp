@@ -1597,5 +1597,105 @@ namespace TweetSharp.Tests.Service
 			}
 		}
 
+		[Test]
+		public async System.Threading.Tasks.Task Can_Upload_VideoChunkedAsync()
+		{
+			var service = GetAuthenticatedService();
+			service.TraceEnabled = true;
+
+			//using (var stream = new FileStream("test_video.mp4", FileMode.Open, FileAccess.Read, FileShare.Read))
+			using (var stream = new FileStream("testvideo.mp4", FileMode.Open, FileAccess.Read, FileShare.Read))
+			{
+				TwitterChunkedMedia uploadedMedia = await InitialiseMediaUploadAsync(service, stream);
+
+				await UploadMediaChunksAsync(service, stream, uploadedMedia);
+
+				await FinializeMediaAndWaitForProcessingAsync(service, uploadedMedia);
+
+				// Now send a tweet with the media attached
+				var twitterStatus = await service.SendTweetAsync(new SendTweetOptions()
+				{
+					Status = "Test tweet with video " + Guid.NewGuid().ToString(),
+					MediaIds = new string[] { uploadedMedia.MediaId.ToString() }
+				});
+
+				AssertResultWas(service, HttpStatusCode.OK);
+				Assert.IsNotNull(twitterStatus);
+			}
+
+		}
+
+		private static async System.Threading.Tasks.Task<TwitterChunkedMedia> InitialiseMediaUploadAsync(TwitterService service, FileStream stream)
+		{
+			var uploadedMedia = await service.UploadMediaInitAsync(new UploadMediaInitOptions
+			{
+				MediaType = "video/mp4",
+				TotalBytes = stream.Length,
+				MediaCategory = TwitterMediaCategory.Video
+			});
+
+			AssertResultWas(service, HttpStatusCode.Accepted);
+			Assert.IsNotNull(uploadedMedia);
+			Assert.AreNotEqual(0, uploadedMedia.Value.MediaId);
+			return uploadedMedia.Value;
+		}
+
+		private static async System.Threading.Tasks.Task UploadMediaChunksAsync(TwitterService service, FileStream stream, TwitterChunkedMedia uploadedMedia)
+		{
+			long chunkSize = 1024 * 512;
+			long index = 0;
+			byte[] buffer = new byte[chunkSize];
+
+			while (stream.Position < stream.Length)
+			{
+				int thisChunkSize = (int)Math.Min(stream.Length - stream.Position, chunkSize);
+				if (thisChunkSize != chunkSize)
+					buffer = new byte[thisChunkSize];
+
+				stream.Read(buffer, 0, thisChunkSize);
+				var ms = new System.IO.MemoryStream(buffer);
+
+				await service.UploadMediaAppendAsync(new UploadMediaAppendOptions
+				{
+					MediaId = uploadedMedia.MediaId,
+					SegmentIndex = index,
+					Media = new MediaFile()
+					{
+						//FileName = "test_video.mp4",
+						Content = ms
+					}
+				});
+				AssertResultWas(service, HttpStatusCode.NoContent);
+
+				index++;
+			}
+		}
+
+		private static async System.Threading.Tasks.Task FinializeMediaAndWaitForProcessingAsync(TwitterService service, TwitterChunkedMedia uploadedMedia)
+		{
+			var result = (await service.UploadMediaFinalizeAsync(new UploadMediaFinalizeOptions()
+			{
+				MediaId = uploadedMedia.MediaId
+			})).Value;
+
+			var done = false;
+			while (!done)
+			{
+				AssertResultWas(service, HttpStatusCode.OK);
+				if (result.ProcessingInfo.Error != null)
+				{
+					throw new InvalidOperationException(result.ProcessingInfo.Error.Code + " - " + result.ProcessingInfo.Error.Message);
+				}
+
+				var state = (result.ProcessingInfo?.State ?? TwitterMediaProcessingState.Succeeded);
+				done = state == TwitterMediaProcessingState.Succeeded || state == TwitterMediaProcessingState.Failed;
+				if (!done)
+				{
+					System.Threading.Thread.Sleep(Convert.ToInt32((result?.ProcessingInfo?.CheckAfterSeconds ?? 5) * 1000));
+					result = (await service.UploadMediaCheckStatusAsync(new UploadMediaCheckStatusOptions() { MediaId = uploadedMedia.MediaId })).Value;
+				}
+			}
+		}
+
 	}
 }
