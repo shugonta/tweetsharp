@@ -1503,8 +1503,7 @@ namespace TweetSharp.Tests.Service
 			var service = GetAuthenticatedService();
 			service.TraceEnabled = true;
 
-			//using (var stream = new FileStream("test_video.mp4", FileMode.Open, FileAccess.Read, FileShare.Read))
-			using (var stream = new FileStream("testvideo.mp4", FileMode.Open, FileAccess.Read, FileShare.Read))
+			using (var stream = new FileStream(@"big_buck_bunny.mp4", FileMode.Open, FileAccess.Read, FileShare.Read))
 			{
 				TwitterChunkedMedia uploadedMedia = InitialiseMediaUpload(service, stream);
 
@@ -1515,7 +1514,7 @@ namespace TweetSharp.Tests.Service
 				// Now send a tweet with the media attached
 				var twitterStatus = service.SendTweet(new SendTweetOptions()
 				{
-					Status = "Test tweet with video " + Guid.NewGuid().ToString(),
+					Status = "(c) copyright 2008, Blender Foundation / www.bigbuckbunny.org - " + Guid.NewGuid().ToString(),
 					MediaIds = new string[] { uploadedMedia.MediaId.ToString() }
 				});
 
@@ -1604,7 +1603,7 @@ namespace TweetSharp.Tests.Service
 			service.TraceEnabled = true;
 
 			//using (var stream = new FileStream("test_video.mp4", FileMode.Open, FileAccess.Read, FileShare.Read))
-			using (var stream = new FileStream("testvideo.mp4", FileMode.Open, FileAccess.Read, FileShare.Read))
+			using (var stream = new FileStream(@"big_buck_bunny.mp4", FileMode.Open, FileAccess.Read, FileShare.Read))
 			{
 				TwitterChunkedMedia uploadedMedia = await InitialiseMediaUploadAsync(service, stream);
 
@@ -1615,7 +1614,7 @@ namespace TweetSharp.Tests.Service
 				// Now send a tweet with the media attached
 				var twitterStatus = await service.SendTweetAsync(new SendTweetOptions()
 				{
-					Status = "Test tweet with video " + Guid.NewGuid().ToString(),
+					Status = "(c) copyright 2008, Blender Foundation / www.bigbuckbunny.org - " + Guid.NewGuid().ToString(),
 					MediaIds = new string[] { uploadedMedia.MediaId.ToString() }
 				});
 
