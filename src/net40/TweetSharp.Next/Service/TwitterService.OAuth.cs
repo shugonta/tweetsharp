@@ -204,7 +204,7 @@ namespace TweetSharp
             {
                 Token = query["oauth_token"] ?? "?",
                 TokenSecret = query["oauth_token_secret"] ?? "?",
-                UserId = Convert.ToInt32(query["user_id"] ?? "0"),
+                UserId = query["user_id"] ?? "",
                 ScreenName = query["screen_name"] ?? "?"
             };
 
