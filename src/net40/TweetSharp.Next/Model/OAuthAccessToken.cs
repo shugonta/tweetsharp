@@ -4,7 +4,7 @@
     {
         public virtual string Token { get; set; }
         public virtual string TokenSecret { get; set; }
-        public virtual int UserId { get; set; }
+        public virtual string UserId { get; set; }
         public virtual string ScreenName { get; set; }
     }
 }
